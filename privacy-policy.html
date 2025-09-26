@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — VyraBrand Architect™</title>
+  <style>
+    :root { --fg:#0f172a; --muted:#475569; --bg:#ffffff; --link:#2563eb; }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji"; }
+    .wrap { max-width: 860px; margin: 56px auto; padding: 0 20px; }
+    h1 { font-size: 1.875rem; margin: 0 0 1rem; }
+    p { margin: 0 0 1rem; color: var(--muted); }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .small { font-size: 0.9375rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Privacy Policy for VyraBrand Architect™</h1>
+
+    <p>VyraBrand Architect™ does not collect or store personal user data.</p>
+
+    <p>All brand information submitted (e.g., onboarding forms, colors, fonts, logos) is processed solely for the purpose of generating brand assets and delivering requested outputs.</p>
+
+    <p>No data is sold, shared, or stored beyond temporary processing within connected APIs (OpenAI, Canva, Pipedream). Users are responsible for reviewing third-party services’ privacy policies (e.g., Canva, OpenAI).</p>
+
+    <p>For questions, contact: <a href="mailto:support@vyralab.com">support@vyralab.com</a></p>
+
+    <p class="small">Last updated: <span id="updated"></span></p>
+  </main>
+
+  <script>
+    // Stamp today's date (optional)
+    document.getElementById('updated').textContent =
+      new Date().toLocaleDateString(undefined, { year:'numeric', month:'long', day:'numeric' });
+  </script>
+</body>
+</html>
