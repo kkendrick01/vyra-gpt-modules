@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraPAST Hook Framework - The Ultimate Hook System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            z-index: -2;
+        }
+        
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 49%, #00ff4420 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, #00ff4410 50%, transparent 51%);
+            background-size: 30px 30px;
+            animation: slidePattern 20s linear infinite;
+        }
+        
+        @keyframes slidePattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(30px) translateY(30px); }
+        }
+        
+        /* Header */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 150px;
+            background: #00ff44;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 14px;
+            color: #000000;
+            animation: pulse 2s ease-in-out infinite alternate;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px #00ff4440; }
+            100% { transform: scale(1.05); box-shadow: 0 0 40px #00ff4460; }
+        }
+        
+        .main-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #00ff44);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #00ff44;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff44;
+            box-shadow: 0 20px 40px rgba(0, 255, 68, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ff44;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #b3b3b3;
+            margin-top: 10px;
+        }
+        
+        /* 3-Second Rule Section */
+        .death-zone {
+            background: linear-gradient(135deg, #00ff44, #00cc36);
+            margin: 80px 0;
+            padding: 80px 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: #000000;
+        }
+        
+        .death-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: sweep 3s ease-in-out infinite;
+        }
+        
+        @keyframes sweep {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+        
+        .death-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #000000;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+        
+        .countdown-timer {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            padding: 20px 40px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 3px solid #ffffff;
+        }
+        
+        /* Psychology Section */
+        .psychology-section {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            border-left: 10px solid #00ff44;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #00ff44;
+        }
+        
+        .triggers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .trigger-card {
+            background: #000000;
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #00ff44;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trigger-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 68, 0.3);
+        }
+        
+        .trigger-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .trigger-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #00ff44;
+            margin-bottom: 15px;
+        }
+        
+        .trigger-description {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* PAST Framework */
+        .past-section {
+            background: #000000;
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            border: 3px solid #00ff44;
+        }
+        
+        .past-logo {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .past-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            color: #00ff44;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px #00ff44;
+            white-space: nowrap;
+        }
+        
+        .past-subtitle {
+            font-size: 1.5rem;
+            color: #b3b3b3;
+        }
+        
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .framework-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 5px solid #00ff44;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .framework-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 255, 68, 0.3);
+        }
+        
+        .framework-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ff44;
+            margin-bottom: 10px;
+        }
+        
+        .framework-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .framework-description {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Hook Battle */
+        .battle-section {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            border: 2px solid #00ff44;
+        }
+        
+        .battle-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #00ff44;
+        }
+        
+        .hook-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .hook-example {
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .hook-bad {
+            background: linear-gradient(135deg, #330000, #660000);
+            border: 3px solid #ff4444;
+        }
+        
+        .hook-good {
+            background: linear-gradient(135deg, #003300, #006600);
+            border: 3px solid #00ff44;
+        }
+        
+        .vs-text {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+        
+        .hook-label {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .hook-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        /* Real Example */
+        .example-section {
+            background: #1a1a1a;
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+        
+        .social-post {
+            background: #000000;
+            border: 2px solid #00ff44;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            background: #00ff44;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000000;
+        }
+        
+        .post-line {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .past-label {
+            background: #00ff44;
+            color: #000000;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            margin-right: 10px;
+        }
+        
+        .post-stats {
+            display: flex;
+            gap: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #999;
+        }
+        
+        .stat-highlight {
+            color: #00ff44;
+            font-weight: 700;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: linear-gradient(135deg, #00ff44, #00cc36);
+            color: #000000;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .result-card {
+            background: #000000;
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00ff44;
+            margin-bottom: 10px;
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #b3b3b3;
+        }
+        
+        /* Transition Section */
+        .transition-section {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            padding: 100px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+        }
+        
+        .big-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+        
+        .big-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #00ff44;
+            margin-bottom: 60px;
+        }
+        
+        .power-text {
+            font-size: 1.5rem;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+        
+        .highlight-text {
+            background: #00ff44;
+            color: #000000;
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-weight: 900;
+        }
+        
+        /* Problem Section */
+        .problem-section {
+            background: linear-gradient(135deg, #00ff44, #00cc36);
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 80px 0;
+            text-align: center;
+            border: 3px solid #ffffff;
+            color: #000000;
+        }
+        
+        .problem-list {
+            background: #000000;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .problem-item {
+            margin: 20px 0;
+            padding: 15px;
+            background: #1a0000;
+            border-left: 4px solid #ff4444;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .solution-highlight {
+            background: #00ff44;
+            color: #000000;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #00ff44, #00cc36);
+            color: #000000;
+            padding: 80px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .price-box {
+            background: #000000;
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        
+        .old-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            color: #999999;
+        }
+        
+        .new-price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00ff44;
+            margin-left: 15px;
+        }
+        
+        .cta-button {
+            background: #00ff44;
+            color: #000000;
+            border: none;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .video-modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+            background: #000000;
+            border-radius: 15px;
+            border: 3px solid #00ff44;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 255, 68, 0.3);
+        }
+        
+        .video-modal video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #ffffff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .video-close:hover {
+            background: rgba(255, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hook-comparison {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .vs-text {
+                order: 2;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/vyralab_logo_tr.png" 
+                     alt="Vyralab Logo" 
+                     style="margin: 0 auto 30px; display: block;">
+
+                <h1 class="main-title">VyraPAST™</h1>
+                <p class="subtitle">The Hook Framework That Breaks The Internet</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">2B+</span>
+                        <span class="stat-label">Views Generated</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$100M+</span>
+                        <span class="stat-label">Client Revenue</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">980K+</span>
+                        <span class="stat-label">Views Per Post</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Death Zone -->
+        <section class="death-zone">
+            <h2 class="death-title">⚡ THE 3-SECOND DEATH ZONE ⚡</h2>
+            <div class="countdown-timer" id="timer">3.00</div>
+            <p style="font-size: 1.5rem; font-weight: 600;">
+                You have less than 3 seconds to win the scroll.<br>
+                That microscopic window decides <strong>EVERYTHING</strong>.
+            </p>
+        </section>
+
+        <!-- Psychology -->
+        <section class="psychology-section">
+            <h2 class="section-title">🧠 The Psychology Behind Viral Hooks</h2>
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 40px;">
+                Every viral hook activates at least one of these three primal triggers:
+            </p>
+            
+            <div class="triggers-grid">
+                <div class="trigger-card">
+                    <div class="trigger-icon">🚀</div>
+                    <h3 class="trigger-title">HOPE</h3>
+                    <p class="trigger-description">The promise of gain or transformation. The irresistible pull of a better future.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">⚠️</div>
+                    <h3 class="trigger-title">FEAR</h3>
+                    <p class="trigger-description">The risk of loss or regret. The terror of being left behind.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">👑</div>
+                    <h3 class="trigger-title">ENVY</h3>
+                    <p class="trigger-description">The tension of comparison and desire. The burning need for what others have.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="font-size: 1.4rem; color: #00ff44; font-weight: 700;">
+                    These create a psychological gap that demands closure.
+                </p>
+                <p style="font-size: 1.2rem; margin-top: 15px;">
+                    The most powerful hooks don't just tell—they <strong>withhold</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- PAST Framework -->
+        <section class="past-section">
+            <div class="past-logo">
+                <div class="past-title">PAST™</div>
+                <p class="past-subtitle">The 4-Part Psychological Trigger Stack</p>
+            </div>
+            
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <div class="framework-number">P</div>
+                    <h3 class="framework-title">PROBLEM</h3>
+                    <p class="framework-description">Call out the core tension or risk with clarity and edge. It should feel undeniable.</p>
+                </div>
+                <div class="framework-card">
+                    <div class="framework-number">A</div>
+                    <h3 class="framework-title">AGITATION</h3>
+                    <p class="framework-description">Intensify that tension with an emotional, high-stakes expansion.</p>
+                </div>
+                <div class="framework-card">
+                    <div class="framework-number">S</div>
+                    <h3 class="framework-title">SOLUTION</h3>
+                    <p class="framework-description">Introduce the reaction or twist that changes the equation.</p>
+                </div>
+                <div class="framework-card">
+                    <div class="framework-number">T</div>
+                    <h3 class="framework-title">TRANSFORMATION</h3>
+                    <p class="framework-description">Tease the bigger picture or payoff that's still to come.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hook Battle -->
+        <section class="battle-section">
+            <h2 class="battle-title">🥊 HOOK BATTLE: Before vs After</h2>
+            
+            <div class="hook-comparison">
+                <div class="hook-example hook-bad">
+                    <div class="hook-label" style="color: #ff4444;">❌ BORING HOOK</div>
+                    <div class="hook-text">"5 habits that make you successful"</div>
+                    <p style="margin-top: 15px; color: #ff9999; font-size: 0.9rem;">
+                        Generic • Predictable • Instant scroll
+                    </p>
+                </div>
+                
+                <div class="vs-text">VS</div>
+                
+                <div class="hook-example hook-good">
+                    <div class="hook-label" style="color: #00ff44;">✅ VYRAPAST HOOK</div>
+                    <div class="hook-text">"I studied 100 millionaires. They all did this one uncomfortable thing."</div>
+                    <p style="margin-top: 15px; color: #99ff99; font-size: 0.9rem;">
+                        Specific • Mysterious • Scroll-stopping
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real Example -->
+        <section class="example-section">
+            <h2 class="section-title" style="color: #ffffff;">🔥 Real VyraPAST In Action</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px;">
+                Here's a real example that got <strong>980K+ views and 3.8K likes</strong>:
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+                <!-- Real Image -->
+                <div style="text-align: center;">
+                    <div id="imageContainer" style="width: 100%; max-width: 400px; margin: 0 auto; border-radius: 15px; border: 2px solid #00ff44; box-shadow: 0 10px 30px rgba(0, 255, 68, 0.3); background: #1a1a1a; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <img id="realImage" style="width: 100%; height: auto; border-radius: 13px; display: none;">
+                        <div id="imagePlaceholder" style="color: #00ff44; text-align: center; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📱</div>
+                            <div>Loading Real Post...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Breakdown -->
+                <div class="social-post" style="margin: 0;">
+                    <div class="post-header">
+                        <div class="profile-pic">S</div>
+                        <div>
+                            <div style="font-weight: 700;">Sandeep K ⚡</div>
+                            <div style="color: #999; font-size: 0.9rem;">Jan 29, 2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-content">
+                        <div class="post-line">
+                            <span class="past-label">P</span>
+                            In 2015, Google accidentally put their website up for sale.
+                        </div>
+                        <div class="post-line">
+                            <span class="past-label">A</span>
+                            When this former employee realized it, he bought it for just $12.
+                        </div>
+                        <div class="post-line">
+                            <span class="past-label">S</span>
+                            Google had no choice but to give him whatever he wanted.
+                        </div>
+                        <div class="post-line">
+                            <span class="past-label">T</span>
+                            His response? Not $100,000. Not $100 Million. Here's what he asked for instead:
+                        </div>
+                    </div>
+                    
+                    <div class="post-stats">
+                        <span>❤️ <span class="stat-highlight">834</span></span>
+                        <span>🔄 <span class="stat-highlight">177</span></span>
+                        <span>💬 <span class="stat-highlight">42</span></span>
+                        <span>📤 <span class="stat-highlight">176</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="results-section">
+            <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 20px;">
+                📊 THE RESULTS SPEAK FOR THEMSELVES
+            </h2>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">980K+</div>
+                    <div class="result-label">Views Generated</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">3.8K+</div>
+                    <div class="result-label">Likes Received</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">8100%</div>
+                    <div class="result-label">Better Performance</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transition -->
+        <section class="transition-section">
+            <h2 class="big-title">YOU'RE NOT JUST HERE TO WRITE</h2>
+            <h3 class="big-subtitle">YOU'RE HERE TO BUILD LEVERAGE... AND INCOME</h3>
+            
+            <p class="power-text">
+                Most people chase content that gets likes.
+            </p>
+            <p class="power-text">
+                <span class="highlight-text">You're here to create content that gets clients.</span>
+            </p>
+            <p class="power-text">
+                That's a different game entirely.
+            </p>
+            
+            <div style="margin: 60px 0; padding: 40px; background: #00ff44; color: #000000; border-radius: 20px;">
+                <p style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px;">
+                    🎯 This playbook just gave you the tools... the templates... the real-world examples that pulled 2+ billion views and closed 5-figure retainers.
+                </p>
+                <p style="font-size: 1.2rem; font-weight: 600;">
+                    But tools mean nothing without execution. And attention means nothing without direction.
+                </p>
+            </div>
+            
+            <p style="font-size: 1.5rem; color: #00ff44; font-weight: 700;">
+                You have the proof. You've seen what's possible.
+            </p>
+            <p style="font-size: 1.3rem; margin-top: 20px;">
+                Now it's time to build your own system of income, influence, and control — One post at a time.
+            </p>
+            <p style="font-size: 1.2rem; margin-top: 20px; color: #b3b3b3;">
+                No audience? Doesn't matter. No brand? You'll build one.
+            </p>
+            <p style="font-size: 1.4rem; margin-top: 30px; color: #00ff44; font-style: italic;">
+                No idea where to start? Let's fix that today...
+            </p>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="problem-section">
+            <h2 class="death-title">💀 THE REAL PROBLEM</h2>
+            
+            <p style="font-size: 1.5rem; margin-bottom: 30px; color: #000000;">
+                Most writers don't fail because they're "bad" at writing.
+            </p>
+            <p style="font-size: 2rem; color: #000000; font-weight: 900; margin-bottom: 40px;">
+                They fail because they're WINGING IT.
+            </p>
+            
+            <div class="problem-list" style="background: #000000;">
+                <div class="problem-item" style="background: #1a1a1a; border-left: 4px solid #ffffff; color: #00ff44;">
+                    ❌ They post without a plan
+                </div>
+                <div class="problem-item" style="background: #1a1a1a; border-left: 4px solid #ffffff; color: #00ff44;">
+                    ❌ They write without leverage
+                </div>
+                <div class="problem-item" style="background: #1a1a1a; border-left: 4px solid #ffffff; color: #00ff44;">
+                    ❌ Then they wonder why no one's listening
+                </div>
+            </div>
+            
+            <div class="solution-highlight" style="background: #000000; color: #ffffff;">
+                ⚡ THE <span style="color: #00ff44;">5-DAY AI GHOSTWRITER TRAINING™</span> CHANGES THAT—<span style="color: #00ff44;">FAST</span>.
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="psychology-section" style="background: #000000; border: 3px solid #00ff44;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/5daytraining.png" 
+                     alt="5-Day Training" 
+                     style="margin: 0 auto 20px; display: block;">
+            </div>
+            
+            <h2 class="section-title" style="color: #00ff44;">YOUR EXCLUSIVE OFFER</h2>
+            <h3 style="text-align: center; font-size: 2rem; margin-bottom: 40px; color: #ffffff;">THE 5-DAY AI GHOSTWRITER TRAINING™</h3>
+            
+            <p style="font-size: 2rem; color: #00ff44; text-align: center; margin-bottom: 30px; font-weight: 700;">The Next 5 Days Could Fund Your Next 5+ Years</p>
+            
+            <p style="font-size: 1.8rem; text-align: center; margin-bottom: 40px; font-weight: 600;">Creators stay broke because they work backwards.</p>
+            
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 15px;">The best ghostwriters have systematic approaches to client acquisition.</p>
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 15px;">They use their full arsenal to research, craft proposals, and deliver fast.</p>
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 30px;">They build repeatable processes that generate consistent income.</p>
+            
+            <p style="font-size: 1.4rem; text-align: center; margin-bottom: 40px;">The <span style="color: #00ff44; font-weight: 700;">5-Day AI Ghostwriter Training™</span> gives you all of that—<span style="color: #00ff44; font-weight: 700;">and more</span>.</p>
+            
+            <div class="triggers-grid">
+                <div class="trigger-card">
+                    <div class="trigger-icon">💰</div>
+                    <h4 class="trigger-title">LAND RETAINERS</h4>
+                    <p class="trigger-description">Land $3K–$10K/month retainers with proven client acquisition systems.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">🚀</div>
+                    <h4 class="trigger-title">VIRAL CONTENT</h4>
+                    <p class="trigger-description">Write viral content that pulled millions of views using battle-tested frameworks.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">🎯</div>
+                    <h4 class="trigger-title">CLIENT ENGINES</h4>
+                    <p class="trigger-description">Build inbound client engines—without needing a massive following.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 60px 0; background: #00ff44; color: #000000; padding: 40px; border-radius: 20px;">
+                <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">🔥 LIMITED TIME EXCLUSIVE</p>
+                <p style="font-size: 1.3rem;">For the <span style="background: #000000; color: #00ff44; padding: 5px 10px; border-radius: 5px; font-weight: 900;">first 100 people</span> only:</p>
+                <div style="margin: 30px 0;">
+                    <span style="font-size: 1.5rem; text-decoration: line-through; color: #666;">$197 value</span>
+                    <span style="font-size: 3rem; font-weight: 900; margin-left: 20px;">$37</span>
+                </div>
+                <p style="font-size: 1.2rem; font-weight: 700;">That's an 81% discount!</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="cta-button" onclick="window.open('#', '_blank')" style="font-size: 1.2rem; padding: 25px 50px;">
+                    CLICK HERE TO GET YOUR EXCLUSIVE 5-DAY TRAINING DEAL
+                </button>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.8rem; margin-top: 30px; font-weight: 700; color: #00ff44;">But that's not all...</p>
+        </section>
+
+        <!-- Platform Section -->
+        <section class="psychology-section" style="background: #000000; border: 3px solid #00ff44;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/vyrasphere.png" 
+                     alt="VyraSphere" 
+                     style="margin: 0 auto 20px; display: block;">
+            </div>
+            
+            <h2 class="section-title" style="color: #00ff44;">GET THE ONLY ALL-IN-ONE SYSTEM...</h2>
+            <h3 style="text-align: center; font-size: 2rem; margin-bottom: 40px; color: #ffffff;">BEHIND 2B+ VIEWS & $100M IN CLIENT REVENUE</h3>
+            
+            <p style="font-size: 1.3rem; text-align: center; margin-bottom: 20px;">Most writers beg for attention.</p>
+            <p style="font-size: 1.3rem; text-align: center; margin-bottom: 40px;"><span style="color: #00ff44; font-weight: 700;">Vyralab™ was built to make you money.</span></p>
+            
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">It's the first and only platform built for ghostwriters... By ghostwriters.</p>
+            
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px;">We combine <span style="color: #00ff44;">elite training</span>, <span style="color: #00ff44;">proven frameworks</span>, and <span style="color: #00ff44;">AI-powered tools</span> into one growth engine to turn words into income.</p>
+            
+            <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 40px;">Inside, you'll get exclusive access to:</h3>
+            
+            <div class="triggers-grid">
+                <div class="trigger-card">
+                    <div class="trigger-icon">📚</div>
+                    <h4 class="trigger-title">PROVEN COURSE</h4>
+                    <p class="trigger-description">A proven course that shows you how to turn content into $5K–$10K/month retainers.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">⚡</div>
+                    <h4 class="trigger-title">
+                        <button onclick="openVideoModal()" style="background: none; border: none; color: #00ff44; font-size: 1.8rem; font-weight: 900; cursor: pointer; text-decoration: underline;">
+                            Click here to Preview ACE™ APP
+                        </button>
+                    </h4>
+                    <p class="trigger-description">The all-in-one ACE™ App, your shortcut to producing client-ready content, funnels, and offers in minutes.</p>
+                </div>
+                <div class="trigger-card">
+                    <div class="trigger-icon">🌐</div>
+                    <h4 class="trigger-title">VYRASPHERE™ COMMUNITY</h4>
+                    <p class="trigger-description">The VyraSphere™ community, where experienced ghostwriters share strategies, swap templates, and pass live client deals.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 60px 0; background: linear-gradient(135deg, #00ff44, #00cc36); padding: 40px; border-radius: 20px; color: #000000;">
+                <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #000000;">But here's the catch:</p>
+                <p style="font-size: 1.3rem; color: #000000;">Only the <span style="color: #000000; font-weight: 900;">first 100 people</span> get on the exclusive waitlist.</p>
+                <p style="font-size: 1.3rem; color: #000000;">Everyone else stays outside.</p>
+                <p style="font-size: 1.4rem; color: #000000; font-weight: 700; margin-top: 30px;">Ready to change your life? Get your name on the VIP list today!</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="cta-button" onclick="window.open('#', '_blank')" style="font-size: 1.2rem; padding: 25px 50px; background: #00ff44; color: #000000;">
+                    CLICK HERE TO GET YOUR 5-DAY TRAINING DEAL + VIP ACCESS
+                </button>
+            </div>
+        </section>
+
+        <!-- Testimonial -->
+        <section style="background: #000000; padding: 50px; border-radius: 20px; margin: 60px 0; border: 2px solid #00ff44;">
+            <h3 style="color: #00ff44; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">"Tools Real Ghostwriters Use"</h3>
+            <p style="font-size: 1.4rem; font-style: italic; margin-bottom: 25px; color: #ffffff; line-height: 1.6; text-align: center;">
+                "The Vyralab creators have done what few ghostwriters even attempt: they've built a complete course + community + platform of tactical firepower that pulls from deep wells of knowledge and expertise. Their method is as rigorous as it is potent."
+            </p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/hosun_chung.jpg" 
+                     alt="Hosun Chung" 
+                     style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #00ff44; object-fit: cover;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="width: 60px; height: 60px; background: #00ff44; border-radius: 50%; display: none; align-items: center; justify-content: center; color: #000000; font-weight: 900;">HC</div>
+                <div>
+                    <p style="color: #00ff44; font-weight: 700; font-size: 1.2rem;">Hosun Chung, COO</p>
+                    <p style="color: #999;">Thoughtleadr.xyz</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="psychology-section">
+            <h2 class="section-title">Meet the Vyralab Architects</h2>
+            
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 30px;">At Vyralab, we believe there's a smarter, faster way to turn words into income—one that weaponizes your existing skills, multiplies your value with AI, and positions you to land high-ticket clients without begging for followers or burning out on busywork.</p>
+            
+            <h3 style="text-align: center; font-size: 1.4rem; margin-bottom: 40px; color: #00ff44;">Our mission is simple:</h3>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 60px;">Empower ghostwriters and content pros to land elite clients, scale their income, and build leveraged businesses—so they can dominate their space and own their financial future.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px;">
+                <div style="background: #000000; padding: 40px; border-radius: 20px; border-left: 5px solid #00ff44;">
+                    <div style="display: flex; align-items: center; margin-bottom: 30px;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/kyle_kendrick.png" 
+                             alt="Kyle Kendrick" 
+                             style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; border: 2px solid #00ff44; object-fit: cover;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="width: 80px; height: 80px; background: #00ff44; border-radius: 50%; display: none; align-items: center; justify-content: center; color: #000000; font-weight: 900; font-size: 1.5rem; margin-right: 20px;">KK</div>
+                        <div>
+                            <h3 style="color: #00ff44; font-size: 1.3rem; margin-bottom: 5px;">Kyle Kendrick, M.A., PMP</h3>
+                            <p style="color: #999; font-size: 1rem;">Founder | CEO</p>
+                        </div>
+                    </div>
+                    <div style="color: #e0e0e0; line-height: 1.6;">
+                        <p style="margin-bottom: 15px;">Kyle is the Lab Director behind Vyralab—engineering the systems, strategies, and viral frameworks that have turned ghostwriters into six-figure operators. From the trenches to the top, he built Vyralab for the writers who want to run client pipelines, not just post for applause.</p>
+                        
+                        <p style="margin-bottom: 15px;">With a master's degree in I/O Psychology, a 2+ billion-view track record, and the discipline of a Special Ops trainer, Kyle runs Vyralab like a high-performance lab: building experiments, running playbooks, and scaling results that convert attention into income.</p>
+                        
+                        <p>He's trained 100+ ghostwriters, helped clients earn $100M+, and turned obscure founders into industry magnets.</p>
+                    </div>
+                </div>
+                
+                <div style="background: #000000; padding: 40px; border-radius: 20px; border-left: 5px solid #00ff44;">
+                    <div style="display: flex; align-items: center; margin-bottom: 30px;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/ali_the_architect.png" 
+                             alt="Ali Moiz" 
+                             style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; border: 2px solid #00ff44; object-fit: cover;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="width: 80px; height: 80px; background: #00ff44; border-radius: 50%; display: none; align-items: center; justify-content: center; color: #000000; font-weight: 900; font-size: 1.5rem; margin-right: 20px;">AM</div>
+                        <div>
+                            <h3 style="color: #00ff44; font-size: 1.3rem; margin-bottom: 5px;">Ali Moiz</h3>
+                            <p style="color: #999; font-size: 1rem;">Chief Operating Officer | Head Architect</p>
+                        </div>
+                    </div>
+                    <div style="color: #e0e0e0; line-height: 1.6;">
+                        <p style="margin-bottom: 15px;">Ali "The Architect" is the engineering mind behind Vyralab's AI-powered growth engine. As Chief Architect, he designs the frameworks, automation, and prompt systems that turn Vyralab's playbooks into repeatable results. Ali is a certified AI Prompt Engineer from Vanderbilt University, ensuring Vyralab stays at the cutting edge of both technology and execution.</p>
+                        
+                        <p style="margin-bottom: 15px;">With a background in product development and AI-driven content automation, Ali specializes in transforming big ideas into scalable, actionable blueprints. He leads the development of Vyralab's tools, the ACE app, and all the internal systems that power fast, high-ticket client outcomes.</p>
+                        
+                        <p>If it runs smooth, it's because Ali architected it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Don't Let This Slip Away</h2>
+                <p class="cta-subtitle">The first 100 spots are filling fast. Once they're gone, the door closes.</p>
+                
+                <div style="background: #000000; padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <h3 style="color: #00ff44; margin-bottom: 20px;">🎯 What You Get Today:</h3>
+                    <div style="text-align: left; color: #ffffff; max-width: 500px; margin: 0 auto;">
+                        <p style="margin: 10px 0;">✅ Complete 5-Day AI Ghostwriter Training™</p>
+                        <p style="margin: 10px 0;">✅ VyraPAST Hook Framework (This Document)</p>
+                        <p style="margin: 10px 0;">✅ 20+ Viral Hook Templates</p>
+                        <p style="margin: 10px 0;">✅ Client Acquisition Blueprints</p>
+                        <p style="margin: 10px 0;">✅ VIP Access to VyraSphere Community</p>
+                        <p style="margin: 10px 0;">✅ Early Access to ACE™ App</p>
+                    </div>
+                </div>
+                
+                <div class="price-box">
+                    <div style="color: #999; font-size: 1.2rem;">Total Value: <span style="text-decoration: line-through;">$197</span></div>
+                    <div style="color: #00ff44; font-size: 2.5rem; font-weight: 900;">Your Price: $37</div>
+                    <div style="color: #ff4444; font-size: 1rem; margin-top: 10px;">⚡ First 100 People Only</div>
+                </div>
+                
+                <button class="cta-button" onclick="window.open('#', '_blank')" style="font-size: 1.4rem; padding: 25px 80px; margin: 30px 0; background: #000000; color: #00ff44;">
+                    SECURE YOUR SPOT NOW
+                </button>
+                
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 20px;">
+                    🔒 30-Day Money-Back Guarantee | ⏰ Limited Time Offer
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-close" onclick="closeVideoModal()">&times;</span>
+            <video id="modalVideo" controls autoplay>
+                <source src="https://kkendrick01.github.io/vyra-gpt-modules/ace_reveal.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    
+    <script>
+        // Video Modal Functions
+        function openVideoModal() {
+            document.getElementById('videoModal').style.display = 'block';
+            document.getElementById('modalVideo').play();
+        }
+        
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            modal.style.display = 'none';
+            video.pause();
+            video.currentTime = 0;
+        }
+        
+        // Close modal when clicking outside the video
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                closeVideoModal();
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+        
+        // Countdown timer animation
+        let countdown = 3.0;
+        const timer = document.getElementById('timer');
+        
+        setInterval(() => {
+            countdown -= 0.01;
+            if (countdown <= 0) {
+                countdown = 3.0;
+            }
+            timer.textContent = countdown.toFixed(2);
+        }, 10);
+        
+        // Load the real image
+        window.addEventListener('load', function() {
+            const img = document.getElementById('realImage');
+            const placeholder = document.getElementById('imagePlaceholder');
+            
+            img.onload = function() {
+                img.style.display = 'block';
+                placeholder.style.display = 'none';
+            };
+            
+            img.onerror = function() {
+                placeholder.innerHTML = '<div style="color: #ff4444; text-align: center;"><div style="font-size: 2rem; margin-bottom: 10px;">❌</div><div>Image failed to load</div><div style="font-size: 0.8rem; margin-top: 10px;">URL: google_url_hook.png</div></div>';
+            };
+            
+            img.src = 'https://kkendrick01.github.io/vyra-gpt-modules/google_url_hook.png';
+        });
+        
+        // Add click tracking for CTAs
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('CTA clicked:', button.textContent);
+            });
+        });
+        
+        // Add hover effects
+        document.querySelectorAll('.stat-card, .trigger-card, .framework-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
