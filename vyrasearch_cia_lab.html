@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraSearch CIA™ Lab | Content Ideation Agent Masterclass</title>
+    <style>
+        :root {
+            --vyra-black: #0A0A0A;
+            --vyra-green: #00FF41;
+            --vyra-white: #F8F8F8;
+            --vyra-steel: #1A1A1A;
+            --vyra-steel-light: #2A2A2A;
+            --vyra-steel-mid: #3A3A3A;
+            --vyra-green-glow: 0 0 30px rgba(0, 255, 65, 0.6);
+            --vyra-green-dim: rgba(0, 255, 65, 0.1);
+            --vyra-green-bright: #00FF88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100vh;
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--vyra-green);
+            animation: matrix-fall linear infinite;
+            text-shadow: 0 0 5px var(--vyra-green);
+        }
+
+        @keyframes matrix-fall {
+            to {
+                transform: translateY(200vh);
+            }
+        }
+
+        /* Neural Network Animation */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        /* Progress System */
+        .progress-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--vyra-steel);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vyra-green), var(--vyra-green-bright));
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: var(--vyra-green-glow);
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-green);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--vyra-green);
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--vyra-steel), var(--vyra-steel-light));
+            border: 1px solid var(--vyra-green);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-badge .badge-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--vyra-green);
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero h1 .text-green {
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: #888;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            color: var(--vyra-black);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .hero-cta:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: var(--vyra-green-glow);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            border-radius: 16px;
+            opacity: 0.5;
+            filter: blur(10px);
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--vyra-white), #AAA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-content {
+            background: linear-gradient(135deg, var(--vyra-steel), var(--vyra-steel-light));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--vyra-green), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Interactive Hook Generator */
+        .hook-generator {
+            background: var(--vyra-black);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .hook-generator::before {
+            content: 'IDEATION ENGINE';
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: var(--vyra-black);
+            color: var(--vyra-green);
+            padding: 0 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hook-input-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .hook-input {
+            width: 100%;
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-steel-mid);
+            color: var(--vyra-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hook-input:focus {
+            outline: none;
+            border-color: var(--vyra-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .hook-input::placeholder {
+            color: #666;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            color: var(--vyra-black);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.4);
+        }
+
+        /* Idea Cards */
+        .idea-cards-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .idea-cards-container.active {
+            opacity: 1;
+        }
+
+        .idea-card {
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-steel-mid);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .idea-card:nth-child(1) { animation-delay: 0.1s; }
+        .idea-card:nth-child(2) { animation-delay: 0.2s; }
+        .idea-card:nth-child(3) { animation-delay: 0.3s; }
+        .idea-card:nth-child(4) { animation-delay: 0.4s; }
+        .idea-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .idea-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .idea-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright));
+            color: var(--vyra-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .idea-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--vyra-white);
+        }
+
+        .idea-summary {
+            color: #AAA;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .idea-meta {
+            display: grid;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--vyra-steel-mid);
+        }
+
+        .idea-meta-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .idea-meta-label {
+            color: var(--vyra-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            min-width: 80px;
+        }
+
+        .idea-meta-value {
+            color: #CCC;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .idea-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .idea-action-btn {
+            flex: 1;
+            padding: 0.75rem 1.25rem;
+            background: var(--vyra-black);
+            color: var(--vyra-green);
+            border: 1px solid var(--vyra-green);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .idea-action-btn:hover {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            transform: translateY(-2px);
+        }
+
+        /* Workflow Pipeline */
+        .workflow-pipeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .workflow-step {
+            background: var(--vyra-steel);
+            border: 2px solid var(--vyra-steel-mid);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -2rem;
+            width: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--vyra-green), transparent);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .workflow-step:not(:last-child)::before {
+                display: block;
+            }
+        }
+
+        .workflow-step:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .workflow-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--vyra-black), var(--vyra-steel));
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .workflow-icon::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            background: radial-gradient(circle, var(--vyra-green-dim), transparent);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .workflow-step:hover .workflow-icon::after {
+            opacity: 1;
+        }
+
+        .workflow-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-desc {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        /* Command Reference */
+        .command-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .command-card {
+            background: var(--vyra-black);
+            border: 1px solid var(--vyra-steel-mid);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-color: var(--vyra-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .command-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--vyra-green-dim), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .command-card:hover::before {
+            opacity: 1;
+        }
+
+        .command-syntax {
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-steel-mid);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: var(--vyra-green);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .command-copy-btn {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--vyra-green-glow);
+        }
+
+        .command-desc {
+            color: #AAA;
+            line-height: 1.6;
+        }
+
+        /* Best Practices Cards */
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .practice-card {
+            background: linear-gradient(135deg, var(--vyra-steel), var(--vyra-steel-light));
+            border: 1px solid var(--vyra-steel-mid);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--vyra-green-dim), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .practice-card:hover::before {
+            opacity: 1;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--vyra-green);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .practice-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .practice-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 1rem;
+        }
+
+        .practice-desc {
+            color: #AAA;
+            line-height: 1.6;
+        }
+
+        /* Troubleshooting Accordion */
+        .troubleshoot-item {
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-steel-mid);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .troubleshoot-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .troubleshoot-header:hover {
+            background: var(--vyra-steel-light);
+        }
+
+        .troubleshoot-question {
+            color: var(--vyra-white);
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .troubleshoot-icon {
+            color: var(--vyra-green);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .troubleshoot-item.active .troubleshoot-icon {
+            transform: rotate(180deg);
+        }
+
+        .troubleshoot-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--vyra-black);
+        }
+
+        .troubleshoot-item.active .troubleshoot-content {
+            max-height: 500px;
+            padding: 1.5rem;
+        }
+
+        /* Final CTA Section */
+        .final-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), transparent);
+            border-radius: 24px;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--vyra-green-dim), transparent);
+            transform: translate(-50%, -50%);
+            animation: pulse 3s infinite;
+        }
+
+        .final-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--vyra-white), var(--vyra-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-desc {
+            font-size: 1.2rem;
+            color: #AAA;
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 600px;
+            margin: 3rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            text-shadow: var(--vyra-green-glow);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .workflow-pipeline {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-step::before {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--vyra-steel);
+            border-top-color: var(--vyra-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--vyra-steel);
+            border: 1px solid var(--vyra-green);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.active {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-message {
+            color: var(--vyra-white);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background Effect -->
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <!-- Neural Network Canvas -->
+    <canvas class="neural-network" id="neuralCanvas"></canvas>
+
+    <!-- Progress System -->
+    <div class="progress-system">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-indicator">
+        <span id="progressText">0% Complete</span>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message" id="toastMessage">Action completed!</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <div class="badge-icon"></div>
+                <span>VYRASEARCH™ CIA LAB</span>
+            </div>
+            <h1>
+                Content <span class="text-green">Ideation Agent™</span><br>
+                Transform Hooks Into Viral Gold
+            </h1>
+            <p class="subtitle">
+                Your AI strategist that turns one powerful inspiration hook into<br>
+                five fact-based, trust-rich content ideas engineered for virality
+            </p>
+            <button class="hero-cta" onclick="scrollToSection('start')">
+                <span>Activate CIA System</span>
+                <span>→</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- What It Is Section -->
+        <section class="section" id="start">
+            <div class="section-header">
+                <div class="section-icon">🧬</div>
+                <h2>What It Is</h2>
+            </div>
+            <div class="section-content">
+                <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 2rem;">
+                    The <strong style="color: var(--vyra-green);">VyraSearch Content Ideation Agent™</strong> is your AI strategist for idea generation.
+                </p>
+                <p style="color: #AAA; line-height: 1.8; margin-bottom: 2rem;">
+                    It turns one powerful inspiration hook into five fact-based, trust-rich, and CTA-ready content ideas engineered for virality and client acquisition.
+                </p>
+                <div style="background: var(--vyra-black); border-radius: 12px; padding: 2rem; margin-top: 2rem;">
+                    <h3 style="color: var(--vyra-green); margin-bottom: 1.5rem;">Designed for professionals who want:</h3>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 8px; height: 8px; background: var(--vyra-green); border-radius: 50%;"></div>
+                            <span>Research-backed story ideas</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 8px; height: 8px; background: var(--vyra-green); border-radius: 50%;"></div>
+                            <span>Hooks that match proven viral rhythm and structure</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 8px; height: 8px; background: var(--vyra-green); border-radius: 50%;"></div>
+                            <span>Cross-industry diversity for better storytelling range</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 8px; height: 8px; background: var(--vyra-green); border-radius: 50%;"></div>
+                            <span>Instant Perplexity links for deeper factual validation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What It Produces Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <h2>What It Produces</h2>
+            </div>
+            <div class="section-content">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Every run gives you up to <strong style="color: var(--vyra-green);">five fully formed ideas</strong>, each structured as:
+                </p>
+                
+                <div class="workflow-pipeline">
+                    <div class="workflow-step">
+                        <div class="workflow-icon">📝</div>
+                        <div class="workflow-title">Title</div>
+                        <div class="workflow-desc">Attention-grabbing headline</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">📊</div>
+                        <div class="workflow-title">Summary</div>
+                        <div class="workflow-desc">Core narrative in 2-3 lines</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">💡</div>
+                        <div class="workflow-title">Takeaway</div>
+                        <div class="workflow-desc">Key insight or lesson</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">⚡</div>
+                        <div class="workflow-title">Surprise</div>
+                        <div class="workflow-desc">Unexpected twist element</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🔗</div>
+                        <div class="workflow-title">Similar Hook</div>
+                        <div class="workflow-desc">Viral rhythm template</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🔍</div>
+                        <div class="workflow-title">Perplexity Link</div>
+                        <div class="workflow-desc">Research validation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Hook Generator -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2>Live Ideation Engine</h2>
+            </div>
+            <div class="hook-generator">
+                <div class="hook-input-group">
+                    <input type="text" class="hook-input" id="hookInput" 
+                           placeholder="Enter your inspiration hook (e.g., 'In 2015, Apple tried to destroy Spotify...')">
+                </div>
+                <button class="generate-btn" onclick="generateIdeas()">
+                    Generate 5 Content Ideas
+                </button>
+                
+                <div class="idea-cards-container" id="ideaCards"></div>
+            </div>
+        </section>
+
+        <!-- How to Start Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">⚙️</div>
+                <h2>How to Start</h2>
+            </div>
+            <div class="section-content">
+                <div class="workflow-pipeline">
+                    <div class="workflow-step">
+                        <div class="workflow-icon">1</div>
+                        <div class="workflow-title">Open ChatGPT</div>
+                        <div class="workflow-desc">Use GPT-5 Model</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">2</div>
+                        <div class="workflow-title">Paste CIA Prompt</div>
+                        <div class="workflow-desc">Full system block from Vyralab</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">3</div>
+                        <div class="workflow-title">Wait for Ready</div>
+                        <div class="workflow-desc">"Please insert your inspiration hook"</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">4</div>
+                        <div class="workflow-title">Input Hook</div>
+                        <div class="workflow-desc">Paste or type your hook</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">5</div>
+                        <div class="workflow-title">Press Enter</div>
+                        <div class="workflow-desc">Get 5 ideas in seconds</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Use Each Output -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <h2>How to Use Each Output</h2>
+            </div>
+            <div class="section-content">
+                <div style="display: grid; gap: 2rem;">
+                    <div style="background: var(--vyra-black); border-radius: 12px; padding: 2rem; border-left: 3px solid var(--vyra-green);">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">A. The Ideas</h3>
+                        <p style="color: #AAA; line-height: 1.8;">
+                            Each one represents a potential post, thread, or long-form content concept.<br>
+                            Choose the idea that best fits your niche or audience and move to expansion.
+                        </p>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-radius: 12px; padding: 2rem; border-left: 3px solid var(--vyra-green);">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">B. The Perplexity Link</h3>
+                        <p style="color: #AAA; line-height: 1.8; margin-bottom: 1rem;">
+                            Click "Expand this Idea" under any output. It opens a custom Perplexity search built from the Takeaway + Summary of that idea.
+                        </p>
+                        <p style="color: #888; font-size: 0.95rem;">Use this page to:</p>
+                        <ul style="color: #888; margin-top: 0.5rem; list-style: none; padding-left: 1rem;">
+                            <li>• Verify data (names, dates, outcomes)</li>
+                            <li>• Find credible sources or supporting quotes</li>
+                            <li>• Gather deeper context before writing</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-radius: 12px; padding: 2rem; border-left: 3px solid var(--vyra-green);">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">C. Expansion Commands</h3>
+                        <p style="color: #AAA; line-height: 1.8; margin-bottom: 1rem;">Type directly into the chat:</p>
+                        <div style="background: var(--vyra-steel); padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--vyra-green); margin-bottom: 1rem;">
+                            Expand: [Title]
+                        </div>
+                        <p style="color: #888; font-size: 0.95rem; margin-bottom: 1rem;">
+                            This tells the CIA to write a short factual mini-story with linked sources.
+                        </p>
+                        <p style="color: #AAA;">You can also run:</p>
+                        <div style="background: var(--vyra-steel); padding: 1rem; border-radius: 8px; font-family: monospace; color: var(--vyra-green); margin-top: 0.5rem;">
+                            Regenerate 5 new ones but go deeper emotionally.
+                        </div>
+                        <p style="color: #888; font-size: 0.95rem; margin-top: 0.5rem;">
+                            This raises emotional tension and variety.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writing Workflow -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">✍️</div>
+                <h2>Writing Workflow</h2>
+            </div>
+            <div class="section-content">
+                <div class="workflow-pipeline">
+                    <div class="workflow-step">
+                        <div class="workflow-icon">💭</div>
+                        <div class="workflow-title">Input Hook</div>
+                        <div class="workflow-desc">Provide a real or viral-style inspiration hook</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">👁️</div>
+                        <div class="workflow-title">Review 5 Ideas</div>
+                        <div class="workflow-desc">Skim all titles and summaries</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🎯</div>
+                        <div class="workflow-title">Select 1-2</div>
+                        <div class="workflow-desc">Open Perplexity links for factual confirmation</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">📝</div>
+                        <div class="workflow-title">Run "Expand:"</div>
+                        <div class="workflow-desc">Turn the best one into a mini-story</div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-icon">🚀</div>
+                        <div class="workflow-title">Adapt</div>
+                        <div class="workflow-desc">Use VyraCopy or VyraLead frameworks</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">💎</div>
+                <h2>Best Practices</h2>
+            </div>
+            <div class="practices-grid">
+                <div class="practice-card">
+                    <div class="practice-icon">🎯</div>
+                    <div class="practice-title">Use Real Hooks</div>
+                    <div class="practice-desc">
+                        Avoid generic prompts like "Motivation Monday." Use actual posts, news events, or data-driven statements.
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-icon">🌐</div>
+                    <div class="practice-title">Test Across Niches</div>
+                    <div class="practice-desc">
+                        The model returns diverse ideas (tech, sports, history, pop culture, science). Apply the same principle across domains.
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-icon">✅</div>
+                    <div class="practice-title">Check the Data</div>
+                    <div class="practice-desc">
+                        Always verify claims inside Perplexity before publishing. The CIA aims for accuracy, but fact-checking is essential.
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-icon">✏️</div>
+                    <div class="practice-title">Edit Similar Hooks</div>
+                    <div class="practice-desc">
+                        The rhythm is correct, but you can tune the voice to match your brand or client.
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-icon">📊</div>
+                    <div class="practice-title">Track What Works</div>
+                    <div class="practice-desc">
+                        Save strong ideas and hooks in a Notion vault or spreadsheet to reuse for future posts.
+                    </div>
+                </div>
+                <div class="practice-card">
+                    <div class="practice-icon">🔄</div>
+                    <div class="practice-title">Iterate Daily</div>
+                    <div class="practice-desc">
+                        The more hooks you feed it, the sharper your intuition for viral frameworks becomes.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🔧</div>
+                <h2>Troubleshooting</h2>
+            </div>
+            <div class="section-content">
+                <div class="troubleshoot-item">
+                    <div class="troubleshoot-header" onclick="toggleTroubleshoot(this)">
+                        <div class="troubleshoot-question">Chat doesn't show "Please insert your inspiration hook"?</div>
+                        <div class="troubleshoot-icon">▼</div>
+                    </div>
+                    <div class="troubleshoot-content">
+                        <p>The prompt wasn't pasted correctly. Start a new chat and paste the entire system block at once.</p>
+                    </div>
+                </div>
+                
+                <div class="troubleshoot-item">
+                    <div class="troubleshoot-header" onclick="toggleTroubleshoot(this)">
+                        <div class="troubleshoot-question">Ideas feel generic or off-topic?</div>
+                        <div class="troubleshoot-icon">▼</div>
+                    </div>
+                    <div class="troubleshoot-content">
+                        <p>Your hook was too vague. Use specific, fact-based hooks with clear conflict or surprise elements.</p>
+                    </div>
+                </div>
+                
+                <div class="troubleshoot-item">
+                    <div class="troubleshoot-header" onclick="toggleTroubleshoot(this)">
+                        <div class="troubleshoot-question">Perplexity link doesn't match the idea?</div>
+                        <div class="troubleshoot-icon">▼</div>
+                    </div>
+                    <div class="troubleshoot-content">
+                        <p>The encoding might be off. Copy the Takeaway + Summary manually and search Perplexity yourself.</p>
+                    </div>
+                </div>
+                
+                <div class="troubleshoot-item">
+                    <div class="troubleshoot-header" onclick="toggleTroubleshoot(this)">
+                        <div class="troubleshoot-question">Can I use this for client work?</div>
+                        <div class="troubleshoot-icon">▼</div>
+                    </div>
+                    <div class="troubleshoot-content">
+                        <p>Yes! The CIA is designed for professional content operators. Always verify facts and adapt the voice to match your client's brand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Command Reference -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2>Quick Command Reference</h2>
+            </div>
+            <div class="command-grid">
+                <div class="command-card">
+                    <div class="command-syntax">
+                        <span>Startup Command</span>
+                        <button class="command-copy-btn" onclick="copyCommand('Please insert your inspiration hook.')">Copy</button>
+                    </div>
+                    <div class="command-desc">
+                        This appears when the CIA is ready to receive your hook.
+                    </div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-syntax">
+                        <span>Expand: [Title]</span>
+                        <button class="command-copy-btn" onclick="copyCommand('Expand: [Title]')">Copy</button>
+                    </div>
+                    <div class="command-desc">
+                        Deep factual expansion of a specific idea with sources.
+                    </div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-syntax">
+                        <span>Regenerate 5 new ones but go deeper emotionally</span>
+                        <button class="command-copy-btn" onclick="copyCommand('Regenerate 5 new ones but go deeper emotionally')">Copy</button>
+                    </div>
+                    <div class="command-desc">
+                        Creates new emotional variants with higher tension.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Example Workflow -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🎓</div>
+                <h2>Example Workflow</h2>
+            </div>
+            <div class="section-content">
+                <div style="display: grid; gap: 2rem;">
+                    <div style="background: var(--vyra-black); border-left: 3px solid var(--vyra-green); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Step 1: Input Hook</h3>
+                        <div style="background: var(--vyra-steel); padding: 1rem; border-radius: 6px; font-family: monospace; color: #CCC;">
+                            "In 2008, Netflix tried to sell itself to Blockbuster for $50 million. They said no."
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-left: 3px solid var(--vyra-green); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Step 2: CIA Returns</h3>
+                        <p style="color: #AAA;">5 ideas from tech, entertainment, sports, history, science</p>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-left: 3px solid var(--vyra-green); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Step 3: Pick One</h3>
+                        <p style="color: #AAA;">e.g., "The NASA project that failed and inspired SpaceX's prototype strategy."</p>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-left: 3px solid var(--vyra-green); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Step 4: Research</h3>
+                        <p style="color: #AAA;">Click the Perplexity link to confirm data and collect research notes.</p>
+                    </div>
+                    
+                    <div style="background: var(--vyra-black); border-left: 3px solid var(--vyra-green); padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Step 5: Expand</h3>
+                        <div style="background: var(--vyra-steel); padding: 1rem; border-radius: 6px; font-family: monospace; color: var(--vyra-green);">
+                            Expand: The NASA project that failed and inspired SpaceX's prototype strategy
+                        </div>
+                        <p style="color: #AAA; margin-top: 1rem;">You'll get a 2–3 paragraph factual story ready for thread writing or post production.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <h2>Key Takeaways for Users</h2>
+            </div>
+            <div class="section-content">
+                <div style="display: grid; gap: 1.5rem;">
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="min-width: 30px; height: 30px; background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--vyra-black); font-weight: 700;">1</div>
+                        <div>
+                            <p style="color: var(--vyra-white); font-weight: 600;">It's a thinking partner, not a writer.</p>
+                            <p style="color: #888; font-size: 0.95rem;">CIA gives concepts and directions, not finished copy.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="min-width: 30px; height: 30px; background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--vyra-black); font-weight: 700;">2</div>
+                        <div>
+                            <p style="color: var(--vyra-white); font-weight: 600;">Quality in equals quality out.</p>
+                            <p style="color: #888; font-size: 0.95rem;">The better your initial hook, the stronger the ideas.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="min-width: 30px; height: 30px; background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--vyra-black); font-weight: 700;">3</div>
+                        <div>
+                            <p style="color: var(--vyra-white); font-weight: 600;">Use diversity intentionally.</p>
+                            <p style="color: #888; font-size: 0.95rem;">The mix of industries expands your creative range.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="min-width: 30px; height: 30px; background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--vyra-black); font-weight: 700;">4</div>
+                        <div>
+                            <p style="color: var(--vyra-white); font-weight: 600;">Always validate facts before publishing.</p>
+                            <p style="color: #888; font-size: 0.95rem;">Professional writers must confirm all details.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                        <div style="min-width: 30px; height: 30px; background: linear-gradient(135deg, var(--vyra-green), var(--vyra-green-bright)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--vyra-black); font-weight: 700;">5</div>
+                        <div>
+                            <p style="color: var(--vyra-white); font-weight: 600;">Leverage it daily.</p>
+                            <p style="color: #888; font-size: 0.95rem;">The more hooks you feed it, the sharper your intuition for viral frameworks becomes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <div class="final-section">
+            <h2 class="final-title">Master the CIA System</h2>
+            <p class="final-desc">
+                Transform every hook into viral gold.<br>
+                Build your content empire with AI-powered ideation.
+            </p>
+            <div class="final-stats">
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Ideas Per Hook</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Expansion Options</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1.0</div>
+                    <div class="stat-label">Version</div>
+                </div>
+            </div>
+            <button class="hero-cta" onclick="downloadManual()">
+                <span>Download CIA Manual</span>
+                <span>↓</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Matrix Background
+        function initMatrix() {
+            const matrixBg = document.getElementById('matrixBg');
+            const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const columns = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = `${i * 20}px`;
+                column.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                column.style.animationDelay = `${Math.random() * 5}s`;
+                
+                let text = '';
+                for (let j = 0; j < 100; j++) {
+                    text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                matrixBg.appendChild(column);
+            }
+        }
+
+        // Initialize Neural Network
+        function initNeuralNetwork() {
+            const canvas = document.getElementById('neuralCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const nodes = [];
+            const connections = [];
+
+            // Create nodes
+            for (let i = 0; i < 50; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update node positions
+                nodes.forEach(node => {
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                    if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+                });
+
+                // Draw connections
+                ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
+                ctx.lineWidth = 1;
+                nodes.forEach((node, i) => {
+                    nodes.slice(i + 1).forEach(otherNode => {
+                        const distance = Math.hypot(node.x - otherNode.x, node.y - otherNode.y);
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(node.x, node.y);
+                            ctx.lineTo(otherNode.x, otherNode.y);
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                // Draw nodes
+                ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+                nodes.forEach(node => {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = Math.min((scrollTop / docHeight) * 100, 100);
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${Math.round(progress)}% Complete`;
+            
+            // Reveal sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+
+        // Generate Ideas (Simulation)
+        function generateIdeas() {
+            const input = document.getElementById('hookInput').value;
+            if (!input) {
+                showToast('Please enter an inspiration hook');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+
+            setTimeout(() => {
+                const ideas = [
+                    {
+                        title: "The Failed Startup That Inspired Amazon's 2-Day Shipping",
+                        summary: "In 1999, Kozmo.com promised 1-hour delivery and burned $280M before collapsing. Bezos studied their failure for 5 years before launching Prime.",
+                        takeaway: "Sometimes the best innovations come from studying spectacular failures",
+                        surprise: "Amazon hired 12 former Kozmo executives to build Prime's infrastructure",
+                        hook: "In 1999, a startup tried to deliver everything in 1 hour. They failed. Amazon took notes."
+                    },
+                    {
+                        title: "Why Nike Rejected Michael Jordan Three Times",
+                        summary: "Before the $5.1B Air Jordan empire, Nike executives called Jordan 'too short' and 'not marketable' in 1984. Adidas and Converse passed too.",
+                        takeaway: "The biggest opportunities often look like terrible ideas at first",
+                        surprise: "Jordan wanted Adidas so badly he refused to meet with Nike initially",
+                        hook: "In 1984, every major shoe company said the same thing about Michael Jordan: Pass."
+                    },
+                    {
+                        title: "The NASA Failure That Led to SpaceX's Landing System",
+                        summary: "NASA's DC-X crashed and burned in 1996 after 12 successful vertical landing tests. Musk hired the lead engineer 6 years later.",
+                        takeaway: "Failed projects often contain the seeds of future breakthroughs",
+                        surprise: "The same engineer who failed at NASA succeeded at SpaceX",
+                        hook: "In 1996, NASA proved rockets could land vertically. Then they canceled the program."
+                    },
+                    {
+                        title: "How Spotify Survived Apple's Attempt to Kill It",
+                        summary: "When Apple launched Apple Music with exclusive artists and undercut pricing, Spotify lost 3M subscribers in 6 months. Their response changed streaming forever.",
+                        takeaway: "Direct competition forces innovation that benefits everyone",
+                        surprise: "Spotify's podcast strategy was planned 2 years before Apple Music launched",
+                        hook: "In 2015, Apple tried to destroy Spotify using the same playbook that killed Napster."
+                    },
+                    {
+                        title: "The Psychology Study That Predicted TikTok's Algorithm",
+                        summary: "A 1971 Stanford study on 'variable reward schedules' discovered the exact dopamine pattern that makes infinite scroll addictive. TikTok perfected it.",
+                        takeaway: "The most powerful technologies often use decades-old psychology",
+                        surprise: "The study was originally about gambling addiction in pigeons",
+                        hook: "In 1971, scientists discovered how to make anything addictive. TikTok read the paper."
+                    }
+                ];
+
+                const container = document.getElementById('ideaCards');
+                container.innerHTML = '';
+                container.classList.add('active');
+
+                ideas.forEach((idea, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'idea-card';
+                    card.innerHTML = `
+                        <div class="idea-number">${index + 1}</div>
+                        <div class="idea-title">${idea.title}</div>
+                        <div class="idea-summary">${idea.summary}</div>
+                        <div class="idea-meta">
+                            <div class="idea-meta-item">
+                                <span class="idea-meta-label">Takeaway:</span>
+                                <span class="idea-meta-value">${idea.takeaway}</span>
+                            </div>
+                            <div class="idea-meta-item">
+                                <span class="idea-meta-label">Surprise:</span>
+                                <span class="idea-meta-value">${idea.surprise}</span>
+                            </div>
+                            <div class="idea-meta-item">
+                                <span class="idea-meta-label">Hook:</span>
+                                <span class="idea-meta-value">${idea.hook}</span>
+                            </div>
+                        </div>
+                        <div class="idea-actions">
+                            <button class="idea-action-btn" onclick="expandIdea('${idea.title}')">Expand This Idea</button>
+                            <a href="#" class="idea-action-btn" onclick="event.preventDefault(); showToast('Perplexity search opened')">Research on Perplexity</a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                loading.classList.remove('active');
+                showToast('5 ideas generated successfully!');
+            }, 2000);
+        }
+
+        // Expand Idea
+        function expandIdea(title) {
+            showToast(`Expanding: ${title}`);
+            // In real implementation, this would call the CIA to expand the idea
+        }
+
+        // Copy Command
+        function copyCommand(text) {
+            navigator.clipboard.writeText(text);
+            showToast('Command copied to clipboard!');
+        }
+
+        // Toggle Troubleshooting
+        function toggleTroubleshoot(header) {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // Scroll to Section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Download Manual
+        function downloadManual() {
+            const content = `VyraSearch Content Ideation Agent™ (CIA) - Quick Reference
+
+STARTUP
+→ "Please insert your inspiration hook."
+
+COMMANDS
+Expand: [Title] — Deep factual expansion with sources
+Regenerate 5 new ones but go deeper emotionally — New emotional variants
+
+WORKFLOW
+1. Input Hook → Provide viral-style inspiration
+2. Review 5 Ideas → Skim all outputs
+3. Select 1-2 → Open Perplexity links
+4. Run "Expand:" → Get mini-story
+5. Adapt → Use VyraCopy/VyraLead frameworks
+
+BEST PRACTICES
+• Use real, specific hooks
+• Test across multiple niches
+• Always verify facts
+• Track what works
+• Iterate daily
+
+OUTPUT STRUCTURE
+Title → Summary → Takeaway → Surprise → Similar Hook → Perplexity Link
+
+Version 1.0 — Vyralab`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vyrasearch-cia-manual.txt';
+            a.click();
+            showToast('Manual downloaded!');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initMatrix();
+            initNeuralNetwork();
+            window.dispatchEvent(new Event('scroll'));
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('neuralCanvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
