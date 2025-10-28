@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYRALAB | Leverage > Luck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --section-spacing: clamp(80px, 8vw, 120px);
+            --content-spacing: clamp(40px, 4vw, 60px);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.7;
+            font-size: 18px;
+            scroll-behavior: smooth;
+        }
+
+        /* Typography System */
+        .display-1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .display-2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .heading-1 {
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .heading-2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .body-large {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            line-height: 1.6;
+        }
+
+        .body-regular {
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        /* Layout System */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 60px);
+        }
+
+        .section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+
+        .section:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(100px, 20vw, 200px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--vl-electric), transparent);
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--vl-dark-steel);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vl-electric), #00cc33);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: clamp(60px, 10vw, 140px) 0 var(--section-spacing) 0;
+        }
+
+        .chapter-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), #00cc33);
+            color: var(--vl-black);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .main-title {
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            color: var(--vl-steel);
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: var(--content-spacing);
+        }
+
+        .section-title {
+            color: var(--vl-electric);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--vl-electric);
+            border-radius: 2px;
+        }
+
+        /* Content Blocks */
+        .content-grid {
+            display: grid;
+            gap: clamp(20px, 4vw, 30px);
+            margin: var(--content-spacing) 0;
+        }
+
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-2x2 { 
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+        .grid-3 { 
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(15px, 3vw, 25px);
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(42, 42, 42, 0.4));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 16px;
+            padding: clamp(30px, 5vw, 40px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--vl-electric), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Feature Sections */
+        .feature-section {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 0, 0, 0.8));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 24px;
+            padding: clamp(40px, 6vw, 80px);
+            margin: var(--section-spacing) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--vl-electric), #00cc33);
+        }
+
+        /* Trump Post Showcase */
+        .trump-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+            margin: var(--content-spacing) 0;
+        }
+
+        .trump-image-container {
+            text-align: center;
+            position: relative;
+        }
+
+        .trump-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            border: 3px solid var(--vl-electric);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .trump-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 255, 65, 0.3);
+        }
+
+        .image-caption {
+            margin-top: 20px;
+            color: var(--vl-electric);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* Results Metrics */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--vl-steel), var(--vl-dark-steel));
+            border: 2px solid var(--vl-electric);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .result-card:hover {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            transform: scale(1.05);
+        }
+
+        .result-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vl-electric);
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .result-card:hover .result-number {
+            color: var(--vl-black);
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--vl-white);
+            transition: color 0.3s ease;
+        }
+
+        .result-card:hover .result-label {
+            color: var(--vl-black);
+        }
+
+        /* Quote Blocks */
+        .quote-block {
+            background: linear-gradient(135deg, var(--vl-steel), var(--vl-dark-steel));
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 16px 16px 0;
+            padding: clamp(30px, 5vw, 50px);
+            margin: var(--content-spacing) 0;
+            position: relative;
+            font-style: italic;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--vl-electric);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .quote-text {
+            padding-left: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Callout Sections */
+        .callout-primary {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            border-radius: 20px;
+            padding: clamp(40px, 6vw, 60px);
+            text-align: center;
+            font-weight: 600;
+            margin: var(--section-spacing) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .callout-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--vl-black), var(--vl-dark-steel), var(--vl-black));
+        }
+
+        /* Traits Section */
+        .traits-list {
+            counter-reset: trait-counter;
+            margin: var(--content-spacing) 0;
+        }
+
+        .trait-item {
+            counter-increment: trait-counter;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(42, 42, 42, 0.4));
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .trait-item::before {
+            content: counter(trait-counter);
+            position: absolute;
+            top: -15px;
+            left: 40px;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .trait-item:hover {
+            border-color: var(--vl-electric);
+            transform: translateX(12px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.15);
+        }
+
+        /* Source Stack */
+        .source-stack {
+            margin: var(--content-spacing) 0;
+        }
+
+        .source-item {
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(42, 42, 42, 0.4));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 25px 0;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .source-item:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.1);
+        }
+
+        .source-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .source-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .source-title {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .source-description {
+            margin: 15px 0;
+        }
+
+        .source-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .source-bullets li {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 3px solid var(--vl-electric);
+            padding: 12px 20px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Action Section */
+        .action-section {
+            background: linear-gradient(135deg, var(--vl-steel), var(--vl-black));
+            border: 2px solid var(--vl-electric);
+            border-radius: 24px;
+            padding: clamp(50px, 8vw, 80px);
+            text-align: center;
+            margin: var(--section-spacing) 0;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-electric { color: var(--vl-electric); }
+        .text-steel { color: var(--vl-steel); }
+        .font-bold { font-weight: 700; }
+        .font-extra-bold { font-weight: 800; }
+        .mb-large { margin-bottom: var(--content-spacing); }
+        .mt-large { margin-top: var(--content-spacing); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .trump-showcase { 
+                grid-template-columns: 1fr; 
+                gap: 30px;
+                text-align: center;
+            }
+            .trump-image {
+                max-width: 300px;
+            }
+            .results-grid { grid-template-columns: 1fr; }
+            .grid-2, .grid-2x2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header-section">
+            <div class="chapter-badge">CHAPTER 2</div>
+            <h1 class="display-1 main-title">LEVERAGE > LUCK</h1>
+            <p class="body-large subtitle">How to Spot Viral Ideas Before They Go Viral</p>
+        </header>
+
+        <!-- Opening Recap Section -->
+        <section class="section">
+            <div class="feature-section">
+                <h2 class="display-2 text-electric mb-large text-center">Let's Recap Where We Are</h2>
+                <p class="body-large text-center mb-large">Last chapter, we made one thing clear—<span class="text-electric font-bold">emotion is the spark.</span></p>
+                <p class="body-regular text-center">If your content doesn't hit a nerve, it doesn't get seen. Period.</p>
+                
+                <div class="callout-primary mt-large">
+                    <p class="heading-1">"Okay… but how do I know what to write about?"</p>
+                    <p class="body-large mt-large">That's what today is about.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Killing Bad Ideas Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">Killing the Worst Idea in Online Writing</h2>
+            </div>
+            
+            <div class="content-grid grid-2">
+                <div class="content-card" style="background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(255, 68, 68, 0.3);">
+                    <h3 class="heading-1" style="color: #ff6b6b;">❌ The Myth</h3>
+                    <p class="body-large">"You just need to come up with great ideas."</p>
+                    <p class="body-regular mt-large" style="color: #ff6b6b; font-weight: 600;">No you don't.</p>
+                </div>
+                <div class="content-card" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(0, 255, 65, 0.3);">
+                    <h3 class="heading-1 text-electric">✅ The Reality</h3>
+                    <p class="body-large">You need to see what others miss.</p>
+                    <p class="body-regular mt-large text-electric font-bold">Viral content isn't about inspiration. It's about awareness.</p>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <h3 class="heading-1 text-electric mb-large">About knowing what to look for—and how to spot it when it appears.</h3>
+                <p class="body-large">Look, I'm not special. The 2 billion views… the $100M+ in client revenue… None of that came from some magic touch.</p>
+                <p class="body-large mt-large">My first hooks bombed. My early threads were invisible. Everyone's are.</p>
+                
+                <div class="content-grid grid-2 mt-large">
+                    <div class="content-card">
+                        <h4 class="heading-2 text-electric">Kohsheen</h4>
+                        <p class="body-regular">A sharp creative director with two Master's degrees</p>
+                    </div>
+                    <div class="content-card">
+                        <h4 class="heading-2 text-electric">Ali the Architect</h4>
+                        <p class="body-regular">Who I trained personally—and who's now the co-founder and Chief Architect of Vyralab</p>
+                    </div>
+                </div>
+
+                <div class="callout-primary mt-large">
+                    <p class="heading-1">But none of this was luck.</p>
+                    <p class="body-large mt-large">What changed? We started recognizing patterns. We started looking for real triggers—not making random guesses. And we started treating idea generation like a system.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trump Tweet Moment Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">The Trump Tweet Moment</h2>
+            </div>
+            
+            <div class="quote-block">
+                <p class="body-large quote-text">Some of the best posts you'll ever write... won't come while you're trying to "write."</p>
+            </div>
+
+            <div class="feature-section">
+                <p class="body-large mb-large">This wasn't theory for me. Let me tell you exactly how one of our biggest wins started.</p>
+                
+                <div class="trump-showcase">
+                    <div class="trump-image-container">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/trump1.png" alt="Trump Tweet Screenshot" class="trump-image">
+                        <div class="image-caption">The Tweet That Started It All</div>
+                    </div>
+                    
+                    <div class="story-content">
+                        <h3 class="heading-1 text-electric mb-large">Sunday Night. Deep in Planning.</h3>
+                        <p class="body-regular mb-large">I'm finalizing training docs for our creative directors. I'm not looking for stories. I'm not on X. I'm not brainstorming hooks.</p>
+                        <p class="body-regular mb-large">I just happen to open a new tab — Firefox homepage loads. One random news headline catches my eye:</p>
+                        <div class="callout-primary">
+                            <p class="body-large">"Donald Trump hints at 'third term' if he wins re-election…"</p>
+                        </div>
+                        <p class="body-regular">That's it. One line. And my brain instantly fires. I don't think — I see the post. I see the storyline. I see the hook. I see where it fits.</p>
+                    </div>
+                </div>
+
+                <div class="content-card mt-large">
+                    <h3 class="heading-1 text-electric">The Execution</h3>
+                    <p class="body-regular">Brett — one of our top CDs — manages a congressman client. I hit him on WhatsApp and say:</p>
+                    <p class="body-large mt-large text-electric">"What do you have scheduled for BV tomorrow? Doesn't matter. We're doing this instead."</p>
+                    <p class="body-regular mt-large">I drop the hook. Outline the structure. Write the whole story arc right there — in minutes.</p>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <span class="result-number">819K</span>
+                        <span class="result-label">Views</span>
+                    </div>
+                    <div class="result-card">
+                        <span class="result-number">3.3K+</span>
+                        <span class="result-label">Likes</span>
+                    </div>
+                    <div class="result-card">
+                        <span class="result-number">1K+</span>
+                        <span class="result-label">New Followers</span>
+                    </div>
+                    <div class="result-card">
+                        <span class="result-number">$0</span>
+                        <span class="result-label">Ad Spend</span>
+                    </div>
+                </div>
+
+                <div class="callout-primary">
+                    <p class="heading-1">I wasn't in "creation mode."</p>
+                    <p class="body-large mt-large">I wasn't "trying" to write. I had just trained my lens — and my mind spotted the story before I even realized it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Traits Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">The 3 Traits of a Viral-Ready Idea</h2>
+            </div>
+            
+            <div class="feature-section">
+                <p class="body-large text-center mb-large">That Trump post didn't go viral because of luck. It hit because it triggered all three ingredients of a viral-ready idea — in the right order, at the right time.</p>
+                
+                <div class="callout-primary">
+                    <p class="heading-1">This does not come naturally.</p>
+                    <p class="body-large mt-large">I didn't just "have the eye." I trained for it.</p>
+                </div>
+
+                <p class="body-large mt-large">Like I said earlier — I'm not special. And neither is Ali. Neither is Kohsheen. Neither are the thousands of Vyralab students pulling 10K, 50K, 500K views a week now.</p>
+                <p class="body-large mt-large font-bold text-electric">We all trained the lens.</p>
+            </div>
+
+            <div class="feature-section">
+                <h3 class="heading-1 text-electric mb-large text-center">It's like learning to read.</h3>
+                <p class="body-large text-center mb-large">At first, it's just lines and shapes. Eventually, you realize those shapes form letters. Then sounds. Then words.</p>
+                <p class="body-large text-center">Then one day, you can't not read a word on a page — even if you're not trying to.</p>
+                
+                <div class="callout-primary mt-large">
+                    <p class="body-large">If I hold up a sign that says D–O–G, and I tell you not to read it?</p>
+                    <p class="heading-1 mt-large">Too late. You already did.</p>
+                </div>
+
+                <p class="body-large mt-large text-center">That's what will happen to you here — if you train your brain to see viral ideas the way we teach you in Vyralab.</p>
+            </div>
+
+            <div class="traits-list">
+                <div class="trait-item">
+                    <h3 class="heading-1 text-electric">Mass Relevance</h3>
+                    <p class="body-regular">The topic touches something millions of people care about right now. Not niche. Not insider. Broad emotional connection.</p>
+                </div>
+                <div class="trait-item">
+                    <h3 class="heading-1 text-electric">Narrative Shift</h3>
+                    <p class="body-regular">Something changed. A reversal. A contradiction. A before/after moment that creates cognitive tension.</p>
+                </div>
+                <div class="trait-item">
+                    <h3 class="heading-1 text-electric">Emotional Tension</h3>
+                    <p class="body-regular">It makes people feel something strong enough to react. Hope, fear, anger, awe, envy — the emotions that drive action.</p>
+                </div>
+            </div>
+
+            <div class="callout-primary">
+                <p class="heading-1">You'll get so good at spotting the patterns</p>
+                <p class="body-large mt-large">That if I said: "Don't spot a good story in this headline." You wouldn't be able to stop yourself.</p>
+                <p class="body-large mt-large font-bold">And that's when the game changes.</p>
+            </div>
+        </section>
+
+        <!-- VyraSource Idea Stack Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">The VyraSource Idea Stack™</h2>
+            </div>
+            
+            <div class="feature-section">
+                <p class="body-large text-center mb-large">So where do we start the training? Well — the kind of cheating, but honest answer…? <span class="text-electric font-bold">Anywhere and everywhere.</span></p>
+                <p class="body-large text-center">Once your brain is tuned, anything can become a story. A headline. A tweet. A podcast clip. A heated Reddit debate.</p>
+                
+                <div class="callout-primary mt-large">
+                    <p class="heading-1">But early on, you need signal. Not noise. Not filler.</p>
+                    <p class="body-large mt-large">You need high-leverage starting points that give you the raw material to shape real bangers.</p>
+                </div>
+            </div>
+
+            <div class="source-stack">
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-icon">🧠</span>
+                        <h3 class="source-title">X / Twitter Explore Page</h3>
+                    </div>
+                    <p class="source-description">This is the nerve center of the digital culture. Most people scroll for fun. We scroll for fire.</p>
+                    <ul class="source-bullets">
+                        <li>Culture flashpoints</li>
+                        <li>Storylines with friction</li>
+                        <li>Arguments already burning</li>
+                    </ul>
+                    <p class="body-regular">You're not just looking at topics — you're looking for undercurrents. If something's triggering 100K comments, it's triggering emotion. If it's triggering emotion, there's a story to tell.</p>
+                </div>
+
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-icon">🧱</span>
+                        <h3 class="source-title">Underperforming Posts from Big Names</h3>
+                    </div>
+                    <p class="source-description">Everyone watches the wins. But real ghostwriters study the misses.</p>
+                    <ul class="source-bullets">
+                        <li>Reframe the angle</li>
+                        <li>Inject the tension</li>
+                        <li>Rebuild the narrative</li>
+                    </ul>
+                    <p class="body-regular">If a post flopped, it's not because the idea sucked — it's because the structure, the hook, or the emotion missed. That's where you come in.</p>
+                </div>
+
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-icon">📈</span>
+                        <h3 class="source-title">Major News / Podcasts / Events</h3>
+                    </div>
+                    <p class="source-description">News breaks. Narratives open.</p>
+                    <ul class="source-bullets">
+                        <li>Lawsuits</li>
+                        <li>IPOs</li>
+                        <li>Government policy</li>
+                        <li>Viral podcast clips</li>
+                        <li>Sports meltdowns</li>
+                        <li>Tech pivots</li>
+                    </ul>
+                    <p class="body-regular">Every major event creates a moment of cultural vulnerability. If no one owns the narrative yet — it's yours to take.</p>
+                </div>
+
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-icon">🧩</span>
+                        <h3 class="source-title">Hidden Systems & Backend Mechanics</h3>
+                    </div>
+                    <p class="source-description">This is where elite ghostwriters eat. Most people ignore this because it's not sexy.</p>
+                    <ul class="source-bullets">
+                        <li>How APIs actually work</li>
+                        <li>Why PR teams kill founder stories</li>
+                        <li>The dark math behind ad budgets</li>
+                        <li>Hidden truths from inside their industry</li>
+                    </ul>
+                    <p class="body-regular">Cross these with current events — and you'll own the angle no one else is even touching.</p>
+                </div>
+
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-icon">⚔️</span>
+                        <h3 class="source-title">Live Debates & Real-World Conflict Zones</h3>
+                    </div>
+                    <p class="source-description">If you want real human drama? Go where the chaos is.</p>
+                    <ul class="source-bullets">
+                        <li>Reddit</li>
+                        <li>Quora</li>
+                        <li>YouTube comments</li>
+                        <li>Twitter/X replies</li>
+                    </ul>
+                    <p class="body-regular">Search polarizing topics in your client's space. Politics, money, gender, tech ethics, AI risk — whatever cuts deep. Then find the fracture line. Step in with clarity.</p>
+                </div>
+            </div>
+
+            <div class="callout-primary">
+                <p class="heading-1">That's the full stack.</p>
+                <p class="body-large mt-large">Some are loud. Some are buried in plain sight. Some are boring until you inject emotion.</p>
+                <p class="body-large mt-large font-bold">But if you rotate through this every week? You'll never run out of ideas. You'll only run out of time to write them all.</p>
+            </div>
+        </section>
+
+        <!-- Final Challenge Section -->
+        <section class="section">
+            <div class="action-section">
+                <h2 class="display-2" style="color: var(--vl-white); margin-bottom: 40px;">Train Your Brain to Spot the Signal</h2>
+                
+                <p class="body-large mb-large">You don't need inspiration. You need a system that sees.</p>
+                <p class="body-large mb-large">Most ghostwriters stall out before they even start — not because they're bad writers, but because they're staring at a blank page, waiting for some divine bolt of content clarity.</p>
+                
+                <div class="callout-primary" style="background: var(--vl-steel); color: var(--vl-white); margin: 40px 0;">
+                    <p class="heading-1 text-electric">But that's not how pros work.</p>
+                    <p class="body-large mt-large">Pros don't wait for the idea. They go hunt for the signal. Pros use tension, culture, emotion, timing — like tools.</p>
+                </div>
+
+                <p class="body-large mb-large">And the best ones? They get so good at spotting it that they can't unsee it.</p>
+                
+                <div class="feature-section" style="margin: 40px 0;">
+                    <h3 class="heading-1 text-electric mb-large text-center">Your Challenge This Week</h3>
+                    <p class="body-large text-center mb-large">Every headline, every argument, every random conversation? Treat it like a trigger. A test. A chance to sharpen your signal.</p>
+                    
+                    <div class="content-grid grid-3">
+                        <div class="content-card">
+                            <h4 class="heading-2 text-electric">Scroll with Intent</h4>
+                            <p class="body-regular">Look for emotional undercurrents</p>
+                        </div>
+                        <div class="content-card">
+                            <h4 class="heading-2 text-electric">Search with Structure</h4>
+                            <p class="body-regular">Use the VyraSource Stack</p>
+                        </div>
+                        <div class="content-card">
+                            <h4 class="heading-2 text-electric">Look for Fire</h4>
+                            <p class="body-regular">Find the friction points</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout-primary" style="margin-top: 60px;">
+                    <p class="body-large">In the next lab, we're going to use it. I'll walk you through how I personally research viral, emotionally charged content using VyraSearch (Lite), so you can steal my eyes — and start pulling world-class ideas out of thin air.</p>
+                    <p class="heading-1 mt-large"><strong>Let's go.</strong></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Smooth scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        });
+
+        // Enhanced result card interactions
+        document.querySelectorAll('.result-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(1.1) rotate(2deg)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Add subtle animation to content cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card, .trait-item, .source-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
