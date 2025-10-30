@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYRALAB | VyraSearch™ System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --section-spacing: clamp(80px, 8vw, 120px);
+            --content-spacing: clamp(40px, 4vw, 60px);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.7;
+            font-size: 18px;
+            scroll-behavior: smooth;
+        }
+
+        /* Typography System */
+        .display-1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .display-2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .heading-1 {
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .heading-2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .body-large {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            line-height: 1.6;
+        }
+
+        .body-regular {
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        /* Layout System */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px clamp(20px, 5vw, 60px) 0 clamp(20px, 5vw, 60px);
+        }
+
+        .section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+
+        .section:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(100px, 20vw, 200px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--vl-electric), transparent);
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--vl-dark-steel);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vl-electric), #00cc33);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 0, 0, 0.9));
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+        .weapon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), #00cc33);
+            color: var(--vl-black);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3); }
+            50% { box-shadow: 0 8px 30px rgba(0, 255, 65, 0.6); }
+        }
+
+        .main-title {
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            color: var(--vl-steel);
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: var(--content-spacing);
+        }
+
+        .section-title {
+            color: var(--vl-electric);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--vl-electric);
+            border-radius: 2px;
+        }
+
+        /* Content Blocks */
+        .content-grid {
+            display: grid;
+            gap: clamp(20px, 4vw, 30px);
+            margin: var(--content-spacing) 0;
+        }
+
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { 
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(15px, 3vw, 25px);
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(42, 42, 42, 0.4));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 16px;
+            padding: clamp(30px, 5vw, 40px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--vl-electric), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Feature Sections */
+        .feature-section {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 0, 0, 0.8));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 24px;
+            padding: clamp(40px, 6vw, 80px);
+            margin: var(--section-spacing) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--vl-electric), #00cc33);
+        }
+
+        /* VyraSearch Showcase */
+        .vyrasearch-showcase {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.08), rgba(0, 0, 0, 0.9));
+            border: 2px solid var(--vl-electric);
+            border-radius: 30px;
+            padding: clamp(50px, 8vw, 100px);
+            margin: var(--section-spacing) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vyrasearch-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--vl-electric), #00cc33, var(--vl-electric));
+        }
+
+        .vyrasearch-logo {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-electric), #00cc33);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Filter System */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: var(--content-spacing) 0;
+        }
+
+        .filter-card {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.08), rgba(42, 42, 42, 0.4));
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .filter-card:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.2);
+        }
+
+        .filter-title {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Results Section */
+        .results-showcase {
+            background: var(--vl-steel);
+            border-radius: 20px;
+            padding: 40px;
+            margin: var(--content-spacing) 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-item {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-item:hover {
+            background: rgba(0, 255, 65, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Quote Blocks */
+        .quote-block {
+            background: linear-gradient(135deg, var(--vl-steel), var(--vl-dark-steel));
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 16px 16px 0;
+            padding: clamp(30px, 5vw, 50px);
+            margin: var(--content-spacing) 0;
+            position: relative;
+            font-style: italic;
+        }
+
+        .quote-block::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--vl-electric);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .quote-text {
+            padding-left: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Callout Sections */
+        .callout-primary {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            border-radius: 20px;
+            padding: clamp(40px, 6vw, 60px);
+            text-align: center;
+            font-weight: 600;
+            margin: var(--section-spacing) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .callout-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--vl-black), var(--vl-dark-steel), var(--vl-black));
+        }
+
+        .callout-warning {
+            background: linear-gradient(135deg, rgba(255, 165, 0, 0.1), rgba(42, 42, 42, 0.4));
+            border: 2px solid #ffa500;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .callout-warning h3 {
+            color: #ffa500;
+            margin-bottom: 15px;
+        }
+
+        /* Vault Section */
+        .vault-section {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.03), rgba(0, 0, 0, 0.8));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 24px;
+            padding: clamp(40px, 6vw, 80px);
+            margin: var(--section-spacing) 0;
+        }
+
+        .niche-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .niche-tag {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 25px;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .niche-tag:hover {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            transform: scale(1.05);
+        }
+
+        /* Step Process */
+        .step-process {
+            counter-reset: step-counter;
+            margin: var(--content-spacing) 0;
+        }
+
+        .step-item {
+            counter-increment: step-counter;
+            background: linear-gradient(135deg, rgba(64, 64, 64, 0.2), rgba(42, 42, 42, 0.4));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .step-item::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -15px;
+            left: 40px;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .step-item:hover {
+            border-color: var(--vl-electric);
+            transform: translateX(12px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.15);
+        }
+
+        .step-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .step-title {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Example Block */
+        .example-block {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--vl-electric);
+        }
+
+        /* Action Section */
+        .action-section {
+            background: linear-gradient(135deg, var(--vl-steel), var(--vl-black));
+            border: 2px solid var(--vl-electric);
+            border-radius: 24px;
+            padding: clamp(50px, 8vw, 80px);
+            text-align: center;
+            margin: var(--section-spacing) 0;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-electric { color: var(--vl-electric); }
+        .text-steel { color: var(--vl-steel); }
+        .font-bold { font-weight: 700; }
+        .font-extra-bold { font-weight: 800; }
+        .mb-large { margin-bottom: var(--content-spacing); }
+        .mt-large { margin-top: var(--content-spacing); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-grid { grid-template-columns: 1fr; }
+            .results-grid { grid-template-columns: 1fr; }
+            .niche-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header-section">
+            <div class="weapon-badge">THE WEAPON</div>
+            <h1 class="display-1 main-title">VYRASEARCH™</h1>
+            <p class="body-large subtitle" style="color: white;">Not a chatbot. Not an AI gimmick. A precision-engineered content strategist.</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="section">
+            <div class="feature-section">
+                <p class="body-large text-center mb-large">But before we dive into modes, prompts, or tactics — Let's take a moment to properly introduce the weapon in your hands:</p>
+                
+                <div class="vyrasearch-showcase">
+                    <h2 class="vyrasearch-logo">VyraSearch™</h2>
+                    <p class="body-large">A precision-engineered content strategist trained by Vyralab — built to turn raw signal into thread-ready ideas with surgical accuracy.</p>
+                </div>
+
+                <div class="content-grid grid-2 mt-large">
+                    <div class="content-card" style="background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(255, 68, 68, 0.3);">
+                        <h3 class="heading-2" style="color: #ff6b6b;">❌ We Didn't Build This</h3>
+                        <p class="body-regular">To "help you brainstorm."</p>
+                    </div>
+                    <div class="content-card" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(0, 255, 65, 0.3);">
+                        <h3 class="heading-2 text-electric">✅ We Built This</h3>
+                        <p class="body-regular">To replace your guesswork with guaranteed momentum.</p>
+                    </div>
+                </div>
+
+                <div class="callout-primary mt-large">
+                    <p class="heading-1">Every line it outputs is the result of:</p>
+                    <p class="body-large mt-large">Stacked psychology, emotional filters, virality markers, prompt engineering, and behavioral heuristics — all designed to pull elite, platform-ready content ideas from a single sentence.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Comparison Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">This Isn't ChatGPT Freestyle</h2>
+            </div>
+            
+            <div class="content-grid grid-3">
+                <div class="content-card">
+                    <h3 class="heading-2 text-electric">Closed System</h3>
+                    <p class="body-regular">Engineered for precision, not randomness</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="heading-2 text-electric">Ghostwriter's Weapon</h3>
+                    <p class="body-regular">Built for high-stakes deliverables</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="heading-2 text-electric">Surgical Accuracy</h3>
+                    <p class="body-regular">Every output optimized for viral potential</p>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <h3 class="heading-1 text-electric mb-large text-center">You feed it one hook — and it gives you:</h3>
+                
+                <div class="filter-grid">
+                    <div class="filter-card">
+                        <div class="filter-title">✅ 5 headline-ready content ideas</div>
+                        <p class="body-regular">Each one mapped to a format, a viral theme, and a deep emotional trigger</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">✅ Complete Framework</div>
+                        <p class="body-regular">Each one loaded with a takeaway, a narrative angle, and a research link</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">✅ Instant Verification</div>
+                        <p class="body-regular">So you can verify and build instantly</p>
+                    </div>
+                </div>
+
+                <div class="feature-section">
+                    <h3 class="heading-1 text-electric mb-large text-center">And it doesn't stop there.</h3>
+                    <p class="body-large text-center mb-large">After every idea pack, VyraSearch gives you a menu:</p>
+                    
+                    <div class="content-grid grid-3">
+                        <div class="content-card" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(0, 255, 65, 0.3);">
+                            <h4 class="heading-2 text-electric">💥 More Similar Ideas</h4>
+                            <p class="body-regular">Boom.</p>
+                        </div>
+                        <div class="content-card" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(0, 255, 65, 0.3);">
+                            <h4 class="heading-2 text-electric">🔄 Different Angle</h4>
+                            <p class="body-regular">Done.</p>
+                        </div>
+                        <div class="content-card" style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4)); border-color: rgba(0, 255, 65, 0.3);">
+                            <h4 class="heading-2 text-electric">📅 2020–2025 Examples</h4>
+                            <p class="body-regular">No problem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter System Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">The Six Lethal Filters</h2>
+            </div>
+            
+            <div class="feature-section">
+                <p class="body-large text-center mb-large">It takes one raw input — your Inspiration Hook — And breaks it down across six lethal filters:</p>
+                
+                <div class="filter-grid">
+                    <div class="filter-card">
+                        <div class="filter-title">Title</div>
+                        <p class="body-regular">Designed for velocity, relevance, and intrigue</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">Summary</div>
+                        <p class="body-regular">What it's about, in 2–3 strategic sentences</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">Takeaway</div>
+                        <p class="body-regular">The emotional/insight shift people remember</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">Surprise Rating</div>
+                        <p class="body-regular">How likely this idea is to catch attention</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">Similar Hook</div>
+                        <p class="body-regular">A line-by-line viral structure match</p>
+                    </div>
+                    <div class="filter-card">
+                        <div class="filter-title">Expand This Idea</div>
+                        <p class="body-regular">A preloaded search link for instant deep-dive research</p>
+                    </div>
+                </div>
+
+                <div class="callout-primary">
+                    <p class="heading-1">No fluff. No fiction. No freestyling.</p>
+                    <p class="body-large mt-large">Every output is optimized to become a thread, carousel, video script, or lead magnet — with emotion, relevance, and conversion built in.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">This System Is Already Producing</h2>
+            </div>
+            
+            <div class="results-showcase">
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3 class="heading-2 text-electric">Client Leads</h3>
+                        <p class="body-regular">From 200-follower accounts to content juggernauts</p>
+                    </div>
+                    <div class="result-item">
+                        <h3 class="heading-2 text-electric">7-Figure Founders</h3>
+                        <p class="body-regular">Asking for repurposing deals</p>
+                    </div>
+                    <div class="result-item">
+                        <h3 class="heading-2 text-electric">$3K-$10K/Month Contracts</h3>
+                        <p class="body-regular">Off a single idea sequence</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="body-large text-center">You're not here to guess. You're here to build.</p>
+                <p class="body-large text-center mt-large">And VyraSearch gives you the platform to turn one spark into a multi-platform, offer-aligned, revenue-ready campaign — without sounding like every other AI zombie on the feed.</p>
+            </div>
+        </section>
+
+        <!-- VyraSwipe Vault Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">VyraSwipe Vault: Choosing Your Inspiration Hook</h2>
+            </div>
+            
+            <div class="callout-warning">
+                <h3 class="heading-1">⚠️ Critical Warning</h3>
+                <p class="body-regular">
+                   Before we fire off a weapon like VyraSearch, we need to load it with the right ammo.<br>
+                   Because when it comes to using these powerful AI tools: <strong>It's garbage in, garbage out.</strong>
+                </p>
+            </div>
+
+            <div class="vault-section">
+                <h3 class="heading-1 text-electric mb-large text-center">The VyraSwipe Thread Vault</h3>
+                <p class="body-large text-center mb-large">A curated, hand-picked arsenal of real creators, with real reach, using viral hooks in every niche you'll write for:</p>
+                
+                <div class="niche-grid">
+                    <div class="niche-tag">✅ Trading & Investing</div>
+                    <div class="niche-tag">✅ Health & Fitness</div>
+                    <div class="niche-tag">✅ Business & Startups</div>
+                    <div class="niche-tag">✅ AI & Tech</div>
+                    <div class="niche-tag">✅ Mindset & Performance</div>
+                    <div class="niche-tag">✅ Politics & Society</div>
+                    <div class="niche-tag">✅ Distribution & SaaS</div>
+                    <div class="niche-tag">✅ Mental Models & Psychology</div>
+                </div>
+
+                <div class="callout-primary">
+                    <p class="heading-1">Not random no-names.</p>
+                    <p class="body-large mt-large">These are operators that I've worked with, written with, written for: With a total of online views in the multi-billions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="display-2 section-title">Your Mission</h2>
+            </div>
+            
+            <div class="feature-section">
+                <p class="body-large text-center mb-large">You're going to pick one high-performing thread — Not based on vanity. <span class="text-electric font-bold">Based on structure.</span></p>
+                
+                <div class="quote-block">
+                    <p class="body-large quote-text">What are we looking for? Emotion. Relevance. Narrative.</p>
+					<p class="body-large quote-text">You don't want fluff. You want force.</p>
+                </div>
+            </div>
+
+            <div class="step-process">
+                <div class="step-item">
+                    <h3 class="step-title">
+                        <span class="step-icon">🔍</span>
+                        Open the Vault
+                    </h3>
+                    <p class="body-regular">Click the ThreadReader link beside any name in your vault PDF. It'll load that creator's full archive of reposted threads.</p>
+                    <p class="body-regular mt-large text-white">(We don't mess with screenshots — we use raw posts.)</p>
+                </div>
+
+                <div class="step-item">
+                    <h3 class="step-title">
+                        <span class="step-icon">🧠</span>
+                        Skim Like a Strategist
+                    </h3>
+                    <p class="body-regular mb-large">Scroll with a hunter's eye. You're looking for posts that:</p>
+                    <div class="content-grid grid-2x2">
+                        <div class="content-card">
+                            <p class="body-regular">✓ Pull you in emotionally</p>
+                        </div>
+                        <div class="content-card">
+                            <p class="body-regular">✓ Open with a clean, curiosity-rich hook</p>
+                        </div>
+                        <div class="content-card">
+                            <p class="body-regular">✓ Have story or insight behind them</p>
+                        </div>
+                        <div class="content-card">
+                            <p class="body-regular">✓ Got 10K+ views or real traction</p>
+                        </div>
+                    </div>
+                    <p class="body-regular mt-large text-electric font-bold">Don't overthink. Just spot what hits.</p>
+                </div>
+
+                <div class="step-item">
+                    <h3 class="step-title">
+                        <span class="step-icon">🎯</span>
+                        Extract the Hook
+                    </h3>
+                    <p class="body-regular mb-large">Find the first 1–3 lines of a strong post. That's your Inspiration Hook.</p>
+                    
+                    <div class="example-block">
+                        <p class="body-regular"><strong>Example from @GeniusBusiness_:</strong></p>
+                        <p class="body-large mt-large">"When Amazon launched, they weren't trying to dominate the world. They were selling books. But Jeff Bezos did one thing differently — and it changed the game forever."</p>
+                    </div>
+                    
+                    <p class="body-regular">That's exactly what you're looking for. Structured. Emotional. Narrative-anchored.</p>
+                    
+                    <div class="callout-primary mt-large">
+                        <p class="heading-1">We don't want generic. We don't want lists.</p>
+                        <p class="body-large mt-large">We want hooks that ripple.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Action Section -->
+        <section class="section">
+            <div class="action-section">
+                <h2 class="display-2" style="color: var(--vl-white); margin-bottom: 40px;">Ready to Launch</h2>
+                
+                <p class="body-large mb-large">Once you've got your hook, paste it in. That's all VyraSearch™ needs to unlock 5 viral, trust-rich, client-aligned ideas — ready for CTA drops and platform-ready expansion.</p>
+                
+                <div class="callout-primary" style="background: var(--vl-steel); color: var(--vl-white); margin: 40px 0;">
+                    <p class="heading-1 text-electric">This system is built for ghostwriters who don't have time to stare at a blank screen and "hope something good comes out."</p>
+                    <p class="body-large mt-large">It's built for high-stakes deliverables. For $5K+ clients. For viral operators who know what they're aiming for.</p>
+                </div>
+
+                <div class="content-grid grid-3">
+                    <div class="content-card">
+                        <h4 class="heading-2 text-electric">So go hunt.</h4>
+                        <p class="body-regular">Find your perfect hook</p>
+                    </div>
+                    <div class="content-card">
+                        <h4 class="heading-2 text-electric">Pick your Inspiration Hook</h4>
+                        <p class="body-regular">Load the weapon with precision</p>
+                    </div>
+                    <div class="content-card">
+                        <h4 class="heading-2 text-electric">And fire.</h4>
+                        <p class="body-regular">Let VyraSearch do the work</p>
+                    </div>
+                </div>
+
+                <div class="callout-primary" style="margin-top: 60px;">
+                    <p class="body-large">In this lab — you're going to use it like a weapon. Not a crutch. Not a toy.</p>
+                    <p class="heading-1 mt-large"><strong>A tool of creative war.</strong></p>
+                    <p class="heading-1 mt-large text-electric">Let's begin.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Smooth scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        });
+
+        // Enhanced interactions for niche tags
+        document.querySelectorAll('.niche-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    tag.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Enhanced interactions for filter cards
+        document.querySelectorAll('.filter-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Add subtle animation to content cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card, .filter-card, .step-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
