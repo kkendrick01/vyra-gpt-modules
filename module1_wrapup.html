@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 Wrap-Up: Master Your Lens | VyraLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --vl-electric-glow: rgba(0, 255, 65, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 20%, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), rgba(0, 255, 65, 0.7));
+            color: var(--vl-black);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px var(--vl-electric-glow);
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--vl-electric-glow); }
+            50% { box-shadow: 0 0 50px var(--vl-electric-glow), 0 0 80px rgba(0, 255, 65, 0.2); }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric), var(--vl-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            animation: slide-up 0.8s ease-out;
+        }
+
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--vl-white);
+            margin-bottom: 50px;
+            font-weight: 500;
+            animation: slide-up 0.8s ease-out 0.2s both;
+        }
+
+        /* Achievement Grid */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .achievement-item {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .achievement-item:hover::before {
+            left: 100%;
+        }
+
+        .achievement-item:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .achievement-title {
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .achievement-desc {
+            color: var(--vl-white);
+            font-size: 0.9rem;
+        }
+
+        /* Reality Check Section */
+        .reality-section {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.08), rgba(0, 0, 0, 0.9));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .reality-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .reality-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+        }
+
+        .reality-text {
+            font-size: 1.2rem;
+            color: var(--vl-white);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .standout-box {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 12px 12px 0;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .standout-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--vl-white);
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--vl-electric);
+            font-weight: 700;
+        }
+
+        /* Revelation Section */
+        .revelation-section {
+            background: var(--vl-black);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .revelation-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--vl-electric), var(--vl-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .revelation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .revelation-card {
+            background: linear-gradient(145deg, rgba(42, 42, 42, 0.8), rgba(0, 0, 0, 0.8));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .revelation-card:hover {
+            border-color: var(--vl-electric);
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--vl-electric);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--vl-white);
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            color: var(--vl-white);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Exclusive Access Section */
+        .access-section {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .access-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .exclusive-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), rgba(0, 255, 65, 0.8));
+            color: var(--vl-black);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .access-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .access-description {
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        .vault-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .vault-feature {
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            color: var(--vl-white);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feature-desc {
+            color: var(--vl-white);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Day 2 Preview */
+        .preview-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(42, 42, 42, 0.8));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .preview-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            box-shadow: 0 0 40px var(--vl-electric-glow);
+        }
+
+        .preview-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vl-white);
+            margin-bottom: 20px;
+        }
+
+        .preview-subtitle {
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 40px;
+        }
+
+        .assignment-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--vl-electric);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .assignment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .assignment-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 3px solid var(--vl-electric);
+        }
+
+        .assignment-label {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .assignment-text {
+            color: var(--vl-white);
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.2), rgba(0, 0, 0, 1));
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .final-message {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), rgba(0, 255, 65, 0.8));
+            color: var(--vl-black);
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .revelation-title {
+                font-size: 2rem;
+            }
+            .access-title {
+                font-size: 2.2rem;
+            }
+            .preview-title {
+                font-size: 2rem;
+            }
+            .achievement-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="module-badge">Module 1 Complete</div>
+            <h1 class="hero-title">Master Your Lens</h1>
+            <p class="hero-subtitle">You made it through Day 1. But this wasn't some fluffy "content ideation" primer.<br>This was a full psychological reframe.</p>
+        </div>
+    </section>
+
+    <!-- Achievement Grid -->
+    <section class="achievement-grid">
+        <div class="achievement-item">
+            <span class="achievement-icon">✅</span>
+            <div class="achievement-title">The Myth of Inspiration</div>
+            <div class="achievement-desc">Destroyed the waiting game forever</div>
+        </div>
+        <div class="achievement-item">
+            <span class="achievement-icon">✅</span>
+            <div class="achievement-title">3 Traits of Viral Ideas</div>
+            <div class="achievement-desc">Your new content DNA scanner</div>
+        </div>
+        <div class="achievement-item">
+            <span class="achievement-icon">✅</span>
+            <div class="achievement-title">VyraSource™ Idea Stack</div>
+            <div class="achievement-desc">Full systematic framework</div>
+        </div>
+        <div class="achievement-item">
+            <span class="achievement-icon">✅</span>
+            <div class="achievement-title">Vault Swipe File System</div>
+            <div class="achievement-desc">Proven hook extraction method</div>
+        </div>
+        <div class="achievement-item">
+            <span class="achievement-icon">✅</span>
+            <div class="achievement-title">VyraSearch™ Modes</div>
+            <div class="achievement-desc">Hook Mode & Trend Mode mastery</div>
+        </div>
+    </section>
+
+    <!-- Reality Check Section -->
+    <section class="reality-section">
+        <div class="reality-content">
+            <h2 class="reality-title">Let's Be Real:</h2>
+            <p class="reality-text">You're already further ahead than 99% of the industry.</p>
+            
+            <div class="standout-box">
+                <p class="standout-text">
+                    Most writers spend <span class="highlight">years</span> stuck on this first step—guessing what to post, staring at blank screens, hoping inspiration strikes.<br><br>
+                    You? You just learned to <span class="highlight">weaponize your lens</span>. You're scanning like a strategist. Spotting emotional tension like a trained ghostwriter. Mining content with more precision than most teams do with full staff.
+                </p>
+            </div>
+            
+            <p class="reality-text" style="font-size: 1.4rem; font-weight: 600; color: var(--vl-electric);">
+                But here's the wild part: This is only the surface.
+            </p>
+        </div>
+    </section>
+
+    <!-- Revelation Section -->
+    <section class="revelation-section">
+        <h2 class="revelation-title">You're Not Just Learning</h2>
+        <p style="font-size: 1.3rem; color: var(--vl-white); margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            You're <span class="highlight">earning your way in</span>.
+			Quietly. Relentlessly. Profitably.<br>
+        </p>
+
+        <div class="revelation-grid">
+            <div class="revelation-card">
+                <span class="card-icon">🎯</span>
+                <h3 class="card-title">Priority Access Waitlist</h3>
+                <p class="card-description">As part of the 7-Day AI Ghostwriter Training™, you're automatically added to the priority access waitlist for the full VyraLab ACE Studio™.</p>
+            </div>
+            <div class="revelation-card">
+                <span class="card-icon">🔒</span>
+                <h3 class="card-title">Invite-Only Control Room</h3>
+                <p class="card-description">Our private vault where elite ghostwriters, brand strategists, and performance-driven operators weaponize content into income.</p>
+            </div>
+            <div class="revelation-card">
+                <span class="card-icon">⚡</span>
+                <h3 class="card-title">Built in Silence</h3>
+                <p class="card-description">No public launch. No open beta. This is a system for creators who don't chase attention… they convert it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Access Section -->
+    <section class="access-section">
+        <div class="access-content">
+            <div class="exclusive-badge">Exclusive Access</div>
+            <h2 class="access-title">The Vault Opens Soon</h2>
+            <p class="access-description">
+                This isn't a funnel. It's a vault.<br>
+                And you just got the keys to the outer gate.
+            </p>
+
+            <div class="vault-features">
+                <div class="vault-feature">
+                    <span class="feature-icon">🤖</span>
+                    <div class="feature-title">ACE Studio™</div>
+                    <div class="feature-desc">The world's most powerful ghostwriting, branding, and copywriting automation engine, custom-built by Amazon-level engineers</div>
+                </div>
+                <div class="vault-feature">
+                    <span class="feature-icon">📚</span>
+                    <div class="feature-title">VyraPro+ Course & Community</div>
+                    <div class="feature-desc">The full flagship training experience, showing you how to land $6K–$10K/month clients and scale</div>
+                </div>
+                <div class="vault-feature">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-title">VyraSphere™ Network</div>
+                    <div class="feature-desc">Our elite ghostwriter alliance, where vetted talent gets sharpened, referred, and leveled up</div>
+                </div>
+            </div>
+
+            <div class="standout-box" style="margin: 50px 0;">
+                <p class="standout-text">
+                    We'll be opening limited slots once this challenge ends — and you'll be <span class="highlight">first in line</span> to step through.
+                </p>
+            </div>
+
+            <p style="font-size: 1.2rem; color: var(--vl-white); margin-top: 40px;">
+                Remember: Most writers will spend years spinning their wheels.<br>
+                You're building systems. Learning psychology. Training with tools built for <span class="highlight">domination</span> — not distraction.
+            </p>
+        </div>
+    </section>
+
+    <!-- Day 2 Preview -->
+    <section class="preview-section">
+        <div class="preview-content">
+            <div class="day-badge">DAY 2</div>
+            <h2 class="preview-title">Write Hooks That Hit</h2>
+            <p class="preview-subtitle">This is where we go from scanner… to striker.</p>
+            
+            <p style="font-size: 1.2rem; color: var(--vl-white); margin-bottom: 40px;">
+                You've got 5–10 raw ideas now. Stories with friction. Moments with momentum. Topics with emotional weight.<br><br>
+                <span class="highlight">Now it's time to weaponize them.</span>
+            </p>
+
+            <div class="assignment-box">
+                <div class="assignment-grid">
+                    <div class="assignment-item">
+                        <div class="assignment-label">🎯 Goal</div>
+                        <div class="assignment-text">Write 3–5 viral hooks from your Day 1 ideas</div>
+                    </div>
+                    <div class="assignment-item">
+                        <div class="assignment-label">🧠 Strategy</div>
+                        <div class="assignment-text">Use the PAST Method™ + EmotionStack™ Overlay</div>
+                    </div>
+                    <div class="assignment-item">
+                        <div class="assignment-label">🔧 Tools</div>
+                        <div class="assignment-text">VyraHook (Lite) Templates<br>VyraHook Rating System™<br>Swipe vault for rhythm reference</div>
+                    </div>
+                    <div class="assignment-item">
+                        <div class="assignment-label">✍️ Assignment</div>
+                        <div class="assignment-text">Write 3 hooks<br>Score them with the system<br>Refine the top 1–2 into publish-ready bangers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="standout-box" style="margin: 40px 0;">
+                <p class="standout-text">
+                    This is how pros operate. We don't wait for one good line to "come to us."<br><br>
+                    We <span class="highlight">build</span>. We <span class="highlight">test</span>. We <span class="highlight">sharpen</span>. And then we <span class="highlight">strike</span>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <p class="final-message">
+                Let's make some noise.<br>
+                Day 2 starts now.
+            </p>
+            <p style="color: var(--vl-white); margin-top: 50px; font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                I'll see YOU in the next lab!
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Hero section should always be visible
+        document.querySelector('.hero-section').style.opacity = '1';
+        document.querySelector('.hero-section').style.transform = 'translateY(0)';
+
+        // Add particle effect to hero section
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = 'var(--vl-electric)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.opacity = '0.6';
+            
+            const heroSection = document.querySelector('.hero-section');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            
+            heroSection.appendChild(particle);
+            
+            // Animate particle
+            let position = 100;
+            const animate = () => {
+                position -= 0.5;
+                particle.style.top = position + '%';
+                particle.style.opacity = (100 - Math.abs(position - 50)) / 100;
+                
+                if (position > -10) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            };
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        // Add hover effects to cards
+        document.querySelectorAll('.achievement-item, .revelation-card, .vault-feature').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click effect to CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(0, 0, 0, 0.3)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.pointerEvents = 'none';
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
