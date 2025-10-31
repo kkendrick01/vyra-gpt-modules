@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraSearch™ Lab User Manual | Lesson 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --warning-orange: #ff8c00;
+            --success-green: #28a745;
+            --info-blue: #17a2b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Manual Layout */
+        .manual-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .manual-header {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 0, 0, 0.9));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .manual-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .manual-subtitle {
+            font-size: 1.2rem;
+            color: var(--vl-steel);
+            margin-bottom: 20px;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: rgba(64, 64, 64, 0.2);
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .toc-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .toc-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            counter-reset: toc-counter;
+        }
+
+        .toc-item {
+            counter-increment: toc-counter;
+            margin: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .toc-item::before {
+            content: counter(toc-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .toc-link {
+            color: var(--vl-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--vl-electric);
+        }
+
+        /* Sections */
+        .manual-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4));
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-number {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--vl-white);
+            margin-bottom: 10px;
+        }
+
+        .section-description {
+            color: var(--vl-steel);
+            font-size: 1.1rem;
+        }
+
+        /* Steps */
+        .step-container {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            background: rgba(64, 64, 64, 0.1);
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .step::before {
+            content: "STEP " counter(step-counter);
+            position: absolute;
+            top: -12px;
+            left: 25px;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .step-content {
+            color: var(--vl-white);
+            line-height: 1.7;
+        }
+
+        .step-action {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .callout-warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-color: var(--warning-orange);
+            color: var(--vl-white);
+        }
+
+        .callout-info {
+            background: rgba(23, 162, 184, 0.1);
+            border-color: var(--info-blue);
+            color: var(--vl-white);
+        }
+
+        .callout-success {
+            background: rgba(40, 167, 69, 0.1);
+            border-color: var(--success-green);
+            color: var(--vl-white);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .callout-icon {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Code/Example Blocks */
+        .example-block {
+            background: var(--vl-dark-steel);
+            border: 1px solid var(--vl-steel);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .example-label {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--vl-steel);
+            color: var(--vl-white);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Requirements Lists */
+        .requirements-list {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .requirements-title {
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirements-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .requirements-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--vl-electric);
+            font-weight: bold;
+        }
+
+        /* Result Indicators */
+        .result-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-electric);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .result-title {
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--vl-dark-steel);
+        }
+
+        .nav-button {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--vl-white);
+            transform: translateY(-2px);
+        }
+
+        .nav-button.disabled {
+            background: var(--vl-steel);
+            color: var(--vl-dark-steel);
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .manual-container {
+                padding: 20px 15px;
+            }
+            .manual-title {
+                font-size: 2rem;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-container">
+        <!-- Header -->
+        <header class="manual-header">
+            <h1 class="manual-title">VyraSearch™ Lab</h1>
+            <p class="manual-subtitle">User Manual: Turning Viral Hooks Into Thread-Worthy Ideas</p>
+            <span class="version-badge">Lesson 3 - v1.0</span>
+        </header>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h2 class="toc-title">
+                <span class="toc-icon">📋</span>
+                Table of Contents
+            </h2>
+            <ol class="toc-list">
+                <li class="toc-item"><a href="#overview" class="toc-link">System Overview</a></li>
+                <li class="toc-item"><a href="#requirements" class="toc-link">Prerequisites & Requirements</a></li>
+                <li class="toc-item"><a href="#vyrasearch-intro" class="toc-link">VyraSearch™ System Introduction</a></li>
+                <li class="toc-item"><a href="#vault-selection" class="toc-link">Hook Selection from VyraSwipe Vault</a></li>
+                <li class="toc-item"><a href="#execution" class="toc-link">Lab Execution Process</a></li>
+                <li class="toc-item"><a href="#validation" class="toc-link">Results Validation</a></li>
+                <li class="toc-item"><a href="#troubleshooting" class="toc-link">Troubleshooting</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Overview -->
+        <section id="overview" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 1</div>
+                <h2 class="section-title">System Overview</h2>
+                <p class="section-description">Understanding what this lab accomplishes and why it matters</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🎯</span>
+                    Problem This Solves
+                </div>
+                <p><strong>The Question That Kills Most Ghostwriters:</strong> "What do I write today?"</p>
+                <p>This lab transforms that daily struggle into a systematic process where you extract viral content ideas from proven hooks with surgical precision.</p>
+            </div>
+
+            <p>Instead of waiting for inspiration to strike, you'll learn to:</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>Expand existing viral content systematically</li>
+                <li>Use AI as a precision tool, not a crutch</li>
+                <li>Generate 5 thread-ready ideas from a single proven hook</li>
+                <li>Apply emotional triggers and structural frameworks instantly</li>
+            </ul>
+
+            <div class="result-box">
+                <div class="result-title">🔥 Expected Outcome</div>
+                <p>By the end of this lab, you'll have 5 CTA-ready content ideas with emotional weight and viral fuel, plus the systematic process to repeat this daily.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Requirements -->
+        <section id="requirements" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 2</div>
+                <h2 class="section-title">Prerequisites & Requirements</h2>
+                <p class="section-description">What you need before starting this lab</p>
+            </div>
+
+            <div class="requirements-list">
+                <div class="requirements-title">
+                    <span class="callout-icon">✅</span>
+                    Required Knowledge
+                </div>
+                <ul>
+                    <li>Understanding of viral content principles (emotion, relevance, structure)</li>
+                    <li>Basic familiarity with Twitter/X thread formats</li>
+                    <li>Access to VyraSearch™ system</li>
+                    <li>Access to VyraSwipe Thread Vault PDF</li>
+                </ul>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Critical Warning
+                </div>
+                <p><strong>Garbage In, Garbage Out:</strong> The quality of your input hook directly determines your output quality. Never skip the hook selection process.</p>
+            </div>
+
+            <div class="requirements-list">
+                <div class="requirements-title">
+                    <span class="callout-icon">🛠️</span>
+                    Tools Needed
+                </div>
+                <ul>
+                    <li>VyraSwipe Thread Vault PDF</li>
+                    <li>VyraSearch™ system access</li>
+                    <li>ThreadReader app (for vault navigation)</li>
+                    <li>Note-taking application</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: VyraSearch Introduction -->
+        <section id="vyrasearch-intro" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 3</div>
+                <h2 class="section-title">VyraSearch™ System Introduction</h2>
+                <p class="section-description">Understanding your precision content strategist</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🤖</span>
+                    What VyraSearch™ Is
+                </div>
+                <p>A precision-engineered content strategist trained by Vyralab — built to turn raw signal into thread-ready ideas with surgical accuracy.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">❌</span>
+                    What VyraSearch™ Is NOT
+                </div>
+                <p>Not a chatbot. Not a gimmick. Not ChatGPT freestyle. This is a closed system designed for professional ghostwriters.</p>
+            </div>
+
+            <h3 style="color: var(--vl-electric); margin: 25px 0 15px 0;">System Capabilities</h3>
+            <p>When you input one proven hook, VyraSearch™ outputs:</p>
+            
+            <div class="step-container" style="counter-reset: none;">
+                <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 20px; margin: 15px 0;">
+                    <strong>✅ 5 headline-ready content ideas</strong><br>
+                    Each mapped to a format, viral theme, and deep emotional trigger
+                </div>
+                <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 20px; margin: 15px 0;">
+                    <strong>✅ Complete framework per idea</strong><br>
+                    Takeaway, narrative angle, and research link for instant verification
+                </div>
+                <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 20px; margin: 15px 0;">
+                    <strong>✅ Interactive menu system</strong><br>
+                    Options for similar ideas, different angles, or time-specific examples
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">🎯 Built For</div>
+                <p>High-stakes deliverables. $5K+ clients. Viral operators who know what they're aiming for. Professional ghostwriters who don't have time to stare at blank screens.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Vault Selection Process -->
+        <section id="vault-selection" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 4</div>
+                <h2 class="section-title">Hook Selection from VyraSwipe Vault</h2>
+                <p class="section-description">Step-by-step process for choosing the right ammunition</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🎯</span>
+                    Selection Criteria
+                </div>
+                <p><strong>Not based on vanity. Based on structure.</strong> Look for: Emotion, Relevance, Narrative. You don't want fluff. You want force.</p>
+            </div>
+
+            <div class="step-container">
+                <div class="step">
+                    <h3 class="step-title">🔍 Open the Vault</h3>
+                    <div class="step-content">
+                        <p>Navigate to your VyraSwipe Thread Vault PDF and select a creator from your target niche.</p>
+                        <div class="step-action">
+                            <strong>Action:</strong> Click the ThreadReader link beside any name in your vault PDF. This loads that creator's full archive of reposted threads.
+                        </div>
+                        <div class="callout callout-info">
+                            <div class="callout-title">
+                                <span class="callout-icon">📝</span>
+                                Note
+                            </div>
+                            <p>We don't mess with screenshots — we use raw posts for accuracy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🧠 Skim Like a Strategist</h3>
+                    <div class="step-content">
+                        <p>Scroll with a hunter's eye. You're looking for posts that meet these criteria:</p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>✓ Pull you in emotionally</strong>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>✓ Open with clean, curiosity-rich hook</strong>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>✓ Have story or insight behind them</strong>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>✓ Got 10K+ views or real traction</strong>
+                            </div>
+                        </div>
+                        <div class="step-action">
+                            <strong>Key Principle:</strong> Don't overthink. Just spot what hits.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🎯 Extract the Hook</h3>
+                    <div class="step-content">
+                        <p>Find the first 1–3 lines of a strong post. That's your Inspiration Hook.</p>
+                        
+                        <div class="example-block">
+                            <div class="example-label">Example</div>
+                            <p style="color: var(--vl-electric); font-style: italic; margin-bottom: 10px;">From @GeniusBusiness_:</p>
+                            <p>"When Amazon launched, they weren't trying to dominate the world.<br>
+                            They were selling books.<br>
+                            But Jeff Bezos did one thing differently — and it changed the game forever."</p>
+                        </div>
+
+                        <div class="step-action">
+                            <strong>What You're Looking For:</strong> Structured. Emotional. Narrative-anchored. We don't want generic. We don't want lists. We want hooks that ripple.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">✅ Validation Check</div>
+                <p>Your selected hook should make you feel something and create immediate curiosity about what comes next. If it doesn't grab you, it won't grab your audience.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Lab Execution -->
+        <section id="execution" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 5</div>
+                <h2 class="section-title">Lab Execution Process</h2>
+                <p class="section-description">Running your hook through the VyraSearch™ system</p>
+            </div>
+
+            <div class="step-container">
+                <div class="step">
+                    <h3 class="step-title">📝 Input Your Hook</h3>
+                    <div class="step-content">
+                        <p>Copy your selected hook exactly as it appears in the original post.</p>
+                        <div class="step-action">
+                            <strong>Action:</strong> Paste the hook into VyraSearch™ system input field. No modifications or additions needed.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">⚡ Execute System Analysis</h3>
+                    <div class="step-content">
+                        <p>VyraSearch™ will process your hook through its viral analysis filters.</p>
+                        <div class="callout callout-info">
+                            <div class="callout-title">
+                                <span class="callout-icon">🔬</span>
+                                What's Happening
+                            </div>
+                            <p>The system analyzes your hook across psychological triggers, emotional frameworks, virality markers, and structural patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">📊 Review Generated Ideas</h3>
+                    <div class="step-content">
+                        <p>VyraSearch™ will output 5 complete content frameworks. Each includes:</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li><strong>Title:</strong> Designed for velocity, relevance, and intrigue</li>
+                            <li><strong>Summary:</strong> What it's about in 2–3 strategic sentences</li>
+                            <li><strong>Takeaway:</strong> The emotional/insight shift people remember</li>
+                            <li><strong>Surprise Rating:</strong> How likely this idea is to catch attention</li>
+                            <li><strong>Similar Hook:</strong> A line-by-line viral structure match</li>
+                            <li><strong>Expand Link:</strong> Preloaded research for instant verification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🎛️ Use Menu Options</h3>
+                    <div class="step-content">
+                        <p>After reviewing your initial 5 ideas, use the interactive menu for:</p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                                <strong>💥 More Similar Ideas</strong><br>
+                                <span style="color: var(--vl-electric);">Boom.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                                <strong>🔄 Different Angle</strong><br>
+                                <span style="color: var(--vl-electric);">Done.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                                <strong>📅 Recent Examples</strong><br>
+                                <span style="color: var(--vl-electric);">No problem.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Validation -->
+        <section id="validation" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 6</div>
+                <h2 class="section-title">Results Validation</h2>
+                <p class="section-description">How to verify your generated ideas are ready for deployment</p>
+            </div>
+
+            <div class="callout callout-success">
+                <div class="callout-title">
+                    <span class="callout-icon">✅</span>
+                    Quality Checklist
+                </div>
+                <p>Each generated idea should pass these validation criteria:</p>
+            </div>
+
+            <div class="requirements-list">
+                <div class="requirements-title">
+                    <span class="callout-icon">🎯</span>
+                    Idea Validation Criteria
+                </div>
+                <ul>
+                    <li>Creates immediate emotional response (curiosity, surprise, recognition)</li>
+                    <li>Has clear narrative structure with setup and payoff</li>
+                    <li>Connects to current, relevant events or pain points</li>
+                    <li>Includes specific, actionable takeaway</li>
+                    <li>Can be researched and verified using provided links</li>
+                    <li>Fits your client's voice and brand positioning</li>
+                </ul>
+            </div>
+
+            <div class="step-container">
+                <div class="step">
+                    <h3 class="step-title">🔍 Test the Research Links</h3>
+                    <div class="step-content">
+                        <p>Click through each "Expand This Idea" link to verify you have sufficient data and examples to build the full content piece.</p>
+                        <div class="step-action">
+                            <strong>Expected Result:</strong> You should find specific names, dates, statistics, or case studies that support the core narrative.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">📝 Draft Opening Lines</h3>
+                    <div class="step-content">
+                        <p>Using the similar hook structure, write the first 2-3 lines of your thread to ensure the idea flows naturally.</p>
+                        <div class="callout callout-info">
+                            <div class="callout-title">
+                                <span class="callout-icon">💡</span>
+                                Quick Test
+                            </div>
+                            <p>If you can't immediately see how to start writing the thread, the idea may need more development or a different angle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">🎯 Success Indicator</div>
+                <p>You should now have 1-3 validated ideas that you're excited to write, with clear research paths and strong emotional hooks.</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Troubleshooting -->
+        <section id="troubleshooting" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 7</div>
+                <h2 class="section-title">Troubleshooting</h2>
+                <p class="section-description">Common issues and solutions</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Generic or Weak Ideas Generated
+                </div>
+                <p><strong>Solution:</strong> Your input hook likely lacks emotional trigger or narrative structure. Return to Step 2 and select a different hook with stronger emotional pull.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Ideas Don't Fit Your Client's Niche
+                </div>
+                <p><strong>Solution:</strong> Use the "Different Angle" menu option or select hooks from creators in a more closely related niche from the vault.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Research Links Don't Provide Enough Data
+                </div>
+                <p><strong>Solution:</strong> Use the research link as a starting point, then expand your search using the specific terms and concepts mentioned in the generated summary.</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🔄</span>
+                    Remember: This Is An Iterative Process
+                </div>
+                <p>Professional ghostwriters often run 3-5 hooks through the system before selecting their final content ideas. Quality over speed.</p>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="nav-buttons">
+            <a href="#" class="nav-button disabled">← Previous Lesson</a>
+            <a href="#" class="nav-button">Next: Content Creation Lab →</a>
+        </nav>
+    </div>
+
+    <script>
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Add scroll spy for active TOC item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.manual-section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.style.color = 'var(--vl-electric)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
