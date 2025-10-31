@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraSearch™ Mode Walkthroughs | User Manual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --warning-orange: #ff8c00;
+            --success-green: #28a745;
+            --info-blue: #17a2b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Manual Layout */
+        .manual-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .manual-header {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 0, 0, 0.9));
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .manual-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .manual-subtitle {
+            font-size: 1.2rem;
+            color: var(--vl-steel);
+            margin-bottom: 20px;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: rgba(64, 64, 64, 0.2);
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .toc-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .toc-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            counter-reset: toc-counter;
+        }
+
+        .toc-item {
+            counter-increment: toc-counter;
+            margin: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .toc-item::before {
+            content: counter(toc-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .toc-link {
+            color: var(--vl-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--vl-electric);
+        }
+
+        /* Sections */
+        .manual-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(42, 42, 42, 0.4));
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-number {
+            color: var(--vl-electric);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--vl-white);
+            margin-bottom: 10px;
+        }
+
+        .section-description {
+            color: var(--vl-steel);
+            font-size: 1.1rem;
+        }
+
+        /* Steps */
+        .step-container {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            background: rgba(64, 64, 64, 0.1);
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .step::before {
+            content: "STEP " counter(step-counter);
+            position: absolute;
+            top: -12px;
+            left: 25px;
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .step-content {
+            color: var(--vl-white);
+            line-height: 1.7;
+        }
+
+        .step-action {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .callout-warning {
+            background: rgba(255, 140, 0, 0.1);
+            border-color: var(--warning-orange);
+            color: var(--vl-white);
+        }
+
+        .callout-info {
+            background: rgba(23, 162, 184, 0.1);
+            border-color: var(--info-blue);
+            color: var(--vl-white);
+        }
+
+        .callout-success {
+            background: rgba(40, 167, 69, 0.1);
+            border-color: var(--success-green);
+            color: var(--vl-white);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .callout-icon {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Code/Example Blocks */
+        .example-block {
+            background: var(--vl-dark-steel);
+            border: 1px solid var(--vl-steel);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .example-label {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--vl-steel);
+            color: var(--vl-white);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Requirements Lists */
+        .requirements-list {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .requirements-title {
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirements-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .requirements-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--vl-electric);
+            font-weight: bold;
+        }
+
+        /* Result Indicators */
+        .result-box {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-electric);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .result-title {
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--vl-dark-steel);
+        }
+
+        .nav-button {
+            background: var(--vl-electric);
+            color: var(--vl-black);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: var(--vl-white);
+            transform: translateY(-2px);
+        }
+
+        .nav-button.disabled {
+            background: var(--vl-steel);
+            color: var(--vl-dark-steel);
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .manual-container {
+                padding: 20px 15px;
+            }
+            .manual-title {
+                font-size: 2rem;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-container">
+        <!-- Header -->
+        <header class="manual-header">
+            <h1 class="manual-title">VyraSearch™ Mode Walkthroughs</h1>
+            <p class="manual-subtitle">Complete Guide: Trend Mode & Hook Mode Execution</p>
+            <span class="version-badge">User Manual - v1.0</span>
+        </header>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h2 class="toc-title">
+                <span class="toc-icon">📋</span>
+                Table of Contents
+            </h2>
+            <ol class="toc-list">
+                <li class="toc-item"><a href="#trend-mode" class="toc-link">Trend Mode: Real-Time Signal Capture</a></li>
+                <li class="toc-item"><a href="#hook-mode-walkthrough" class="toc-link">Hook Mode: Complete Walkthrough</a></li>
+                <li class="toc-item"><a href="#troubleshooting" class="toc-link">Troubleshooting & Advanced Tips</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Trend Mode -->
+        <section id="trend-mode" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 1</div>
+                <h2 class="section-title">Trend Mode: Real-Time Signal Capture</h2>
+                <p class="section-description">How to spot emerging signals and turn them into viral content before the competition</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">⚡</span>
+                    Competitive Advantage
+                </div>
+                <p><strong>Speed is everything.</strong> While others are talking about last week's news, you'll be creating content about signals that are breaking right now — giving you first-mover advantage in the attention economy.</p>
+            </div>
+
+            <h3 style="color: var(--vl-electric); margin: 25px 0 15px 0;">When to Use Trend Mode vs. Hook Mode</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: var(--vl-electric); margin-bottom: 15px;">🔥 Use Trend Mode When:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>You've spotted breaking news or emerging signals</li>
+                        <li>There's a new platform feature or policy change</li>
+                        <li>Industry shifts or cultural moments are happening</li>
+                        <li>You want to be first to own a narrative</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(64, 64, 64, 0.2); border: 1px solid var(--vl-dark-steel); border-radius: 12px; padding: 20px;">
+                    <h4 style="color: var(--vl-steel); margin-bottom: 15px;">📚 Use Hook Mode When:</h4>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        <li>You have a proven viral hook to emulate</li>
+                        <li>You want to clone successful content structures</li>
+                        <li>You're working from your VyraSwipe Vault</li>
+                        <li>You need reliable, tested frameworks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-container">
+                <div class="step">
+                    <h3 class="step-title">📱 Input Your Trending Topic</h3>
+                    <div class="step-content">
+                        <p>Unlike Hook Mode, Trend Mode accepts <strong>any</strong> trending topic, news event, or cultural signal you've spotted.</p>
+                        <div class="step-action">
+                            <strong>Examples of Valid Inputs:</strong>
+                        </div>
+                        <div class="example-block">
+                            <div class="example-label">Trend Inputs</div>
+                            <p>• "OpenAI just released new reasoning models"<br>
+                            • "Instagram hiding likes globally"<br>
+                            • "Tesla stock jumps 15% after earnings"<br>
+                            • "New TikTok algorithm favoring longer videos"<br>
+                            • "Apple Vision Pro sales disappointing"</p>
+                        </div>
+                        <div class="callout callout-info">
+                            <div class="callout-title">
+                                <span class="callout-icon">🧠</span>
+                                System Intelligence
+                            </div>
+                            <p>VyraSearch™ automatically analyzes your trend input for viral themes, target audiences, emotional triggers, and content formats — no manual setup required.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🔬 Real-Time Research & Analysis</h3>
+                    <div class="step-content">
+                        <p>The system immediately searches for real, verifiable stories connected to your trend within the last 30 days.</p>
+                        <div class="requirements-list">
+                            <div class="requirements-title">
+                                <span class="callout-icon">✅</span>
+                                What the System Finds
+                            </div>
+                            <ul>
+                                <li>Named people, companies, or products involved</li>
+                                <li>Specific dates and time signals</li>
+                                <li>Factual events, quotes, statistics, or KPIs</li>
+                                <li>Traceable news events or platform posts</li>
+                                <li>Industry shifts with measurable impact</li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 15px; color: var(--vl-steel);">This ensures every idea is <strong>fact-based</strong> and <strong>verifiable</strong> — no fabricated stories or generic advice.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">📊 Receive 5 Structured Trend Ideas</h3>
+                    <div class="step-content">
+                        <p>Each idea follows the same proven framework as Hook Mode, but optimized for trending content:</p>
+                        
+                        <div style="background: var(--vl-dark-steel); border: 1px solid var(--vl-steel); border-radius: 12px; padding: 25px; margin: 20px 0;">
+                            <h4 style="color: var(--vl-electric); margin-bottom: 15px;">Standard Output Structure:</h4>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Title:</strong> Punchy headline focusing on the entity and event
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Summary:</strong> 2-3 factual sentences with names, dates, and outcomes
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Takeaway:</strong> Strategic insight derived from the story
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Surprise Rating:</strong> Emotional impact indicator (🔥, ⚡, 💡, 🚨)
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Similar Hook:</strong> 4-5 line viral structure based on the research
+                            </div>
+                            <div>
+                                <strong style="color: var(--vl-electric);">Expand this Idea:</strong> Preloaded research link for deep-dive verification
+                            </div>
+                        </div>
+
+                        <div class="callout callout-success">
+                            <div class="callout-title">
+                                <span class="callout-icon">🎯</span>
+                                Key Difference from Hook Mode
+                            </div>
+                            <p>Instead of emulating an existing hook structure, Trend Mode creates <strong>original viral frameworks</strong> based on breaking information and real-time events.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">⚡ Speed Validation Process</h3>
+                    <div class="step-content">
+                        <p>Time is critical with trending content. Use this rapid validation checklist:</p>
+                        
+                        <div class="requirements-list">
+                            <div class="requirements-title">
+                                <span class="callout-icon">⏱️</span>
+                                60-Second Validation
+                            </div>
+                            <ul>
+                                <li>Is the story less than 30 days old?</li>
+                                <li>Can you verify the facts with the research link?</li>
+                                <li>Does it connect to your audience's interests?</li>
+                                <li>Is the emotional angle clear and strong?</li>
+                                <li>Can you write the thread in under 20 minutes?</li>
+                            </ul>
+                        </div>
+
+                        <div class="step-action">
+                            <strong>If 4/5 criteria pass:</strong> You have a winner. Start writing immediately.
+                        </div>
+                        <div class="step-action">
+                            <strong>If fewer than 4 pass:</strong> Use the menu options to generate different angles or similar ideas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🔄 Advanced Menu Options</h3>
+                    <div class="step-content">
+                        <p>After receiving your 5 trend ideas, optimize your results with these options:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>1️⃣ Generate 5 Similar Ideas</strong><br>
+                                <span style="color: var(--vl-steel);">Same trend, same angle, different examples</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>2️⃣ Generate 5 Diverse Ideas</strong><br>
+                                <span style="color: var(--vl-steel);">Same trend, different industries/formats</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>3️⃣ Recent Ideas (Last 5 Years)</strong><br>
+                                <span style="color: var(--vl-steel);">Historical perspective on similar trends</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.1); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong>4️⃣ Start Over</strong><br>
+                                <span style="color: var(--vl-steel);">Return to input mode selection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">🚀 Strategic Advantage</div>
+                <p>Trend Mode gives you the ability to own narratives as they emerge. While competitors are still reading about trends, you're already publishing viral content about them.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Hook Mode Walkthrough -->
+        <section id="hook-mode-walkthrough" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 2</div>
+                <h2 class="section-title">Hook Mode: Complete Walkthrough</h2>
+                <p class="section-description">Step-by-step process for extracting viral ideas from proven hooks</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🎯</span>
+                    Core Principle
+                </div>
+                <p><strong>We're not copying hooks. We're cloning performance DNA.</strong> You'll extract the emotional triggers, structural patterns, and strategic positioning that made the original hook viral.</p>
+            </div>
+
+            <div class="step-container">
+                <div class="step">
+                    <h3 class="step-title">🧠 Load VyraSearch Hook Mode</h3>
+                    <div class="step-content">
+                        <p>Begin by accessing the VyraSearch system and selecting your input mode.</p>
+                        <div class="step-action">
+                            <strong>Action:</strong> Select "1 – Inspiration Hook Mode" when prompted
+                        </div>
+                        <p>This tells the system you have a proven viral hook and want to extract 5 elite-level content ideas based on its rhythm, structure, emotion, and strategic positioning.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🎯 Input Your Selected Hook</h3>
+                    <div class="step-content">
+                        <p>Use the hook you selected from your VyraSwipe Vault walkthrough. Paste it exactly as it appeared in the original post.</p>
+                        
+                        <div class="example-block">
+                            <div class="example-label">Demo Hook Example</div>
+                            <p style="color: var(--vl-electric); font-style: italic;">In 2013, Blackberry was LOSING $1 Billion every quarter.<br>
+                            No one was buying their phones. Everyone said they were finished.<br>
+                            Then their new CEO made ONE move that put them on top of an industry no one saw coming.<br>
+                            Here's how he pulled off the most shocking comeback ever: 🧵</p>
+                        </div>
+
+                        <div class="step-action">
+                            <strong>System Response:</strong> "Please insert your inspiration hook:" — Paste your hook and hit enter.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">⚙️ Internal Analysis Process</h3>
+                    <div class="step-content">
+                        <p>VyraSearch automatically analyzes your hook across multiple strategic dimensions:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">FORMAT</strong><br>
+                                <span style="color: var(--vl-steel);">Comeback story, transformation thread, breakdown, etc.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">VIRAL THEME</strong><br>
+                                <span style="color: var(--vl-steel);">Comeback, turnaround, surprise win, etc.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">TARGET NICHE</strong><br>
+                                <span style="color: var(--vl-steel);">Startup, SaaS, tech, finance, etc.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">AUDIENCE AVATAR</strong><br>
+                                <span style="color: var(--vl-steel);">Founders, investors, builders, etc.</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">STRATEGIC GOAL</strong><br>
+                                <span style="color: var(--vl-steel);">Traffic, profile visits, trust-building, conversion</span>
+                            </div>
+                            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--vl-electric);">PAIN POINTS</strong><br>
+                                <span style="color: var(--vl-steel);">Relevance, tension, motivation triggers</span>
+                            </div>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <div class="callout-title">
+                                <span class="callout-icon">🤖</span>
+                                Automated Process
+                            </div>
+                            <p>This entire analysis happens automatically. You don't need to manually input any of these parameters — the system extracts them from your hook.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">💡 Receive 5 CTA-Ready Ideas</h3>
+                    <div class="step-content">
+                        <p>Each generated idea is a complete content framework, ready for immediate execution:</p>
+                        
+                        <div class="example-block">
+                            <div class="example-label">Sample Output Structure</div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Title:</strong> <span style="color: var(--vl-white);">When Netflix Was Dying: The $100M Bet That Saved Everything</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Summary:</strong> <span style="color: var(--vl-white);">In 2007, Netflix was hemorrhaging cash from their DVD-by-mail model. Reed Hastings made a controversial $100M investment in streaming technology that the board called "company suicide." Five years later, it became their core business.</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Takeaway:</strong> <span style="color: var(--vl-white);">Successful pivots require betting against your current success</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Surprise Rating:</strong> <span style="color: var(--vl-white);">🔥</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: var(--vl-electric);">Similar Hook:</strong><br>
+                                <span style="color: var(--vl-white);">In 2007, Netflix was hemorrhaging money from DVD shipping.<br>
+                                Wall Street was calling for the CEO's head. Board meetings were brutal.<br>
+                                Then Reed Hastings made ONE decision that seemed like corporate suicide.<br>
+                                Here's how a $100M bet saved the entire company: 🧵</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--vl-electric);">Expand this Idea:</strong> <span style="color: var(--vl-white)">[Research Link]</span>
+                            </div>
+                        </div>
+
+                        <div class="callout callout-success">
+                            <div class="callout-title">
+                                <span class="callout-icon">🚀</span>
+                                Ready for Execution
+                            </div>
+                            <p>These aren't half-formed thoughts. They're emotionally weaponized, strategy-aligned frameworks. You could pick one and start writing the full thread immediately.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🔍 Apply the Banger Idea Checklist™</h3>
+                    <div class="step-content">
+                        <p>This is where you build the skill, not just the speed. Evaluate each output systematically:</p>
+                        
+                        <div class="requirements-list">
+                            <div class="requirements-title">
+                                <span class="callout-icon">✅</span>
+                                Validation Questions
+                            </div>
+                            <ul>
+                                <li>Is the story fact-based and time-sensitive?</li>
+                                <li>Does it contain emotional or narrative tension?</li>
+                                <li>Can you imagine a 3–5 tweet arc that ends with a CTA?</li>
+                                <li>Would this make someone stop scrolling?</li>
+                                <li>Can you verify the details with the research link?</li>
+                            </ul>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(40, 167, 69, 0.1); border: 1px solid var(--success-green); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--success-green);">✅ If Yes (4/5 criteria)</strong><br>
+                                <span style="color: var(--vl-white);">It's a keeper. Start writing the thread.</span>
+                            </div>
+                            <div style="background: rgba(255, 140, 0, 0.1); border: 1px solid var(--warning-orange); border-radius: 8px; padding: 15px;">
+                                <strong style="color: var(--warning-orange);">🔄 If No (3/5 or fewer)</strong><br>
+                                <span style="color: var(--vl-white);">Type "Regenerate 5 new ones" and run again.</span>
+                            </div>
+                        </div>
+
+                        <p style="color: var(--vl-steel); font-style: italic;">You're never stuck. You're never blocked. The system can generate unlimited variations.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3 class="step-title">🔁 Optional: Instant Expansion</h3>
+                    <div class="step-content">
+                        <p>Found a winner? Get immediate execution details:</p>
+                        <div class="step-action">
+                            <strong>Command:</strong> Type "Expand: [TITLE]" using the exact title from your chosen idea
+                        </div>
+                        
+                        <p>VyraSearch will provide:</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li><strong>Suggested image/media:</strong> Visual content recommendations</li>
+                            <li><strong>CTA angle:</strong> How to monetize or convert from this thread</li>
+                            <li><strong>Ideal audience:</strong> Who to target with this content</li>
+                            <li><strong>Thread outline:</strong> Complete structural breakdown</li>
+                            <li><strong>Opening 2–3 tweets:</strong> Ready-to-post thread starters</li>
+                        </ul>
+
+                        <div class="callout callout-success">
+                            <div class="callout-title">
+                                <span class="callout-icon">⚡</span>
+                                From Insight to Execution
+                            </div>
+                            <p>This feature transforms raw insight into actionable content strategy — bridging the gap between ideas and published threads.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">🚨</span>
+                    Critical: Don't Skip The Process
+                </div>
+                <p>Most people will try to shortcut this walkthrough. They'll read a few hooks, feel like they "get it," and skip the systematic practice. <strong>Don't.</strong> This is how you train your eyes to spot viral patterns instinctively.</p>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">🎯 Skill Development</div>
+                <p>This isn't just about generating content ideas. You're training your brain to recognize viral patterns, emotional triggers, and structural frameworks that work consistently.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Troubleshooting -->
+        <section id="troubleshooting" class="manual-section">
+            <div class="section-header">
+                <div class="section-number">Section 3</div>
+                <h2 class="section-title">Troubleshooting & Advanced Tips</h2>
+                <p class="section-description">Common issues, solutions, and optimization strategies</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Generic or Weak Ideas Generated
+                </div>
+                <p><strong>Solution:</strong> Your input hook/trend likely lacks emotional trigger or narrative structure. Return to selection process and choose content with stronger emotional pull or more recent/specific trend data.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Ideas Don't Fit Your Client's Niche
+                </div>
+                <p><strong>Solution:</strong> Use the "Different Angle" menu option (Option 2) or select hooks/trends from creators in a more closely related niche from the vault.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Research Links Don't Provide Enough Data
+                </div>
+                <p><strong>Solution:</strong> Use the research link as a starting point, then expand your search using the specific terms and concepts mentioned in the generated summary.</p>
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">
+                    <span class="callout-icon">⚠️</span>
+                    Problem: Trend Mode Ideas Feel Outdated
+                </div>
+                <p><strong>Solution:</strong> Your trend input may be too old. Try more recent signals (within 7-14 days) or use Option 3 to focus on very recent examples.</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">💡</span>
+                    Advanced Tip: Combining Modes
+                </div>
+                <p>Use Trend Mode to identify breaking stories, then switch to Hook Mode using successful viral structures from your vault to format the trending content with proven frameworks.</p>
+            </div>
+
+            <div class="callout callout-info">
+                <div class="callout-title">
+                    <span class="callout-icon">🔄</span>
+                    Remember: This Is An Iterative Process
+                </div>
+                <p>Professional ghostwriters often run 3-5 hooks/trends through the system before selecting their final content ideas. Quality over speed. Train your lens systematically.</p>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">🎯 Mastery Indicator</div>
+                <p>You've mastered VyraSearch when you can consistently generate 2-3 viable content ideas from any input within 10 minutes, with clear execution paths and strong emotional hooks.</p>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="nav-buttons">
+            <a href="#trend-mode" class="nav-button">↑ Back to Top</a>
+            <span class="nav-button disabled">Advanced Features (Coming Soon)</span>
+        </nav>
+    </div>
+
+    <script>
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Add scroll spy for active TOC item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.manual-section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.style.color = 'var(--vl-electric)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
