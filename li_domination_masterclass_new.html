@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LINKEDIN DOMINATION MASTERCLASS™ | Vyralab</title>
+<style>
+  :root{
+    --vl-black:#0A0A0A; --vl-green:#00FF41; --vl-white:#F4F4F4;
+    --vl-steel:#222; --vl-steel-2:#333; --glow:0 0 20px rgba(0,255,65,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;background:var(--vl-black);color:var(--vl-white);line-height:1.6}
+  a{color:var(--vl-green);text-decoration:none}
+  .bg{position:fixed;inset:0;background-image:
+    linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);
+    background-size:56px 56px;animation:grid 28s linear infinite;z-index:0}
+  @keyframes grid{0%{transform:translate(0,0)}100%{transform:translate(56px,56px)}}
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--vl-steel);z-index:999}
+  .progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--vl-green),#00ffa0);box-shadow:var(--glow);transition:width .2s}
+  .wrap{max-width:1220px;margin:0 auto;padding:2rem 1.2rem;position:relative;z-index:1}
+  .hero{min-height:86vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:
+    radial-gradient(circle at 50% 35%,rgba(0,255,65,.12),transparent 62%)}
+  .badge{display:inline-flex;border:1px solid var(--vl-green);color:var(--vl-green);padding:.45rem .9rem;border-radius:999px;
+         gap:.5rem;align-items:center;margin-bottom:.9rem;text-transform:uppercase;font-size:.8rem;letter-spacing:.12em;box-shadow:var(--glow)}
+  h1{font-size:clamp(2.2rem,5.5vw,4.3rem);font-weight:900;line-height:1.08;margin:.25rem 0 1rem;background:
+     linear-gradient(135deg,#fff,var(--vl-green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:#CFCFCF;max-width:980px;margin:.2rem auto 1.2rem;text-wrap:balance}
+  .row{display:flex;gap:.75rem;flex-wrap:wrap}
+  .cta{background:linear-gradient(135deg,var(--vl-green),#00FFA0);color:#0a0a0a;border:none;border-radius:12px;padding:1rem 1.15rem;
+       font-weight:800;cursor:pointer;box-shadow:var(--glow)}
+  .ghost{background:transparent;border:1px solid var(--vl-green);color:var(--vl-green);border-radius:12px;padding:.9rem 1.1rem;font-weight:700;cursor:pointer}
+  .section{margin:3.6rem 0;opacity:0;transform:translateY(22px);transition:all .5s ease}
+  .section.visible{opacity:1;transform:translateY(0)}
+  .s-head{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+  .icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--vl-green),#00FFA0);display:flex;align-items:center;justify-content:center;color:#0a0a0a;font-weight:900;box-shadow:var(--glow)}
+  .title{font-size:1.9rem;font-weight:800}
+  .panel{background:var(--vl-steel);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.1rem}
+  .muted{opacity:.86}
+  label{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#DADADA;margin-bottom:.35rem;display:block}
+  input,select,textarea{width:100%;background:#0f0f0f;border:1px solid var(--vl-steel-2);border-radius:12px;color:#f3f3f3;
+                        padding:.85rem 1rem;outline:none}
+  textarea{min-height:120px}
+  .grid{display:grid;gap:1rem}
+  @media(min-width:980px){.grid-2{grid-template-columns:1.1fr .9fr}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2-w{grid-template-columns:repeat(2,1fr)}}
+  .accordion{border:1px solid var(--vl-steel-2);border-radius:12px;overflow:hidden}
+  .acc-h{background:var(--vl-steel);padding:1.05rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .acc-h:hover{background:#2c2c2c}
+  .acc-c{max-height:0;overflow:hidden;background:#111;transition:max-height .3s ease,padding .3s ease}
+  .acc-c.open{max-height:2000px;padding:1rem}
+  .pill{display:inline-block;background:#101010;border:1px solid #2f2f2f;border-radius:999px;padding:.32rem .72rem;margin:.22rem;font-size:.82rem;cursor:pointer}
+  .callout{background:rgba(0,255,65,.09);border-left:3px solid var(--vl-green);padding:1rem;border-radius:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:.8rem 0;border-radius:12px;overflow:hidden;background:#0f0f0f}
+  th{background:linear-gradient(135deg,var(--vl-steel),var(--vl-steel-2));color:var(--vl-green);text-align:left;padding:.8rem 1rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:1rem;border-top:1px solid var(--vl-steel)}
+  tr:hover td{background:rgba(0,255,65,.06)}
+  .status{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .6rem;border-radius:999px;border:1px solid #2f2f2f;font-size:.78rem}
+  .ok{color:#00ffa0}.warn{color:#ffd166}.bad{color:#ff5c5c}
+  .btn-sm{padding:.55rem .85rem;border-radius:10px;font-weight:700}
+  .final{background:linear-gradient(135deg,rgba(0,255,65,.12),transparent);border:1px solid rgba(0,255,65,.2);border-radius:16px;padding:2rem;text-align:center}
+  .tag{border:1px solid #444;border-radius:999px;padding:.15rem .55rem;margin:.15rem;font-size:.76rem}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="progress"><div id="pbar"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap" style="text-align:center">
+    <div class="badge">Vyralab Masterclass</div>
+    <h1>LINKEDIN DOMINATION MASTERCLASS™</h1>
+    <p class="sub">A complete system to find winning ideas, engineer viral formats, and turn posts into pipeline — with labs, calculators, swipe vault, cadence planner, and transcript-guided SOPs. Built for Ghostwriters. By Ghostwriters.™</p>
+    <div class="row" style="justify-content:center;margin-top:.6rem">
+      <button class="cta" onclick="toId('orient')">Start → Orientation</button>
+      <button class="ghost" onclick="toId('vault')">Open Swipe Vault</button>
+      <button class="ghost" onclick="window.print()">Print / PDF</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- ORIENTATION -->
+  <section id="orient" class="section visible">
+    <div class="s-head"><div class="icon">ⓘ</div><div class="title">Orientation — How to use this masterclass</div></div>
+    <div class="panel">
+      <ol class="muted" style="margin-left:1.2rem">
+        <li style="margin:.4rem 0"><b>Learn</b> the algorithm intent (relevance + repostability) and format specs.</li>
+        <li style="margin:.4rem 0"><b>Build</b> your Creator Watchlist from the Swipe Vault, then run the <b>Repost-Rate</b> and <b>Kleo Runbook</b>.</li>
+        <li style="margin:.4rem 0"><b>Emulate</b> the first 1–3 lines with the <b>First-Line Emulator</b> (transcript-driven) and generate carousels with the <b>Design Brief</b>.</li>
+        <li style="margin:.4rem 0"><b>Publish</b> with UTM discipline and <b>test link placement</b>. Log results. Iterate weekly.</li>
+      </ol>
+      <div class="callout" style="margin-top:.8rem"><b>New in this version:</b> Full Swipe Vault (links preloaded), Cadence Planner + Checklist, Kleo workflow lab, First-Line Emulator, Transcript-guided SOPs, Viral Accounts Manager, and Idea Queue.</div>
+    </div>
+  </section>
+
+  <!-- CADENCE + CHECKLIST -->
+  <section class="section" id="cadence">
+    <div class="s-head"><div class="icon">⏱</div><div class="title">Cadence Planner + Checklist</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Cadence</h3>
+        <div class="row" style="margin:.4rem 0">
+          <span class="pill" onclick="cadPick(this,'Daily')">Daily</span>
+          <span class="pill" onclick="cadPick(this,'Weekly')">Weekly</span>
+          <span class="pill" onclick="cadPick(this,'Custom')">Custom</span>
+        </div>
+        <label>Custom note (optional)</label><input id="cad_note" placeholder="e.g., M/W/F publish, Tu research, Th retro"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="saveCadence()">Save Cadence</button>
+          <span id="cad_out" class="status">—</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Daily Driver Checklist</h3>
+        <label><input type="checkbox" class="ck" data-k="list"> Find a list of viral creators</label><br/>
+        <label><input type="checkbox" class="ck" data-k="kleo"> Sort on Kleo by viral posts</label><br/>
+        <label><input type="checkbox" class="ck" data-k="thresh"> Find posts with <b>5K+ reactions</b> and <b>10%+ repost rate</b></label><br/>
+        <label><input type="checkbox" class="ck" data-k="remix"> Remix these as ideas</label>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="saveChecklist()">Save</button>
+          <button class="ghost btn-sm" onclick="clearChecklist()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SWIPE VAULT (tools + accounts only) -->
+  <section class="section" id="vault">
+    <div class="s-head"><div class="icon">SV</div><div class="title">Swipe Vault — Tools, Viral Accounts, Inspiration</div></div>
+    <div class="grid grid-2-w">
+      <div class="panel">
+        <h3>Tools</h3>
+        <ul class="muted" style="list-style:none;padding-left:0">
+          <li>• <a href="https://kleo.so/" target="_blank">Kleo (sorting by reposts)</a></li>
+        </ul>
+        <div class="callout" style="margin-top:.6rem"><b>Runbook:</b> Home → <b>Recent Hits</b> → <b>Sort by Reposts</b> → 7 days → add to Idea Queue.</div>
+      </div>
+      <div class="panel">
+        <h3>Inspiration Accounts</h3>
+        <div class="row" id="acct_tags"></div>
+        <table id="acct_tbl"><thead><tr><th>Name</th><th>Type</th><th>Link</th><th>✕</th></tr></thead><tbody></tbody></table>
+        <div class="grid" style="margin-top:.5rem">
+          <input id="acct_name" placeholder="Name"/>
+          <select id="acct_type"><option>Viral</option><option>Emulate</option><option>Competitor</option><option>Inspo</option></select>
+          <input id="acct_url" placeholder="https://..."/>
+        </div>
+        <div class="row" style="margin-top:.5rem">
+          <button class="cta btn-sm" onclick="acctAdd()">Add</button>
+          <button class="ghost btn-sm" onclick="acctExport()">Export CSV</button>
+          <button class="ghost btn-sm" onclick="acctClear()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KLEO RUNBOOK + THRESHOLD CHECK -->
+  <section class="section" id="kleo">
+    <div class="s-head"><div class="icon">K</div><div class="title">Kleo Workflow Lab — Find winners fast</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Instruction</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Install Kleo / open the extension.</li>
+          <li>Homepage → <b>Recent Hits</b> → Sort by <b>Reposts</b> → Range: last 7 days.</li>
+          <li>Scan for repeatable angles; copy URLs to Idea Queue.</li>
+          <li>Per-profile filter by date; keyword search (productivity, leadership, hiring, etc.).</li>
+        </ol>
+        <div class="callout" style="margin-top:.6rem"><b>Thresholds:</b> Aim for <b>≥5,000 reactions</b> and <b>≥10% repost ratio</b> before prioritizing a rebuild.</div>
+      </div>
+      <div class="panel">
+        <h3>Post Threshold Checker</h3>
+        <div class="grid">
+          <div><label>Reactions</label><input id="th_reac" placeholder="e.g., 5400"></div>
+          <div><label>Reposts</label><input id="th_rep" placeholder="e.g., 780"></div>
+          <div><label>Comments</label><input id="th_com" placeholder="e.g., 210"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="checkThreshold()">Evaluate</button>
+          <span id="th_out" class="status">—</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIRST-LINE EMULATOR -->
+  <section class="section" id="emulator">
+    <div class="s-head"><div class="icon">FL</div><div class="title">First-Line Emulator — “Emulate the first 1–3 lines”</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>How to use</h3>
+        <p class="muted">Take the <b>first 1–3 lines</b> of a top-performing post (from the Swipe Vault or Kleo), then generate <b>distinct</b> variants for your niche. We use controlled synonym swaps, structure shifts, and domain transposition to avoid copy-sound.</p>
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc;margin-top:.4rem">
+          <li>Keep rhythm/structure; change nouns, settings, examples.</li>
+          <li>Replace brand/school names (e.g., Harvard → Oxford/Stanford).</li>
+          <li>Match our voice; keep the promise specific.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Generator</h3>
+        <label>Inspiration first 1–3 lines</label><textarea id="fl_src" placeholder="Paste exact first lines..."></textarea>
+        <label style="margin-top:.5rem">Your domain / topic</label><input id="fl_domain" placeholder="e.g., ghostwriting systems for founders"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="flBuild()">Generate 6 Variants</button>
+          <button class="ghost btn-sm" onclick="copy('#fl_out')">Copy</button>
+        </div>
+        <textarea id="fl_out" style="margin-top:.6rem" placeholder="Variants appear here..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDEA QUEUE -->
+  <section class="section" id="ideas">
+    <div class="s-head"><div class="icon">IQ</div><div class="title">Idea Queue — from URL to angle</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Add Idea</h3>
+        <label>Title</label><input id="iq_title" placeholder="Silent culture killers"/>
+        <label style="margin-top:.4rem">Source URL</label><input id="iq_url" placeholder="https://..."/>
+        <label style="margin-top:.4rem">Angle / Notes</label><input id="iq_note" placeholder="Cheat sheet + carousel steps"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="iqAdd()">Add</button>
+          <button class="ghost btn-sm" onclick="iqExport()">Export CSV</button>
+          <button class="ghost btn-sm" onclick="iqClear()">Clear</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Queue</h3>
+        <table id="iq_tbl"><thead><tr><th>Title</th><th>URL</th><th>Angle</th><th>CTA Fit</th><th>✕</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETHICAL REMIX GUARDRAILS -->
+  <section class="section" id="ethics">
+    <div class="s-head"><div class="icon">ER</div><div class="title">Ethical Remix Guardrails</div></div>
+    <div class="panel">
+      <label><input type="checkbox" class="er"> Abstract structure (hook, steps, proof, CTA pattern)</label><br/>
+      <label><input type="checkbox" class="er"> Change domain + data to ours</label><br/>
+      <label><input type="checkbox" class="er"> Upgrade design + clarify CTA</label><br/>
+      <label><input type="checkbox" class="er"> Credit when close</label>
+      <div class="row" style="margin-top:.6rem">
+        <button class="ghost btn-sm" onclick="saveER()">Save</button>
+        <button class="ghost btn-sm" onclick="clearER()">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 1 -->
+  <section class="section" id="m1">
+    <div class="s-head"><div class="icon">1</div><div class="title">Module 1 — The Discovery Engine (ideas that travel)</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Explanation</h3>
+        <p class="muted">Reposts are a reliable proxy for outsized reach. Build a weekly scan of your niche, <b>sort by reposts</b>, and log repeatable formats. A “high repost ratio” indicates angles that earn amplification beyond your network.</p>
+      </div>
+      <div class="panel">
+        <h3>Repost-Rate Calculator</h3>
+        <div class="grid">
+          <div><label>Reposts</label><input id="rr_rep" placeholder="120"/></div>
+          <div><label>Reactions</label><input id="rr_reac" placeholder="850"/></div>
+          <div><label>Comments</label><input id="rr_com" placeholder="130"/></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="calcRepostRate()">Compute</button>
+          <span id="rr_out" class="status">—</span>
+        </div>
+        <div class="muted" style="margin-top:.6rem"><b>Heuristic:</b> Green ≥10% • Yellow 5–9% • Red &lt;5% (unless angle is ICP-perfect).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAB: WATCHLIST -->
+  <section class="section" id="watchlist">
+    <div class="s-head"><div class="icon">LAB</div><div class="title">Lab — Creator Watchlist & Swipe → Strategy Board</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Instruction</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>List 10–20 niche creators.</li>
+          <li>Pull last 14 days; capture top 5 by reposts per creator.</li>
+          <li>Log Format, Topic, Angle, CTA, and Repost Ratio.</li>
+          <li>Tag Green/Yellow/Red and write <b>3 original angles</b> per winning post.</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Board</h3>
+        <table id="wl_tbl">
+          <thead><tr><th>Creator</th><th>Post URL</th><th>Format</th><th>Topic</th><th>Reposts</th><th>Reactions</th><th>Comments</th><th>Repost %</th><th>CTA</th><th>Tag</th><th>Our Variant</th><th>✕</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="grid" style="margin-top:.6rem">
+          <input id="wl_creator" placeholder="Creator"/>
+          <input id="wl_url" placeholder="Post URL"/>
+          <input id="wl_format" placeholder="Format"/>
+          <input id="wl_topic" placeholder="Topic"/>
+          <input id="wl_rep" placeholder="Reposts"/>
+          <input id="wl_reac" placeholder="Reactions"/>
+          <input id="wl_com" placeholder="Comments"/>
+          <input id="wl_cta" placeholder="Observed CTA"/>
+          <select id="wl_tag"><option>Green</option><option>Yellow</option><option>Red</option></select>
+          <input id="wl_var" placeholder="Our angle"/>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="wlAdd()">Add</button>
+          <button class="ghost btn-sm" onclick="wlExport()">Export CSV</button>
+          <button class="ghost btn-sm" onclick="wlClear()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 2 + BRIEF + CAPTIONS + UTM + TESTING + OPS -->
+  <section class="section" id="m2">
+    <div class="s-head"><div class="icon">2</div><div class="title">Module 2 — Format Dominance</div></div>
+    <div class="panel"><div class="muted">Use 2 Docs, 2 Text/Quote, 1 Video each week. Design for mobile legibility; export PDFs for carousels.</div></div>
+  </section>
+
+  <section class="section" id="carousel">
+    <div class="s-head"><div class="icon">CB</div><div class="title">Carousel Design Brief</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Slide Map</h3>
+        <div class="muted">1) Hook • 2–3) System • 4–7) Proof/Examples • 8–9) Summary/Checklist • 10) CTA</div>
+      </div>
+      <div class="panel">
+        <label>Title</label><input id="cb_title" placeholder="The 7-Slide Hiring Scorecard"/>
+        <label style="margin-top:.5rem">Subtitle</label><input id="cb_sub" placeholder="Filter 100+ applicants in 48 hours"/>
+        <label style="margin-top:.5rem">Steps (comma-sep)</label><input id="cb_steps" placeholder="Define role, Scorecard, Sourcing, Screen, Test, Debrief"/>
+        <label style="margin-top:.5rem">Proof Assets</label><input id="cb_proof" placeholder="Before/after, KPI chart, testimonial"/>
+        <label style="margin-top:.5rem">CTA</label><input id="cb_cta" placeholder="Download the full scorecard"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="cbBuild()">Build Brief</button>
+          <button class="ghost btn-sm" onclick="copy('#cb_out')">Copy</button>
+        </div>
+        <textarea id="cb_out" style="margin-top:.6rem"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="captions">
+    <div class="s-head"><div class="icon">CC</div><div class="title">Caption + CTA Engine</div></div>
+    <div class="grid grid-2">
+      <div class="panel"><div class="muted">Hook (2) → Value (3–7) → Proof (1) → One CTA (1). Test link in post vs first comment vs add after 60m.</div></div>
+      <div class="panel">
+        <label>Topic / Outcome</label><input id="cap_outcome" placeholder="Turn posts into pipeline"/>
+        <label style="margin-top:.5rem">Value Points (comma-sep)</label><input id="cap_points" placeholder="Hook, Value block, Proof, CTA, Link handling"/>
+        <label style="margin-top:.5rem">Proof Line</label><input id="cap_proof" placeholder="Helped 60+ founders drive 2B+ views"/>
+        <label style="margin-top:.5rem">CTA (verb + destination)</label><input id="cap_cta" placeholder="Download the PDF / Book a 15-min audit"/>
+        <div class="row" style="margin-top:.6rem">
+          <span class="pill" onclick="capIntensity('Soft')">Soft</span>
+          <span class="pill" onclick="capIntensity('Medium')">Medium</span>
+          <span class="pill" onclick="capIntensity('Hard')">Hard</span>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildCaptions()">Generate 3 Variants</button>
+          <button class="ghost btn-sm" onclick="copy('#cap_out')">Copy</button>
+        </div>
+        <textarea id="cap_out" style="margin-top:.6rem"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="utm">
+    <div class="s-head"><div class="icon">UTM</div><div class="title">Link Handling & UTM Builder</div></div>
+    <div class="grid grid-2">
+      <div class="panel"><div class="muted">Keep utm_source/medium/campaign consistent; use utm_content for variant labels (soft/hard/comment).</div></div>
+      <div class="panel">
+        <label>Base URL</label><input id="u_base" placeholder="https://yourpage.com"/>
+        <div class="grid">
+          <div><label>Source</label><input id="u_source" placeholder="linkedin"></div>
+          <div><label>Medium</label><input id="u_medium" placeholder="social"></div>
+          <div><label>Campaign</label><input id="u_campaign" placeholder="offer_q1"></div>
+          <div><label>Content</label><input id="u_content" placeholder="soft"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildUTM()">Build</button>
+          <button class="ghost btn-sm" onclick="copy('#u_out')">Copy</button>
+          <button class="ghost btn-sm" onclick="saveUTM()">Save Preset</button>
+          <button class="ghost btn-sm" onclick="loadUTM()">Load Preset</button>
+        </div>
+        <textarea id="u_out" style="margin-top:.6rem"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testing">
+    <div class="s-head"><div class="icon">AB</div><div class="title">Testing & Analytics</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>A/B Planner</h3>
+        <div class="grid" style="margin-top:.5rem">
+          <div><label>A Clicks</label><input id="a_clicks"></div>
+          <div><label>A Impressions</label><input id="a_imps"></div>
+          <div><label>B Clicks</label><input id="b_clicks"></div>
+          <div><label>B Impressions</label><input id="b_imps"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem"><button class="cta btn-sm" onclick="calcAB()">Compute CTR + z-score</button></div>
+        <div id="ab_out" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem"></div>
+      </div>
+      <div class="panel">
+        <h3>Analytics Log</h3>
+        <label>Log Entry</label>
+        <textarea id="log_line" placeholder="date | url | format | topic | reactions | reposts | saves | imps | ctr | notes"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="addLog()">Add</button>
+          <button class="ghost btn-sm" onclick="exportLog()">Export</button>
+          <button class="ghost btn-sm" onclick="clearLog()">Clear</button>
+        </div>
+        <div id="log_table" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem;max-height:240px;overflow:auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSCRIPT-GUIDED SOPS -->
+  <section class="section" id="sop">
+    <div class="s-head"><div class="icon">SOP</div><div class="title">Transcript-Guided SOPs — What to do step-by-step</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Transcript 1 → Growth Sprint (Posts 12–20)</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Prioritize Josh Sanders + Blake Weston. Sort by most liked / most reposted on Kleo.</li>
+          <li>Identify repeated bangers (e.g., “3 Harvard courses…”). Swap nouns (Oxford/Stanford) + keep promise.</li>
+          <li>Emulate first 1–3 lines via <b>First-Line Emulator</b>. Avoid copying body structure from the same post.</li>
+          <li>For bodies, use your <b>own</b> proven structures (your past posts) as the output template.</li>
+          <li>Create complementary graphics (find similar references or build your own); keep brand feel.</li>
+          <li>Rinse across the provided viral list; aim for newsletter subs / follower spikes.</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Transcript 2 → Kleo Micro-Playbook</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Install Kleo → Recent Hits → Sort by Reposts (7 days).</li>
+          <li>Add ideas to Idea Queue; watch repetition themes (culture, burnout, interviews, leadership).</li>
+          <li>Per-niche scan (e.g., Dan Goh for health); filter by date; use keyword search (productivity, hiring, lessons).</li>
+          <li>Copy URLs + titles into Idea Queue; tag angle + CTA fit; push to production.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- QA + FINAL -->
+  <section class="section" id="qa">
+    <div class="s-head"><div class="icon">QA</div><div class="title">Quality Assurance — Pre-Publish Checklist</div></div>
+    <div class="panel">
+      <label><input type="checkbox" class="qa" data-k="one"> One action, one link</label>
+      <label><input type="checkbox" class="qa" data-k="value"> Value + proof visible before link</label>
+      <label><input type="checkbox" class="qa" data-k="clar"> Clarity over clever</label>
+      <label><input type="checkbox" class="qa" data-k="fric"> Friction minimized</label>
+      <label><input type="checkbox" class="qa" data-k="utm"> UTM present</label>
+      <label><input type="checkbox" class="qa" data-k="time"> Time window explicit (if urgent)</label>
+      <label><input type="checkbox" class="qa" data-k="mobile"> Mobile line breaks checked</label>
+      <div class="row" style="margin-top:.6rem">
+        <button class="ghost btn-sm" onclick="saveQA()">Save</button>
+        <button class="ghost btn-sm" onclick="clearQA()">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="final">
+    <div class="final">
+      <h2 style="font-size:2rem;margin-bottom:.6rem">Engineer relevance. Earn reposts. Convert attention into pipeline.</h2>
+      <div style="margin-top:.6rem;color:#CFCFCF">Built for Ghostwriters. By Ghostwriters.™ • Creating Tomorrow’s Creators is in Our DNA.™</div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* Progress + reveal */
+const pbar=document.getElementById('pbar');
+window.addEventListener('scroll',()=>{
+  const t=window.scrollY; const h=document.documentElement.scrollHeight-window.innerHeight;
+  pbar.style.width=((t/h)*100)+'%';
+  document.querySelectorAll('.section').forEach(s=>{
+    const r=s.getBoundingClientRect(); if(r.top<window.innerHeight*0.82){s.classList.add('visible')}
+  });
+});
+function toId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const $=q=>document.querySelector(q); const $$=q=>[...document.querySelectorAll(q)];
+const val=q=>$(q).value;
+function copy(q){const el=$(q); el.select(); document.execCommand('copy'); alert('Copied.')}
+function dl(name,text){const blob=new Blob([text],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]) )}
+/* Cadence */
+let CAD=''; function cadPick(el,x){CAD=x; $$('.pill').forEach(p=>p.classList.remove('sel')); el.classList.add('sel');}
+function saveCadence(){localStorage.setItem('li_cad',JSON.stringify({cad:CAD,note:val('#cad_note')})); $('#cad_out').textContent=`Saved: ${CAD||'—'} ${val('#cad_note')?'• '+val('#cad_note'):''}`;}
+(function loadCad(){const r=localStorage.getItem('li_cad'); if(r){const p=JSON.parse(r); CAD=p.cad; $('#cad_note').value=p.note||''; $('#cad_out').textContent=`Saved: ${CAD||'—'} ${p.note?'• '+p.note:''}`;}})();
+/* Checklist */
+function saveChecklist(){const c={}; $$('.ck').forEach(x=>c[x.dataset.k]=x.checked); localStorage.setItem('li_ck',JSON.stringify(c)); alert('Checklist saved.')}
+function clearChecklist(){$$('.ck').forEach(x=>x.checked=false); localStorage.removeItem('li_ck');}
+(function loadChecklist(){const r=localStorage.getItem('li_ck'); if(!r) return; const c=JSON.parse(r); $$('.ck').forEach(x=>x.checked=!!c[x.dataset.k]);})();
+/* Accounts */
+let ACCTS=[
+ {n:'Josh Sanders',t:'Viral',u:'https://www.linkedin.com/in/joshejsanders/'},
+ {n:'Blake Weston',t:'Viral',u:'https://www.linkedin.com/in/blake-weston-dm/'},
+ {n:'Chris Donnelly',t:'Viral',u:'https://www.linkedin.com/in/donnellychris/'},
+ {n:'Noemi',t:'Viral',u:'https://www.linkedin.com/in/noemikis/'},
+ {n:'Justin Bateh',t:'Viral',u:'https://www.linkedin.com/in/justinbateh/'},
+ {n:'George Stern',t:'Viral',u:'https://www.linkedin.com/in/george-stern/recent-activity/all/'},
+ {n:'Lottie-whyte',t:'Viral',u:'https://www.linkedin.com/in/lottie-whyte-07205918/'},
+ {n:'Dora V',t:'Viral',u:'https://www.linkedin.com/in/doravanourek/'},
+ {n:'Harry K',t:'Viral',u:'https://www.linkedin.com/in/harry-karydes/'},
+ {n:'Matt Gray',t:'Viral',u:'https://www.linkedin.com/in/mattgray1/'},
+ {n:'Sahil Bloom',t:'Viral',u:'https://www.linkedin.com/in/sahilbloom/'},
+ {n:'Eric Partaker',t:'Viral',u:'https://www.linkedin.com/in/eric-partaker-5560b92/'},
+ {n:'Ben Meer',t:'Viral',u:'https://www.linkedin.com/in/benmeer/'},
+ {n:'Steven Bartlett',t:'Inspo',u:'https://www.linkedin.com/in/stevenbartlett-123/recent-activity/all/'},
+ {n:'Dan Murray-Serter',t:'Inspo',u:'https://www.linkedin.com/in/danmurrayserter/recent-activity/all/'},
+ {n:'Tim Armoo',t:'Inspo',u:'https://www.linkedin.com/in/timothyarmoo/'},
+ {n:'Tyler Smith',t:'Inspo',u:'https://www.linkedin.com/in/asktylersmith/'},
+ {n:'Elfried Samba',t:'Inspo',u:'https://www.linkedin.com/in/elfriedsamba/'},
+ {n:'Joe Gannon',t:'Inspo',u:'https://www.linkedin.com/in/joe-gannon/'},
+ {n:'Simmy Dhillon',t:'Emulate',u:'https://www.linkedin.com/in/simmydhillon/'},
+ {n:'Dan Koe',t:'Emulate',u:'https://www.linkedin.com/in/thedankoe/recent-activity/all/'},
+ {n:'Marvin Sangines',t:'Competitor',u:'https://www.linkedin.com/in/marvinsangines/recent-activity/all/'},
+ {n:'Niall Ratcliffe',t:'Competitor',u:'https://www.linkedin.com/in/niall-ratcliffe/'},
+ {n:'Sam Winsbury',t:'Competitor',u:'https://www.linkedin.com/in/sam-g-winsbury/recent-activity/all/'},
+ {n:'Julius Dein (example post)',t:'Inspo',u:'https://www.linkedin.com/posts/julius-dein-4a144a84_2015-their-1st-business-went-bust-after-activity-7221046311649689602-VqAu?utm_source=share&utm_medium=member_desktop'},
+ {n:'Tim Armoo (example post)',t:'Inspo',u:'https://www.linkedin.com/posts/timothyarmoo_the-late-ceo-of-zappos-tony-hsieh-used-activity-7222577114787573761-KEaJ?utm_source=share&utm_medium=member_desktop'}
+];
+(function acctLoad(){const raw=localStorage.getItem('li_accts'); if(raw){ACCTS=JSON.parse(raw);} acctRender(); acctRenderTags();})();
+function acctRender(){ const tb=$('#acct_tbl tbody'); tb.innerHTML=''; ACCTS.forEach((x,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${esc(x.n)}</td><td><span class="tag">${esc(x.t)}</span></td><td><a target="_blank" href="${x.u}">Open</a></td><td><button class="ghost btn-sm" onclick="acctDel(${i})">✕</button></td>`; tb.appendChild(tr); });}
+function acctRenderTags(){ const ct=$('#acct_tags'); ct.innerHTML=''; const groups=[...new Set(ACCTS.map(a=>a.t))]; groups.forEach(g=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=g; ct.appendChild(s); });}
+function acctAdd(){const o={n:val('#acct_name'),t:$('#acct_type').value,u:val('#acct_url')}; if(!o.n||!o.u){alert('Name + URL.');return} ACCTS.push(o); acctRender(); acctRenderTags(); localStorage.setItem('li_accts',JSON.stringify(ACCTS));}
+function acctDel(i){ACCTS.splice(i,1); acctRender(); acctRenderTags(); localStorage.setItem('li_accts',JSON.stringify(ACCTS));}
+function acctExport(){ const head=['Name','Type','URL']; const rows=ACCTS.map(x=>[x.n,x.t,x.u]); const csv=[head].concat(rows).map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); dl('accounts.csv',csv); }
+function acctClear(){ if(!confirm('Clear accounts?')) return; ACCTS=[]; acctRender(); acctRenderTags(); localStorage.setItem('li_accts','[]');}
+/* Threshold Check */
+function checkThreshold(){ const R=+val('#th_reac')||0, r=+val('#th_rep')||0, c=+val('#th_com')||0; const pct=r/(r+c+R||1)*100; const pass = (R>=5000)&&(pct>=10); const el=$('#th_out'); el.textContent = `${pct.toFixed(1)}% • ${R} reactions • ${pass?'PASS':'NOPE'}`; el.className='status '+(pass?'ok':'bad');}
+/* First Line Emulator */
+const SWAPS=[
+  ['Harvard','Stanford'],['Harvard','Oxford'],['degree','playbook'],['course','workshop'],
+  ['underrated','overlooked'],['skill','advantage'],['success','traction'],['life','career'],
+  ['quit','pivot'],['secret','principle'],['rule','signal'],['grow','scale']
+];
+function swapWords(text){ let out=text; SWAPS.forEach(([a,b])=>{ out=out.replace(new RegExp('\\b'+a+'\\b','gi'),b);}); return out;}
+function altStruct(s){ const parts=s.split('.').map(x=>x.trim()).filter(Boolean);
+  if(parts.length>1){ return parts[1]+'. '+parts[0]+'.'; }
+  const idx=s.indexOf(':'); if(idx>0){ return s.slice(idx+1).trim()+': '+s.slice(0,idx).trim(); }
+  return s;
+}
+function transposition(src,domain){ return `${src.split('\n').map((l,i)=> i===0? l : l).join('\n')}\nFor ${domain}, here’s the angle.`;}
+function flBuild(){
+  const s=val('#fl_src').trim(); const d=val('#fl_domain').trim(); if(!s||!d){alert('Add source lines + domain.');return}
+  const lines=s.split('\n').filter(Boolean); const base=lines.join(' ');
+  const v1=swapWords(base), v2=altStruct(base), v3=swapWords(altStruct(base)), v4=base.replace(/\d+/g,m=>(+m+1)), v5=base.replace(/\b(top|best|must)\b/gi,'exact').replace(/\bthings\b/gi,'levers'), v6=transposition(base,d);
+  $('#fl_out').value=[v1,v2,v3,v4,v5,v6].join('\n\n');
+}
+/* Idea Queue */
+let IQ=[]; (function iqLoad(){const r=localStorage.getItem('li_iq'); if(r){IQ=JSON.parse(r);} iqRender();})();
+function iqAdd(){ const o={t:val('#iq_title'),u:val('#iq_url'),n:val('#iq_note'),cta: pickCTAFit(val('#iq_note'))}; if(!o.t||!o.u){alert('Title + URL');return} IQ.push(o); iqRender(); iqSave();}
+function iqDel(i){ IQ.splice(i,1); iqRender(); iqSave();}
+function iqRender(){ const tb=$('#iq_tbl tbody'); tb.innerHTML=''; IQ.forEach((x,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${esc(x.t)}</td><td><a target="_blank" href="${x.u}">Open</a></td><td>${esc(x.n)}</td><td>${esc(x.cta)}</td><td><button class="ghost btn-sm" onclick="iqDel(${i})">✕</button></td>`; tb.appendChild(tr); });}
+function pickCTAFit(note){ note=(note||'').toLowerCase(); if(note.includes('cheat')||note.includes('checklist')) return 'Lead Magnet'; if(note.includes('teardown')||note.includes('audit')) return 'Appointment'; if(note.includes('cohort')||note.includes('event')) return 'Cohort/Event'; return 'Community/Follow';}
+function iqSave(){ localStorage.setItem('li_iq',JSON.stringify(IQ));}
+function iqExport(){ const head=['Title','URL','Angle','CTA Fit']; const rows=IQ.map(x=>[x.t,x.u,x.n,x.cta]); const csv=[head].concat(rows).map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); dl('idea_queue.csv',csv); }
+function iqClear(){ if(!confirm('Clear idea queue?')) return; IQ=[]; iqRender(); iqSave(); }
+/* Ethics */
+function saveER(){ const e=[...$$('.er')].map(x=>x.checked?1:0); localStorage.setItem('li_er',JSON.stringify(e)); alert('Saved.')}
+function clearER(){ $$('.er').forEach(x=>x.checked=false); localStorage.removeItem('li_er');}
+(function loadER(){ const r=localStorage.getItem('li_er'); if(!r) return; const e=JSON.parse(r); $$('.er').forEach((x,i)=>x.checked=!!e[i]);})();
+/* Module 1 calc */
+function calcRepostRate(){ const r=+val('#rr_rep')||0, a=+val('#rr_reac')||0, c=+val('#rr_com')||0; const denom=r+a+c||1; const pct=r/denom*100; const badge=$('#rr_out'); let cls='', tag='—'; if(pct>=10){cls='ok';tag='Green';} else if(pct>=5){cls='warn';tag='Yellow';} else {cls='bad';tag='Red';} badge.innerHTML=`${pct.toFixed(1)}% • ${tag}`; badge.className='status '+cls; }
+/* Watchlist */
+let WL=[]; (function wlLoad(){const raw=localStorage.getItem('li_wl'); if(raw){WL=JSON.parse(raw);} wlRender();})();
+function wlAdd(){ const obj={creator:val('#wl_creator'),url:val('#wl_url'),format:val('#wl_format'),topic:val('#wl_topic'),rep:+val('#wl_rep')||0,reac:+val('#wl_reac')||0,com:+val('#wl_com')||0,cta:val('#wl_cta'),tag:$('#wl_tag').value,var:val('#wl_var')}; const denom=obj.rep+obj.reac+obj.com||1; obj.rate=(obj.rep/denom*100); WL.push(obj); wlRender(); wlSave();}
+function wlRender(){ const tb=$('#wl_tbl tbody'); tb.innerHTML=''; WL.forEach((x,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${esc(x.creator)}</td><td><a href="${esc(x.url)}" target="_blank">Open</a></td><td>${esc(x.format)}</td><td>${esc(x.topic)}</td><td>${x.rep}</td><td>${x.reac}</td><td>${x.com}</td><td>${x.rate.toFixed(1)}%</td><td>${esc(x.cta)}</td><td>${esc(x.tag)}</td><td>${esc(x.var)}</td><td><button class="ghost btn-sm" onclick="wlDel(${i})">✕</button></td>`; tb.appendChild(tr);});}
+function wlDel(i){WL.splice(i,1); wlRender(); wlSave();}
+function wlExport(){ const head=['Creator','URL','Format','Topic','Reposts','Reactions','Comments','Repost %','CTA','Tag','Our Variant']; const rows=WL.map(x=>[x.creator,x.url,x.format,x.topic,x.rep,x.reac,x.com,x.rate.toFixed(1),x.cta,x.tag,x.var]); const csv=[head].concat(rows).map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); dl('linkedin_watchlist.csv',csv);}
+function wlClear(){ if(!confirm('Clear watchlist?')) return; WL=[]; wlRender(); wlSave();}
+function wlSave(){ localStorage.setItem('li_wl',JSON.stringify(WL)); }
+/* Captions + CTA */
+let CAP_INT='Medium'; function capIntensity(x){CAP_INT=x;}
+function buildCaptions(){
+  const out = val('#cap_outcome'), pts = val('#cap_points').split(',').map(x=>x.trim()).filter(Boolean), proof=val('#cap_proof'), cta=val('#cap_cta');
+  if(!out||!pts.length||!proof||!cta){alert('Fill outcome, points, proof, CTA.');return}
+  const lines = (intensity)=> {
+    const hook = intensity==='Hard' ? `If you want pipeline from LinkedIn, start here.` :
+                 intensity==='Soft' ? `If this helps, grab the checklist.` : `Here’s how we turn posts into pipeline.`;
+    const value = pts.slice(0,5).map(x=>`• ${x}`).join('\n');
+    return [`${hook}\n${out}.`, value, `Proof: ${proof}.`, `Action: ${cta}.`].join('\n');
+  };
+  $('#cap_out').value=[lines('Soft'),'',lines('Medium'),'',lines('Hard')].join('\n');
+}
+/* UTM */
+function buildUTM(){const u=val('#u_base').replace(/\?+.*/,''); const q=[['utm_source',val('#u_source')],['utm_medium',val('#u_medium')],['utm_campaign',val('#u_campaign')],['utm_content',val('#u_content')]].filter(x=>x[1]).map(([k,v])=>`${k}=${encodeURIComponent(v)}`).join('&'); $('#u_out').value=u+(q?`?${q}`:'');}
+function saveUTM(){const p={base:val('#u_base'),source:val('#u_source'),medium:val('#u_medium'),campaign:val('#u_campaign'),content:val('#u_content')}; localStorage.setItem('li_utm',JSON.stringify(p)); alert('UTM preset saved.')}
+function loadUTM(){const raw=localStorage.getItem('li_utm'); if(!raw){alert('No preset found.');return} const p=JSON.parse(raw); ['base','source','medium','campaign','content'].forEach(k=>$('#u_'+k).value=p[k]||''); buildUTM();}
+/* AB */
+function calcAB(){ const aC=+val('#a_clicks')||0, aI=+val('#a_imps')||1, bC=+val('#b_clicks')||0, bI=+val('#b_imps')||1; const a=aC/aI, b=bC/bI; const p=(aC+bC)/(aI+bI); const se=Math.sqrt(p*(1-p)*(1/aI+1/bI)); const z=(b-a)/se; const better=b>a?'B':'A'; $('#ab_out').innerHTML=`<div><b>CTR A:</b> ${(a*100).toFixed(2)}% • <b>CTR B:</b> ${(b*100).toFixed(2)}% → <b>${better}</b> leads</div><div class="${Math.abs(z)>=1.96?'ok':'warn'}">z = ${z.toFixed(2)} ${Math.abs(z)>=1.96?'(≈95% conf)':'(directional; collect more)'} </div><div class="muted" style="margin-top:.4rem">Change one variable only. Window 48–96h.</div>`;}
+/* Log */
+let LOG=[]; (function loadLog(){ const raw=localStorage.getItem('li_log'); if(raw){ LOG=JSON.parse(raw); renderLog(); }})(); 
+function addLog(){ const line=val('#log_line').trim(); if(!line){alert('Add a log line.');return} LOG.push(line); renderLog(); saveLog(); }
+function renderLog(){ $('#log_table').innerHTML = LOG.length? '<ul style="margin-left:1rem">'+LOG.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : '<span class="muted">No entries yet.</span>'; }
+function exportLog(){ dl('linkedin_analytics_log.txt', LOG.join('\n')); }
+function clearLog(){ if(!confirm('Clear analytics log?')) return; LOG=[]; renderLog(); saveLog(); }
+function saveLog(){ localStorage.setItem('li_log', JSON.stringify(LOG)); }
+/* QA */
+function saveQA(){ const q={}; $$('.qa').forEach(x=>q[x.dataset.k]=x.checked); localStorage.setItem('li_qa',JSON.stringify(q)); alert('QA saved.')}
+function clearQA(){$$('.qa').forEach(x=>x.checked=false); localStorage.removeItem('li_qa');}
+(function loadQA(){const raw=localStorage.getItem('li_qa'); if(!raw) return; const q=JSON.parse(raw); $$('.qa').forEach(x=>x.checked=!!q[x.dataset.k]);})();
+</script>
+</body>
+</html>

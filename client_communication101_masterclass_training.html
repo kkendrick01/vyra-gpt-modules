@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Client Communications 101 — Interactive VP Training (Vyralab)</title>
+<style>
+  :root{
+    --vl-black:#000;--vl-electric:#00ff41;--vl-white:#fff;
+    --vl-steel:#404040;--vl-dark:#1b1b1b;--accent:#00ff41;
+  }
+  html,body{margin:0;padding:0;background:#0f0f0f;color:#eaeaea;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;line-height:1.4}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px}
+  header{display:flex;gap:18px;align-items:center;margin-bottom:24px}
+  .logo{width:38px;height:38px;border:2px solid var(--accent);border-radius:9px;display:grid;place-items:center;font-weight:800;color:var(--accent)}
+  h1{font-size:28px;margin:0}
+  .tag{color:#9bd3a6;font-weight:600}
+  .grid{display:grid;gap:16px}
+  @media(min-width:880px){.grid{grid-template-columns:1.1fr 1fr}}
+  .card{background:#121212;border:1px solid #232323;border-radius:14px;padding:18px}
+  .card h2,.card h3{margin:.2rem 0 .6rem}
+  .pill{display:inline-block;border:1px solid #2b2b2b;border-radius:999px;padding:4px 10px;font-size:12px;color:#bfbfbf;margin:0 6px 6px 0}
+  .muted{color:#a8a8a8}
+  .cta{display:inline-block;background:var(--accent);color:#0a0a0a;padding:10px 14px;border-radius:10px;font-weight:800;border:none;cursor:pointer}
+  .ghost{display:inline-block;background:transparent;border:1px solid #2b2b2b;color:#ddd;padding:8px 12px;border-radius:10px;cursor:pointer}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  details{background:#0e0e0e;border:1px solid #252525;border-radius:12px;padding:12px;margin:10px 0}
+  details[open]{border-color:#2f2f2f}
+  summary{cursor:pointer;font-weight:700}
+  .ok{color:#8fff98}.warn{color:#ffd26f}.bad{color:#ff8a8a}
+  .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#161616;border:1px solid #2b2b2b;border-radius:6px;padding:2px 6px}
+  .flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .split{display:grid;gap:12px}
+  @media(min-width:720px){.split{grid-template-columns:1fr 1fr}}
+  .prog{height:10px;background:#191919;border-radius:8px;overflow:hidden;border:1px solid #262626}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,#00ff41,#60ffa0)}
+  .checklist label{display:flex;gap:10px;align-items:flex-start;margin:.4rem 0}
+  .checklist input{transform:scale(1.2);margin-top:3px}
+  .toast{position:fixed;inset:auto 16px 16px auto;background:#121212;border:1px solid #2b2b2b;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:none}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .score{font-weight:800}
+  .badge{border:1px solid #2b2b2b;border-radius:8px;padding:2px 8px;font-size:12px}
+  .q{border-left:3px solid var(--accent);padding-left:10px;margin:10px 0}
+  .kbdrow{display:flex;gap:8px;flex-wrap:wrap}
+  .footer{margin:40px 0 10px;color:#9a9a9a;font-size:13px}
+  .note{background:#0c0c0c;border:1px dashed #2b2b2b;border-radius:10px;padding:10px}
+  .good{background:#0d1a11;border:1px solid #1f3f26}
+  .badx{background:#1a0d0d;border:1px solid #3f1f1f}
+  .hl{color:#d6fddf}
+  .inline{display:inline-block}
+  .kbdbtn{border:1px solid #2a2a2a;background:#151515;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer}
+  .mini{font-size:12px;color:#a8a8a8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">V</div>
+    <div>
+      <h1>Client Communications 101 — VP of Customer Success Training</h1>
+      <div class="tag">Built for Ghostwriters. By Ghostwriters.™ • Creating Tomorrow’s Creators is in Our DNA.™</div>
+    </div>
+  </header>
+
+  <!-- Progress -->
+  <div class="card">
+    <div class="row">
+      <span class="pill">Self-paced • ~4–6 hrs</span>
+      <span class="pill">Scenario-based</span>
+      <span class="pill">Quizzes + Scorecard</span>
+      <button class="cta" id="btnStart">Start / Resume</button>
+      <button class="ghost" id="btnExport">Export Notes</button>
+      <span class="mini">Progress:</span>
+      <div class="prog" style="flex:1 1 240px;"><div class="bar" id="bar"></div></div>
+      <span class="mini"><span id="pct">0%</span></span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: Curriculum -->
+    <section class="card">
+      <h2>Curriculum</h2>
+      <ol id="curriculum">
+        <li><a href="#m1">Philosophy & Commandments</a></li>
+        <li><a href="#m2">Message Architecture (ACE + 3W)</a></li>
+        <li><a href="#m3">Tone Calibration & Presence</a></li>
+        <li><a href="#m4">Expectation Engineering & MAP</a></li>
+        <li><a href="#m5">Hard Conversations & Crisis (REACT)</a></li>
+        <li><a href="#m6">Executive Writing Lab (clarity drills)</a></li>
+        <li><a href="#m7">Live Scenarios & Roleplay Sims</a></li>
+        <li><a href="#m8">Metrics & Operating Reviews</a></li>
+        <li><a href="#m9">Templates, Scripts, Playbooks</a></li>
+        <li><a href="#m10">Capstone: VP Readiness Assessment</a></li>
+      </ol>
+      <p class="muted mini">Foundation sources: Amazon Leadership Principles (Customer Obsession), Gainsight Success Planning, HubSpot communication best practices, Basecamp clarity writing, Salesforce service best practices, HBR difficult conversations.</p>
+    </section>
+
+    <!-- RIGHT: Notes -->
+    <aside class="card">
+      <h2>Your Notes</h2>
+      <p class="muted mini">Anything you check, type, or answer is saved locally in your browser.</p>
+      <textarea id="notes" rows="12" style="width:100%;background:#0c0c0c;color:#eaeaea;border:1px solid #2b2b2b;border-radius:10px;padding:10px" placeholder="Summaries, client examples, next actions…"></textarea>
+    </aside>
+  </div>
+
+  <!-- MODULE 1 -->
+  <section id="m1" class="card">
+    <h2>Module 1 — Philosophy & the Five Commandments</h2>
+    <p>Communication is the client’s lived product experience. If your words are clear, accountable, and predictive, your delivery is perceived as elite.</p>
+    <div class="split">
+      <div>
+        <details open>
+          <summary>Five VP Commandments</summary>
+          <ul>
+            <li><b>Extreme Ownership</b> — lead with impact and the fix, not defense.</li>
+            <li><b>Radical Clarity</b> — always answer <span class="mono">Why → What → When</span>.</li>
+            <li><b>Velocity without Haste</b> — acknowledge quickly; deliver thoughtfully.</li>
+            <li><b>Perception is the Product</b> — explain small slips early to preserve trust.</li>
+            <li><b>Empathy without Apology</b> — validate emotion while keeping authority.</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Gary Provost “Write Music” — rhythm drill</summary>
+          <div class="muted mini">Vary sentence length. Short. Long. Mix. (Use the generator below in Module 6.)</div>
+        </details>
+      </div>
+      <div>
+        <div class="checklist" id="cl1">
+          <h3>Adopt the Mindset (check to commit)</h3>
+          <label><input type="checkbox" /> I will acknowledge impact before explanation.</label>
+          <label><input type="checkbox" /> I will format every update with 3W (Why, What, When).</label>
+          <label><input type="checkbox" /> I will respond within 4 business hours with either an answer or an ETA.</label>
+          <label><input type="checkbox" /> I will log “moments of truth” to a Trust Log.</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 2 -->
+  <section id="m2" class="card">
+    <h2>Module 2 — Message Architecture (ACE + 3W)</h2>
+    <p>Run 90% of client interactions through <b>ACE</b> and close every message with the <b>3W</b> rule.</p>
+    <div class="split">
+      <div>
+        <h3>ACE Builder</h3>
+        <label class="mini">Acknowledge (impact)</label>
+        <input id="ack" class="mono" style="width:100%;padding:8px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="You're right to flag this — here's what you experienced…" />
+        <label class="mini">Contextualize (transparent cause)</label>
+        <input id="ctx" class="mono" style="width:100%;padding:8px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="This occurred because… here’s what we changed…" />
+        <label class="mini">Execute (owners, timeframes)</label>
+        <input id="exe" class="mono" style="width:100%;padding:8px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="We’ve implemented X. You’ll see Y by Friday 3 PM CT. Next check-in…" />
+        <div class="row" style="margin-top:8px">
+          <button class="cta" id="btnAce">Compose Message</button>
+          <button class="ghost" id="btnCopyAce">Copy</button>
+        </div>
+        <textarea id="outAce" rows="6" class="mono" style="width:100%;margin-top:10px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Your ACE-structured message will appear here…"></textarea>
+      </div>
+      <div>
+        <h3>3W Finisher</h3>
+        <div class="note">
+          <div class="kbdrow mini">
+            <span class="badge">Why</span> context •
+            <span class="badge">What</span> action •
+            <span class="badge">When</span> expectation
+          </div>
+          <p class="mini muted">Example: “We’re moving the review to 3 PM so we can include fresh analytics. Invite updated.”</p>
+        </div>
+        <h3 style="margin-top:10px">Mini-Quiz</h3>
+        <div id="quiz2" class="mini">
+          <div class="q">Which opening builds more trust after a miss?</div>
+          <label><input type="radio" name="q2" value="a" /> “We were overwhelmed yesterday, but…”</label><br/>
+          <label><input type="radio" name="q2" value="b" /> “You were right to expect this yesterday. I own the miss — here’s the fix and timeline.”</label><br/>
+          <button class="kbdbtn" id="btnQ2">Check</button> <span id="q2res" class="score"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 3 -->
+  <section id="m3" class="card">
+    <h2>Module 3 — Tone Calibration & Presence</h2>
+    <p>Switch fluidly between Strategist, Operator, Partner, and Advocate. Use the tuner to rewrite a sentence in four authoritative tones.</p>
+    <div class="split">
+      <div>
+        <label class="mini">Your base sentence</label>
+        <input id="toneInput" class="mono" style="width:100%;padding:8px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="e.g., We’re behind on the asset." />
+        <div class="row" style="margin-top:8px">
+          <button class="kbdbtn" data-tone="strategist">Strategist</button>
+          <button class="kbdbtn" data-tone="operator">Operator</button>
+          <button class="kbdbtn" data-tone="partner">Partner</button>
+          <button class="kbdbtn" data-tone="advocate">Advocate</button>
+        </div>
+      </div>
+      <div>
+        <textarea id="toneOut" rows="7" class="mono" style="width:100%;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Tone-tuned rewrites appear here…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 4 -->
+  <section id="m4" class="card">
+    <h2>Module 4 — Expectation Engineering & MAP</h2>
+    <p>Create a <b>Mutual Action Plan</b> clients can see. Align Baseline, Aspirational, and Contingent expectations and keep everything out of DMs and in the MAP.</p>
+    <div class="split">
+      <div>
+        <h3>Expectation Ladder</h3>
+        <div class="checklist" id="ladder">
+          <label><input type="checkbox" /> Baseline — what’s guaranteed (cadence, deliverables).</label>
+          <label><input type="checkbox" /> Aspirational — what we’re aiming for (reach/CTR uplift).</label>
+          <label><input type="checkbox" /> Contingent — what depends on client (approvals/assets).</label>
+        </div>
+      </div>
+      <div>
+        <h3>MAP Builder (Notion-friendly)</h3>
+        <table class="mono" style="width:100%;border-collapse:collapse">
+          <thead><tr style="border-bottom:1px solid #2b2b2b"><th align="left">Row</th><th align="left">Owner</th><th align="left">Deliverable</th><th align="left">Status</th><th align="left">Link</th></tr></thead>
+          <tbody id="mapRows"></tbody>
+        </table>
+        <div class="row" style="margin-top:8px">
+          <button class="kbdbtn" id="addRow">+ Row</button>
+          <button class="kbdbtn" id="copyMap">Copy as TSV</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 5 -->
+  <section id="m5" class="card">
+    <h2>Module 5 — Hard Conversations & Crisis Protocol</h2>
+    <p>Use emotional labeling, separate identity from event, and convert emotion to plan. In crises, run <b>R.E.A.C.T.</b>: Recognize, Empathize, Assess, Communicate, Transform.</p>
+    <div class="split">
+      <div>
+        <h3>Labeling Practice</h3>
+        <input id="emo" class="mono" style="width:100%;padding:8px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Client emotion words (e.g., frustrated we missed the window)"/>
+        <button class="kbdbtn" id="btnLabel">Label It</button>
+        <div id="labelOut" class="note" style="margin-top:8px"></div>
+      </div>
+      <div>
+        <h3>Crisis Scenario Check</h3>
+        <div class="checklist" id="react">
+          <label><input type="checkbox" /> Recognize publicly within 30–60 minutes.</label>
+          <label><input type="checkbox" /> Empathize: validate the experience (no excuses).</label>
+          <label><input type="checkbox" /> Assess scope/root cause; define the blast radius.</label>
+          <label><input type="checkbox" /> Communicate cadence (every 6–8 hours) and owner.</label>
+          <label><input type="checkbox" /> Transform: add safeguard to prevent recurrence.</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 6 -->
+  <section id="m6" class="card">
+    <h2>Module 6 — Executive Writing Lab (Clarity & Rhythm)</h2>
+    <div class="split">
+      <div>
+        <h3>5-Second Rewrite</h3>
+        <textarea id="msgIn" rows="6" class="mono" style="width:100%;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Paste your messy update here…"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="kbdbtn" id="btnRewrite">Rewrite with Outcome → Reason → Action</button>
+          <button class="kbdbtn" id="btnMusic">Apply ‘Write Music’ rhythm</button>
+        </div>
+      </div>
+      <div>
+        <h3>Output</h3>
+        <textarea id="msgOut" rows="10" class="mono" style="width:100%;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Clean, musical version appears here…"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 7 -->
+  <section id="m7" class="card">
+    <h2>Module 7 — Live Scenarios & Roleplay Sims</h2>
+    <p>Select a scenario and craft your ACE + 3W response. You’ll get instant scoring on ownership, clarity, tone, and next-step precision.</p>
+    <div class="split">
+      <div>
+        <select id="scenario" style="width:100%;background:#0c0c0c;color:#eaeaea;border:1px solid #2b2b2b;border-radius:8px;padding:8px">
+          <option value="delay">Launch delay w/ silent client sponsor</option>
+          <option value="offvoice">“This doesn’t sound like me.”</option>
+          <option value="scope">Scope-creep request mid-cycle</option>
+          <option value="crisis">Link shipped with wrong access</option>
+        </select>
+        <textarea id="simIn" rows="7" class="mono" style="width:100%;margin-top:10px;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Write your reply…"></textarea>
+        <button class="cta" id="scoreSim" style="margin-top:8px">Score My Reply</button>
+      </div>
+      <div>
+        <div id="simScore" class="note"></div>
+        <div id="simTips" class="mini muted" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 8 -->
+  <section id="m8" class="card">
+    <h2>Module 8 — Metrics & Operating Reviews</h2>
+    <p>Track communication like revenue: <b>TTA</b>, <b>TTR</b>, <b>Clarity Score</b>, Proactive Touches, Sentiment Ratio. Use the weekly heartbeat to summarize decisions, wins, risks, and next moves.</p>
+    <details>
+      <summary>Weekly Heartbeat Template</summary>
+      <pre class="mono">
+Week of: ______
+Wins: [proof/links]
+Decisions Made: [who/what/when]
+Risks / Blockers: [owner → option a/b/c]
+Next 7 Days: [deliverables → date]
+Client Actions Needed: [clear, dates]
+      </pre>
+    </details>
+    <div class="split">
+      <div>
+        <h3>Score Your Account</h3>
+        <div class="checklist" id="score">
+          <label><input type="checkbox" /> Avg TTA &lt; 4 business hours</label>
+          <label><input type="checkbox" /> Avg TTR meets SLA</label>
+          <label><input type="checkbox" /> ≥ 1 proactive touch per week</label>
+          <label><input type="checkbox" /> Clarity follow-ups &lt; 10%</label>
+          <label><input type="checkbox" /> Positive:Negative sentiment ≥ 4:1</label>
+        </div>
+        <button class="ghost" id="scoreBtn">Compute Health</button>
+        <div id="scoreRes" class="mini"></div>
+      </div>
+      <div>
+        <h3>Trust Log (moments of truth)</h3>
+        <textarea id="trust" rows="10" class="mono" style="width:100%;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="+ Delivered early → trust +1&#10;- Missed update → trust -1"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 9 -->
+  <section id="m9" class="card">
+    <h2>Module 9 — Templates, Scripts, Playbooks</h2>
+    <details open><summary>Golden Templates</summary>
+      <ul class="mono">
+        <li><b>Acknowledgment + Direction</b>: Thank you for flagging this. You’re right — that shouldn’t have happened. Cause: __. Fix: __. Expect: __.</li>
+        <li><b>Reset Cadence</b>: To protect quality and momentum, shifting to bi-weekly approvals. You keep velocity; we hit the bar.</li>
+        <li><b>Celebrate Wins</b>: ___ crossed ___ in 24 hours — your call last week directly drove that lift.</li>
+        <li><b>Proactive Check-in</b>: Before next cycle, any pivots or signals you want us to amplify?</li>
+        <li><b>QBR Open</b>: Here’s what we aimed for, achieved, and how we’ll compound it next quarter.</li>
+      </ul>
+    </details>
+    <details><summary>MAP • Crisis • Expectation Ladder — one-pagers</summary>
+      <p class="mini">Copy from above builders and paste into your Notion or wiki.</p>
+    </details>
+  </section>
+
+  <!-- MODULE 10 -->
+  <section id="m10" class="card">
+    <h2>Module 10 — Capstone: VP Readiness</h2>
+    <p>Paste a real client update or escalation you’ve handled. You’ll get a readiness score across Ownership, Clarity, Authority, Empathy, and Trajectory.</p>
+    <textarea id="capIn" rows="9" class="mono" style="width:100%;background:#0c0c0c;border:1px solid #2b2b2b;border-radius:8px;color:#eaeaea" placeholder="Paste your message…"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="cta" id="capScoreBtn">Evaluate</button>
+      <span id="capRes" class="score"></span>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section class="card">
+    <h2>References & Provenance</h2>
+    <ul class="mini">
+      <li>Amazon Leadership Principles — Customer Obsession (foundation for accountability & ownership).</li>
+      <li>Gainsight — Success Planning & QBR hygiene (MAP & renewal motion).</li>
+      <li>HubSpot — Service communication best practices (tone, empathy, templates).</li>
+      <li>Basecamp/37signals — Clarity is kindness; five-second rule; heartbeat updates.</li>
+      <li>Salesforce — Customer service & VOC best practices (data-driven CX discipline).</li>
+      <li>Harvard Business Review — Managing tense customer conversations; difficult conversations research.</li>
+    </ul>
+    <p class="mini muted">This training adapts public best practices to Vyralab’s operating system and brand voice.</p>
+  </section>
+
+  <div class="footer">© Vyralab — Built for Ghostwriters. By Ghostwriters.™</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  // Local storage helpers
+  const S = (k,v)=>v===undefined?JSON.parse(localStorage.getItem(k)||'null'):(localStorage.setItem(k,JSON.stringify(v)),v);
+  const Q = (sel)=>document.querySelector(sel);
+
+  // Progress
+  const checks = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const radioQs = [{name:'q2',correct:'b'}];
+  function updateProgress(){
+    const done = checks.filter(c=>c.checked).length +
+      radioQs.reduce((a,q)=>a+ (document.querySelector(`input[name="${q.name}"]:checked`)?1:0),0) +
+      (Q('#outAce').value.trim()?1:0) + (Q('#toneOut').value.trim()?1:0) +
+      (Q('#mapRows').children.length?1:0) + (Q('#labelOut').textContent.trim()?1:0) +
+      (Q('#msgOut').value.trim()?1:0) + (Q('#simScore').textContent.includes('Score')?1:0) +
+      (Q('#scoreRes').textContent.includes('Health')?1:0) + (Q('#capRes').textContent.trim()?1:0);
+    const total = 12;
+    const pct = Math.min(100, Math.round(100*done/total));
+    Q('#bar').style.width = pct+'%'; Q('#pct').textContent = pct+'%';
+    S('progress',pct);
+  }
+
+  // Persist checkboxes & notes
+  checks.forEach(cb=>{
+    const key='cb:'+Math.random().toString(36).slice(2);
+    cb.dataset.key=key; const saved=S(key); if(saved!==null) cb.checked=saved;
+    cb.addEventListener('change',()=>{S(cb.dataset.key,cb.checked);updateProgress();});
+  });
+  const notes=Q('#notes'); notes.value=S('notes')||''; notes.addEventListener('input',()=>S('notes',notes.value));
+
+  // ACE builder
+  const ack=Q('#ack'), ctx=Q('#ctx'), exe=Q('#exe'), outAce=Q('#outAce');
+  function composeACE(){
+    const msg = `${ack.value.trim()}\n\n${ctx.value.trim()}\n\n${exe.value.trim()}\n\n— ${new Date().toLocaleString()}`;
+    outAce.value = msg; S('outAce',msg); updateProgress(); toast('ACE message composed.');
+  }
+  outAce.value=S('outAce')||''; // restore
+  Q('#btnAce').onclick=composeACE;
+  Q('#btnCopyAce').onclick=()=>{outAce.select();document.execCommand('copy');toast('Copied to clipboard');};
+
+  // Quiz
+  Q('#btnQ2').onclick=()=>{
+    const val = document.querySelector('input[name="q2"]:checked')?.value;
+    Q('#q2res').textContent = val==='b' ? '✓ Correct — lead with ownership and the fix.' : '✕ Try again: start with impact + ownership.';
+    updateProgress();
+  };
+
+  // Tone tuner
+  const tones={
+    strategist: s=>`To reach the target without risking quality, we’ll shift the plan: ${s} Here’s the move and why it compounds next quarter.`,
+    operator: s=>`Status: ${s} Owner: CS. Updated ETA Tuesday 10:00 CT. Dependencies: approval on v2.`,
+    partner: s=>`You should expect better. ${s} Thank you for holding us to the standard we set — here’s how we’ll get you there.`,
+    advocate: s=>`Your feedback last week sharpened our lane. ${s} We’re already seeing the lift; here’s how we’ll double it.`
+  };
+  document.querySelectorAll('[data-tone]').forEach(btn=>{
+    btn.onclick=()=>{
+      const base = Q('#toneInput').value||'We’re behind on the asset.';
+      const t = btn.dataset.tone;
+      const out = tones[t](base);
+      Q('#toneOut').value += (Q('#toneOut').value?'\n\n':'') + out;
+      S('toneOut',Q('#toneOut').value); updateProgress();
+    }
+  });
+  Q('#toneOut').value=S('toneOut')||'';
+
+  // MAP rows
+  const mapRows = Q('#mapRows');
+  function addMapRow(){const tr=document.createElement('tr'); tr.innerHTML=`<td contenteditable>Alignment</td><td contenteditable>Owner</td><td contenteditable>Deliverable</td><td contenteditable>Planned</td><td contenteditable>Link</td>`; mapRows.appendChild(tr); saveMap(); updateProgress();}
+  function saveMap(){const rows=[...mapRows.children].map(tr=>[...tr.children].map(td=>td.textContent)); S('map',rows);}
+  function restoreMap(){(S('map')||[]).forEach(r=>{const tr=document.createElement('tr'); tr.innerHTML=r.map(c=>`<td contenteditable>${c}</td>`).join(''); mapRows.appendChild(tr)});}
+  Q('#addRow').onclick=addMapRow;
+  Q('#copyMap').onclick=()=>{const tsv=(S('map')||[]).map(r=>r.join('\t')).join('\n'); navigator.clipboard.writeText(tsv); toast('MAP copied as TSV');};
+  mapRows.addEventListener('input',saveMap); restoreMap();
+
+  // Labeling
+  Q('#btnLabel').onclick=()=>{
+    const text = Q('#emo').value.trim()||'frustrated that we missed the window';
+    const out = `It sounds like you’re ${text}. You’re right to expect better — here’s how we’ll fix this now and prevent a repeat.`;
+    Q('#labelOut').textContent = out; S('label',out); updateProgress();
+  };
+  Q('#labelOut').textContent=S('label')||'';
+
+  // Rewriter
+  Q('#btnRewrite').onclick=()=>{
+    const raw = Q('#msgIn').value.trim();
+    if(!raw){toast('Paste something to rewrite.');return;}
+    const clean = raw
+      .replace(/\n{2,}/g,'\n')
+      .replace(/\s+/g,' ')
+      .trim();
+    const out = `Outcome — ${clean.slice(0,1).toUpperCase()+clean.slice(1)}\n\nReason — We’re timing this to include fresh analytics and reduce rework.\n\nAction — Updated invite attached. Reply ‘OK’ to confirm.`;
+    Q('#msgOut').value = out; S('msgOut',out); updateProgress();
+  };
+  Q('#btnMusic').onclick=()=>{
+    const m = Q('#msgOut').value||'We will adjust the plan to protect quality and momentum.';
+    const lines = [
+      'Short sentence.',
+      'Then a longer one that adds context and lowers the temperature as it explains the decision with calm authority.',
+      'Now back to short.',
+      m
+    ];
+    Q('#msgOut').value = lines.join(' ');
+    S('msgOut',Q('#msgOut').value); updateProgress();
+  };
+  Q('#msgOut').value=S('msgOut')||'';
+
+  // Scenario scoring
+  const guidelines = {
+    owner:/I (own|take|took) (full )?responsibility|I own|I’ll own/i,
+    clarity:/(by|on)\s+(Mon|Tue|Wed|Thu|Fri|\d{1,2}(:\d{2})?\s*(AM|PM)?|today|tomorrow)/i,
+    next:/next|we will|you will|ETA|timeline|check\-in/i,
+    empathy:/you(\'|’)re right|you should expect|I understand|I can see/i
+  };
+  Q('#scoreSim').onclick=()=>{
+    const txt = Q('#simIn').value;
+    let score=0, parts=[];
+    if(guidelines.owner.test(txt)){score+=25;parts.push('Ownership ✓');} else parts.push('Ownership ✕');
+    if(guidelines.clarity.test(txt)){score+=25;parts.push('Timebound ✓');} else parts.push('Timebound ✕');
+    if(guidelines.next.test(txt)){score+=25;parts.push('Next steps ✓');} else parts.push('Next steps ✕');
+    if(guidelines.empathy.test(txt)){score+=25;parts.push('Empathy ✓');} else parts.push('Empathy ✕');
+    Q('#simScore').innerHTML = `<b>Score:</b> ${score}/100<br>${parts.join(' • ')}`;
+    Q('#simTips').textContent = 'Aim for ACE + 3W. Lead with impact, set the fix, add an exact timeline, and end with a decision or confirmation ask.';
+    updateProgress();
+  };
+
+  // Health compute
+  Q('#scoreBtn').onclick=()=>{
+    const flags=[...Q('#score').querySelectorAll('input')].map(i=>i.checked);
+    const score = flags.reduce((a,b)=>a+(b?20:0),0);
+    const label = score>=80?'GREEN':score>=60?'YELLOW':'RED';
+    Q('#scoreRes').innerHTML = `Health: <b class="score ${label==='GREEN'?'ok':label==='YELLOW'?'warn':'bad'}">${label}</b> (${score}/100)`;
+    updateProgress();
+  };
+
+  // Capstone
+  Q('#capScoreBtn').onclick=()=>{
+    const t = Q('#capIn').value;
+    const dims = {
+      Ownership: /\b(I|we)\s+(own|take responsibility|missed|should have)\b/i.test(t),
+      Clarity: /\b(by|on)\s+(Mon|Tue|Wed|Thu|Fri|\d{1,2}(:\d{2})?\s*(AM|PM)?|today|tomorrow)\b/i.test(t),
+      Authority: /\bI recommend|the data shows|best move\b/i.test(t),
+      Empathy: /\bI understand|you’re right|thank you\b/i.test(t),
+      Trajectory: /\bnext|we will|timeline|cadence|review\b/i.test(t)
+    };
+    const score = Object.values(dims).reduce((a,b)=>a+(b?20:0),0);
+    Q('#capRes').textContent = `Readiness: ${score}/100 — ` + Object.keys(dims).map(k=>`${k}:${dims[k]?'✓':'✕'}`).join(' ');
+    updateProgress();
+  };
+
+  // Export notes
+  Q('#btnExport').onclick=()=>{
+    const blob = new Blob([`Notes:\n${Q('#notes').value}\n\nTrust Log:\n${Q('#trust').value}`],{type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='client-comms-notes.txt'; a.click(); URL.revokeObjectURL(url);
+  };
+
+  // Start / Resume
+  Q('#btnStart').onclick=()=>{window.scrollTo({top:Q('#m1').offsetTop-12,behavior:'smooth'});};
+  function toast(msg){const t=Q('#toast'); t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',1600);}
+  // Restore some fields
+  ['ack','ctx','exe','toneInput','emo','msgIn','simIn','trust','capIn'].forEach(id=>{const v=S(id); if(v) Q('#'+id).value=v; Q('#'+id).addEventListener('input',()=>S(id,Q('#'+id).value));});
+  // Restore progress
+  const p=S('progress')||0; Q('#bar').style.width=p+'%'; Q('#pct').textContent=p+'%';
+</script>
+</body>
+</html>

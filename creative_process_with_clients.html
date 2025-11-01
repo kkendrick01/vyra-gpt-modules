@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Creative Process with Clients — Interactive Masterclass | Vyralab™</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A fully interactive Customer Success masterclass for creative client work. Built for Ghostwriters. By Ghostwriters.™" />
+<style>
+  :root{
+    --vl-black:#000000; --vl-electric:#00ff41; --vl-white:#ffffff;
+    --vl-steel:#404040; --vl-dark:#0b0b0b; --vl-ink:#121212;
+    --accent:#00ff41; --muted:#d3d3d3; --dim:#a6a6a6;
+    --ok:#39d353; --warn:#ffd33d; --bad:#ff3b3b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--vl-black);color:var(--vl-white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+  .sidebar{background:linear-gradient(180deg,#0b0b0b,#0e0e0e);border-right:1px solid #1a1a1a;padding:18px;position:sticky;top:0;height:100vh;overflow:auto}
+  .brand{font-weight:800;color:var(--accent)}
+  .slogan{font-size:12px;color:#bebebe}
+  .toc h3{margin:10px 0 6px}
+  .toc a{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #1d1d1d;border-radius:8px;background:#0b0b0b;margin-bottom:8px}
+  .toc .dot{width:10px;height:10px;border-radius:50%;background:#2a2a2a;flex:0 0 10px}
+  .toc .dot.done{background:var(--accent)}
+  .main{padding:28px 26px 80px;max-width:1200px}
+  header h1{margin:0 0 4px;font-size:clamp(26px,3.8vw,42px);line-height:1.15}
+  header .lead{color:#dcdcdc}
+  .badge{display:inline-block;border:1px solid #1f1f1f;border-radius:999px;padding:4px 10px;font-size:12px;margin-top:8px;background:#0a0a0a;color:#cfcfcf}
+
+  /* collapsible / cards */
+  .mod{border:1px solid #1b1b1b;border-radius:14px;background:#0b0b0b;margin:16px 0;overflow:hidden}
+  .mod summary{cursor:pointer;list-style:none;padding:14px 16px;background:#0d0d0d;border-bottom:1px solid #121212;display:flex;align-items:center;gap:10px}
+  .mod summary::-webkit-details-marker{display:none}
+  .mod .chev{transition:transform .2s ease}
+  details[open] .chev{transform:rotate(90deg)}
+  .mod .body{padding:16px}
+  .row{display:grid;gap:16px}
+  @media(min-width:900px){.row-2{grid-template-columns:1fr 1fr}.row-3{grid-template-columns:repeat(3,1fr)}}
+
+  /* widgets */
+  .box{border:1px solid #202020;border-radius:12px;padding:12px;background:#0a0a0a}
+  .callout{border-left:3px solid var(--accent);background:#0b120c}
+  .good{border-left:3px solid var(--ok)}
+  .warn{border-left:3px solid var(--warn)}
+  .bad{border-left:3px solid var(--bad)}
+  .kpi{display:inline-block;border:1px solid #202020;border-radius:10px;padding:8px 10px;background:#0e0e0e;margin:4px 6px 0 0}
+  label{font-size:13px;color:#cfcfcf}
+  input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #222;background:#0a0a0a;color:#fff}
+  textarea{min-height:110px;resize:vertical}
+  .btn{cursor:pointer;border:1px solid #1f1f1f;background:#101010;color:#fff;border-radius:10px;padding:9px 12px}
+  .btn:hover{border-color:#2a2a2a}
+  .btn.acc{background:var(--accent);color:#000;border-color:#00d235}
+  .btn.ghost{background:transparent}
+  .btn.small{padding:6px 8px;font-size:12px;border-radius:8px}
+  .grid-cols{display:grid;gap:12px}
+  @media(min-width:900px){.cols-3{grid-template-columns:repeat(3,1fr)}.cols-4{grid-template-columns:repeat(4,1fr)}}
+
+  /* checklists */
+  .check li{display:flex;align-items:center;gap:10px;margin:6px 0}
+  .check input[type="checkbox"]{width:18px;height:18px}
+  .progress{height:8px;background:#141414;border-radius:999px;overflow:hidden;border:1px solid #1f1f1f}
+  .progress > span{display:block;height:100%;background:var(--accent);width:0}
+
+  /* MAP board */
+  .board{display:grid;gap:12px}
+  @media(min-width:960px){.board{grid-template-columns:repeat(4,1fr)}}
+  .col{border:1px solid #1e1e1e;border-radius:12px;min-height:220px;background:#0a0a0a;padding:8px}
+  .col h4{margin:4px 6px 10px}
+  .card{border:1px solid #222;border-radius:10px;background:#0f0f0f;padding:8px;margin:8px 4px;cursor:grab}
+  .card small{color:#bcbcbc}
+  .inline{display:flex;gap:8px;align-items:center}
+  .pill{border:1px solid #262626;border-radius:999px;padding:2px 8px;font-size:11px;color:#c9c9c9}
+
+  /* toast */
+  .toast{position:fixed;right:16px;bottom:16px;background:#0f0f0f;border:1px solid #222;border-radius:10px;padding:10px 12px;color:#ddd;opacity:0;transform:translateY(8px);transition:.2s}
+  .toast.show{opacity:1;transform:translateY(0)}
+  footer{margin:40px 0 0;padding-top:18px;border-top:1px dashed #202020;color:#bdbdbd;font-size:13px}
+</style>
+</head>
+<body>
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">Vyralab™</div>
+      <div class="slogan">Built for Ghostwriters. By Ghostwriters.™<br/>Creating Tomorrow’s Creators is in Our DNA.™</div>
+      <div class="badge">VP of Customer Success Edition</div>
+    </div>
+
+    <div class="hr" style="border-top:1px solid #1a1a1a;margin:14px 0"></div>
+    <div class="toc">
+      <h3>Modules</h3>
+      <!-- TOC links (progress dots fill as user completes module checklists) -->
+      <a href="#m0"><span class="dot" id="dot-m0"></span> Module 0 — Principles</a>
+      <a href="#m1"><span class="dot" id="dot-m1"></span> Module 1 — Psychology Map</a>
+      <a href="#m2"><span class="dot" id="dot-m2"></span> Module 2 — MAP</a>
+      <a href="#m3"><span class="dot" id="dot-m3"></span> Module 3 — Pre-Onboarding</a>
+      <a href="#m4"><span class="dot" id="dot-m4"></span> Module 4 — Onboarding Call</a>
+      <a href="#m5"><span class="dot" id="dot-m5"></span> Module 5 — Idea Gate</a>
+      <a href="#m6"><span class="dot" id="dot-m6"></span> Module 6 — Personalization</a>
+      <a href="#m7"><span class="dot" id="dot-m7"></span> Module 7 — Draft Gate</a>
+      <a href="#m8"><span class="dot" id="dot-m8"></span> Module 8 — Communication</a>
+      <a href="#m9"><span class="dot" id="dot-m9"></span> Module 9 — Launch</a>
+      <a href="#m10"><span class="dot" id="dot-m10"></span> Module 10 — Metrics</a>
+      <a href="#m11"><span class="dot" id="dot-m11"></span> Module 11 — Health & Saves</a>
+      <a href="#m12"><span class="dot" id="dot-m12"></span> Module 12 — Objections</a>
+      <a href="#m13"><span class="dot" id="dot-m13"></span> Module 13 — QBR</a>
+      <a href="#m14"><span class="dot" id="dot-m14"></span> Module 14 — Governance</a>
+      <a href="#m15"><span class="dot" id="dot-m15"></span> Module 15 — Systems</a>
+      <a href="#m16"><span class="dot" id="dot-m16"></span> Module 16 — Templates</a>
+      <a href="#m17"><span class="dot" id="dot-m17"></span> Module 17 — Scale</a>
+      <a href="#m18"><span class="dot" id="dot-m18"></span> Module 18 — Acceptance</a>
+      <a href="#m19"><span class="dot" id="dot-m19"></span> Module 19 — Daily Run</a>
+      <a href="#m20"><span class="dot" id="dot-m20"></span> Module 20 — Candor</a>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="progress" title="Course Progress"><span id="progressBar"></span></div>
+      <div style="display:flex;justify-content:space-between;color:#bdbdbd;font-size:12px;margin-top:6px"><span>Progress</span><span id="progressPct">0%</span></div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn small ghost" id="exportBtn">Export</button>
+        <button class="btn small ghost" id="importBtn">Import</button>
+        <button class="btn small" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header>
+      <h1>The Creative Process with Clients — Interactive Masterclass</h1>
+      <p class="lead">This is an $8,000-caliber, CS-driven operating system that explains and lets you practice the full interactive client experience inside one file. Your inputs persist locally.</p>
+      <div class="badge">All data saved in your browser (localStorage)</div>
+    </header>
+
+    <!-- MODULE 0 -->
+    <details id="m0" class="mod" open>
+      <summary><span class="chev">▶</span> MODULE 0 — Operating Principles</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Outcome over output</h3>
+            <ul class="check" data-mod="m0">
+              <li><input type="checkbox" data-k="m0-1"> <label>Map every artifact to a stated business goal on the MAP.</label></li>
+              <li><input type="checkbox" data-k="m0-2"> <label>Tie feedback to the goal tree, not taste.</label></li>
+              <li><input type="checkbox" data-k="m0-3"> <label>Show weekly movement toward the goal in status recaps.</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Frictionless by design</h3>
+            <ul class="check" data-mod="m0">
+              <li><input type="checkbox" data-k="m0-4"> <label>Offer multiple low-effort input modes (text, Loom, voice).</label></li>
+              <li><input type="checkbox" data-k="m0-5"> <label>Centralize approvals and deadlines in visible surfaces.</label></li>
+              <li><input type="checkbox" data-k="m0-6"> <label>Capture each decision once; link it everywhere needed.</label></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row row-2">
+          <div class="box">
+            <h3>Proactive posture</h3>
+            <ul class="check" data-mod="m0">
+              <li><input type="checkbox" data-k="m0-7"> <label>Weekly recap: shipped, next, needs, risks.</label></li>
+              <li><input type="checkbox" data-k="m0-8"> <label>Disclose blockers early with options and impact.</label></li>
+            </ul>
+          </div>
+          <div class="box callout">
+            <h3>Proof early, personalization next</h3>
+            <ul class="check" data-mod="m0">
+              <li><input type="checkbox" data-k="m0-9"> <label>Weeks 1–2: Only battle-tested patterns in client lane.</label></li>
+              <li><input type="checkbox" data-k="m0-10"> <label>After first win: turn on the Personalization Engine.</label></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 1 -->
+    <details id="m1" class="mod">
+      <summary><span class="chev">▶</span> MODULE 1 — The Customer Psychology Map</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box bad">
+            <h3>What they fear</h3>
+            <ul>
+              <li>Wasted time • missed windows • generic voice</li>
+              <li>Silent team • scope drift • “this looks nothing like me”</li>
+            </ul>
+          </div>
+          <div class="box good">
+            <h3>What keeps them</h3>
+            <ul>
+              <li>Predictable progress • early wins • unmistakable voice</li>
+              <li>Clear calendar • tight comms • easy approvals</li>
+            </ul>
+          </div>
+          <div class="box callout">
+            <h3>Practice</h3>
+            <ul>
+              <li>Start on validated viral formats → earn trust</li>
+              <li>Layer Personalization Engine for depth</li>
+              <li>Keep a live Mutual Action Plan (MAP)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 2: Interactive MAP board -->
+    <details id="m2" class="mod">
+      <summary><span class="chev">▶</span> MODULE 2 — The Mutual Action Plan (Interactive Board)</summary>
+      <div class="body">
+        <p class="dim">Drag cards between columns. Click a card to edit. Use “Add Item” to create a new row. All persists locally.</p>
+        <div class="row row-2">
+          <div class="box">
+            <div class="inline" style="gap:6px">
+              <input id="mapTitle" placeholder="New item title (e.g., Profile Bio V1)" />
+              <select id="mapOwner">
+                <option value="Client">Client</option>
+                <option value="AM/CSM">AM/CSM</option>
+                <option value="Writer">Writer</option>
+                <option value="CD">CD</option>
+              </select>
+              <button class="btn" id="addMapItem">Add Item</button>
+            </div>
+          </div>
+        </div>
+        <div class="board" id="mapBoard">
+          <div class="col" data-col="Alignment"><h4>Alignment</h4></div>
+          <div class="col" data-col="Creation"><h4>Creation</h4></div>
+          <div class="col" data-col="Approval"><h4>Approval</h4></div>
+          <div class="col" data-col="Launch & Learn"><h4>Launch &amp; Learn</h4></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 3 -->
+    <details id="m3" class="mod">
+      <summary><span class="chev">▶</span> MODULE 3 — Pre-Onboarding Intelligence Pack</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Build these before the call</h3>
+            <ul class="check" data-mod="m3">
+              <li><input type="checkbox" data-k="m3-1"> <label>Goal Tree (client words)</label></li>
+              <li><input type="checkbox" data-k="m3-2"> <label>Offer/CTA stack (primary + backup)</label></li>
+              <li><input type="checkbox" data-k="m3-3"> <label>Audience & Proof (ICP + artifacts)</label></li>
+              <li><input type="checkbox" data-k="m3-4"> <label>Idea Shortlist (2–4 weeks)</label></li>
+              <li><input type="checkbox" data-k="m3-5"> <label>Profile Optimization Draft</label></li>
+              <li><input type="checkbox" data-k="m3-6"> <label>Launch Plan (week-by-week)</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Pre-Onboarding message generator</h3>
+            <div class="grid-cols cols-3">
+              <div><label>Client Name</label><input id="preName" placeholder="Alex Founder" /></div>
+              <div><label>Date</label><input id="preDate" placeholder="Nov 5" /></div>
+              <div><label>Primary CTA</label><input id="preCTA" placeholder="Newsletter / Audit" /></div>
+            </div>
+            <label style="display:block;margin-top:10px">Short agenda bullets</label>
+            <textarea id="preAgenda" placeholder="Goals/strategy, workflow, idea review, profile updates, next steps"></textarea>
+            <div class="inline" style="margin-top:8px">
+              <button class="btn acc" id="genPreMsg">Generate</button>
+              <button class="btn" id="copyPreMsg">Copy</button>
+            </div>
+            <textarea id="preOut" placeholder="Generated message will appear here…" style="margin-top:8px"></textarea>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 4 -->
+    <details id="m4" class="mod">
+      <summary><span class="chev">▶</span> MODULE 4 — Onboarding Call Mastery</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Opening line</h3>
+            <textarea id="openLine">“Our job is to make this effortless and effective. We’ll handle the heavy lifting and keep you fully in the loop…”</textarea>
+            <button class="btn small" data-copy="#openLine">Copy</button>
+          </div>
+          <div class="box">
+            <h3>Workflow alignment</h3>
+            <ul class="check" data-mod="m4">
+              <li><input type="checkbox" data-k="m4-1"> <label>Posting & cross-posting plan</label></li>
+              <li><input type="checkbox" data-k="m4-2"> <label>Publisher & approvals</label></li>
+              <li><input type="checkbox" data-k="m4-3"> <label>Where outlines/media live</label></li>
+              <li><input type="checkbox" data-k="m4-4"> <label>Involvement level agreed</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Close the call</h3>
+            <textarea id="closeLine">Recap decisions, confirm deliverables & inputs, point to the MAP; get a verbal “yes” on the Launch Plan.</textarea>
+            <button class="btn small" data-copy="#closeLine">Copy</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 5 -->
+    <details id="m5" class="mod">
+      <summary><span class="chev">▶</span> MODULE 5 — The Idea Gate (Validator)</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Idea Validator</h3>
+            <div class="check">
+              <label><input type="checkbox" class="ig"> Viral pattern proof exists</label><br/>
+              <label><input type="checkbox" class="ig"> Relevance to offer is obvious</label><br/>
+              <label><input type="checkbox" class="ig"> Emotion present (no clickbait)</label><br/>
+              <label><input type="checkbox" class="ig"> Artifact ready (screens/quotes)</label><br/>
+              <label><input type="checkbox" class="ig"> CTA defined now</label>
+            </div>
+            <div class="inline" style="margin-top:8px">
+              <button class="btn acc" id="validateIdea">Validate</button>
+              <div id="ideaVerdict" class="pill">Awaiting checks…</div>
+            </div>
+          </div>
+          <div class="box callout">
+            <h3>Tip</h3>
+            <p>Reject politely or reframe until it passes all five gates. Document gate outcomes on the MAP card.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 6 -->
+    <details id="m6" class="mod">
+      <summary><span class="chev">▶</span> MODULE 6 — The Personalization Engine (Outline Capture)</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Add “Personal Idea”</h3>
+            <input id="piTitle" placeholder="Working title" />
+            <textarea id="piBullets" placeholder="Anecdote bullets, lesson, names…"></textarea>
+            <input id="piAssets" placeholder="Links to screenshots/files" />
+            <div class="inline" style="margin-top:8px">
+              <button class="btn acc" id="addPI">Add to Personal Ideas</button>
+              <button class="btn" id="clearPI">Clear</button>
+            </div>
+          </div>
+          <div class="box">
+            <h3>Personal Ideas (live list)</h3>
+            <div id="piList" class="grid-cols"></div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 7 -->
+    <details id="m7" class="mod">
+      <summary><span class="chev">▶</span> MODULE 7 — Draft Gate & Editorial Standards</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Hook & Structure</h3>
+            <ul class="check" data-mod="m7">
+              <li><input type="checkbox" data-k="m7-1"> <label>Hook: curiosity + specificity</label></li>
+              <li><input type="checkbox" data-k="m7-2"> <label>1–3–1 rhythm visible</label></li>
+              <li><input type="checkbox" data-k="m7-3"> <label>Sentence music (short/long)</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Substance</h3>
+            <ul class="check" data-mod="m7">
+              <li><input type="checkbox" data-k="m7-4"> <label>What • Why • How per point</label></li>
+              <li><input type="checkbox" data-k="m7-5"> <label>Benefits over mechanisms</label></li>
+              <li><input type="checkbox" data-k="m7-6"> <label>Earned transition</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Compliance</h3>
+            <ul class="check" data-mod="m7">
+              <li><input type="checkbox" data-k="m7-7"> <label>Voice unmistakable</label></li>
+              <li><input type="checkbox" data-k="m7-8"> <label>Full protocol links</label></li>
+              <li><input type="checkbox" data-k="m7-9"> <label>Imagery sourced & filed</label></li>
+              <li><input type="checkbox" data-k="m7-10"> <label>Locale grammar clean</label></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 8 -->
+    <details id="m8" class="mod">
+      <summary><span class="chev">▶</span> MODULE 8 — Communication System (Snippet Kit)</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Standards</h3>
+            <ul class="check" data-mod="m8">
+              <li><input type="checkbox" data-k="m8-1"> <label>Same-day acknowledgment</label></li>
+              <li><input type="checkbox" data-k="m8-2"> <label>Weekly status recap rhythm</label></li>
+              <li><input type="checkbox" data-k="m8-3"> <label>Owner + next step in replies</label></li>
+              <li><input type="checkbox" data-k="m8-4"> <label>Early blocker disclosure</label></li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Copy-ready Snippets</h3>
+            <textarea id="snAck">Got this. We’ll incorporate the two points on authority tone and swap the CTA to the newsletter. Updated timeline lives on your MAP.</textarea>
+            <button class="btn small" data-copy="#snAck">Copy</button>
+            <textarea id="snBlock" style="margin-top:8px">We’re paused on Post #3 until we receive the screenshot. Options: a) publish #4 in its slot, b) replace #3 with a proven alternative, c) hold the slot for one cycle. Preference?</textarea>
+            <button class="btn small" data-copy="#snBlock">Copy</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 9 -->
+    <details id="m9" class="mod">
+      <summary><span class="chev">▶</span> MODULE 9 — Launch Strategy for Fast Trust</summary>
+      <div class="body">
+        <div class="box">
+          <ul class="check" data-mod="m9">
+            <li><input type="checkbox" data-k="m9-1"> <label>Weeks 1–2: ship only trusted patterns</label></li>
+            <li><input type="checkbox" data-k="m9-2"> <label>Tight transitions to a single CTA</label></li>
+            <li><input type="checkbox" data-k="m9-3"> <label>Show visible proof (screens/quotes)</label></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 10 KPI calculator -->
+    <details id="m10" class="mod">
+      <summary><span class="chev">▶</span> MODULE 10 — Metrics that Move Retention (KPI Calculator)</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Enter Post Metrics</h3>
+            <label>Impressions</label><input id="impr" type="number" placeholder="e.g., 12500" />
+            <label>Link Clicks</label><input id="clicks" type="number" placeholder="e.g., 240" />
+            <button class="btn acc" id="calcKPI" style="margin-top:8px">Calculate</button>
+          </div>
+          <div class="box">
+            <h3>Results</h3>
+            <div class="kpi"><strong>CTR:</strong> <span id="ctr">—</span></div>
+            <div class="kpi"><strong>Clicks / 1k:</strong> <span id="cpk">—</span></div>
+            <div class="kpi"><strong>Read:</strong> <span id="kpiRead">—</span></div>
+          </div>
+          <div class="box callout">
+            <h3>Interpretation</h3>
+            <p><em>High reach / low clicks</em> → sharpen CTA promise & transition logic.<br/>
+               <em>Low reach / good clicks</em> → widen topic pattern; keep CTA.<br/>
+               <em>Both soft</em> → swap angle, proof, and hook pattern.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 11 -->
+    <details id="m11" class="mod">
+      <summary><span class="chev">▶</span> MODULE 11 — Health Scoring & Save-Plans</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Signals</h3>
+            <select id="sig1">
+              <option>Approvals on time</option>
+              <option>Slow approvals</option>
+              <option>Missed launches</option>
+            </select>
+            <select id="sig2" style="margin-top:6px">
+              <option>Voice aligned</option>
+              <option>Off-voice comments</option>
+              <option>Silent sponsor</option>
+            </select>
+            <button class="btn acc" id="scoreHealth" style="margin-top:8px">Score Health</button>
+          </div>
+          <div class="box">
+            <h3>Health</h3>
+            <div id="healthBadge" class="pill">—</div>
+            <p id="healthNote" class="dim"></p>
+          </div>
+          <div class="box">
+            <h3>Save-Plan Wizard</h3>
+            <label>Goal at risk</label><input id="spGoal" placeholder="e.g., audit-bookings" />
+            <label>Two Options</label><textarea id="spOpts" placeholder="Option A…&#10;Option B…"></textarea>
+            <button class="btn" id="genSave">Generate Script</button>
+            <button class="btn" id="copySave">Copy</button>
+            <textarea id="spOut" style="margin-top:8px" placeholder="Script will appear here…"></textarea>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 12 -->
+    <details id="m12" class="mod">
+      <summary><span class="chev">▶</span> MODULE 12 — Objections & Hard Moments</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Hands-off + hyper-personal</h3>
+            <textarea id="ob1">Strong results require little effort from you using proven ideas. For personal pieces, a quick voice note unlocks your unique stories. We’ll make it painless and do all the lifting.</textarea>
+            <button class="btn small" data-copy="#ob1">Copy</button>
+          </div>
+          <div class="box">
+            <h3>“Why aren’t we viral?”</h3>
+            <textarea id="ob2">We optimize for repeatable wins. Here’s what compounds now: [proof]. Next, we widen reach with [pattern] while holding clicks through [CTA refinement].</textarea>
+            <button class="btn small" data-copy="#ob2">Copy</button>
+          </div>
+          <div class="box">
+            <h3>Scope drift</h3>
+            <textarea id="ob3">Happy to help. This sits outside scope. Two paths: swap a planned item, or add it as a paid add-on. Which keeps you moving best?</textarea>
+            <button class="btn small" data-copy="#ob3">Copy</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 13 -->
+    <details id="m13" class="mod">
+      <summary><span class="chev">▶</span> MODULE 13 — Renewal & Expansion (QBR Generator)</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Inputs</h3>
+            <label>Outcome recap</label><textarea id="qbrOutcomes"></textarea>
+            <label>Signals (what printed)</label><textarea id="qbrSignals"></textarea>
+            <label>Opportunity board (3)</label><textarea id="qbrOpps"></textarea>
+            <label>Decision ask</label><input id="qbrAsk" placeholder="Renew / Upgrade cadence / New lane" />
+            <button class="btn acc" id="genQBR" style="margin-top:8px">Generate QBR</button>
+          </div>
+          <div class="box">
+            <h3>QBR Script</h3>
+            <button class="btn small" id="copyQBR">Copy</button>
+            <textarea id="qbrOut" style="margin-top:8px" placeholder="QBR will appear here…"></textarea>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 14 -->
+    <details id="m14" class="mod">
+      <summary><span class="chev">▶</span> MODULE 14 — Governance & QA</summary>
+      <div class="body">
+        <div class="box">
+          <h3>Gates</h3>
+          <ul class="check" data-mod="m14">
+            <li><input type="checkbox" data-k="m14-1"> <label>Idea Gate before writing</label></li>
+            <li><input type="checkbox" data-k="m14-2"> <label>Draft Gate before client review</label></li>
+            <li><input type="checkbox" data-k="m14-3"> <label>Calendar Gate before publishing</label></li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>No-Plagiarism Guardrails</h3>
+          <ul class="check" data-mod="m14">
+            <li><input type="checkbox" data-k="m14-4"> <label>No word-for-word hooks/bodies</label></li>
+            <li><input type="checkbox" data-k="m14-5"> <label>Pull from multiple sources + credit</label></li>
+            <li><input type="checkbox" data-k="m14-6"> <label>Add original analysis and proof</label></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 15 -->
+    <details id="m15" class="mod">
+      <summary><span class="chev">▶</span> MODULE 15 — Systems & Surfaces</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Notion (client-facing)</h3>
+            <ul>
+              <li>MAP • Brand Voice Doc • Calendar • Personal Ideas • Asset Library</li>
+            </ul>
+            <h3>Typefully</h3>
+            <ul>
+              <li>Ideas → Ready → Draft → Review → Approved → Scheduled → Posted</li>
+              <li>Labels: Personal Idea • Viral Pattern • CTA-Lead • Asset-Ready</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Drive & Slack</h3>
+            <ul>
+              <li>Drive: /Assets • /Approved Content • /Proof</li>
+              <li>Slack: #client-name, pin MAP & calendar, one thread per post</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 16 Templates -->
+    <details id="m16" class="mod">
+      <summary><span class="chev">▶</span> MODULE 16 — Templates You Can Paste</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Pre-Onboarding DM</h3>
+            <textarea id="tA">Agenda for tomorrow: goals/strategy → workflow → idea review → profile optimization → next steps. Ideas to preview: [links]. Profile suggestions: [link]. We’ll leave with a simple Launch Plan you can approve.</textarea>
+            <button class="btn small" data-copy="#tA">Copy</button>
+            <h3 style="margin-top:10px">Post-Onboarding Summary</h3>
+            <textarea id="tB">Recap: [decisions]. We’ll deliver: [items]. We need: [client inputs]. Profile updates: [list]. Brand Voice Doc this week. Launch milestones live on your MAP.</textarea>
+            <button class="btn small" data-copy="#tB">Copy</button>
+          </div>
+          <div class="box">
+            <h3>Outline Request</h3>
+            <textarea id="tC">To make these posts unmistakably you, drop a few bullets: • Story/anecdote you’d share • The line you’d actually say • Any screenshot/file we should include. Type, Loom, or voice note—whatever’s fastest.</textarea>
+            <button class="btn small" data-copy="#tC">Copy</button>
+            <h3 style="margin-top:10px">“Waiting on You” Nudge</h3>
+            <textarea id="tD">Quick nudge on the two outlines and the screenshot for Post #3. Options: a) publish #4 in its slot, b) swap #3 for an alternate, c) hold the slot for one cycle. Preference?</textarea>
+            <button class="btn small" data-copy="#tD">Copy</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 17 -->
+    <details id="m17" class="mod">
+      <summary><span class="chev">▶</span> MODULE 17 — Advanced: Personalization at Scale</summary>
+      <div class="body">
+        <div class="row row-2">
+          <div class="box">
+            <h3>Voice seeds</h3>
+            <textarea id="voiceSeeds" placeholder="Collect 20 phrases that sound quintessentially the client…"></textarea>
+          </div>
+          <div class="box">
+            <h3>Transition/CTA Matrix</h3>
+            <textarea id="ctaMatrix" placeholder="Soft / Medium / Hard variants for core offers…"></textarea>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- MODULE 18 -->
+    <details id="m18" class="mod">
+      <summary><span class="chev">▶</span> MODULE 18 — What Great Looks Like (Acceptance Criteria)</summary>
+      <div class="body">
+        <ul class="check" data-mod="m18">
+          <li><input type="checkbox" data-k="m18-1"> <label>Client can paraphrase the Launch Plan</label></li>
+          <li><input type="checkbox" data-k="m18-2"> <label>First visible win captured and shown</label></li>
+          <li><input type="checkbox" data-k="m18-3"> <label>Voice lock-in after first feedback cycle</label></li>
+          <li><input type="checkbox" data-k="m18-4"> <label>Calendar certainty • no surprise gaps</label></li>
+          <li><input type="checkbox" data-k="m18-5"> <label>Proactive stance visible in options</label></li>
+          <li><input type="checkbox" data-k="m18-6"> <label>MAP hygiene: nothing important outside it</label></li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- MODULE 19 -->
+    <details id="m19" class="mod">
+      <summary><span class="chev">▶</span> MODULE 19 — Day-to-Day Running Order</summary>
+      <div class="body">
+        <ol>
+          <li>Check MAP for decisions and blockers.</li>
+          <li>Review client messages; acknowledge and assign owners.</li>
+          <li>Idea Gate on new items; move approved to Ready to Write.</li>
+          <li>Drafts → Draft Gate → client review.</li>
+          <li>Approvals → schedule → post → capture proof to library.</li>
+          <li>Update MAP; post weekly recap; queue next cycle.</li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- MODULE 20 -->
+    <details id="m20" class="mod">
+      <summary><span class="chev">▶</span> MODULE 20 — Culture of Candor</summary>
+      <div class="body">
+        <div class="row row-3">
+          <div class="box">
+            <h3>Tell the truth fast</h3>
+            <p>If something slipped, state it, own it, fix it, and document the prevention step on the MAP.</p>
+          </div>
+          <div class="box">
+            <h3>Educate the why</h3>
+            <p>Translate tradeoffs into simple choices with impact and timelines. Confident clients renew.</p>
+          </div>
+          <div class="box">
+            <h3>Make advocacy easy</h3>
+            <p>After wins, hand clients a one-paragraph testimonial prompt and a simple referral script.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <footer>
+      <span class="brand">Vyralab™</span> • “Built for Ghostwriters. By Ghostwriters.” • “Creating Tomorrow’s Creators is in Our DNA.” • © 2025
+    </footer>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied.</div>
+
+<script>
+/* ---------- persistence helpers ---------- */
+const SCOPE = 'vyralab_cs_masterclass_v1';
+const getState = () => JSON.parse(localStorage.getItem(SCOPE) || '{}');
+const setState = (obj) => localStorage.setItem(SCOPE, JSON.stringify(obj));
+const state = getState();
+
+/* ---------- checklist persistence & progress ---------- */
+function initChecklists(){
+  document.querySelectorAll('.check input[type="checkbox"]').forEach(cb=>{
+    const key = cb.dataset.k;
+    if(!state.checks) state.checks = {};
+    if(state.checks[key]) cb.checked = true;
+    cb.addEventListener('change', ()=>{
+      state.checks[key] = cb.checked;
+      setState(state);
+      updateProgress();
+    });
+  });
+}
+function modDone(modId){
+  const mod = document.querySelector(`[id="${modId}"]`);
+  const boxes = mod.querySelectorAll('.check input[type="checkbox"]');
+  if(!boxes.length) return false;
+  return Array.from(boxes).every(b=>b.checked);
+}
+function updateProgress(){
+  const modIds = Array.from(document.querySelectorAll('.mod')).map(m=>m.id);
+  let done = 0;
+  modIds.forEach(id=>{
+    const dot = document.getElementById('dot-'+id);
+    if(!dot) return;
+    const isDone = modDone(id);
+    dot.classList.toggle('done', isDone);
+    if(isDone) done++;
+  });
+  const pct = Math.round((done / modIds.length)*100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+initChecklists();
+
+/* ---------- copy helpers / toast ---------- */
+const toast = (msg='Copied.')=>{
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1200);
+}
+document.querySelectorAll('[data-copy]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const sel = btn.getAttribute('data-copy');
+    const el = document.querySelector(sel);
+    navigator.clipboard.writeText(el.value || el.textContent || '').then(()=>toast());
+  })
+});
+
+/* ---------- Export / Import / Reset ---------- */
+document.getElementById('exportBtn').onclick = ()=>{
+  const data = localStorage.getItem(SCOPE) || '{}';
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'vyralab_cs_masterclass.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+document.getElementById('importBtn').onclick = ()=>{
+  const i = document.createElement('input');
+  i.type='file'; i.accept='application/json';
+  i.onchange = (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ()=>{ localStorage.setItem(SCOPE, r.result); location.reload(); };
+    r.readAsText(f);
+  };
+  i.click();
+}
+document.getElementById('resetBtn').onclick = ()=>{
+  if(confirm('Reset all saved progress and data?')){ localStorage.removeItem(SCOPE); location.reload(); }
+}
+
+/* ---------- Pre-Onboarding generator ---------- */
+document.getElementById('genPreMsg').onclick = ()=>{
+  const n = document.getElementById('preName').value || 'Client';
+  const d = document.getElementById('preDate').value || 'this week';
+  const c = document.getElementById('preCTA').value || 'your primary CTA';
+  const a = document.getElementById('preAgenda').value || 'Goals/strategy, workflow, idea review, profile updates, next steps';
+  const out = `Hey ${n} — ${d} agenda: ${a}.
+We’ll align on the business goal, choose breadth vs niche for Month 1, and lock ${c}.
+You’ll leave with a simple Launch Plan you can approve on the call.`;
+  document.getElementById('preOut').value = out;
+  state.preOut = out; setState(state);
+};
+document.getElementById('copyPreMsg').onclick = ()=>{
+  navigator.clipboard.writeText(document.getElementById('preOut').value || '').then(()=>toast());
+};
+
+/* ---------- Idea Gate validator ---------- */
+document.getElementById('validateIdea').onclick = ()=>{
+  const checks = Array.from(document.querySelectorAll('.ig')).filter(c=>c.checked).length;
+  const verdict = document.getElementById('ideaVerdict');
+  if(checks===5){ verdict.textContent='PASS — ship to Ready to Write'; verdict.style.color = '#00ff41'; }
+  else { verdict.textContent = `FAIL — ${5-checks} criteria missing`; verdict.style.color = '#ffd33d'; }
+}
+
+/* ---------- Personalization Engine list ---------- */
+if(!state.personalIdeas) state.personalIdeas = [];
+const renderPI = ()=>{
+  const wrap = document.getElementById('piList');
+  wrap.innerHTML = '';
+  state.personalIdeas.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.className = 'box';
+    div.innerHTML = `<strong>${p.title}</strong><br/><small>${p.assets||''}</small><p>${p.bullets||''}</p>
+    <div class="inline"><button class="btn small" data-del="${i}">Delete</button>
+    <button class="btn small" data-copytext="${(p.title+'\\n'+p.bullets+'\\n'+p.assets).replace(/"/g,'&quot;')}">Copy</button></div>`;
+    wrap.appendChild(div);
+  });
+  wrap.querySelectorAll('[data-del]').forEach(b=>{
+    b.onclick = ()=>{ state.personalIdeas.splice(Number(b.dataset.del),1); setState(state); renderPI(); }
+  })
+  wrap.querySelectorAll('[data-copytext]').forEach(b=>{
+    b.onclick = ()=>{ navigator.clipboard.writeText(b.dataset.copytext.replace(/&quot;/g,'"')); toast(); }
+  })
+};
+renderPI();
+document.getElementById('addPI').onclick = ()=>{
+  const t = document.getElementById('piTitle').value.trim();
+  const b = document.getElementById('piBullets').value.trim();
+  const a = document.getElementById('piAssets').value.trim();
+  if(!t){ toast('Add a title'); return; }
+  state.personalIdeas.push({title:t, bullets:b, assets:a, ts:Date.now()});
+  setState(state); renderPI();
+  document.getElementById('piTitle').value='';
+  document.getElementById('piBullets').value='';
+  document.getElementById('piAssets').value='';
+};
+document.getElementById('clearPI').onclick = ()=>{
+  document.getElementById('piTitle').value='';
+  document.getElementById('piBullets').value='';
+  document.getElementById('piAssets').value='';
+};
+
+/* ---------- KPI calculator ---------- */
+document.getElementById('calcKPI').onclick = ()=>{
+  const impr = +document.getElementById('impr').value || 0;
+  const clicks = +document.getElementById('clicks').value || 0;
+  const ctr = impr ? (clicks/impr*100) : 0;
+  const cpk = impr ? (clicks/(impr/1000)) : 0;
+  document.getElementById('ctr').textContent = ctr.toFixed(2)+'%';
+  document.getElementById('cpk').textContent = cpk.toFixed(2);
+  let read = 'Neutral';
+  if(cpk >= 25 && ctr >= 1.2) read = 'Strong conversion (scale idea & CTA)';
+  else if(cpk < 10 && ctr < 0.6) read = 'Weak — change angle & hook';
+  else if(ctr < 0.6) read = 'Sharpen CTA & transition';
+  else read = 'Increase distribution pattern';
+  document.getElementById('kpiRead').textContent = read;
+}
+
+/* ---------- Health scoring ---------- */
+document.getElementById('scoreHealth').onclick = ()=>{
+  const s1 = document.getElementById('sig1').value;
+  const s2 = document.getElementById('sig2').value;
+  let score = 0;
+  if(s1==='Approvals on time') score+=1;
+  if(s1==='Slow approvals') score-=1;
+  if(s1==='Missed launches') score-=2;
+  if(s2==='Voice aligned') score+=1;
+  if(s2==='Off-voice comments') score-=1;
+  if(s2==='Silent sponsor') score-=2;
+  const badge = document.getElementById('healthBadge');
+  const note = document.getElementById('healthNote');
+  if(score>=2){ badge.textContent='GREEN'; badge.style.color='#39d353'; note.textContent='Maintain cadence; consider expansion proposal.'; }
+  else if(score>=0){ badge.textContent='YELLOW'; badge.style.color='#ffd33d'; note.textContent='Tighten approvals and voice lock; ship a quick win.'; }
+  else { badge.textContent='RED'; badge.style.color='#ff3b3b'; note.textContent='Run Save-Plan: name reality, offer 2 paths, short-cycle a win.'; }
+}
+
+/* ---------- Save-plan wizard ---------- */
+document.getElementById('genSave').onclick = ()=>{
+  const g = document.getElementById('spGoal').value || 'primary goal';
+  const o = document.getElementById('spOpts').value || 'Option A…\nOption B…';
+  const txt = `I want to reset momentum and lock back into ${g}.
+Here’s what we’re seeing and its impact on ${g}.
+Two winning options:
+${o}
+
+Which path do you want us to drive?`;
+  document.getElementById('spOut').value = txt;
+};
+document.getElementById('copySave').onclick = ()=>navigator.clipboard.writeText(document.getElementById('spOut').value||'').then(()=>toast());
+
+/* ---------- QBR generator ---------- */
+document.getElementById('genQBR').onclick = ()=>{
+  const out = document.getElementById('qbrOutcomes').value || 'Targets vs results.';
+  const sig = document.getElementById('qbrSignals').value || 'Ideas, transitions, CTAs that printed.';
+  const opp = document.getElementById('qbrOpps').value || 'Three initiatives with projected impact.';
+  const ask = document.getElementById('qbrAsk').value || 'Renew current lane.';
+  const script = `QBR Agenda
+1) Outcome recap → ${out}
+2) Signal deep-dive → ${sig}
+3) Opportunity board → ${opp}
+4) Decision ask → ${ask}`;
+  document.getElementById('qbrOut').value = script;
+};
+document.getElementById('copyQBR').onclick = ()=>navigator.clipboard.writeText(document.getElementById('qbrOut').value||'').then(()=>toast());
+
+/* ---------- MAP board (drag & drop + persistence) ---------- */
+if(!state.map){ state.map = []; setState(state); }
+const cols = Array.from(document.querySelectorAll('.col'));
+const board = document.getElementById('mapBoard');
+
+function renderMap(){
+  cols.forEach(c=>{
+    c.querySelectorAll('.card').forEach(x=>x.remove());
+    state.map.filter(i=>i.col===c.dataset.col).forEach((item)=>{
+      const el = document.createElement('div');
+      el.className='card'; el.draggable=true; el.dataset.id=item.id;
+      el.innerHTML = `<div class="inline" style="justify-content:space-between">
+        <strong>${item.title}</strong><span class="pill">${item.owner}</span></div>
+        <small>${item.notes||''}</small>`;
+      el.addEventListener('dragstart',e=>{ e.dataTransfer.setData('text/plain', item.id); });
+      el.addEventListener('click',()=>editMapItem(item.id));
+      c.appendChild(el);
+    });
+  });
+}
+function editMapItem(id){
+  const it = state.map.find(x=>x.id===id);
+  const title = prompt('Title', it.title) ?? it.title;
+  const owner = prompt('Owner (Client/AM/CSM/Writer/CD)', it.owner) ?? it.owner;
+  const notes = prompt('Notes / Link', it.notes||'') ?? it.notes;
+  it.title = title; it.owner = owner; it.notes = notes;
+  setState(state); renderMap();
+}
+cols.forEach(c=>{
+  c.addEventListener('dragover',e=>{ e.preventDefault(); c.style.borderColor='#2a2a2a'; });
+  c.addEventListener('dragleave',()=>{ c.style.borderColor='#1e1e1e'; });
+  c.addEventListener('drop',e=>{
+    e.preventDefault(); c.style.borderColor='#1e1e1e';
+    const id = e.dataTransfer.getData('text/plain');
+    const it = state.map.find(x=>x.id===id); if(!it) return;
+    it.col = c.dataset.col;
+    setState(state); renderMap();
+  });
+});
+document.getElementById('addMapItem').onclick = ()=>{
+  const title = document.getElementById('mapTitle').value.trim();
+  const owner = document.getElementById('mapOwner').value;
+  if(!title) { toast('Add a title'); return; }
+  state.map.push({id:String(Date.now()), title, owner, col:'Alignment', notes:''});
+  setState(state); renderMap();
+  document.getElementById('mapTitle').value='';
+};
+renderMap();
+
+/* ---------- initial progress draw ---------- */
+updateProgress();
+</script>
+</body>
+</html>

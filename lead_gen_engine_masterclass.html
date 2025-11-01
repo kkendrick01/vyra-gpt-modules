@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vyralab — THE LEAD‑GEN ENGINE MASTERCLASS™</title>
+<style>
+:root{
+  --vl-black:#000000;
+  --vl-green:#00ff41;
+  --vl-white:#ffffff;
+  --vl-steel:#404040;
+  --vl-dark:#1a1a1a;
+  --vl-ink:#0f0f0f;
+  --radius:18px;
+  --pad:16px;
+  --gap:14px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color:var(--vl-white);
+  background: radial-gradient(1200px 700px at 20% -10%, rgba(0,255,65,.08), transparent 60%) , linear-gradient(180deg,#0a0a0a 0%, #0b0b0b 40%, #0c0c0c 100%);
+}
+a{color:var(--vl-green);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:0 auto;padding:26px}
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0 8px 0;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.brand{
+  display:flex;gap:14px;align-items:center;
+}
+.logo{
+  width:44px;height:44px;border-radius:12px;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(0,255,65,.45),transparent 35%),
+    conic-gradient(from 210deg at 50% 50%,rgba(0,255,65,.32), transparent 45%),
+    linear-gradient(135deg,#111,#0a0a0a);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 0 0 1px rgba(0,255,65,.15);
+}
+.h1{font-size:22px;font-weight:800;letter-spacing:.3px}
+.sub{font-size:12px;color:#c9c9c9}
+.badge{padding:4px 10px;border-radius:999px;background:rgba(0,255,65,.12);border:1px solid rgba(0,255,65,.3);color:var(--vl-green);font-weight:700;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap)}
+.card{
+  grid-column: span 12;
+  background: linear-gradient(180deg, #121212, #0e0e0e);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  padding:var(--pad);
+  box-shadow:var(--shadow);
+}
+h2{margin:4px 0 8px 0;font-size:18px}
+h3{margin:12px 0 8px 0;font-size:15px}
+p{color:#d6d6d6;line-height:1.6;margin:8px 0}
+ul{margin:6px 0 6px 18px}
+li{margin:4px 0}
+.kv{display:flex;gap:10px;flex-wrap:wrap}
+.kv .pill{padding:6px 10px;border-radius:999px;background:#151515;border:1px solid rgba(255,255,255,.08);font-size:12px}
+.row{display:flex;gap:var(--gap);flex-wrap:wrap}
+.col{flex:1 1 320px;min-width:300px}
+.input, textarea, select{
+  width:100%;padding:12px;border-radius:12px;background:#111;border:1px solid rgba(255,255,255,.12);color:#f2f2f2;
+}
+textarea{min-height:120px;resize:vertical}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#00ff41,#00d63a);
+  color:#0a0a0a;font-weight:800;border:0;cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,255,65,.25);
+}
+.btn.ghost{background:transparent;color:var(--vl-green);border:1px solid rgba(0,255,65,.45)}
+.btn:active{transform:translateY(1px)}
+small, .meta{color:#a8a8a8}
+hr{border:0;border-top:1px solid rgba(255,255,255,.08);margin:16px 0}
+kbd{background:#161616;border:1px solid rgba(255,255,255,.12);padding:2px 6px;border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:12px}
+.notice{padding:10px;border:1px dashed rgba(0,255,65,.35);border-radius:12px;background:rgba(0,255,65,.04)}
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table th,.table td{padding:10px 12px;text-align:left}
+.table tbody tr{background:#101010;border:1px solid rgba(255,255,255,.08)}
+.table tbody tr td:first-child{border-radius:10px 0 0 10px}
+.table tbody tr td:last-child{border-radius:0 10px 10px 0}
+.footer{opacity:.8;font-size:12px;margin-top:26px}
+.section-title{display:flex;align-items:center;justify-content:space-between}
+.progress-wrap{display:flex;gap:8px;align-items:center}
+.progress{height:10px;width:160px;background:#171717;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.progress>i{display:block;height:100%;background:linear-gradient(90deg,#00ff41,#00b331)}
+.code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#0e0e0e;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px;display:block;color:#e8e8e8}
+.checkgrid{display:grid;grid-template-columns:1.2fr 2fr;gap:8px;align-items:center}
+.checkgrid input[type=checkbox]{transform:scale(1.1)}
+.tag{display:inline-block;padding:4px 8px;border:1px solid rgba(255,255,255,.12);border-radius:999px;margin:2px;font-size:12px;background:#141414}
+.inline-form{display:flex;gap:8px;flex-wrap:wrap}
+.badgel{background:#101010;border:1px solid rgba(255,255,255,.08);padding:8px;border-radius:10px}
+/* Mobile */
+@media(max-width:720px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px}
+  .section-title{flex-direction:column;align-items:flex-start;gap:8px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div class="h1">THE LEAD‑GEN ENGINE MASTERCLASS™</div>
+        <div class="sub">Built for Ghostwriters. By Ghostwriters. — Creating Tomorrow’s Creators is in Our DNA.</div>
+      </div>
+    </div>
+    <span class="badge">$5,000 MASTERCLASS • Interactive • Offline</span>
+  </div>
+
+  <div class="grid" style="margin-top:16px">
+    <!-- Overview -->
+    <section class="card">
+      <div class="section-title">
+        <h2>What you’ll build</h2>
+        <div class="progress-wrap"><small>Completion</small><div class="progress"><i id="progressBar" style="width:0%"></i></div></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>You’ll design a repeatable, proof‑driven system that turns posts and threads into booked revenue. No AI calls. No dependencies. Just elite process, psychology, and tight execution.</p>
+          <div class="kv">
+            <div class="pill">8 Modules + 8 Labs</div>
+            <div class="pill">Swipe → Strategy Stack</div>
+            <div class="pill">Transition &amp; CTA Wizards</div>
+            <div class="pill">X Advanced Search Builder</div>
+            <div class="pill">UTM + Analytics Toolkit</div>
+            <div class="pill">Auto‑DM Campaign Planner</div>
+            <div class="pill">Compliance Checklists</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="notice">
+            <b>North Star:</b> maximize <u>qualified</u> link‑clicks and replies, not vanity impressions.
+            Map every post to a single outcome, tag every link, and iterate weekly on real data.
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="markAllRead()">Mark Overview as Done</button>
+            <button class="btn ghost" onclick="resetAll()">Reset Progress</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 1 -->
+    <section class="card" id="mod1">
+      <div class="section-title">
+        <h2>Module 1 — Strategy: Lead Gen that Actually Converts</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod1" onchange="saveProgress()"> Done</label>
+      </div>
+      <p><b>The goal:</b> maximum <b>qualified</b> link‑clicks and replies.</p>
+      <div class="row">
+        <div class="col">
+          <h3>Two client archetypes</h3>
+          <ul>
+            <li><b>Viral‑friendly niches</b> — fitness, money, crypto: draft from proven viral formats.</li>
+            <li><b>Non‑viral niches</b> — insurance, B2B infra: go broader, then bridge into the offer with receipts.</li>
+          </ul>
+          <p>Anchor posts to <b>Cialdini levers</b> (authority, social proof, scarcity, reciprocity, consistency, liking, unity) and ensure every asset obeys <b>B=MAP</b> (Motivation, Ability, Prompt). Your CTA is the Prompt.</p>
+        </div>
+        <div class="col">
+          <h3>Strategy Notes</h3>
+          <textarea id="mod1_notes" class="input" placeholder="Where does your niche sit? What’s your core benefit? What proof can you show in a single line?"></textarea>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="saveNotes('mod1_notes')">Save Notes</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 2 — Idea Sourcing -->
+    <section class="card" id="mod2">
+      <div class="section-title">
+        <h2>Module 2 — Idea Sourcing: Viral + Relevant</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod2" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>Inputs:</b> your swipe files, discovery columns, and topic watchlists.</p>
+          <ul>
+            <li><b>Proven &gt; novel:</b> source from live winners; transform structure and proof for your ICP.</li>
+            <li><b>Repeater test:</b> validate hook fragments across time/creators before you build.</li>
+            <li><b>Topic heat:</b> keep research high‑signal using engagement floors in search.</li>
+          </ul>
+          <div class="notice">
+            <b>Deliverable:</b> a living Swipe → Strategy board organized by <i>Hook Type → Topic → Proof → CTA path</i>.
+          </div>
+        </div>
+        <div class="col">
+          <h3>High‑Signal Creator List (from your brief)</h3>
+          <div class="checkgrid">
+            <label>Josh Sanders</label><input type="checkbox" data-tag="creator">
+            <label>Blake Weston</label><input type="checkbox" data-tag="creator">
+            <label>Chris Donnelly</label><input type="checkbox" data-tag="creator">
+            <label>Noemi</label><input type="checkbox" data-tag="creator">
+            <label>Justin Bateh</label><input type="checkbox" data-tag="creator">
+            <label>George Stern</label><input type="checkbox" data-tag="creator">
+            <label>Lottie‑Whyte</label><input type="checkbox" data-tag="creator">
+            <label>Dora V</label><input type="checkbox" data-tag="creator">
+            <label>Harry K</label><input type="checkbox" data-tag="creator">
+            <label>Matt Gray</label><input type="checkbox" data-tag="creator">
+            <label>Sahil Bloom</label><input type="checkbox" data-tag="creator">
+            <label>Eric Partaker</label><input type="checkbox" data-tag="creator">
+            <label>Ben Meer</label><input type="checkbox" data-tag="creator">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <!-- Idea Bank -->
+      <h3>Lab 1 — Build Your Niche Swipe Stack</h3>
+      <div class="row">
+        <div class="col">
+          <div class="inline-form">
+            <input id="idea_hook" class="input" placeholder="Hook fragment (e.g., Navy SEALs taught me)">
+            <input id="idea_topic" class="input" placeholder="Topic (e.g., discipline, focus)">
+            <input id="idea_proof" class="input" placeholder="Proof (e.g., 2B views, 60+ clients)">
+            <input id="idea_cta" class="input" placeholder="CTA path (e.g., audit, checklist)">
+            <button class="btn" onclick="addIdea()">Add</button>
+          </div>
+          <small class="meta">Tip: tag “repeaters” in the Hook to track patterns across creators.</small>
+        </div>
+        <div class="col">
+          <table class="table" id="ideaTable">
+            <thead>
+              <tr><th>Hook</th><th>Topic</th><th>Proof</th><th>CTA</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="row">
+            <button class="btn ghost" onclick="exportIdeas()">Export CSV</button>
+            <button class="btn ghost" onclick="clearIdeas()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 3 — Transitions -->
+    <section class="card" id="mod3">
+      <div class="section-title">
+        <h2>Module 3 — Transitions: From Story → Offer</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod3" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>Quality test:</b> If it reads ridiculous, it is. Keep it adjacent to the outcome you sell. ≤4 tweets / one LinkedIn paragraph after the story resolves.</p>
+          <ul>
+            <li>Restate the <b>why</b> in one line</li>
+            <li>Connect to attention → outcome your offer accelerates</li>
+            <li>1‑line proof (numbers, receipt)</li>
+            <li>Single next step (CTA)</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Transition Builder</h3>
+          <div class="row">
+            <div class="col">
+              <input id="t_why" class="input" placeholder="Story insight / why">
+              <input id="t_before" class="input" placeholder="Before state">
+              <input id="t_after" class="input" placeholder="After state">
+              <input id="t_cap" class="input" placeholder="Capability (what you build)">
+              <input id="t_icp" class="input" placeholder="ICP (founders, operators...)">
+              <input id="t_benefit" class="input" placeholder="Primary benefit">
+              <input id="t_obj" class="input" placeholder="Objection removed">
+              <input id="t_proof" class="input" placeholder="1-line proof (specific)">
+              <input id="t_action" class="input" placeholder="One clear action">
+              <div style="margin-top:8px">
+                <button class="btn" onclick="buildTransition()">Generate</button>
+                <button class="btn ghost" onclick="copyText('t_out')">Copy</button>
+              </div>
+            </div>
+            <div class="col">
+              <textarea id="t_out" class="input" placeholder="Your transition will appear here…"></textarea>
+              <small class="meta">Keep it ≤4 tweets or 1 LinkedIn paragraph.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 4 — CTAs -->
+    <section class="card" id="mod4">
+      <div class="section-title">
+        <h2>Module 4 — CTAs That People Actually Click</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod4" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>Benefits over mechanism.</b> Sell outcomes in 1–3 tight lines: credibility, benefit, objection diffuser, action. Optional: true urgency/FOMO.</p>
+          <div class="notice">Route clicks to a single‑focus landing page that matches the promise 1:1.</div>
+        </div>
+        <div class="col">
+          <h3>CTA Matrix Generator</h3>
+          <div class="row">
+            <div class="col">
+              <input id="c_proof" class="input" placeholder="Proof (e.g., 60+ clients, 2B views)">
+              <input id="c_benefit" class="input" placeholder="Specific benefit (e.g., land 3 clients)">
+              <input id="c_time" class="input" placeholder="Timeframe (optional)">
+              <input id="c_ob" class="input" placeholder="Objection removed (e.g., no guesswork)">
+              <input id="c_action" class="input" placeholder="Action (e.g., Book a 15‑min audit)">
+              <div style="margin-top:8px">
+                <button class="btn" onclick="buildCTAs()">Generate CTAs</button>
+                <button class="btn ghost" onclick="copyText('cta_out')">Copy</button>
+              </div>
+            </div>
+            <div class="col">
+              <textarea id="cta_out" class="input" placeholder="Soft / Medium / Hard CTAs will appear here…"></textarea>
+              <small class="meta">Keep each ≤2 lines. Clarity beats cleverness.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 5 — Landing + UTM -->
+    <section class="card" id="mod5">
+      <div class="section-title">
+        <h2>Module 5 — Landing Pages & UTMs</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod5" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>Conversion Anatomy</h3>
+          <ul>
+            <li>Promise‑aligned headline + clarifying subhead</li>
+            <li>Social proof near top; objection sweep near CTA</li>
+            <li>1 primary CTA, minimal nav, fast mobile load</li>
+          </ul>
+          <div class="notice">Testing shows selective ungating can grow total pipeline. Ship value, then upsell.</div>
+        </div>
+        <div class="col">
+          <h3>UTM Builder (GA4)</h3>
+          <div class="inline-form">
+            <input id="u_base" class="input" placeholder="Base URL (https://example.com/offer)">
+            <input id="u_source" class="input" placeholder="utm_source (x, linkedin, newsletter)">
+            <input id="u_medium" class="input" placeholder="utm_medium (social, email, paid-social)">
+            <input id="u_campaign" class="input" placeholder="utm_campaign (offer_q1, vyra_boost_nov25)">
+            <input id="u_content" class="input" placeholder="utm_content (soft, hard, comment)">
+            <button class="btn" onclick="buildUTM()">Build URL</button>
+          </div>
+          <code id="utm_out" class="code"></code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 6 — Analytics -->
+    <section class="card" id="mod6">
+      <div class="section-title">
+        <h2>Module 6 — Data‑Driven Lead Gen</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod6" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><b>North star:</b> Link‑clicks and clicks / 1,000 impressions. Iterate weekly on <i>idea quality</i>, <i>transition integrity</i>, and <i>CTA clarity</i>.</p>
+          <div class="notice">A/B one change at a time. Windows: X 24–72h • LinkedIn 48–96h.</div>
+        </div>
+        <div class="col">
+          <h3>Analytics Logger</h3>
+          <div class="inline-form">
+            <input id="a_date" class="input" placeholder="Date (YYYY‑MM‑DD)">
+            <input id="a_platform" class="input" placeholder="Platform (x/linkedin)">
+            <input id="a_url" class="input" placeholder="Post URL">
+            <input id="a_hook" class="input" placeholder="Hook">
+            <input id="a_trans" class="input" placeholder="Transition">
+            <input id="a_tier" class="input" placeholder="CTA Tier (soft/med/hard)">
+            <input id="a_impr" class="input" placeholder="Impressions">
+            <input id="a_clicks" class="input" placeholder="Link Clicks">
+            <input id="a_ctr" class="input" placeholder="CTR %">
+            <button class="btn" onclick="addAnalytics()">Log</button>
+          </div>
+          <table class="table" id="analyticsTable">
+            <thead><tr><th>Date</th><th>Plat.</th><th>URL</th><th>Hook</th><th>Trans.</th><th>Tier</th><th>Impr</th><th>Clicks</th><th>CTR%</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <div class="row">
+            <button class="btn ghost" onclick="exportAnalytics()">Export CSV</button>
+            <button class="btn ghost" onclick="clearAnalytics()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 7 — Auto-DM -->
+    <section class="card" id="mod7">
+      <div class="section-title">
+        <h2>Module 7 — Auto‑DM Campaigns</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod7" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ul>
+            <li>Open with a killer hook; state the deliverable (1‑pager, PDF, 10‑min loom).</li>
+            <li>Ask: “Like + reply ‘KIT’ and follow — I’ll DM it.”</li>
+            <li>Time‑box ethically (e.g., 24 hours).</li>
+          </ul>
+          <p>Configure in Typefully → Auto‑DM; require follow + reply keyword; craft the DM with link + next step.</p>
+        </div>
+        <div class="col">
+          <h3>Auto‑DM Planner</h3>
+          <div class="inline-form">
+            <input id="dm_hook" class="input" placeholder="Post hook">
+            <input id="dm_asset" class="input" placeholder="Deliverable (e.g., Starter Kit PDF)">
+            <input id="dm_keyword" class="input" placeholder="Reply keyword (e.g., KIT)">
+            <input id="dm_next" class="input" placeholder="Next step CTA (e.g., Book audit)">
+            <button class="btn" onclick="buildDM()">Draft Tweet + DM</button>
+          </div>
+          <textarea id="dm_out" class="input" placeholder="Your Tweet + DM script will appear here…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 8 — Compliance -->
+    <section class="card" id="mod8">
+      <div class="section-title">
+        <h2>Module 8 — Deliverability, Compliance & Risk</h2>
+        <label class="badgel"><input type="checkbox" id="c_mod8" onchange="saveProgress()"> Done</label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>Email: CAN‑SPAM Essentials</h3>
+          <ul>
+            <li>Truthful sender & subject; identify ads</li>
+            <li>Include address; easy unsubscribe</li>
+            <li>Honor opt‑outs quickly; monitor vendors</li>
+          </ul>
+          <h3>GDPR/PECR (UK/EU)</h3>
+          <ul>
+            <li>Specific consent for marketing emails to individuals</li>
+            <li>Keep consent requests separate and clear</li>
+            <li>Log consent and unsubscribe paths</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Compliance Checklist</h3>
+          <div id="compliance" class="checkgrid"></div>
+          <div style="margin-top:8px"><button class="btn ghost" onclick="exportCompliance()">Export Checklist</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Utilities -->
+    <section class="card">
+      <div class="section-title">
+        <h2>Utilities — X Search & Hook Repeater</h2>
+        <span class="meta">Build engagement‑gated queries; open in new tabs.</span>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>Advanced Search Builder (X)</h3>
+          <div class="inline-form">
+            <input id="x_keywords" class="input" placeholder='Keywords / phrase (use quotes for exact)'>
+            <input id="x_faves" class="input" placeholder="min_faves (e.g., 300)">
+            <input id="x_rt" class="input" placeholder="min_retweets (e.g., 40)">
+            <input id="x_replies" class="input" placeholder="min_replies (optional)">
+            <button class="btn" onclick="buildXSearch()">Open Search</button>
+          </div>
+          <code id="x_out" class="code"></code>
+        </div>
+        <div class="col">
+          <h3>Hook Repeater Validator</h3>
+          <div class="inline-form">
+            <input id="hr_phrase" class="input" placeholder='Hook fragment (use quotes, e.g., "Navy SEALs")'>
+            <input id="hr_floor" class="input" placeholder="min_faves (e.g., 500)">
+            <button class="btn" onclick="buildRepeater()">Open Repeater Column</button>
+          </div>
+          <code id="hr_out" class="code"></code>
+        </div>
+      </div>
+    </section>
+
+    <!-- References -->
+    <section class="card">
+      <div class="section-title"><h2>References & Further Reading</h2><span class="meta">Ethics-first. Transform structure; credit when close.</span></div>
+      <ul>
+        <li>Cialdini — Principles of Persuasion (ethics + levers)</li>
+        <li>Fogg Behavior Model — behavior = Motivation × Ability × Prompt</li>
+        <li>Nielsen Norman Group — clarity beats cleverness for CTAs</li>
+        <li>GA4 UTM Guides — campaign tagging & analysis</li>
+        <li>Landing Page Anatomy — promise alignment & objection sweeps</li>
+        <li>Typefully Auto‑DM — reply‑driven resource delivery</li>
+        <li>CAN‑SPAM & GDPR/PECR — deliverability & consent</li>
+      </ul>
+    </section>
+
+    <div class="footer">© Vyralab — THE LEAD‑GEN ENGINE MASTERCLASS™. Offline, client‑side, and brand‑tight.</div>
+  </div>
+</div>
+
+<script>
+// --- Local storage helpers ---
+const LKEY = 'vyralab_leadgen_masterclass_v1';
+function getState(){
+  try{ return JSON.parse(localStorage.getItem(LKEY)) || {
+    checks:{},
+    notes:{},
+    ideas:[],
+    analytics:[],
+    compliance:{}
+  }; }catch(e){ return {checks:{},notes:{},ideas:[],analytics:[],compliance:{}}}
+}
+function setState(next){ localStorage.setItem(LKEY, JSON.stringify(next)); refreshProgress(); }
+
+// --- Progress ---
+function refreshProgress(){
+  const st = getState();
+  const ids = ['c_mod1','c_mod2','c_mod3','c_mod4','c_mod5','c_mod6','c_mod7','c_mod8'];
+  let done = 0;
+  ids.forEach(id=>{ const el = document.getElementById(id); if(el){ el.checked = !!st.checks[id]; if(st.checks[id]) done++; }});
+  const pct = Math.round(100 * done / ids.length);
+  document.getElementById('progressBar').style.width = pct + '%';
+  // Notes
+  const nids = ['mod1_notes'];
+  nids.forEach(id=>{ const el=document.getElementById(id); if(el && st.notes[id]) el.value = st.notes[id]; });
+  // Tables
+  renderIdeas(); renderAnalytics(); renderCompliance();
+}
+function saveProgress(){
+  const st = getState();
+  ['c_mod1','c_mod2','c_mod3','c_mod4','c_mod5','c_mod6','c_mod7','c_mod8'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) st.checks[id] = el.checked;
+  });
+  setState(st);
+}
+function markAllRead(){
+  const st = getState();
+  ['c_mod1','c_mod2','c_mod3','c_mod4','c_mod5','c_mod6','c_mod7','c_mod8'].forEach(id=> st.checks[id]=true);
+  setState(st);
+}
+function resetAll(){
+  localStorage.removeItem(LKEY);
+  refreshProgress();
+}
+
+// --- Notes ---
+function saveNotes(id){
+  const st = getState();
+  const el = document.getElementById(id);
+  st.notes[id] = el.value;
+  setState(st);
+}
+
+// --- Idea Bank ---
+function addIdea(){
+  const hook = document.getElementById('idea_hook').value.trim();
+  const topic = document.getElementById('idea_topic').value.trim();
+  const proof = document.getElementById('idea_proof').value.trim();
+  const cta = document.getElementById('idea_cta').value.trim();
+  if(!hook){ alert('Hook fragment is required'); return; }
+  const st = getState();
+  st.ideas.push({hook,topic,proof,cta});
+  setState(st);
+  ['idea_hook','idea_topic','idea_proof','idea_cta'].forEach(id=>document.getElementById(id).value='');
+}
+function renderIdeas(){
+  const tb = document.querySelector('#ideaTable tbody');
+  if(!tb) return;
+  tb.innerHTML = '';
+  const st = getState();
+  st.ideas.forEach((r,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${esc(r.hook)}</td><td>${esc(r.topic||'')}</td><td>${esc(r.proof||'')}</td><td>${esc(r.cta||'')}</td>
+    <td><button class="btn ghost" onclick="delIdea(${i})">Delete</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+function delIdea(i){
+  const st = getState();
+  st.ideas.splice(i,1);
+  setState(st);
+}
+function exportIdeas(){
+  const st = getState();
+  const rows = [['Hook','Topic','Proof','CTA'], ...st.ideas.map(r=>[r.hook,r.topic||'',r.proof||'',r.cta||''])];
+  downloadCSV('leadgen_ideas.csv', rows);
+}
+function clearIdeas(){
+  const st = getState(); st.ideas = []; setState(st);
+}
+
+// --- Transition Builder ---
+function buildTransition(){
+  const why = g('t_why'), before=g('t_before'), after=g('t_after'), cap=g('t_cap'), icp=g('t_icp'), ben=g('t_benefit'), obj=g('t_obj'), proof=g('t_proof'), act=g('t_action');
+  const out = `${why}\nIn 2025, that is the difference between ${before} and ${after}.\nWe build ${cap} so ${icp} get ${ben} without ${obj}.\n${proof}\n**${act}**.`;
+  s('t_out', out);
+}
+
+// --- CTA Builder ---
+function buildCTAs(){
+  const proof = g('c_proof'), benefit=g('c_benefit'), time=g('c_time'), ob=g('c_ob'), action=g('c_action');
+  const soft = `Want the full checklist to ${benefit}? ${proof}. ${action}.`;
+  const med = `Ready to ${benefit}${time?` in ${time}`:''}? ${proof}. ${action}.`;
+  const hard = `Need ${benefit}${time?` this ${time}`:''}? ${proof}. ${action}.`;
+  s('cta_out', `SOFT\n${soft}\n\nMEDIUM\n${med}\n\nHARD\n${hard}`);
+}
+
+// --- UTM Builder ---
+function buildUTM(){
+  let base = g('u_base');
+  if(!base){ alert('Base URL is required'); return; }
+  const params = new URLSearchParams();
+  if(g('u_source')) params.set('utm_source', g('u_source'));
+  if(g('u_medium')) params.set('utm_medium', g('u_medium'));
+  if(g('u_campaign')) params.set('utm_campaign', g('u_campaign'));
+  if(g('u_content')) params.set('utm_content', g('u_content'));
+  const sep = base.includes('?') ? '&' : '?';
+  const full = base + (params.toString()? sep+params.toString() : '');
+  document.getElementById('utm_out').textContent = full;
+}
+
+// --- Analytics Logger ---
+function addAnalytics(){
+  const row = {
+    date:g('a_date'), platform:g('a_platform'), url:g('a_url'), hook:g('a_hook'),
+    trans:g('a_trans'), tier:g('a_tier'), impr:g('a_impr'), clicks:g('a_clicks'), ctr:g('a_ctr')
+  };
+  if(!row.date || !row.platform || !row.url){ alert('Date, Platform, and URL are required'); return; }
+  const st = getState(); st.analytics.push(row); setState(st);
+  ['a_date','a_platform','a_url','a_hook','a_trans','a_tier','a_impr','a_clicks','a_ctr'].forEach(id=>s(id,''));
+}
+function renderAnalytics(){
+  const tb = document.querySelector('#analyticsTable tbody'); if(!tb) return;
+  tb.innerHTML='';
+  const st = getState();
+  st.analytics.forEach((r,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${esc(r.date)}</td><td>${esc(r.platform)}</td><td><a href="${esc(r.url)}" target="_blank">link</a></td>
+    <td>${esc(r.hook||'')}</td><td>${esc(r.trans||'')}</td><td>${esc(r.tier||'')}</td><td>${esc(r.impr||'')}</td><td>${esc(r.clicks||'')}</td><td>${esc(r.ctr||'')}</td>
+    <td><button class="btn ghost" onclick="delAnalytics(${i})">Delete</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+function delAnalytics(i){ const st=getState(); st.analytics.splice(i,1); setState(st); }
+function exportAnalytics(){
+  const st = getState();
+  const rows = [['Date','Platform','URL','Hook','Transition','Tier','Impr','Clicks','CTR%'],
+    ...st.analytics.map(r=>[r.date,r.platform,r.url,r.hook||'',r.trans||'',r.tier||'',r.impr||'',r.clicks||'',r.ctr||''])];
+  downloadCSV('leadgen_analytics.csv', rows);
+}
+function clearAnalytics(){ const st=getState(); st.analytics=[]; setState(st); }
+
+// --- X Search & Repeater ---
+function buildXSearch(){
+  const kws = g('x_keywords'), f=g('x_faves'), rt=g('x_rt'), rp=g('x_replies');
+  let q = '';
+  if(kws) q += kws.trim() + ' ';
+  if(f) q += `min_faves:${f} `;
+  if(rt) q += `min_retweets:${rt} `;
+  if(rp) q += `min_replies:${rp} `;
+  q += '-is:reply';
+  const url = 'https://x.com/search?q=' + encodeURIComponent(q) + '&src=typed_query&f=live';
+  s('x_out', url);
+  window.open(url, '_blank');
+}
+function buildRepeater(){
+  const phrase = g('hr_phrase');
+  const floor = g('hr_floor')||'500';
+  if(!phrase){ alert('Enter a quoted hook fragment'); return; }
+  const q = `${phrase} min_faves:${floor} -is:reply`;
+  const url = 'https://x.com/search?q=' + encodeURIComponent(q) + '&src=typed_query&f=live';
+  s('hr_out', url); window.open(url, '_blank');
+}
+
+// --- Auto-DM Planner ---
+function buildDM(){
+  const hook = g('dm_hook'), asset=g('dm_asset'), kw=g('dm_keyword'), next=g('dm_next');
+  const tweet = `${hook}\n\n${asset} — free for 24h.\nLike + reply "${kw}" and follow — I’ll DM it.`;
+  const dm = `Thanks for jumping in — here’s the ${asset}.\nIf you want help shipping this by Friday, ${next}.`;
+  s('dm_out', `TWEET\n${tweet}\n\nDM\n${dm}`);
+}
+
+// --- Compliance ---
+const COMPLIANCE_ITEMS = [
+  'Sender/subject are truthful (no deception)',
+  'Marketing messages identify the sender and include a postal address',
+  'Unsubscribe link is clear and honored quickly',
+  'Consent captured for individuals in UK/EU (GDPR/PECR)',
+  'Consent request is separate and specific (no pre-checked boxes)',
+  'Data minimization: we store only what we need',
+  'We log consent source, timestamp, and method',
+  'Vendors (email tools) are monitored for compliance',
+  'X automations respect platform rules (no prohibited auto-follow, etc.)'
+];
+function renderCompliance(){
+  const wrap = document.getElementById('compliance'); if(!wrap) return;
+  wrap.innerHTML='';
+  const st = getState();
+  COMPLIANCE_ITEMS.forEach((txt,i)=>{
+    const id = 'cmp_'+i;
+    const label = document.createElement('label'); label.textContent = txt;
+    const box = document.createElement('input'); box.type='checkbox'; box.id=id; box.checked=!!st.compliance[id];
+    box.onchange = ()=>{ const ss=getState(); ss.compliance[id]=box.checked; setState(ss); };
+    wrap.appendChild(label); wrap.appendChild(box);
+  });
+}
+function exportCompliance(){
+  const st = getState();
+  const rows = [['Item','Checked']];
+  COMPLIANCE_ITEMS.forEach((txt,i)=> rows.push([txt, st.compliance['cmp_'+i] ? 'Yes':'No']));
+  downloadCSV('leadgen_compliance_checklist.csv', rows);
+}
+
+// --- Helpers ---
+function g(id){ return (document.getElementById(id)||{}).value||''; }
+function s(id,val){ const el=document.getElementById(id); if(el) el.value = val; }
+function esc(t){ return (t||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+function downloadCSV(name, rows){
+  const csv = rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+}
+
+document.addEventListener('DOMContentLoaded', refreshProgress);
+</script>
+</body>
+</html>

@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UNIVERSAL WRITING GUIDELINES — MASTERCLASS | Vyralab</title>
+<style>
+  :root{
+    --vl-black:#000000;
+    --vl-electric:#00ff41;
+    --vl-white:#ffffff;
+    --vl-steel:#404040;
+    --vl-dark:#2a2a2a;
+    --text:#e8e8e8;
+    --muted:#bdbdbd;
+    --card:#111111;
+    --accent: #00ff41;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    background: radial-gradient(1200px 600px at 20% -10%, rgba(0,255,65,0.10), transparent 60%), 
+                radial-gradient(800px 400px at 110% 10%, rgba(0,255,65,0.08), transparent 60%),
+                #0a0a0a;
+    color:var(--text);
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height:1.5
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+  .badge{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--vl-steel);border-radius:999px;padding:6px 12px;font-size:12px;color:#cfcfcf;background:rgba(255,255,255,0.02)}
+  .title{font-size:34px;letter-spacing:.5px;margin:14px 0 4px 0}
+  .sub{color:#d0d0d0;opacity:.9;font-size:16px;margin-bottom:22px}
+  .brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo div.v{width:18px;height:18px;border:2px solid var(--accent);border-radius:4px;transform:rotate(45deg);box-shadow:0 0 18px rgba(0,255,65,.3) inset}
+  .tabs{display:flex;flex-wrap:wrap;gap:10px;position:sticky;top:0;background:linear-gradient(#0a0a0a, rgba(10,10,10,.9));padding:10px 0 16px 0;z-index:20}
+  .tab{border:1px solid var(--vl-steel);padding:8px 12px;border-radius:10px;font-size:13px;cursor:pointer;background:#0f0f0f}
+  .tab.active{border-color:var(--accent);box-shadow:0 0 0 1px rgba(0,255,65,.2);}
+  section.card{background:var(--card);border:1px solid #181818;border-radius:16px;padding:20px;margin:14px 0;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width: 980px){.g2,.g3{grid-template-columns:1fr} .tabs{position:static}}
+  h2{font-size:22px;margin:0 0 10px 0}
+  h3{font-size:16px;margin:0 0 6px 0}
+  p,li{color:#d9d9d9}
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;border:1px solid #2a2a2a;border-radius:8px;padding:6px 10px;font-size:12px;background:#121212;color:#d7d7d7}
+  input[type="text"], input[type="number"], textarea, select{
+    width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:10px;color:#e9e9e9;padding:10px 12px;outline:none;
+  }
+  textarea{min-height:110px;resize:vertical}
+  button{
+    background:linear-gradient(90deg,#00ff41,#36ff7c);
+    color:#001a08;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px rgba(0,255,65,.12);
+  }
+  button.ghost{background:transparent;border:1px solid #2a2a2a;color:#eaeaea;box-shadow:none}
+  .small{font-size:12px}
+  .callout{border-left:3px solid var(--accent);padding:8px 12px;background:#0f120f;border-radius:8px}
+  .kbd{background:#151515;border:1px solid #2a2a2a;border-bottom-color:#121212;border-radius:6px;padding:2px 6px;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px}
+  .ok{color:#29ff97}
+  .warn{color:#ffc107}
+  .bad{color:#ff6b6b}
+  .score{font-size:28px;font-weight:800;color:var(--accent)}
+  .divider{height:1px;background:#161616;margin:14px 0}
+  .footer{margin:40px 0 10px;color:#9b9b9b;font-size:12px;text-align:center}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid #2a2a2a;background:#0c0c0c;font-size:11px;color:#cfcfcf}
+  .checklist label{display:flex;align-items:flex-start;gap:10px;margin:6px 0}
+  .checklist input[type="checkbox"]{transform:translateY(2px)}
+  .export{display:flex;gap:10px;flex-wrap:wrap}
+  .sticky-cta{position:fixed;right:18px;bottom:18px;display:flex;gap:10px;z-index:50}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brandbar">
+      <div class="logo"><div class="v"></div><div>
+        <div class="badge">Vyralab™ • Built for Ghostwriters. By Ghostwriters.</div>
+        <h1 class="title">UNIVERSAL WRITING GUIDELINES — MASTERCLASS</h1>
+        <div class="sub">A complete operating system to turn decent writers into elite online operators — hooks, structure, voice, clarity, conversion, and iteration, with live analyzers and builders.</div>
+      </div></div>
+      <div>
+        <span class="chip">Brand: <b style="color:#fff">Vyralab</b></span>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-target="principles">1) Principles</div>
+      <div class="tab" data-target="system">2) System</div>
+      <div class="tab" data-target="platforms">3) Platforms</div>
+      <div class="tab" data-target="editing">4) Editing & QA</div>
+      <div class="tab" data-target="media">5) Media & Swipe</div>
+      <div class="tab" data-target="conversion">6) Conversion Layer</div>
+      <div class="tab" data-target="measurement">7) Measurement</div>
+      <div class="tab" data-target="rubrics">8) Rubrics & Templates</div>
+      <div class="tab" data-target="ethics">9) Ethics</div>
+      <div class="tab" data-target="practice">10) Practice Plan</div>
+      <div class="tab" data-target="analyzer">11) Analyzer & Builders</div>
+    </div>
+
+    <!-- 1) PRINCIPLES -->
+    <section id="principles" class="card">
+      <h2>1) Operating Principles</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Write for scanners</h3>
+          <p>Use short paragraphs, clear subheads, bullets, and front-loaded keywords. Readers skim; scannable structure wins.</p>
+          <div class="callout small">Evidence: Nielsen Norman Group — concise, scannable, objective content boosts usability and engagement.</div>
+        </div>
+        <div>
+          <h3>Design for fluency</h3>
+          <p>Familiar words, concrete imagery, clean structure, consistent formatting. Fluency increases perceived truth and persuasiveness.</p>
+          <div class="callout small">Evidence: Processing fluency research (psych). Clear writing persuades.</div>
+        </div>
+        <div>
+          <h3>Persuade with proof</h3>
+          <p>Use authority, social proof, clarity of benefit, and ethical urgency. Align with Cialdini and ship receipts.</p>
+        </div>
+        <div>
+          <h3>Rhythm is a weapon</h3>
+          <p>Vary sentence length. Add “stab” sentences to wake the reader.</p>
+        </div>
+        <div>
+          <h3>Specific > clever</h3>
+          <p>Concrete beats vague. Put nouns and verbs to work. Avoid hedges unless needed for credibility.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) SYSTEM -->
+    <section id="system" class="card" style="display:none">
+      <h2>2) The Elite Writing System</h2>
+      <div class="grid g2">
+        <div>
+          <h3>A) Hooks that earn attention</h3>
+          <ul>
+            <li>Specific payoff is clear.</li>
+            <li>High-curiosity without vagueness.</li>
+            <li>Concrete nouns + power verbs in L1.</li>
+            <li>Borrowed credibility is attributed.</li>
+            <li>Pattern from swipe, with your twist.</li>
+          </ul>
+          <div class="divider"></div>
+          <h3>B) Idea selection with “Signal Fit”</h3>
+          <p>Relevance • Novelty • Emotion (Hope/Envy/Fear) • Evidence • Platform fit.</p>
+          <div class="divider"></div>
+          <h3>C) Structure with 1–3–1</h3>
+          <p>Lead → Three specific points → Punchy close. Chunking matches scanning behavior.</p>
+        </div>
+        <div>
+          <h3>D) Voice matching & Client DNA</h3>
+          <p>Pull tone, rhythm, and lexical tics from past posts. Ask: would followers recognize the author if the name were hidden?</p>
+          <div class="divider"></div>
+          <h3>E) Clarity, Fluency, Readability</h3>
+          <ul>
+            <li>Short words; concrete images.</li>
+            <li>Replace stacked prepositions with verbs.</li>
+            <li>Front-load keywords in headers and openings.</li>
+          </ul>
+          <div class="divider"></div>
+          <h3>F) Authority without plagiarism</h3>
+          <p>Remix structure. Add unique analysis. Cite ideas; tag sources.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) PLATFORMS -->
+    <section id="platforms" class="card" style="display:none">
+      <h2>3) Platform Playbooks</h2>
+      <div class="grid g2">
+        <div>
+          <h3>X (Twitter)</h3>
+          <ul>
+            <li>Hook = benefit + curiosity; lead sets scope.</li>
+            <li>One idea per tweet; ≤ 9 lines; bullets are clean.</li>
+            <li>Vary cadence; strongest insights early.</li>
+            <li>Finish with mic-drop + CTA tied to benefit.</li>
+          </ul>
+          <div class="callout small">Tools: Typefully (schedule/analytics).</div>
+        </div>
+        <div>
+          <h3>LinkedIn</h3>
+          <ul>
+            <li>First two lines must carry; earn “see more.”</li>
+            <li>Formats: story+lesson, frameworks, cheat sheets.</li>
+            <li>Carousels or images for frameworks/data.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Long-Form & Email</h3>
+          <ul>
+            <li>Wayfinding with clear subheads; summaries; “Do this next.”</li>
+            <li>Email: front-load benefit in subject/preheader.</li>
+            <li>UX: clear, humane, directive microcopy.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) EDITING & QA -->
+    <section id="editing" class="card" style="display:none">
+      <h2>4) Editing, QA, and “Punch” Loop</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Three Passes</h3>
+          <ol>
+            <li><b>Clarity:</b> cut filler; front-load key terms.</li>
+            <li><b>Specificity:</b> add numbers, names, artifacts.</li>
+            <li><b>Rhythm:</b> vary sentence length; add stabs.</li>
+          </ol>
+          <div class="divider"></div>
+          <h3>QA Checklist</h3>
+          <div class="checklist" id="qaList"></div>
+          <button class="ghost small" onclick="resetChecklist('qa')">Reset checklist</button>
+        </div>
+        <div>
+          <h3>Link & Locale</h3>
+          <p>Ensure fully qualified links (https://…). Align spelling to client locale. Run Grammarly or equivalent.</p>
+          <div class="divider"></div>
+          <h3>Export QA Notes</h3>
+          <textarea id="qaNotes" placeholder="Notes, decisions, risks…"></textarea>
+          <div class="export">
+            <button onclick="downloadText('qaNotes','qa_notes.txt')">Download Notes</button>
+            <button class="ghost" onclick="saveField('qaNotes')">Save</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) MEDIA & SWIPE -->
+    <section id="media" class="card" style="display:none">
+      <h2>5) Media, Evidence, & Swipe Discipline</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Media Use</h3>
+          <ul>
+            <li>Use visuals for celebrity breakdowns, data, and step maps.</li>
+            <li>Store assets in the client’s image folder; keep credit links.</li>
+          </ul>
+          <div class="divider"></div>
+          <h3>Swipe Vault</h3>
+          <p>Maintain a living vault by topic, format, and emotion (Hope/Envy/Fear). Blend at least two credible sources per idea.</p>
+        </div>
+        <div>
+          <h3>Swipe-to-Strategy Board</h3>
+          <div class="grid">
+            <input id="swTitle" type="text" placeholder="Title / Hook" />
+            <input id="swTopic" type="text" placeholder="Topic" />
+            <input id="swProof" type="text" placeholder="Proof asset(s)" />
+            <input id="swCTA" type="text" placeholder="CTA path" />
+            <textarea id="swNotes" placeholder="Structure, angle, observations"></textarea>
+            <button onclick="addSwipe()">Add to Board</button>
+            <div id="swipeTable"></div>
+            <div class="export">
+              <button onclick="downloadSwipe()">Download CSV</button>
+              <button class="ghost" onclick="clearSwipe()">Clear Board</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) CONVERSION LAYER -->
+    <section id="conversion" class="card" style="display:none">
+      <h2>6) Conversion Layer: Transitions & CTAs</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Transition Builder (1–3 lines)</h3>
+          <div class="grid">
+            <input id="trWhy" placeholder="Thread insight / WHY…" />
+            <input id="trPath" placeholder="Attention → Outcome path we accelerate…" />
+            <input id="trProof" placeholder="1-line proof (numbers, client receipt)"/>
+            <input id="trAction" placeholder="One clear action (verb + destination)"/>
+            <button onclick="buildTransition()">Build Transition</button>
+            <textarea id="trOut" placeholder="Your transition will appear here…"></textarea>
+          </div>
+        </div>
+        <div>
+          <h3>CTA Builder</h3>
+          <div class="grid">
+            <input id="ctaOutcome" placeholder="Primary outcome (benefit)"/>
+            <input id="ctaProof" placeholder="Credibility (count, result, timeframe)"/>
+            <input id="ctaObjection" placeholder="Objection diffuser (time, risk, complexity)"/>
+            <input id="ctaAction" placeholder="Action (one verb, one destination)"/>
+            <select id="ctaTone">
+              <option value="soft">Soft</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <button onclick="buildCTAs()">Generate 3 CTA Variants</button>
+            <textarea id="ctaOut" placeholder="CTA variants appear here…"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7) MEASUREMENT -->
+    <section id="measurement" class="card" style="display:none">
+      <h2>7) Measurement & Iteration</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Experiment Log</h3>
+          <div class="grid">
+            <input id="expURL" placeholder="Post URL"/>
+            <input id="expIdea" placeholder="Idea / Hook"/>
+            <input id="expCTA" placeholder="CTA tier or copy slug"/>
+            <input id="expImpr" type="number" placeholder="Impressions"/>
+            <input id="expClicks" type="number" placeholder="Link clicks"/>
+            <input id="expCTR" type="text" placeholder="CTR auto-calculates" disabled/>
+            <textarea id="expNotes" placeholder="Notes: timing, format, angle…"></textarea>
+            <button onclick="addExperiment()">Add Row</button>
+            <div id="expTable"></div>
+            <div class="export">
+              <button onclick="downloadExperiments()">Download CSV</button>
+              <button class="ghost" onclick="clearExperiments()">Clear Log</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Bangers List</h3>
+          <p>Track repeatable winners by idea + format.</p>
+          <div class="grid">
+            <input id="bangIdea" placeholder="Idea / Topic"/>
+            <input id="bangFormat" placeholder="Format (thread, carousel, etc.)"/>
+            <input id="bangScore" type="number" placeholder="Score (1–10)"/>
+            <button onclick="addBanger()">Add</button>
+            <div id="bangers"></div>
+            <div class="export">
+              <button onclick="downloadBangers()">Download CSV</button>
+              <button class="ghost" onclick="clearBangers()">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8) RUBRICS & TEMPLATES -->
+    <section id="rubrics" class="card" style="display:none">
+      <h2>8) Rubrics & Templates</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Elite Thread Rubric (0–3 each; pass ≥ 20/24)</h3>
+          <div id="rubric"></div>
+          <div style="margin-top:8px">Total Score: <span class="score" id="rubricScore">0</span></div>
+          <button class="ghost small" onclick="resetRubric()">Reset Rubric</button>
+        </div>
+        <div>
+          <h3>1–3–1 Builder</h3>
+          <div class="grid">
+            <input id="lead131" placeholder="Lead line (promise/context)"/>
+            <textarea id="midA131" placeholder="Point 1"></textarea>
+            <textarea id="midB131" placeholder="Point 2"></textarea>
+            <textarea id="midC131" placeholder="Point 3"></textarea>
+            <input id="close131" placeholder="Punchy close / takeaway"/>
+            <button onclick="build131()">Preview 1–3–1</button>
+            <textarea id="out131" placeholder="Preview appears here…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <h3>Templates (copy / adapt)</h3>
+      <div class="grid g3">
+        <section class="card">
+          <h3>Hook remixes</h3>
+          <ul>
+            <li>The overlooked rule behind [result]: [specific artifact].</li>
+            <li>I studied [X exemplars]. Here are the [Y] patterns you can steal.</li>
+            <li>[Pain] is optional. Use this to get [result].</li>
+          </ul>
+        </section>
+        <section class="card">
+          <h3>Story skeleton</h3>
+          <p>Set the stakes → show the turn → extract the law → apply to reader → bridge to offer.</p>
+        </section>
+        <section class="card">
+          <h3>Framework skeleton</h3>
+          <p>Name the outcome → list the steps → give a proof line for each → show a “first move.”</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- 9) ETHICS -->
+    <section id="ethics" class="card" style="display:none">
+      <h2>9) Ethics & Risk</h2>
+      <ul>
+        <li>Cite when an idea depends on someone else’s insight.</li>
+        <li>No copying hooks verbatim. Remix structure, not words.</li>
+        <li>No fabricated numbers, quotes, or screenshots.</li>
+        <li>No bait-and-switch CTAs.</li>
+      </ul>
+    </section>
+
+    <!-- 10) PRACTICE PLAN -->
+    <section id="practice" class="card" style="display:none">
+      <h2>10) Personal Upgrade Plan (deliberate practice)</h2>
+      <div class="grid g2">
+        <div>
+          <ol>
+            <li>Build a <b>Voice Board</b> per client: five excerpted lines that show tone, cadence, lexicon.</li>
+            <li>Re-write one viral hook daily into three brand-fidelity variants.</li>
+            <li>Turn two long sentences into a short, punchy pair.</li>
+            <li>Keep a “Dead Words” list you never use again.</li>
+          </ol>
+          <div class="callout small">Track your drills below; export progress.</div>
+        </div>
+        <div>
+          <h3>Drill Tracker</h3>
+          <div class="grid">
+            <input id="drillName" placeholder="Drill name (Hook rewrites, Rhythm cuts…)"/>
+            <textarea id="drillNotes" placeholder="What you practiced + examples"></textarea>
+            <button onclick="addDrill()">Log Drill</button>
+            <div id="drillTable"></div>
+            <div class="export">
+              <button onclick="downloadDrills()">Download CSV</button>
+              <button class="ghost" onclick="clearDrills()">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11) ANALYZER & BUILDERS -->
+    <section id="analyzer" class="card" style="display:none">
+      <h2>11) Deterministic Analyzer & Builders</h2>
+      <div class="grid g2">
+        <div>
+          <h3>Paste your draft</h3>
+          <textarea id="draft" placeholder="Paste a hook, post, or email…"></textarea>
+          <div class="grid g3">
+            <button onclick="analyze()">Run Analysis</button>
+            <button class="ghost" onclick="saveField('draft')">Save</button>
+            <button class="ghost" onclick="clearField('draft')">Clear</button>
+          </div>
+          <div class="divider"></div>
+          <div id="analysis"></div>
+        </div>
+        <div>
+          <h3>Hook Workshop</h3>
+          <p class="small muted">Write 5 variants. Score and keep the best.</p>
+          <div class="grid">
+            <textarea id="h1" placeholder="Hook #1"></textarea>
+            <textarea id="h2" placeholder="Hook #2"></textarea>
+            <textarea id="h3" placeholder="Hook #3"></textarea>
+            <textarea id="h4" placeholder="Hook #4"></textarea>
+            <textarea id="h5" placeholder="Hook #5"></textarea>
+            <button onclick="scoreHooks()">Score Hooks</button>
+            <div id="hookScores"></div>
+            <div class="export">
+              <button onclick="downloadText('hookScores','hook_scores.txt')">Download</button>
+              <button class="ghost" onclick="clearHooks()">Clear</button>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h3>Voice Board</h3>
+          <p class="small muted">Paste 5 lines that feel like the client. We’ll extract cadence and lexicon signals.</p>
+          <textarea id="voiceBoard" placeholder="Line 1
+Line 2
+Line 3
+Line 4
+Line 5"></textarea>
+          <button onclick="analyzeVoice()">Analyze Voice</button>
+          <div id="voiceOut"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sticky-cta">
+      <button onclick="exportAll()">Export All</button>
+      <button class="ghost" onclick="localStorage.clear(); alert('All saved data cleared.')">Clear Saved</button>
+    </div>
+
+    <div class="footer">© Vyralab — Creating Tomorrow’s Creators is in Our DNA™</div>
+  </div>
+
+<script>
+  // --- Persistence helpers ---
+  function saveField(id){
+    const el = document.getElementById(id);
+    localStorage.setItem('uwg_'+id, el.value);
+  }
+  function loadField(id){
+    const v = localStorage.getItem('uwg_'+id);
+    if(v!==null){ document.getElementById(id).value = v; }
+  }
+  function clearField(id){
+    document.getElementById(id).value=''; saveField(id);
+  }
+  function ls(name){ return 'uwg_'+name; }
+
+  // Tabs
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(t=>t.addEventListener('click', ()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelectorAll('section.card').forEach(s=>s.style.display='none');
+    document.getElementById(t.dataset.target).style.display='block';
+    localStorage.setItem(ls('activeTab'), t.dataset.target);
+  }));
+  const active = localStorage.getItem(ls('activeTab'));
+  if(active && document.getElementById(active)){
+    tabs.forEach(x=>x.classList.remove('active'));
+    document.querySelector(`.tab[data-target="${active}"]`)?.classList.add('active');
+    document.querySelectorAll('section.card').forEach(s=>s.style.display='none');
+    document.getElementById(active).style.display='block';
+  }
+
+  // QA checklist
+  const qaItems = [
+    'Hook is concrete, curiosity-charged, benefit-forward',
+    'Idea passes Signal Fit (relevance, novelty, emotion, evidence, platform)',
+    '1–3–1 present throughout',
+    'What/Why/How visible in each point',
+    'Sentences vary for musical rhythm',
+    'No fluff, hedges, or clichés',
+    'Client voice intact and recognizable',
+    'Links full (https://…) and secure; locale aligned'
+  ];
+  function renderChecklist(idBase){
+    const holder = document.getElementById(idBase+'List');
+    holder.innerHTML = '';
+    qaItems.forEach((txt,i)=>{
+      const key = ls(idBase+'_ck_'+i);
+      const checked = localStorage.getItem(key)==='1' ? 'checked' : '';
+      holder.insertAdjacentHTML('beforeend', `
+        <label><input type="checkbox" ${checked} onchange="localStorage.setItem('${key}', this.checked?'1':'0')"/> ${txt}</label>
+      `);
+    });
+  }
+  function resetChecklist(idBase){
+    qaItems.forEach((_,i)=>localStorage.removeItem(ls(idBase+'_ck_'+i)));
+    renderChecklist(idBase);
+  }
+  renderChecklist('qa');
+  loadField('qaNotes');
+
+  // Swipe board
+  let swipe = JSON.parse(localStorage.getItem(ls('swipe') )|| '[]');
+  function addSwipe(){
+    const obj = {
+      title: document.getElementById('swTitle').value.trim(),
+      topic: document.getElementById('swTopic').value.trim(),
+      proof: document.getElementById('swProof').value.trim(),
+      cta: document.getElementById('swCTA').value.trim(),
+      notes: document.getElementById('swNotes').value.trim(),
+      ts: new Date().toISOString()
+    };
+    swipe.push(obj);
+    localStorage.setItem(ls('swipe'), JSON.stringify(swipe));
+    renderSwipe();
+  }
+  function renderSwipe(){
+    const tgt = document.getElementById('swipeTable');
+    if(!tgt) return;
+    if(swipe.length===0){ tgt.innerHTML='<p class="muted small">No entries yet.</p>'; return;}
+    let html = '<div class="grid">';
+    swipe.forEach((r,idx)=>{
+      html += `<section class="card">
+        <div class="muted small">${new Date(r.ts).toLocaleString()}</div>
+        <div><b>${r.title}</b> • <span class="pill">${r.topic}</span></div>
+        <div class="small">Proof: ${r.proof||'-'}</div>
+        <div class="small">CTA: ${r.cta||'-'}</div>
+        <div class="small muted">${r.notes||''}</div>
+        <div style="margin-top:8px"><button class="ghost small" onclick="delSwipe(${idx})">Remove</button></div>
+      </section>`;
+    });
+    html += '</div>';
+    tgt.innerHTML = html;
+  }
+  function delSwipe(i){ swipe.splice(i,1); localStorage.setItem(ls('swipe'), JSON.stringify(swipe)); renderSwipe(); }
+  function clearSwipe(){ swipe=[]; localStorage.setItem(ls('swipe'), '[]'); renderSwipe(); }
+  function downloadSwipe(){
+    const rows = [['Title','Topic','Proof','CTA','Notes','Timestamp']].concat(swipe.map(o=>[o.title,o.topic,o.proof,o.cta,o.notes,o.ts]));
+    downloadCSV(rows,'swipe_board.csv');
+  }
+  renderSwipe();
+
+  // Transition & CTA builders
+  function buildTransition(){
+    const why = document.getElementById('trWhy').value.trim();
+    const path = document.getElementById('trPath').value.trim();
+    const proof = document.getElementById('trProof').value.trim();
+    const act = document.getElementById('trAction').value.trim();
+    const lines = [];
+    if(why) lines.push(why);
+    if(path) lines.push(path);
+    if(proof) lines.push(proof);
+    if(act) lines.push(act);
+    document.getElementById('trOut').value = lines.join('\n');
+    saveField('trOut');
+  }
+  function buildCTAs(){
+    const outcome = document.getElementById('ctaOutcome').value.trim();
+    const proof = document.getElementById('ctaProof').value.trim();
+    const obj = document.getElementById('ctaObjection').value.trim();
+    const act = document.getElementById('ctaAction').value.trim();
+    const tone = document.getElementById('ctaTone').value;
+    const base = [
+      `${outcome ? 'Want to '+outcome+'?' : ''} ${proof? proof+'.':''} ${act}`.trim(),
+      `Ready to ${outcome}? ${obj? obj+'.':''} ${act}`.trim(),
+      `${outcome} — ${obj}. ${act}`.trim()
+    ];
+    const prefix = tone==='soft' ? '' : (tone==='medium' ? '' : '');
+    document.getElementById('ctaOut').value = base.map(x=> (prefix+x).trim()).join('\n\n');
+    saveField('ctaOut');
+  }
+
+  // Experiments
+  let exps = JSON.parse(localStorage.getItem(ls('exps'))||'[]');
+  function addExperiment(){
+    const impr = parseFloat(document.getElementById('expImpr').value||'0');
+    const clicks = parseFloat(document.getElementById('expClicks').value||'0');
+    const ctr = impr>0 ? (clicks/impr*100).toFixed(2)+'%' : '0%';
+    document.getElementById('expCTR').value = ctr;
+    const row = {
+      url: document.getElementById('expURL').value.trim(),
+      idea: document.getElementById('expIdea').value.trim(),
+      cta: document.getElementById('expCTA').value.trim(),
+      impr, clicks, ctr,
+      notes: document.getElementById('expNotes').value.trim(),
+      ts: new Date().toISOString()
+    };
+    exps.push(row);
+    localStorage.setItem(ls('exps'), JSON.stringify(exps));
+    renderExperiments();
+  }
+  function renderExperiments(){
+    const tgt = document.getElementById('expTable');
+    if(!tgt) return;
+    if(exps.length===0){ tgt.innerHTML='<p class="muted small">No experiments yet.</p>'; return;}
+    let html = '<div class="grid">';
+    exps.forEach((r,i)=>{
+      html += `<section class="card">
+        <div class="muted small">${new Date(r.ts).toLocaleString()}</div>
+        <div><a href="${r.url}" target="_blank">${r.url}</a></div>
+        <div class="small">Idea: ${r.idea} • CTA: ${r.cta}</div>
+        <div class="small">Impr: ${r.impr} • Clicks: ${r.clicks} • CTR: <b>${r.ctr}</b></div>
+        <div class="small muted">${r.notes||''}</div>
+        <div style="margin-top:8px"><button class="ghost small" onclick="delExp(${i})">Remove</button></div>
+      </section>`;
+    });
+    html += '</div>';
+    tgt.innerHTML = html;
+  }
+  function delExp(i){ exps.splice(i,1); localStorage.setItem(ls('exps'), JSON.stringify(exps)); renderExperiments(); }
+  function clearExperiments(){ exps=[]; localStorage.setItem(ls('exps'),'[]'); renderExperiments(); }
+  function downloadExperiments(){
+    const rows = [['URL','Idea','CTA','Impressions','Clicks','CTR','Notes','Timestamp']]
+      .concat(exps.map(o=>[o.url,o.idea,o.cta,o.impr,o.clicks,o.ctr,o.notes,o.ts]));
+    downloadCSV(rows,'experiments.csv');
+  }
+  renderExperiments();
+
+  // Bangers
+  let bangers = JSON.parse(localStorage.getItem(ls('bangers'))||'[]');
+  function addBanger(){
+    bangers.push({
+      idea: document.getElementById('bangIdea').value.trim(),
+      format: document.getElementById('bangFormat').value.trim(),
+      score: document.getElementById('bangScore').value.trim(),
+      ts: new Date().toISOString()
+    });
+    localStorage.setItem(ls('bangers'), JSON.stringify(bangers));
+    renderBangers();
+  }
+  function renderBangers(){
+    const tgt = document.getElementById('bangers');
+    if(!tgt) return;
+    if(bangers.length===0){ tgt.innerHTML='<p class="muted small">No entries yet.</p>'; return;}
+    let html = '<div class="grid">';
+    bangers.forEach((b,i)=>{
+      html += `<section class="card">
+        <div class="muted small">${new Date(b.ts).toLocaleString()}</div>
+        <div><b>${b.idea}</b> • <span class="pill">${b.format}</span> • Score: ${b.score}</div>
+        <div style="margin-top:8px"><button class="ghost small" onclick="delBanger(${i})">Remove</button></div>
+      </section>`
+    });
+    html += '</div>';
+    tgt.innerHTML = html;
+  }
+  function delBanger(i){ bangers.splice(i,1); localStorage.setItem(ls('bangers'), JSON.stringify(bangers)); renderBangers(); }
+  function clearBangers(){ bangers=[]; localStorage.setItem(ls('bangers'),'[]'); renderBangers(); }
+  function downloadBangers(){
+    const rows = [['Idea','Format','Score','Timestamp']].concat(bangers.map(b=>[b.idea,b.format,b.score,b.ts]));
+    downloadCSV(rows,'bangers.csv');
+  }
+  renderBangers();
+
+  // Rubric
+  const rubricItems = [
+    'Hook clarity','Hook curiosity','Idea relevance','Concrete evidence',
+    '1–3–1 cadence','Specificity & actionability','Voice fidelity','CTA strength'
+  ];
+  function renderRubric(){
+    const r = document.getElementById('rubric'); r.innerHTML='';
+    rubricItems.forEach((name,i)=>{
+      const key = ls('rub_'+i);
+      const val = parseInt(localStorage.getItem(key)||'0');
+      r.insertAdjacentHTML('beforeend',`
+        <div class="grid g3" style="align-items:center">
+          <div>${name}</div>
+          <input id="rub_${i}" type="range" min="0" max="3" value="${val}" oninput="updateRubric(${i}, this.value)"/>
+          <div><span class="pill">Score: <span id="rubv_${i}">${val}</span></span></div>
+        </div>
+      `);
+    });
+    calcRubric();
+  }
+  function updateRubric(i,v){
+    localStorage.setItem(ls('rub_'+i), v);
+    document.getElementById('rubv_'+i).textContent = v;
+    calcRubric();
+  }
+  function calcRubric(){
+    let total = 0;
+    rubricItems.forEach((_,i)=> total += parseInt(localStorage.getItem(ls('rub_'+i))||'0') );
+    document.getElementById('rubricScore').textContent = total;
+  }
+  function resetRubric(){
+    rubricItems.forEach((_,i)=>localStorage.removeItem(ls('rub_'+i)));
+    renderRubric();
+  }
+  renderRubric();
+
+  // 1–3–1 builder
+  function build131(){
+    const lead = document.getElementById('lead131').value.trim();
+    const a = document.getElementById('midA131').value.trim();
+    const b = document.getElementById('midB131').value.trim();
+    const c = document.getElementById('midC131').value.trim();
+    const close = document.getElementById('close131').value.trim();
+    const out = [lead,'', '• '+a, '• '+b, '• '+c, '', close].filter(Boolean).join('\n');
+    document.getElementById('out131').value = out;
+    saveField('out131');
+  }
+
+  // Analyzer
+  const HEDGES = ['might','maybe','sort of','kind of','really','very','just','perhaps','somewhat','quite','fairly','possibly','probably','I think','I believe'];
+  const CLICHES = ['game-changer','move the needle','secret sauce','paradigm','synergy','world-class','cutting-edge','disrupt','leverage (as verb)','double down','best-in-class'];
+  const PASSIVE_HINTS = ['was ','were ','been ','being ','is ','are ','be '];
+  function analyze(){
+    const t = (document.getElementById('draft').value||'').trim();
+    if(!t){ document.getElementById('analysis').innerHTML = '<p class="muted small">Paste text to analyze.</p>'; return;}
+    const words = t.split(/\s+/).filter(Boolean);
+    const sents = t.split(/[.!?]+/).filter(x=>x.trim().length>0);
+    const readingTime = Math.max(1, Math.round(words.length/225));
+    const hedgeHits = HEDGES.filter(h=> new RegExp('\\b'+h.replace(/\s+/g,'\\s+'),'i').test(t));
+    const clicheHits = CLICHES.filter(h=> new RegExp(h.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i').test(t));
+    const passive = PASSIVE_HINTS.reduce((acc,h)=> acc + (t.match(new RegExp(h+'\\w+ed\\b','gi'))||[]).length, 0);
+    const bullets = (t.match(/(^|\n)\s*[-*•]/g)||[]).length;
+    const headers = (t.match(/(^|\n)\s*#{1,6}\s+/g)||[]).length;
+    const para = t.split(/\n\s*\n/).filter(p=>p.trim().length>0);
+    const avgSent = (words.length/Math.max(1,sents.length)).toFixed(1);
+    const longSents = (t.match(/[^.!?]{140,}[.!?]/g)||[]).length;
+
+    // crude readability (Flesch-Kincaid approx via syllable guess)
+    function syllables(word){
+      word = word.toLowerCase();
+      if(word.length<=3) return 1;
+      let syl = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '')
+                    .replace(/^y/, '').match(/[aeiouy]{1,2}/g);
+      return syl ? syl.length : 1;
+    }
+    const syll = words.slice(0,3000).reduce((a,w)=>a+syllables(w),0);
+    const ASL = words.length/Math.max(1,sents.length);
+    const ASW = syll/Math.max(1,words.length);
+    const flesch = Math.max(0, Math.min(100, Math.round(206.835 - (1.015*ASL) - (84.6*ASW))));
+
+    const scanScore = Math.min(100, (bullets*10 + headers*10 + Math.max(0,12-avgSent*1.2)*5 + Math.max(0,8-para.length)*3 + 40));
+    const risk = (hedgeHits.length*2 + clicheHits.length*3 + passive);
+    const riskLabel = risk<=2 ? '<span class="ok">Low</span>' : (risk<=6? '<span class="warn">Moderate</span>' : '<span class="bad">High</span>');
+    let html = `
+      <div class="grid g3">
+        <section class="card"><h3>At-a-glance</h3>
+          <div class="grid">
+            <div class="chip">Words: ${words.length}</div>
+            <div class="chip">Sentences: ${sents.length}</div>
+            <div class="chip">Avg sentence: ${avgSent}</div>
+            <div class="chip">Reading time: ~${readingTime} min</div>
+          </div>
+        </section>
+        <section class="card"><h3>Readability</h3>
+          <div>Flesch score: <b>${flesch}</b> <span class="muted small">(higher is easier)</span></div>
+          <div>Long sentences (140+ chars): <b>${longSents}</b></div>
+        </section>
+        <section class="card"><h3>Scanning & Risk</h3>
+          <div>Scan score (heuristic): <b>${Math.round(scanScore)}</b></div>
+          <div>Risk indicators: ${riskLabel}</div>
+          <div class="small">Hedges: ${hedgeHits.join(', ')||'—'} | Clichés: ${clicheHits.join(', ')||'—'} | Passive hits: ${passive}</div>
+        </section>
+      </div>
+    `;
+    document.getElementById('analysis').innerHTML = html;
+    saveField('draft');
+  }
+
+  // Hook scoring (very simple rubric)
+  function hookScore(h){
+    let s = 0;
+    if(/\d/.test(h)) s+=1; // specificity via numbers
+    if(/[.!?]$/.test(h.trim())===false) s+=1; // open loop (no period)
+    if(/\b(guide|playbook|system|rule|secret|mistake|framework|checklist|map|script)\b/i.test(h)) s+=1; // concrete object
+    if(/[A-Z][a-z]+ [A-Z][a-z]+/.test(h) || /\b(Navy SEAL|Harvard|Stanford|McKinsey|NASA|Elon|Apple)\b/i.test(h)) s+=1; // borrowed credibility
+    if(h.length<=120) s+=1; // brevity
+    return s;
+  }
+  function scoreHooks(){
+    const ids = ['h1','h2','h3','h4','h5'];
+    let out = '';
+    ids.forEach((id,idx)=>{
+      const v = (document.getElementById(id).value||'').trim();
+      if(!v) return;
+      const s = hookScore(v);
+      out += `Hook ${idx+1} [${s}/5]: ${v}\n`;
+    });
+    document.getElementById('hookScores').textContent = out || 'No hooks scored yet.';
+  }
+  function clearHooks(){ ['h1','h2','h3','h4','h5'].forEach(id=>{document.getElementById(id).value=''}); document.getElementById('hookScores').textContent=''; }
+
+  // Voice analyzer (very light heuristics)
+  function analyzeVoice(){
+    const lines = (document.getElementById('voiceBoard').value||'').split(/\n/).map(x=>x.trim()).filter(Boolean);
+    if(lines.length===0){ document.getElementById('voiceOut').innerHTML='<p class="muted small">Add 3–5 lines first.</p>'; return;}
+    const avgLen = lines.reduce((a,s)=>a+s.length,0)/lines.length;
+    const exclam = lines.filter(l=>/!/.test(l)).length;
+    const qmark = lines.filter(l=>/\?/.test(l)).length;
+    const emdash = lines.filter(l=>/—|--/.test(l)).length;
+    const firstPerson = lines.filter(l=>/\b(I|we|my|our)\b/i.test(l)).length;
+    const verbs = ['build','ship','scale','learn','earn','prove','design','win','stack'];
+    const verbHits = verbs.filter(v=> new RegExp('\\b'+v+'(?:s|ed|ing)?\\b','i').test(lines.join(' ')));
+    const report = `
+      <div class="card">
+        <div><b>Cadence signals:</b> avg line length ${Math.round(avgLen)} chars; exclamations ${exclam}; questions ${qmark}; dashes ${emdash}.</div>
+        <div><b>POV:</b> first-person lines ≈ ${firstPerson}/${lines.length}.</div>
+        <div><b>Lexicon hints:</b> ${verbHits.join(', ')||'—'}.</div>
+        <div class="small muted">Use this to tune rhythm and vocabulary when drafting.</div>
+      </div>`;
+    document.getElementById('voiceOut').innerHTML = report;
+    saveField('voiceBoard');
+  }
+
+  // Drills
+  let drills = JSON.parse(localStorage.getItem(ls('drills'))||'[]');
+  function addDrill(){
+    drills.push({name:document.getElementById('drillName').value.trim(),
+                 notes:document.getElementById('drillNotes').value.trim(),
+                 ts:new Date().toISOString()});
+    localStorage.setItem(ls('drills'), JSON.stringify(drills));
+    renderDrills();
+  }
+  function renderDrills(){
+    const tgt = document.getElementById('drillTable');
+    if(!tgt) return;
+    if(drills.length===0){ tgt.innerHTML='<p class="muted small">No drills yet.</p>'; return;}
+    let html = '<div class="grid">';
+    drills.forEach((d,i)=>{
+      html += `<section class="card">
+        <div class="muted small">${new Date(d.ts).toLocaleString()}</div>
+        <div><b>${d.name}</b></div>
+        <div class="small muted">${(d.notes||'').replace(/\n/g,'<br/>')}</div>
+        <div style="margin-top:8px"><button class="ghost small" onclick="delDrill(${i})">Remove</button></div>
+      </section>`;
+    });
+    html += '</div>';
+    tgt.innerHTML = html;
+  }
+  function delDrill(i){ drills.splice(i,1); localStorage.setItem(ls('drills'), JSON.stringify(drills)); renderDrills(); }
+  function clearDrills(){ drills=[]; localStorage.setItem(ls('drills'),'[]'); renderDrills(); }
+  function downloadDrills(){
+    const rows = [['Name','Notes','Timestamp']].concat(drills.map(d=>[d.name,d.notes,d.ts]));
+    downloadCSV(rows,'drills.csv');
+  }
+  renderDrills();
+
+  // Downloads
+  function downloadCSV(rows, filename){
+    const csv = rows.map(r=>r.map(c=> `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  function downloadText(elId, filename){
+    const text = (document.getElementById(elId).value || document.getElementById(elId).textContent || '');
+    const blob = new Blob([text], {type:'text/plain;charset=utf-8;'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // Export all (single JSON dump for portability)
+  function exportAll(){
+    const dump = {
+      qa: qaItems.map((_,i)=> localStorage.getItem(ls('qa_ck_'+i))==='1'),
+      qaNotes: document.getElementById('qaNotes').value,
+      swipe, exps, bangers, drills,
+      draft: document.getElementById('draft').value,
+      hooks: ['h1','h2','h3','h4','h5'].map(id=>document.getElementById(id).value),
+      voiceBoard: document.getElementById('voiceBoard').value,
+      rubric: rubricItems.map((_,i)=> parseInt(localStorage.getItem(ls('rub_'+i))||'0')),
+      out131: document.getElementById('out131').value,
+      trOut: document.getElementById('trOut').value,
+      ctaOut: document.getElementById('ctaOut').value
+    };
+    const blob = new Blob([JSON.stringify(dump,null,2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'uwg_masterclass_export.json'; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // Restore saved textareas on load
+  ['qaNotes','draft','voiceBoard','out131','trOut','ctaOut'].forEach(loadField);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CLIENT COMMUNICATIONS — VP Interactive Companion</title>
+<meta name="description" content="Interactive companion for the $10K Client Communications VP masterclass. Build messages with ACE, track KPIs, run crisis protocol, export QBRs, and more." />
+<style>
+  :root{
+    --vl-black:#000000; --vl-electric:#00ff41; --vl-white:#ffffff;
+    --vl-steel:#404040; --vl-dark:#0b0b0b; --ink:#e6e6e6;
+    --muted:#a9b0b6; --panel:#101010; --panel-2:#0e0e0e;
+    --line:#1a1a1a; --accent:#00ff41; --danger:#ff5c5c;
+    --warn:#ffd166; --ok:#00d47e; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --r:14px; --pad:18px; --pad2:26px; --max:1260px;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--vl-dark);color:#e9edf1;font-family:var(--sans);line-height:1.55}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+  @media (max-width: 980px){.app{grid-template-columns:1fr}}
+  /* Sidebar */
+  .side{
+    background:linear-gradient(180deg,#0f0f0f,#0a0a0a);
+    border-right:1px solid var(--line); padding:18px 14px; position:sticky; top:0; height:100vh; overflow:auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .pill{border:1px solid #1e1e1e;border-radius:999px;padding:6px 10px;background:#0d0d0d;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#cdd3d8}
+  .title{font-weight:800;font-size:18px;margin:6px 0 2px}
+  .tagline{color:#c1c7ce;font-size:12px}
+  .nav h4{margin:14px 0 6px;color:#c7cdd3;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .nav a{display:block;padding:8px 10px;border-radius:10px;border:1px solid transparent;color:#e6eaee}
+  .nav a:hover{background:#0f0f0f;border-color:#1b1b1b}
+  .divider{height:1px;background:#171717;margin:14px 0}
+  .progress{background:#111;border:1px solid #1d1d1d;border-radius:999px;height:10px;overflow:hidden}
+  .progress>span{display:block;height:100%;background:linear-gradient(90deg,#00ff41,#00d47e)}
+  /* Main */
+  main{max-width:var(--max);margin:0 auto;padding:22px 18px 40px}
+  .hero{
+    background:
+      radial-gradient(800px 320px at 20% -10%, rgba(0,255,65,.18), transparent 70%),
+      radial-gradient(700px 280px at 90% 0%, rgba(0,255,65,.10), transparent 60%),
+      linear-gradient(180deg,#0f0f0f,#0a0a0a);
+    border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow:var(--shadow); margin-bottom:18px;
+  }
+  .hero h1{margin:6px 0 4px; font-size: clamp(22px, 3.4vw, 36px)}
+  .hero p{color:#cfd3d7}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  .col-6{grid-column:span 6} .col-4{grid-column:span 4} .col-8{grid-column:span 8} .col-12{grid-column:span 12}
+  @media (max-width: 980px){.col-6,.col-4,.col-8{grid-column:span 12}}
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:var(--pad);
+  }
+  .card h2{margin:0 0 8px; font-size:20px}
+  .eyebrow{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#9aa2aa; margin-bottom:6px}
+  label{display:block;font-weight:600;margin:10px 0 6px}
+  input[type="text"], input[type="number"], input[type="datetime-local"], textarea, select{
+    width:100%; background:#0f0f0f; color:#e9edf1; border:1px solid #1e1e1e; border-radius:10px; padding:10px 12px; font-size:14px
+  }
+  textarea{min-height:120px; resize:vertical}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#0f0f0f; color:#e9edf1; border:1px solid #1f1f1f; border-radius:10px; padding:10px 12px; cursor:pointer
+  }
+  .btn:hover{border-color:#2a2a2a}
+  .btn.primary{background:#0d0d0d;border-color:#1f1f1f;color:#dfffe8}
+  .btn.accent{background:#0f1910;border-color:#1f2f21}
+  .btn.red{background:#1a0e0e;border-color:#321616;color:#ffe1e1}
+  .muted{color:#aab2b9} .small{font-size:12px;color:#a5acb3}
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--danger)}
+  .chip{display:inline-block;border:1px solid #1f1f1f;background:#0e0e0e;border-radius:999px;padding:4px 8px;margin:3px 4px}
+  .mono{font-family:var(--mono)}
+  .hl{color:var(--accent)}
+  .list-compact li{margin:4px 0}
+  .checkline{display:flex;align-items:center;gap:10px;margin:6px 0}
+  .checkline input{transform:translateY(1px)}
+  .kpi{display:flex;justify-content:space-between;align-items:center;border:1px solid #1b1b1b;border-radius:12px;padding:10px;background:#0f0f0f;margin:8px 0}
+  .pillbar{height:10px;background:#111;border:1px solid #1d1d1d;border-radius:999px;overflow:hidden}
+  .pillbar>span{display:block;height:100%; background:linear-gradient(90deg,#00ff41,#00d47e)}
+  .table{width:100%;border-collapse:separate;border-spacing:0;background:#0f0f10;border:1px solid #171717;border-radius:12px;overflow:hidden;margin:10px 0}
+  .table th,.table td{padding:10px 12px;border-bottom:1px solid #171717;vertical-align:top;font-size:14px}
+  .table th{background:#121214;color:#d7dbe0;text-align:left}
+  .table tr:last-child td{border-bottom:0}
+  .help{background:#0f0f0f;border:1px dashed #2a2a2a;border-radius:12px;padding:10px}
+  .good{border-left:3px solid var(--ok);padding-left:10px}
+  .warnbox{border-left:3px solid var(--warn);padding-left:10px}
+  .badbox{border-left:3px solid var(--danger);padding-left:10px}
+  .foot{margin-top:10px;color:#a9b0b6}
+  .flex-between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .right{justify-content:flex-end}
+  .ghost{opacity:.8}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand">
+      <span class="pill">Vyralab™</span>
+      <div>
+        <div class="title">VP Comms — Interactive</div>
+        <div class="tagline">Built for Ghostwriters. By Ghostwriters.™</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <nav class="nav">
+      <h4>Composer</h4>
+      <a href="#lane">1) Choose Lane</a>
+      <a href="#ace">2) ACE Message Builder</a>
+      <a href="#tone">3) Tone Calibration</a>
+      <a href="#qa">4) Message QA + Pre-Flight</a>
+
+      <h4>Operations</h4>
+      <a href="#react">Crisis: R.E.A.C.T.</a>
+      <a href="#kpi">KPI Console</a>
+      <a href="#trust">Trust Log (+CSV)</a>
+      <a href="#qbr">QBR Builder</a>
+      <a href="#expectations">Expectation Ladder</a>
+      <a href="#objections">Objection Library</a>
+      <a href="#rituals">Weekly Rituals</a>
+
+      <div class="divider"></div>
+      <h4>Session</h4>
+      <a href="#" id="btnExportAll">⬇ Export All Notes</a>
+      <a href="#" id="btnClear" class="ghost">🗑 Reset (Local)</a>
+    </nav>
+
+    <div class="divider"></div>
+    <div>
+      <div class="small">Session Progress</div>
+      <div class="progress" aria-label="progress">
+        <span id="progressBar" style="width:0%"></span>
+      </div>
+      <div class="small" id="progressText">0% complete</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <section class="hero">
+      <h1>Client Communications — VP Interactive Companion</h1>
+      <p>Use this guided environment to craft elite client messages, enforce ACE discipline, run crisis protocols, track renewal-predictive KPIs, and export QBR-ready briefs. Everything saves locally to your browser.</p>
+      <div class="row">
+        <button class="btn accent" id="btnSave">💾 Save Now</button>
+        <button class="btn" id="btnCopyComposer">📋 Copy Current Message</button>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- LANE SELECTOR -->
+      <section class="card col-6" id="lane">
+        <div class="eyebrow">Composer • Step 1</div>
+        <h2>Choose Communication Lane</h2>
+        <p class="small">Pick the lane first — it changes structure, tone, and success criteria.</p>
+        <label for="laneSelect">Lane</label>
+        <select id="laneSelect">
+          <option value="executive">Executive Briefing — confidence & decisions</option>
+          <option value="operational">Operational Update — clarity & timelines</option>
+          <option value="emotional">Emotional Recovery — trust & ownership</option>
+          <option value="relationship">Relationship Touchpoint — partnership & momentum</option>
+        </select>
+        <div class="help" id="laneHelp" style="margin-top:10px"></div>
+      </section>
+
+      <!-- TONE -->
+      <section class="card col-6" id="tone">
+        <div class="eyebrow">Composer • Step 3</div>
+        <h2>Tone Calibration (mix as needed)</h2>
+        <div class="row">
+          <label class="checkline"><input type="checkbox" class="tone" value="strategist"> Strategist (direction & trade-offs)</label>
+          <label class="checkline"><input type="checkbox" class="tone" value="operator"> Operator (progress & ETA)</label>
+          <label class="checkline"><input type="checkbox" class="tone" value="partner"> Partner (empathy with authority)</label>
+          <label class="checkline"><input type="checkbox" class="tone" value="advocate"> Advocate (celebrate & reinforce)</label>
+        </div>
+        <p class="small">Guidance: it’s normal to move Operator → Partner → Strategist in one thread.</p>
+        <div class="help" id="toneHint"></div>
+      </section>
+
+      <!-- ACE BUILDER -->
+      <section class="card col-8" id="ace">
+        <div class="eyebrow">Composer • Step 2</div>
+        <h2>ACE Message Builder (Acknowledge → Contextualize → Execute)</h2>
+        <div class="grid">
+          <div class="col-12 col-6">
+            <label>Acknowledge (impact / emotion)</label>
+            <textarea id="aceA" placeholder="“Thanks for flagging — I can see why that raised concern.”"></textarea>
+          </div>
+          <div class="col-12 col-6">
+            <label>Contextualize (root cause & rationale, without excuse)</label>
+            <textarea id="aceC" placeholder="“Root cause was X; we’ve adjusted Y to remove the risk…”"></textarea>
+          </div>
+          <div class="col-12">
+            <label>Execute (actions, owners, deadlines, next visible signal)</label>
+            <textarea id="aceE" placeholder="“Actions A/B, owners Ops/PM, next update Fri 16:00; expected result Mon EOD.”"></textarea>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h3>Lane-Specific Fields</h3>
+        <div class="grid">
+          <div class="col-6">
+            <label>Outcome (headline)</label>
+            <input id="outcome" type="text" placeholder="What’s happening (in one clear line)"/>
+          </div>
+          <div class="col-6">
+            <label>Reason (why)</label>
+            <input id="reason" type="text" placeholder="Why it’s happening / trade-off chosen"/>
+          </div>
+          <div class="col-6">
+            <label>Action (next step)</label>
+            <input id="action" type="text" placeholder="What happens next"/>
+          </div>
+          <div class="col-6">
+            <label>Owner + When</label>
+            <input id="ownerWhen" type="text" placeholder="Owner • Deadline / Cadence"/>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnCompose">⚙️ Compose Message</button>
+          <button class="btn" id="btnCopy">📋 Copy</button>
+        </div>
+
+        <label style="margin-top:12px">Composed Message (editable)</label>
+        <textarea id="composed" class="mono" placeholder="Your message will render here…"></textarea>
+
+        <div class="help" id="aceCheck" style="margin-top:10px"></div>
+      </section>
+
+      <!-- QA & PREFLIGHT -->
+      <section class="card col-4" id="qa">
+        <div class="eyebrow">Composer • Step 4</div>
+        <h2>Message QA + Pre-Flight</h2>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="lane"> Correct lane (Exec/Ops/Emotional/Relationship)?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="3w"> 3W present (Why, What, When)?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="owner"> Owners & deadlines explicit?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="one"> One clear next step only?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="five"> Readable in five seconds?</div>
+
+        <h3 style="margin-top:12px">Confidentiality Pre-Flight</h3>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="share"> Clean share window (no other clients)?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="links"> Links double-checked?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="pii"> Personal data hidden?</div>
+        <div class="checkline"><input type="checkbox" class="qa" data-k="tabs"> Browser tabs client-specific only?</div>
+
+        <div class="kpi">
+          <div>QA Score</div>
+          <div class="pillbar" style="width:58%"><span id="qaBar" style="width:0%"></span></div>
+        </div>
+        <div class="small" id="qaText">0 / 9 checks</div>
+      </section>
+
+      <!-- CRISIS -->
+      <section class="card col-6" id="react">
+        <div class="eyebrow">Operations</div>
+        <h2>Crisis Protocol — R.E.A.C.T.</h2>
+        <div class="row">
+          <button class="btn red" id="btnRecognize">1) Recognize (start 30-min SLA)</button>
+          <button class="btn" id="btnEmpathize">2) Empathize</button>
+          <button class="btn" id="btnAssess">3) Assess</button>
+          <button class="btn" id="btnCommunicate">4) Communicate (6–8h cadence)</button>
+          <button class="btn" id="btnTransform">5) Transform</button>
+        </div>
+        <div class="small foot" id="reactStatus">Status: idle</div>
+        <div class="divider"></div>
+        <label>Checkpoint Log</label>
+        <textarea id="reactLog" class="mono" placeholder="[timestamps appear here as you run the protocol]" ></textarea>
+        <div class="row">
+          <button class="btn" id="btnCopyReact">📋 Copy Log</button>
+          <button class="btn" id="btnClearReact">🗑 Clear Log</button>
+        </div>
+      </section>
+
+      <!-- KPI CONSOLE -->
+      <section class="card col-6" id="kpi">
+        <div class="eyebrow">Operations</div>
+        <h2>KPI Console (renewal predictors)</h2>
+        <div class="grid">
+          <div class="col-6">
+            <label>Time to Acknowledge (minutes)</label>
+            <input type="number" id="kpiTTA" min="0" placeholder="e.g., 35" />
+          </div>
+          <div class="col-6">
+            <label>Time to Resolution (hours)</label>
+            <input type="number" id="kpiTTR" min="0" step="0.5" placeholder="e.g., 6" />
+          </div>
+          <div class="col-6">
+            <label>Messages w/o follow-up (%)</label>
+            <input type="number" id="kpiClarity" min="0" max="100" placeholder="e.g., 88" />
+          </div>
+          <div class="col-6">
+            <label>Proactive touches / month</label>
+            <input type="number" id="kpiProactive" min="0" placeholder="e.g., 6" />
+          </div>
+          <div class="col-6">
+            <label>Sentiment ratio (pos:neg)</label>
+            <input type="text" id="kpiSentiment" placeholder="e.g., 4:1" />
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnScoreKPI">📈 Score KPIs</button>
+        </div>
+        <div id="kpiOut" class="help" style="margin-top:10px"></div>
+      </section>
+
+      <!-- TRUST LOG -->
+      <section class="card col-12" id="trust">
+        <div class="eyebrow">Operations</div>
+        <h2>Trust Log (track moments of truth)</h2>
+        <div class="grid">
+          <div class="col-3"><label>Date/Time</label><input type="datetime-local" id="tlDate" /></div>
+          <div class="col-5"><label>Moment</label><input type="text" id="tlMoment" placeholder="e.g., Delivered early"/></div>
+          <div class="col-2"><label>Signal</label>
+            <select id="tlSignal"><option value="+1">+1</option><option value="-1">-1</option></select>
+          </div>
+          <div class="col-2"><label>Owner</label><input type="text" id="tlOwner" placeholder="AM / CSM"/></div>
+          <div class="col-12"><label>Next Visible Signal</label><input type="text" id="tlNext" placeholder="e.g., Friday dashboard update"/></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnAddTrust">➕ Add Entry</button>
+          <button class="btn" id="btnExportTrust">⬇ Export CSV</button>
+          <button class="btn" id="btnClearTrust">🗑 Clear</button>
+        </div>
+        <table class="table" id="trustTable">
+          <thead><tr><th>Date</th><th>Moment</th><th>±</th><th>Owner</th><th>Next Signal</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- QBR BUILDER -->
+      <section class="card col-12" id="qbr">
+        <div class="eyebrow">Operations</div>
+        <h2>QBR Builder (exec briefing text)</h2>
+        <div class="grid">
+          <div class="col-6">
+            <label>Outcome Recap (target vs actual)</label>
+            <textarea id="qbrOutcome" placeholder="+22% engagement, +31% MQLs; target was +20/+25"></textarea>
+          </div>
+          <div class="col-6">
+            <label>Signal Deep-Dive (what printed)</label>
+            <textarea id="qbrSignals" placeholder="Hooks A/C, transitions T2/T5, CTA Medium #3"></textarea>
+          </div>
+          <div class="col-6">
+            <label>Voice Evolution</label>
+            <textarea id="qbrVoice" placeholder="Market expects punchier POV; we standardized tone sliders"></textarea>
+          </div>
+          <div class="col-6">
+            <label>Opportunity Board (3 bets)</label>
+            <textarea id="qbrOpps" placeholder="1) Double down in lane X (impact)… 2) Launch personal series (impact)… 3) CTA refinement (impact)…"></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnBuildQBR">🧱 Build QBR Summary</button>
+          <button class="btn" id="btnCopyQBR">📋 Copy</button>
+        </div>
+        <label style="margin-top:10px">QBR Summary (editable)</label>
+        <textarea id="qbrOut" class="mono" placeholder="[Generated briefing]"></textarea>
+      </section>
+
+      <!-- EXPECTATION LADDER -->
+      <section class="card col-6" id="expectations">
+        <div class="eyebrow">Leadership</div>
+        <h2>Expectation Ladder (Baseline / Aspirational / Contingent)</h2>
+        <label>Baseline (guaranteed)</label>
+        <input id="expBase" type="text" placeholder="e.g., 4 deliverables by Monday"/>
+        <label>Aspirational (aiming)</label>
+        <input id="expAsp" type="text" placeholder="e.g., ≥200k reach on one post"/>
+        <label>Contingent (depends on client)</label>
+        <input id="expCon" type="text" placeholder="e.g., approvals by Friday noon"/>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btnMakeExp">🪜 Generate Line</button>
+          <button class="btn" id="btnCopyExp">📋 Copy</button>
+        </div>
+        <textarea id="expOut" class="mono" placeholder="Expectation line appears here…"></textarea>
+      </section>
+
+      <!-- OBJECTIONS -->
+      <section class="card col-6" id="objections">
+        <div class="eyebrow">Leadership</div>
+        <h2>Objection Library (exact language)</h2>
+        <select id="objSelect">
+          <option value="handsOff">“I want fully hands-off but hyper-personal content.”</option>
+          <option value="viral">“Why aren’t we viral yet?”</option>
+          <option value="voice">“This doesn’t sound like me.”</option>
+          <option value="scope">Scope drift (“Can you also…?”)</option>
+        </select>
+        <div class="help" id="objOut" style="margin-top:10px"></div>
+        <div class="row"><button class="btn" id="btnCopyObj">📋 Copy Response</button></div>
+      </section>
+
+      <!-- WEEKLY RITUALS -->
+      <section class="card col-12" id="rituals">
+        <div class="eyebrow">Org Cadence</div>
+        <h2>Weekly Rituals Tracker</h2>
+        <div class="grid">
+          <div class="col-3">
+            <div class="checkline"><input type="checkbox" class="rit" data-k="heartbeat"> Daily #cs-heartbeat posted</div>
+            <div class="checkline"><input type="checkbox" class="rit" data-k="rollup"> Weekly exec roll-up sent</div>
+            <div class="checkline"><input type="checkbox" class="rit" data-k="patterns"> Pattern review completed</div>
+            <div class="checkline"><input type="checkbox" class="rit" data-k="library"> Template/objection library updated</div>
+          </div>
+          <div class="col-9">
+            <div class="kpi"><div>Ritual Completion</div><div class="pillbar" style="width:70%"><span id="ritBar" style="width:0%"></span></div></div>
+            <div class="small" id="ritText">0 / 4 complete</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="small foot">Everything here persists locally. Use “Export All Notes” to download your work as a .txt you can paste into Notion or email.</p>
+  </main>
+</div>
+
+<script>
+/* ---------- Persistence Helpers ---------- */
+const SCOPE = 'vpInteractiveVyralab_v1';
+const $ = (id)=>document.getElementById(id);
+const save = ()=>localStorage.setItem(SCOPE, JSON.stringify(state));
+const load = ()=>{
+  const raw = localStorage.getItem(SCOPE);
+  if(!raw) return;
+  try{ state = JSON.parse(raw); renderAll(); }catch(e){}
+};
+let state = {
+  lane:'executive', tones:[], aceA:'', aceC:'', aceE:'',
+  outcome:'', reason:'', action:'', ownerWhen:'',
+  composed:'', qa:{}, reactLog:'', reactStatus:'idle',
+  kpi:{TTA:'',TTR:'',Clarity:'',Proactive:'',Sentiment:''},
+  trust:[], qbr:{outcome:'',signals:'',voice:'',opps:'',out:''},
+  exp:{base:'',asp:'',con:'',out:''}, rituals:{}, progress:0
+};
+
+/* ---------- Progress ---------- */
+function computeProgress(){
+  let total=0, done=0;
+  const checks = [
+    state.aceA, state.aceC, state.aceE,
+    state.outcome, state.reason, state.action, state.ownerWhen,
+    state.composed, state.qbr.out, state.exp.out
+  ];
+  total = checks.length + Object.keys(state.qa).length + state.trust.length;
+  done = checks.filter(Boolean).length + Object.values(state.qa).filter(Boolean).length + Math.min(state.trust.length, 5);
+  const pct = total? Math.round(100*done/total):0;
+  $('progressBar').style.width = pct + '%';
+  $('progressText').textContent = pct + '% complete';
+}
+
+/* ---------- Lane Help ---------- */
+const laneText = {
+  executive: {
+    help: "<strong>Executive Briefing:</strong> Outcome-first, decision ask, next bets. Skeleton: Target → What landed → What scales → Decision."
+  },
+  operational: {
+    help: "<strong>Operational Update:</strong> Shipped → Slips (cause) → Mitigation → ETA. Precise & time-boxed."
+  },
+  emotional: {
+    help: "<strong>Emotional Recovery:</strong> Impact → Ownership → Fix plan → Safeguard. Calm & accountable."
+  },
+  relationship: {
+    help: "<strong>Relationship Touchpoint:</strong> Specific praise → What we learned → What we’ll repeat."
+  }
+};
+function renderLaneHelp(){
+  $('laneHelp').innerHTML = laneText[state.lane].help;
+}
+
+/* ---------- Tone Hints ---------- */
+function renderToneHint(){
+  const m = {
+    strategist:"Use for direction, bets, trade-offs. Eg: “To hit {goal}, best move is {decision}…”",
+    operator:"Use for progress & ETA. Eg: “D1–D3 shipped. D4 pending input; new ETA Tue 10:00.”",
+    partner:"Empathy with authority. Eg: “You deserve better comms here — thanks for holding us to the bar.”",
+    advocate:"Celebrate & reinforce. Eg: “Your tweak lifted CTR +28% — doubling down.”"
+  };
+  if(!state.tones.length){ $('toneHint').textContent = "Select at least one tone. It’s common to blend Operator → Partner → Strategist."; return; }
+  $('toneHint').innerHTML = state.tones.map(t=>`<span class="chip">${t}</span> ${m[t]}`).join('<br/>');
+}
+
+/* ---------- ACE Compose ---------- */
+function compose(){
+  const lane = state.lane;
+  const tones = state.tones.length? `(${state.tones.join(' • ')})` : '';
+  const A = state.aceA?.trim(); const C = state.aceC?.trim(); const E = state.aceE?.trim();
+  const o = state.outcome?.trim(), r = state.reason?.trim(), a = state.action?.trim(), ow = state.ownerWhen?.trim();
+
+  let header="";
+  if(lane==='executive') header = `Outcome: ${o}\nReason: ${r}\nAction: ${a}\nOwner/When: ${ow}`;
+  if(lane==='operational') header = `${o}\nSlips/Reason: ${r}\nMitigation: ${a}\nETA/Owner: ${ow}`;
+  if(lane==='emotional') header = `${o}\nOwnership: ${r}\nFix Plan: ${a}\nSafeguard/When: ${ow}`;
+  if(lane==='relationship') header = `${o}\nWhat we learned: ${r}\nWhat we’ll repeat: ${a}\nNext: ${ow}`;
+
+  const body = [`${A}`, `${C}`, `${E}`].filter(Boolean).join('\n\n');
+  const msg = `Lane: ${lane.toUpperCase()} ${tones}\n\n${header}\n\n${body}`.trim();
+  state.composed = msg; $('composed').value = msg;
+  runACECheck();
+  save(); computeProgress();
+}
+function runACECheck(){
+  const miss = [];
+  if(!state.aceA) miss.push("Acknowledge");
+  if(!state.aceC) miss.push("Contextualize");
+  if(!state.aceE) miss.push("Execute");
+  if(!state.outcome || !state.action || !state.ownerWhen) miss.push("3W fields");
+  $('aceCheck').innerHTML = miss.length
+    ? `<div class="warnbox"><strong>Missing:</strong> ${miss.join(', ')}</div>`
+    : `<div class="good"><strong>ACE complete.</strong> Message meets structure requirements.</div>`;
+}
+
+/* ---------- QA ---------- */
+function renderQA(){
+  const total = 9;
+  const done = Object.values(state.qa).filter(Boolean).length;
+  const pct = Math.round(100*done/total);
+  $('qaBar').style.width = pct + '%';
+  $('qaText').textContent = `${done} / ${total} checks`;
+}
+
+/* ---------- Crisis ---------- */
+function logReact(line){
+  const ts = new Date().toLocaleString();
+  state.reactLog = `[${ts}] ${line}\n` + (state.reactLog||'');
+  $('reactLog').value = state.reactLog;
+  save();
+}
+$('btnRecognize')?.addEventListener('click', ()=>{
+  state.reactStatus='recognize';
+  logReact('Recognize: acknowledged issue (start 30-min SLA).');
+});
+$('btnEmpathize')?.addEventListener('click', ()=>{
+  state.reactStatus='empathize';
+  logReact('Empathize: acknowledged frustration; set tone of ownership.');
+});
+$('btnAssess')?.addEventListener('click', ()=>{
+  state.reactStatus='assess';
+  logReact('Assess: scoped impact and root cause.');
+});
+$('btnCommunicate')?.addEventListener('click', ()=>{
+  state.reactStatus='communicate';
+  logReact('Communicate: established 6–8h update cadence.');
+});
+$('btnTransform')?.addEventListener('click', ()=>{
+  state.reactStatus='transform';
+  logReact('Transform: implemented safeguard to prevent recurrence.');
+});
+$('btnCopyReact')?.addEventListener('click', ()=> copyText($('reactLog').value));
+$('btnClearReact')?.addEventListener('click', ()=> { state.reactLog=''; $('reactLog').value=''; save(); });
+
+/* ---------- KPI ---------- */
+$('btnScoreKPI')?.addEventListener('click', ()=>{
+  const TTA = Number($('kpiTTA').value||state.kpi.TTA||0);
+  const TTR = Number($('kpiTTR').value||state.kpi.TTR||0);
+  const Cl = Number($('kpiClarity').value||state.kpi.Clarity||0);
+  const Pro = Number($('kpiProactive').value||state.kpi.Proactive||0);
+  const Sr = ($('kpiSentiment').value||state.kpi.Sentiment||'').trim();
+
+  state.kpi = {TTA, TTR, Clarity:Cl, Proactive:Pro, Sentiment:Sr}; save();
+  const badges = [];
+  badges.push(TTA<=240 ? 'TTA ✅ (≤4h)' : 'TTA ⚠');
+  badges.push(TTR<=24 ? 'TTR ✅ (≤24h typical sev2)' : 'TTR ⚠');
+  badges.push(Cl>=85 ? 'Clarity ✅ (≥85%)' : 'Clarity ⚠');
+  badges.push(Pro>=4 ? 'Proactive ✅ (≥4/mo)' : 'Proactive ⚠');
+  const ratioOk = /^(\d+)\s*:\s*(\d+)$/.test(Sr) && (()=>{
+    const m = Sr.match(/^(\d+)\s*:\s*(\d+)$/); return (parseInt(m[1])/(parseInt(m[2])||1))>=3;
+  })();
+  badges.push(ratioOk ? 'Sentiment ✅ (>3:1)' : 'Sentiment ⚠');
+
+  $('kpiOut').innerHTML = badges.map(b=>`<span class="chip">${b}</span>`).join(' ');
+});
+
+/* ---------- Trust Log ---------- */
+function renderTrust(){
+  const tbody = $('trustTable').querySelector('tbody');
+  tbody.innerHTML = '';
+  state.trust.forEach((t,i)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${escapeHtml(t.date||'')}</td>
+      <td>${escapeHtml(t.moment||'')}</td>
+      <td>${t.signal||''}</td>
+      <td>${escapeHtml(t.owner||'')}</td>
+      <td>${escapeHtml(t.next||'')}</td>
+      <td><button class="btn" data-del="${i}">Remove</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+$('btnAddTrust')?.addEventListener('click', ()=>{
+  const rec = {
+    date: $('tlDate').value || new Date().toISOString(),
+    moment: $('tlMoment').value, signal: $('tlSignal').value,
+    owner: $('tlOwner').value, next: $('tlNext').value
+  };
+  state.trust.push(rec); save(); renderTrust(); computeProgress();
+});
+$('trustTable')?.addEventListener('click', (e)=>{
+  if(e.target.dataset.del!==undefined){
+    state.trust.splice(parseInt(e.target.dataset.del),1);
+    save(); renderTrust(); computeProgress();
+  }
+});
+$('btnExportTrust')?.addEventListener('click', ()=>{
+  const rows = [['date','moment','signal','owner','next']];
+  state.trust.forEach(t=>rows.push([t.date,t.moment,t.signal,t.owner,t.next]));
+  const csv = rows.map(r=>r.map(s=>`"${(s||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  downloadText('trust-log.csv', csv);
+});
+$('btnClearTrust')?.addEventListener('click', ()=>{ state.trust=[]; save(); renderTrust(); computeProgress(); });
+
+/* ---------- QBR ---------- */
+$('btnBuildQBR')?.addEventListener('click', ()=>{
+  state.qbr.outcome = $('qbrOutcome').value;
+  state.qbr.signals = $('qbrSignals').value;
+  state.qbr.voice = $('qbrVoice').value;
+  state.qbr.opps = $('qbrOpps').value;
+  const s = `QBR — Executive Briefing
+
+Outcome Recap
+${state.qbr.outcome}
+
+Signal Deep-Dive
+${state.qbr.signals}
+
+Voice Evolution
+${state.qbr.voice}
+
+Opportunity Board (next bets)
+${state.qbr.opps}
+
+Decision Ask
+Renew current lane / Upgrade cadence / Add lane (select one).`;
+  state.qbr.out = s; $('qbrOut').value = s; save(); computeProgress();
+});
+$('btnCopyQBR')?.addEventListener('click', ()=> copyText($('qbrOut').value));
+
+/* ---------- Expectation Ladder ---------- */
+$('btnMakeExp')?.addEventListener('click', ()=>{
+  state.exp.base = $('expBase').value; state.exp.asp = $('expAsp').value; state.exp.con = $('expCon').value;
+  const line = `Here’s what’s guaranteed (${state.exp.base}); what we’re aiming for (${state.exp.asp}); and what depends on you (${state.exp.con}).`;
+  state.exp.out = line; $('expOut').value = line; save(); computeProgress();
+});
+$('btnCopyExp')?.addEventListener('click', ()=> copyText($('expOut').value));
+
+/* ---------- Objections ---------- */
+const objText = {
+  handsOff: `We can deliver strong results with very little effort using proven ideas. For truly personal pieces, a brief voice note or outline unlocks your unique stories. We’ll make it painless and do all the lifting.`,
+  viral: `We optimize for repeatable wins, not lottery tickets. Here’s what’s compounding now: [proof]. Next, we widen reach with [pattern] while keeping clicks high via [CTA refinement].`,
+  voice: `Share three lines that feel perfectly you. We’ll build a mini style guide and tune every draft to match it.`,
+  scope: `Happy to help. That sits outside our current scope. Two paths: a) swap a planned item, or b) add this as a paid add-on. Which keeps you moving best?`
+};
+function renderObj(){ $('objOut').textContent = objText[$('objSelect').value]; }
+$('objSelect')?.addEventListener('change', renderObj);
+$('btnCopyObj')?.addEventListener('click', ()=> copyText($('objOut').textContent));
+
+/* ---------- Rituals ---------- */
+function renderRit(){
+  const keys = ['heartbeat','rollup','patterns','library'];
+  const total = keys.length;
+  const done = keys.filter(k=>state.rituals[k]).length;
+  const pct = Math.round(100*done/total);
+  $('ritBar').style.width = pct + '%';
+  $('ritText').textContent = `${done} / ${total} complete`;
+}
+
+/* ---------- Message Build & Copy ---------- */
+$('btnCompose')?.addEventListener('click', compose);
+$('btnCopy')?.addEventListener('click', ()=> copyText($('composed').value));
+$('btnCopyComposer')?.addEventListener('click', ()=> copyText($('composed').value));
+
+/* ---------- Save / Export / Reset ---------- */
+$('btnSave')?.addEventListener('click', ()=>{ save(); flash('Saved locally.'); });
+$('btnExportAll')?.addEventListener('click', ()=>{
+  const dump = JSON.stringify(state, null, 2);
+  downloadText('vp-communications-session.txt', dump);
+});
+$('btnClear')?.addEventListener('click', ()=>{
+  if(confirm('Reset local session?')){ localStorage.removeItem(SCOPE); location.reload(); }
+});
+
+/* ---------- Field Wiring ---------- */
+function on(id, key, nested){
+  const el = $(id); if(!el) return;
+  el.addEventListener('input', ()=>{
+    if(nested){ state[nested][key]= el.value; } else { state[key]=el.value; }
+    save(); computeProgress();
+  });
+}
+$('laneSelect')?.addEventListener('change', (e)=>{
+  state.lane = e.target.value; renderLaneHelp(); save();
+});
+document.querySelectorAll('.tone').forEach(ch=>{
+  ch.addEventListener('change', ()=>{
+    const sel = Array.from(document.querySelectorAll('.tone')).filter(c=>c.checked).map(c=>c.value);
+    state.tones = sel; renderToneHint(); save();
+  });
+});
+['aceA','aceC','aceE','outcome','reason','action','ownerWhen','composed'].forEach(id=>{
+  on(id, id);
+});
+document.querySelectorAll('.qa').forEach(q=>{
+  q.addEventListener('change', ()=>{
+    state.qa[q.dataset.k] = q.checked; save(); renderQA(); computeProgress();
+  });
+});
+document.querySelectorAll('.rit').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    state.rituals[r.dataset.k] = r.checked; save(); renderRit();
+  });
+});
+
+/* ---------- Utilities ---------- */
+function renderAll(){
+  $('laneSelect').value = state.lane; renderLaneHelp();
+  document.querySelectorAll('.tone').forEach(c=> c.checked = state.tones.includes(c.value));
+  renderToneHint();
+  ['aceA','aceC','aceE','outcome','reason','action','ownerWhen','composed'].forEach(id=> $(id).value = state[id]||'');
+  $('reactLog').value = state.reactLog||''; $('reactStatus').textContent = 'Status: '+(state.reactStatus||'idle');
+  $('kpiTTA').value = state.kpi.TTA||''; $('kpiTTR').value = state.kpi.TTR||''; $('kpiClarity').value = state.kpi.Clarity||''; $('kpiProactive').value = state.kpi.Proactive||''; $('kpiSentiment').value = state.kpi.Sentiment||'';
+  renderTrust(); renderQA(); renderObj(); renderRit(); computeProgress();
+}
+function copyText(txt){
+  navigator.clipboard.writeText(txt||'').then(()=>flash('Copied to clipboard'));
+}
+function downloadText(filename, text){
+  const blob = new Blob([text], {type:'text/plain'}); const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=filename; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 500);
+}
+function flash(msg){
+  const n = document.createElement('div');
+  n.textContent = msg; n.style.position='fixed'; n.style.bottom='16px'; n.style.right='16px';
+  n.style.background='#0f0f0f'; n.style.border='1px solid #1f1f1f'; n.style.padding='10px 14px'; n.style.borderRadius='10px';
+  n.style.boxShadow='var(--shadow)'; n.style.zIndex='9999';
+  document.body.appendChild(n); setTimeout(()=>n.remove(), 1500);
+}
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/* ---------- Boot ---------- */
+load();
+renderAll();
+</script>
+</body>
+</html>

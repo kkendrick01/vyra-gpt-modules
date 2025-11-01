@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>THE CTA MASTERCLASS™ | Vyralab</title>
+<style>
+  :root{
+    --vl-black:#0A0A0A;
+    --vl-green:#00FF41;
+    --vl-white:#F7F7F7;
+    --vl-steel:#2A2A2A;
+    --vl-steel-2:#3A3A3A;
+    --glow:0 0 22px rgba(0,255,65,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;background:var(--vl-black);color:var(--vl-white);line-height:1.6;overflow-x:hidden}
+  .bg{position:fixed;inset:0;background-image:
+      linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);
+      background-size:54px 54px;animation:grid 24s linear infinite;z-index:0}
+  @keyframes grid{0%{transform:translate(0,0)}100%{transform:translate(54px,54px)}}
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--vl-steel);z-index:999}
+  .progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--vl-green),#00FFA0);box-shadow:var(--glow);transition:width .2s}
+  .wrap{max-width:1220px;margin:0 auto;padding:2rem 1.25rem;position:relative;z-index:1}
+  .hero{min-height:88vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:
+        radial-gradient(circle at 50% 40%,rgba(0,255,65,.10),transparent 62%)}
+  .hero-in{max-width:980px;text-align:center}
+  .badge{display:inline-flex;border:1px solid var(--vl-green);color:var(--vl-green);padding:.45rem .9rem;border-radius:999px;
+         gap:.5rem;align-items:center;margin-bottom:.9rem;text-transform:uppercase;font-size:.8rem;letter-spacing:.12em;box-shadow:var(--glow)}
+  h1{font-size:clamp(2.2rem,5.5vw,4.4rem);font-weight:900;line-height:1.08;margin:.3rem 0 1rem;background:
+     linear-gradient(135deg,#fff,var(--vl-green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:#BEBEBE;max-width:860px;margin:0 auto 1.3rem}
+  .row{display:flex;gap:.75rem;flex-wrap:wrap}
+  .cta{background:linear-gradient(135deg,var(--vl-green),#00FFA0);color:#0a0a0a;border:none;border-radius:12px;padding:1rem 1.2rem;
+       font-weight:800;cursor:pointer;box-shadow:var(--glow)}
+  .ghost{background:transparent;border:1px solid var(--vl-green);color:var(--vl-green);border-radius:12px;padding:.9rem 1.1rem;font-weight:700;cursor:pointer}
+  .section{margin:3.6rem 0;opacity:0;transform:translateY(24px);transition:all .6s ease}
+  .section.visible{opacity:1;transform:translateY(0)}
+  .s-head{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+  .icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--vl-green),#00FFA0);display:flex;align-items:center;justify-content:center;color:#0a0a0a;font-weight:900;box-shadow:var(--glow)}
+  .title{font-size:1.9rem;font-weight:800}
+  .panel{background:var(--vl-steel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:1.1rem}
+  .muted{opacity:.85}
+  label{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#DADADA;margin-bottom:.35rem;display:block}
+  input,select,textarea{width:100%;background:#101010;border:1px solid var(--vl-steel-2);border-radius:12px;color:#f3f3f3;
+                        padding:.85rem 1rem;outline:none}
+  textarea{min-height:120px}
+  .grid{display:grid;gap:1rem}
+  @media(min-width:980px){.grid-2{grid-template-columns:1.1fr .9fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
+  .accordion{border:1px solid var(--vl-steel-2);border-radius:12px;overflow:hidden}
+  .acc-h{background:var(--vl-steel);padding:1.05rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .acc-h:hover{background:#353535}
+  .acc-c{max-height:0;overflow:hidden;background:#111;transition:max-height .3s ease,padding .3s ease}
+  .acc-c.open{max-height:1400px;padding:1rem}
+  .pill{display:inline-block;background:#101010;border:1px solid #2f2f2f;border-radius:999px;padding:.28rem .7rem;margin:.2rem;font-size:.82rem}
+  .callout{background:rgba(0,255,65,.09);border-left:3px solid var(--vl-green);padding:1rem;border-radius:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:.8rem 0;border-radius:12px;overflow:hidden;background:#0f0f0f}
+  th{background:linear-gradient(135deg,var(--vl-steel),var(--vl-steel-2));color:var(--vl-green);text-align:left;padding:.8rem 1rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:1rem;border-top:1px solid var(--vl-steel)}
+  tr:hover td{background:rgba(0,255,65,.06)}
+  .meter{height:10px;background:#101010;border:1px solid #2f2f2f;border-radius:999px;overflow:hidden}
+  .meter>div{height:100%;width:0;background:linear-gradient(90deg,var(--vl-green),#00FFA0);box-shadow:var(--glow)}
+  .note{font-size:.9rem;color:#CFCFCF}
+  .btn-sm{padding:.55rem .85rem;border-radius:10px;font-weight:700}
+  .ok{color:#00ffa0}.warn{color:#ffd166}.bad{color:#ff5c5c}
+  .final{background:linear-gradient(135deg,rgba(0,255,65,.12),transparent);border:1px solid rgba(0,255,65,.2);border-radius:16px;padding:2rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="progress"><div id="pbar"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="badge">Vyralab Masterclass</div>
+    <h1>THE CTA MASTERCLASS™</h1>
+    <p class="sub">Write CTAs that earn clicks, leads, and revenue across X, LinkedIn, newsletters, and landing pages. Strategy → copy → placement → tracking → testing — turned into a live, interactive system.</p>
+    <div class="row" style="justify-content:center;margin-top:.5rem">
+      <button class="cta" onclick="go('quick')">Launch Quick Checklist →</button>
+      <button class="ghost" onclick="go('builder')">Jump to CTA Builder</button>
+      <button class="ghost" onclick="go('utm')">UTM Builder</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- 0) QUICK CHECKLIST -->
+  <section id="quick" class="section visible">
+    <div class="s-head"><div class="icon">0</div><div class="title">Quick Checklist — Daily Driver</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <label>Client / Campaign</label>
+        <input id="qc_client" placeholder="e.g., Vyralab — VyraBoost Nov ’25"/>
+        <div class="accordion" style="margin-top:.7rem">
+          <div class="acc-h" onclick="acc(this)"><b>Checklist</b><span>▼</span></div>
+          <div class="acc-c">
+            <div class="row">
+              <label><input type="checkbox" class="ck" data-k="goals"> Read client goals, offer, funnel map</label>
+              <label><input type="checkbox" class="ck" data-k="inspo"> Skim fresh inspo (5 min)</label>
+              <label><input type="checkbox" class="ck" data-k="type"> Pick CTA type (Lead / Sales / Event / Appointment / Authority / Community)</label>
+              <label><input type="checkbox" class="ck" data-k="drafts"> Draft 2–3 variations from templates</label>
+              <label><input type="checkbox" class="ck" data-k="utm"> Add UTM tags to every link</label>
+              <label><input type="checkbox" class="ck" data-k="ship"> Ship; review clicks & conversions (Typefully/X + GA4)</label>
+              <label><input type="checkbox" class="ck" data-k="log"> Log results → iterate strongest next post</label>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:.7rem">
+          <button class="cta btn-sm" onclick="saveChecklist()">Save</button>
+          <button class="ghost btn-sm" onclick="clearChecklist()">Clear</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <b>CTA Type Picker</b>
+        <div class="row" style="margin:.6rem 0 .3rem">
+          <span class="pill" onclick="chooseType('Lead')">Lead</span>
+          <span class="pill" onclick="chooseType('Sales')">Sales</span>
+          <span class="pill" onclick="chooseType('Event')">Event</span>
+          <span class="pill" onclick="chooseType('Appointment')">Appointment</span>
+          <span class="pill" onclick="chooseType('Authority')">Authority</span>
+          <span class="pill" onclick="chooseType('Community')">Community</span>
+        </div>
+        <div id="typeOut" class="callout">Selected: <b id="typeSel">—</b></div>
+        <div class="note" style="margin-top:.7rem">Use one action per post. Multiple CTAs split clicks.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1) STRATEGY FIRST -->
+  <section class="section" id="strategy">
+    <div class="s-head"><div class="icon">1</div><div class="title">Strategy First — What are we asking for?</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>A. Identify Client Type</b>
+        <div class="accordion" style="margin-top:.7rem">
+          <div class="acc-h" onclick="acc(this)"><span>Leads</span><span>▼</span></div>
+          <div class="acc-c">
+            <ul class="note" style="list-style:none;padding-left:0">
+              <li>• Audit offer clarity and proof assets.</li>
+              <li>• Map funnel (entry → nurture → conversion).</li>
+              <li>• Draft 2–3 CTA variants with hard benefits.</li>
+              <li>• Plan top-of-funnel content that bridges to the ask.</li>
+              <li>• Build the transition (2–4 lines that connect post → ask).</li>
+            </ul>
+          </div>
+          <div class="acc-h" onclick="acc(this)"><span>Followers / Awareness</span><span>▼</span></div>
+          <div class="acc-c">
+            <ul class="note" style="list-style:none;padding-left:0">
+              <li>• Mine founder stories; build a lesson bank.</li>
+              <li>• Pair niche-viral content with soft transition + light CTA.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:.7rem">
+          <b>B = MAP (Fogg):</b> Motivation, Ability, Prompt. Your CTA is the Prompt; increase success by clarifying motivation and lowering friction. One link. One action. One clear benefit.
+        </div>
+      </div>
+
+      <div class="panel">
+        <b>B. Choose the Correct Ask</b>
+        <div class="row" style="margin:.5rem 0">
+          <span class="pill" onclick="setAsk('Micro-commit')">Micro-commit</span>
+          <span class="pill" onclick="setAsk('Low-friction list-join')">Low-friction list-join</span>
+          <span class="pill" onclick="setAsk('Mid-friction booking')">Mid-friction booking</span>
+          <span class="pill" onclick="setAsk('High-intent purchase')">High-intent purchase</span>
+        </div>
+        <div id="askOut" class="panel" style="background:#111;border-color:#1b1b1b">Ask: <b id="askSel">—</b></div>
+
+        <b style="display:block;margin-top:.8rem">C. Transition Scaffold</b>
+        <textarea id="bridge" placeholder="Write your 2–4 line bridge here (Insight → Bridge → Ask)"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="seedBridge()">Insert Example</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) PSYCHOLOGY -->
+  <section class="section" id="psych">
+    <div class="s-head"><div class="icon">2</div><div class="title">Psychology That Converts — Ethical + Effective</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>A. Cialdini — Pick 1–2 per CTA</b>
+        <div class="row" style="margin:.5rem 0">
+          <span class="pill" onclick="toggleP('Authority')">Authority</span>
+          <span class="pill" onclick="toggleP('Social Proof')">Social Proof</span>
+          <span class="pill" onclick="toggleP('Scarcity/Urgency')">Scarcity/Urgency</span>
+          <span class="pill" onclick="toggleP('Reciprocity')">Reciprocity</span>
+          <span class="pill" onclick="toggleP('Commitment/Consistency')">Commitment/Consistency</span>
+          <span class="pill" onclick="toggleP('Liking')">Liking</span>
+          <span class="pill" onclick="toggleP('Unity')">Unity</span>
+        </div>
+        <div id="picks" class="callout">Chosen: <b id="pSel">—</b></div>
+        <div class="note" style="margin-top:.6rem">Use these to decide the single proof line that sits immediately above your link.</div>
+      </div>
+      <div class="panel">
+        <b>B. CTA Usability (NN/g Principles)</b>
+        <ul class="note" style="list-style:none;padding-left:0;margin-top:.5rem">
+          <li>• Be specific. “Book your 15-min audit” beats vague labels.</li>
+          <li>• Match user goals; reduce friction and cognitive load.</li>
+          <li>• Make value obvious before the link.</li>
+        </ul>
+        <div class="callout" style="margin-top:.6rem"><b>Clarity test:</b> Would a new reader understand the benefit and next step in 3 seconds?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) COPYCRAFT — CTA BUILDER -->
+  <section class="section" id="builder">
+    <div class="s-head"><div class="icon">3</div><div class="title">Copycraft — CTA Formula Bank & Generator</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>Four Beats (Core Line)</b>
+        <div class="note" style="margin:.4rem 0">Credibility → Specific Benefit → Objection Diffuser → Action</div>
+        <div class="grid">
+          <div>
+            <label>Credibility / Proof</label>
+            <input id="f_proof" placeholder="e.g., Helped 60+ founders drive 2B+ views"/>
+          </div>
+          <div>
+            <label>Specific Benefit</label>
+            <input id="f_benefit" placeholder="e.g., Threads that convert to revenue"/>
+          </div>
+          <div>
+            <label>Objection Diffuser</label>
+            <input id="f_diffuse" placeholder="e.g., No fluff; we show the system on a quick audit"/>
+          </div>
+          <div>
+            <label>Action (verb + destination)</label>
+            <input id="f_action" placeholder="e.g., Book your 15-min call"/>
+          </div>
+        </div>
+
+        <b style="display:block;margin-top:.8rem">Intensity</b>
+        <div class="row" style="margin:.4rem 0">
+          <span class="pill" onclick="setIntensity('Soft')">Soft</span>
+          <span class="pill" onclick="setIntensity('Medium')">Medium</span>
+          <span class="pill" onclick="setIntensity('Hard')">Hard</span>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="genCTA()">Generate CTA Variations</button>
+          <button class="ghost btn-sm" onclick="seedCTA()">Insert Examples</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <b>Output</b>
+        <textarea id="ctaOut" placeholder="Your CTA lines appear here..." style="min-height:220px"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="copy('#ctaOut')">Copy</button>
+        </div>
+
+        <div class="accordion" style="margin-top:1rem">
+          <div class="acc-h" onclick="acc(this)"><b>Fill-in-the-Blank Template Bank (12)</b><span>▼</span></div>
+          <div class="acc-c">
+            <div class="note">Authority + Action</div>
+            <div class="pill">“{Proof metric/clients} use this to {benefit}. Get the playbook.”</div>
+            <div class="pill">“Built from {years/projects}. See exactly how it works. Watch the 10-min teardown.”</div>
+            <div class="note" style="margin-top:.6rem">Benefit + Objection + Action</div>
+            <div class="pill">“Turn {pain} into {benefit} in {timeframe} — without {objection}. Start here.”</div>
+            <div class="pill">“No team, no ads, no fluff. Just the system. Grab the checklist.”</div>
+            <div class="note" style="margin-top:.6rem">FOMO / Urgency</div>
+            <div class="pill">“{N} seats left for {date}. Live Q&A + critiques. Reserve your spot.”</div>
+            <div class="pill">“Closes {weekday} at {time}. Miss this, wait {X} months. Enroll now.”</div>
+            <div class="note" style="margin-top:.6rem">Community / Relationship</div>
+            <div class="pill">“Build with {tribe}. Weekly critiques, live hooks, SOPs. Join the circle.”</div>
+            <div class="pill">“Inside we share wins, rewrites, and client playbooks. Get access.”</div>
+            <div class="note" style="margin-top:.6rem">Appointment / Demo</div>
+            <div class="pill">“Curious if {offer} fits your niche? Book a 15-min audit.”</div>
+            <div class="pill">“We’ll map your first 4 weeks and hand you the plan. Schedule the call.”</div>
+            <div class="note" style="margin-top:.6rem">DM / Comment Triggers (X)</div>
+            <div class="pill">“Want the SOP? Comment ‘SOP’ and I’ll send it.”</div>
+            <div class="pill">“Drop ‘CLEAN’ — I’ll reply with the 9-step system.”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4) TRANSITIONS -->
+  <section class="section" id="transitions">
+    <div class="s-head"><div class="icon">4</div><div class="title">Transitions — Move content → CTA without whiplash</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>Transition Builder</b>
+        <label style="margin-top:.5rem">Post Summary</label>
+        <textarea id="t_sum" placeholder="What did the post teach or reveal?"></textarea>
+        <label style="margin-top:.5rem">Offer / Asset</label>
+        <input id="t_offer" placeholder="e.g., CTA Template Pack, 10-min teardown, waitlist"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildTransitions()">Build 3 Transitions</button>
+          <button class="ghost btn-sm" onclick="seedTransitions()">Insert Examples</button>
+        </div>
+      </div>
+      <div class="panel">
+        <b>Output</b>
+        <textarea id="t_out" placeholder="3 transitions appear here..."></textarea>
+        <div class="row" style="margin-top:.6rem"><button class="ghost btn-sm" onclick="copy('#t_out')">Copy</button></div>
+        <div class="note" style="margin-top:.6rem">Patterns included: Insight→Bridge→Ask • Story→Lesson→Ask • Problem→Relief→Ask</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) DESIGN & PLACEMENT -->
+  <section class="section" id="placement">
+    <div class="s-head"><div class="icon">5</div><div class="title">Design & Placement — Where the link lives</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>Link Labeler</b>
+        <div class="note" style="margin:.4rem 0">Action + Outcome beats generic “Get Started”.</div>
+        <input id="ll_action" placeholder="Verb (e.g., Book, Download, Join)"/>
+        <input id="ll_outcome" style="margin-top:.5rem" placeholder="Outcome (e.g., your 15-min audit)"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="labelLink()">Generate Label</button>
+        </div>
+        <div id="ll_out" class="callout" style="margin-top:.6rem">Label → <b id="ll_text">—</b></div>
+        <div class="note" style="margin-top:.6rem">Placement: end for story/lesson posts; under a proof line for direct offers.</div>
+      </div>
+      <div class="panel">
+        <b>One Action Rule</b>
+        <div class="callout" style="margin-top:.6rem">One action per post. Multiple CTAs split clicks and dilute intent.</div>
+        <div class="note" style="margin-top:.6rem">Add urgency windows only when backed by credible reason (cohort cap, pricing change, calendar deadline).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6) PLATFORM PLAYS -->
+  <section class="section" id="platforms">
+    <div class="s-head"><div class="icon">6</div><div class="title">Platform Plays — X & LinkedIn</div></div>
+    <div class="panel">
+      <div class="row" style="margin:.3rem 0">
+        <span class="pill" onclick="showTab('tabx')">X (Twitter)</span>
+        <span class="pill" onclick="showTab('tabli')">LinkedIn</span>
+      </div>
+      <div id="tabx" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem">
+        <b>X</b>
+        <ul class="note" style="list-style:none;padding-left:0;margin-top:.4rem">
+          <li>• Track in native + Typefully: impressions, engagement, link clicks.</li>
+          <li>• Install the X Pixel / Events Manager for conversions.</li>
+          <li>• Always add UTMs. Keep slugs clean with a shortener if needed.</li>
+          <li>• Campaigns: pin the post for 24–48 hours.</li>
+        </ul>
+      </div>
+      <div id="tabli" class="panel" style="display:none;background:#101010;border-color:#1b1b1b;margin-top:.6rem">
+        <b>LinkedIn</b>
+        <ul class="note" style="list-style:none;padding-left:0;margin-top:.4rem">
+          <li>• External links can reduce reach. Options: link in first comment or edit after initial engagement.</li>
+          <li>• Test both patterns on the same content over two posts.</li>
+          <li>• Measure clicks and sessions; verify on your own account.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7) UTM BUILDER -->
+  <section class="section" id="utm">
+    <div class="s-head"><div class="icon">7</div><div class="title">Tracking — UTM Builder & Standards (GA4)</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>UTM Builder</b>
+        <label style="margin-top:.4rem">Base URL</label>
+        <input id="u_base" placeholder="https://yourpage.com"/>
+        <div class="grid" style="margin-top:.5rem">
+          <div>
+            <label>Source</label>
+            <input id="u_source" placeholder="x / linkedin / newsletter"/>
+          </div>
+          <div>
+            <label>Medium</label>
+            <input id="u_medium" placeholder="social / paid-social / email"/>
+          </div>
+          <div>
+            <label>Campaign</label>
+            <input id="u_campaign" placeholder="offer_q1 / vyra_boost_nov25"/>
+          </div>
+          <div>
+            <label>Content (optional)</label>
+            <input id="u_content" placeholder="soft / hard / comment"/>
+          </div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildUTM()">Build UTM Link</button>
+        </div>
+      </div>
+      <div class="panel">
+        <b>Output</b>
+        <textarea id="u_out" placeholder="https://yourpage.com?utm_source=..."></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="copy('#u_out')">Copy</button>
+          <button class="ghost btn-sm" onclick="saveUTM()">Save Preset</button>
+          <button class="ghost btn-sm" onclick="loadUTM()">Load Preset</button>
+        </div>
+        <div class="note" style="margin-top:.6rem">Minimum: source, medium, campaign. Keep GA4 UTMs as source of truth.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8) TESTING & ITERATION -->
+  <section class="section" id="testing">
+    <div class="s-head"><div class="icon">8</div><div class="title">Testing & Iteration — Prove what wins</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <b>A/B the CTA</b>
+        <div class="note" style="margin:.4rem 0">Change one variable: wording, proof line, or urgency line.</div>
+        <div class="grid">
+          <div>
+            <label>Variant A — Clicks / Impressions</label>
+            <div class="row"><input id="a_clicks" placeholder="Clicks"/><input id="a_imps" placeholder="Impressions"/></div>
+          </div>
+          <div>
+            <label>Variant B — Clicks / Impressions</label>
+            <div class="row"><input id="b_clicks" placeholder="Clicks"/><input id="b_imps" placeholder="Impressions"/></div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="calcAB()">Compute CTR & z-score</button>
+        </div>
+        <div id="ab_out" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem"></div>
+        <div class="note" style="margin-top:.6rem">Windows: X (24–72h), LinkedIn (48–96h). Repost winners as evergreen.</div>
+      </div>
+
+      <div class="panel">
+        <b>Logging</b>
+        <label style="margin-top:.4rem">Entry</label>
+        <textarea id="log_line" placeholder="date | platform | post URL | CTA variant | clicks | sessions | conversions | notes"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="addLog()">Add</button>
+          <button class="ghost btn-sm" onclick="exportLog()">Export</button>
+          <button class="ghost btn-sm" onclick="clearLog()">Clear</button>
+        </div>
+        <div id="log_table" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem;max-height:220px;overflow:auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9) EXECUTION SOP -->
+  <section class="section" id="sop">
+    <div class="s-head"><div class="icon">9</div><div class="title">Execution SOP — End to End</div></div>
+    <div class="panel">
+      <table>
+        <tbody>
+          <tr><td>Audit + Goal → single action for this post</td></tr>
+          <tr><td>CTA Type → soft/medium/hard + friction level</td></tr>
+          <tr><td>Proof Line → one credential that matches the ask</td></tr>
+          <tr><td>Draft 2–3 CTAs from the Template Bank</td></tr>
+          <tr><td>Place link with specific labeling</td></tr>
+          <tr><td>UTM-tag the link → add to scheduler</td></tr>
+          <tr><td>Publish in a proven slot → monitor first 90 minutes</td></tr>
+          <tr><td>Track in Typefully + GA4 → log results → iterate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10) TEMPLATES BY GOAL -->
+  <section class="section" id="goaltemplates">
+    <div class="s-head"><div class="icon">10</div><div class="title">Templates by Goal</div></div>
+    <div class="grid grid-3">
+      <div class="panel">
+        <b>Lead Gen</b>
+        <div class="pill">“{N} builders get the Friday growth brief… Join here.”</div>
+        <div class="pill">“Waitlist for {program}. Early access + {bonus}. Add your name.”</div>
+      </div>
+      <div class="panel">
+        <b>Appointment</b>
+        <div class="pill">“We’ll map your first 30 days… Book a 15-min audit.”</div>
+        <div class="pill">“If {niche} is a fit… Schedule your slot.”</div>
+      </div>
+      <div class="panel">
+        <b>Cohort / Event</b>
+        <div class="pill">“Live teardown on {date}. Seats capped at {N}. Reserve your spot.”</div>
+        <div class="pill">“Join the workshop + get {asset}. Save your seat.”</div>
+      </div>
+      <div class="panel">
+        <b>Offer / Product</b>
+        <div class="pill">“Build {outcome} in {timeframe}… Get instant access.”</div>
+        <div class="pill">“Lifetime pricing ends {day}. Lock it in.”</div>
+      </div>
+      <div class="panel">
+        <b>Community</b>
+        <div class="pill">“Inside: weekly hook labs, rewrites, SOPs. Join Vyralab’s circle.”</div>
+        <div class="pill">“Builders only. Proof over theory. Get access.”</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11) MINI SWIPE VAULT -->
+  <section class="section" id="swipe">
+    <div class="s-head"><div class="icon">11</div><div class="title">Mini Swipe Vault — Structures to Reuse</div></div>
+    <div class="grid grid-3">
+      <div class="panel"><b>Authority-First</b><div class="pill">“We’ve {result/volume} for {N} clients… Book your 15-min audit.”</div></div>
+      <div class="panel"><b>Outcome-First</b><div class="pill">“Turn {pain} into {outcome} in {timeframe}… Get the kit.”</div></div>
+      <div class="panel"><b>Urgency-Capped</b><div class="pill">“Cohort closes {day} {time}. {N} seats… Enroll now.”</div></div>
+      <div class="panel"><b>Community-Pull</b><div class="pill">“Inside: hook workshops, live Q&A, proof economy. Join Vyralab.”</div></div>
+    </div>
+  </section>
+
+  <!-- 12) QUALITY ASSURANCE -->
+  <section class="section" id="qa">
+    <div class="s-head"><div class="icon">12</div><div class="title">Quality Assurance — Pre-Publish</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <label>QA Toggle List</label>
+        <div class="row">
+          <label><input type="checkbox" class="qa" data-k="one"> One action, one link</label>
+          <label><input type="checkbox" class="qa" data-k="value"> Value before link</label>
+          <label><input type="checkbox" class="qa" data-k="clar"> Clarity over clever</label>
+          <label><input type="checkbox" class="qa" data-k="fric"> Friction minimized</label>
+          <label><input type="checkbox" class="qa" data-k="utm"> UTM present</label>
+          <label><input type="checkbox" class="qa" data-k="time"> Time window explicit (if urgent)</label>
+          <label><input type="checkbox" class="qa" data-k="proof"> Proof line specific</label>
+          <label><input type="checkbox" class="qa" data-k="mobile"> Mobile check passed</label>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="saveQA()">Save</button>
+          <button class="ghost btn-sm" onclick="clearQA()">Clear</button>
+        </div>
+      </div>
+      <div class="panel">
+        <b>Version Control</b>
+        <table>
+          <thead><tr><th>Version</th><th>Date</th><th>Notes</th></tr></thead>
+          <tbody id="vc">
+            <tr><td>v1.0</td><td>Nov 1, 2025</td><td>Initial CTA system</td></tr>
+          </tbody>
+        </table>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="addVer()">Add Version Row</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13) AVOID -->
+  <section class="section" id="avoid">
+    <div class="s-head"><div class="icon">13</div><div class="title">What to Avoid</div></div>
+    <div class="panel">
+      <ul class="note" style="list-style:none;padding-left:0">
+        <li>• Multiple asks in one post</li>
+        <li>• Vague labels that hide the action</li>
+        <li>• Link dumping without proof or context</li>
+        <li>• Manufactured urgency without credible reason</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 14) FINAL -->
+  <section class="section" id="final">
+    <div class="final">
+      <h2 style="font-size:2rem;margin-bottom:.6rem">Engineer CTAs. Measure Outcomes. Grow Revenue.</h2>
+      <div style="margin-top:.6rem;color:#BEBEBE">Built for Ghostwriters. By Ghostwriters.™ • Creating Tomorrow’s Creators is in Our DNA.™</div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* Progress + Reveal */
+const pbar=document.getElementById('pbar');
+window.addEventListener('scroll',()=>{
+  const t=window.scrollY; const h=document.documentElement.scrollHeight-window.innerHeight;
+  pbar.style.width=((t/h)*100)+'%';
+  document.querySelectorAll('.section').forEach(s=>{
+    const r=s.getBoundingClientRect(); if(r.top<window.innerHeight*0.82){s.classList.add('visible')}
+  });
+});
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function acc(h){h.nextElementSibling.classList.toggle('open')}
+
+/* Quick Checklist persistence */
+const CK_KEYS=['goals','inspo','type','drafts','utm','ship','log'];
+function saveChecklist(){
+  const state={client:val('#qc_client')};
+  document.querySelectorAll('.ck').forEach(c=>state[c.dataset.k]=c.checked);
+  localStorage.setItem('cta_checklist',JSON.stringify(state));
+  alert('Checklist saved.');
+}
+function clearChecklist(){
+  document.querySelectorAll('.ck').forEach(c=>c.checked=false);
+  localStorage.removeItem('cta_checklist');
+}
+(function loadChecklist(){
+  const raw=localStorage.getItem('cta_checklist'); if(!raw) return;
+  const s=JSON.parse(raw);
+  sel('#qc_client').value=s.client||'';
+  document.querySelectorAll('.ck').forEach(c=>c.checked=!!s[c.dataset.k]);
+})();
+
+/* Type picker */
+function chooseType(t){sel('#typeSel').textContent=t;}
+
+/* Strategy: Ask & Bridge */
+function setAsk(a){sel('#askSel').textContent=a;}
+function seedBridge(){
+  sel('#bridge').value = [
+    "If this is how we structure CTA-ready content…",
+    "We built a full template pack you can copy.",
+    "Grab it here."
+  ].join('\n');
+}
+
+/* Psychology picks */
+const picks=new Set();
+function toggleP(p){if(picks.has(p))picks.delete(p);else{ if(picks.size<2)picks.add(p); else {alert('Select up to 2 principles.');return;}}
+  sel('#pSel').textContent=[...picks].join(', ')||'—';
+}
+
+/* CTA Builder */
+let INTENSITY='Medium';
+function setIntensity(x){INTENSITY=x;}
+function seedCTA(){
+  sel('#f_proof').value="Helped 60+ founders drive 2B+ views";
+  sel('#f_benefit').value="threads that convert to revenue";
+  sel('#f_diffuse').value="No ghostwriting gotchas — we show the system on a quick audit";
+  sel('#f_action').value="Book your 15-min call";
+}
+function genCTA(){
+  const pr=val('#f_proof'), be=val('#f_benefit'), df=val('#f_diffuse'), ac=val('#f_action');
+  const base = [
+    `${pr}. ${cap(be)}. ${df}. ${cap(ac)}.`,
+    `${pr}. ${cap(be)}. ${cap(ac)}.`,
+    `${cap(be)}. ${df}. ${cap(ac)}.`
+  ];
+  const soft = [
+    `Join ${numFromProof(pr)} learning ${be}. Short Friday brief. Subscribe here.`,
+    `${pr}. Get the weekly breakdown. Subscribe here.`,
+    `Want the full checklist? It’s free. Subscribe here.`
+  ];
+  const hard = [
+    `Enroll today to build ${be} in 7 days. Cohort capped at 50 for live feedback. Secure your seat.`,
+    `${pr}. Live cohort opens Monday. 50 seats. Enroll now.`,
+    `Closes Thursday 11:59 CT. Next window in 90 days. Enroll now.`
+  ];
+  let out=[];
+  if(INTENSITY==='Soft') out=soft;
+  else if(INTENSITY==='Hard') out=hard;
+  else out=base;
+  // Blend Cialdini proof line if chosen
+  const p=[...picks][0];
+  if(p){out = out.map(x=> injectProofLine(x,p));}
+  sel('#ctaOut').value = out.join('\n');
+}
+function injectProofLine(x,p){
+  const map={
+    'Authority':'Credibility: audited by 7-figure operators.',
+    'Social Proof':'Used by 32,000 builders this quarter.',
+    'Scarcity/Urgency':'Seats limited; reviews close at noon CT.',
+    'Reciprocity':'Includes free teardown checklist.',
+    'Commitment/Consistency':'Start with a micro-yes; finish with the win.',
+    'Liking':'Written in your voice, not hype.',
+    'Unity':'For operators who value proof over theory.'
+  };
+  return map[p]? `${map[p]} ${x}` : x;
+}
+function numFromProof(pr){const m=pr.match(/\d[\d,]*/);return m?m[0]:'thousands'}
+
+function cap(s){return (s||'').charAt(0).toUpperCase()+s.slice(1)}
+
+/* Transitions */
+function seedTransitions(){
+  sel('#t_sum').value="Explained how we engineer CTA-ready threads with proof before link";
+  sel('#t_offer').value="CTA Template Pack";
+}
+function buildTransitions(){
+  const s=val('#t_sum'), o=val('#t_offer'); if(!s||!o){alert('Add summary and offer.');return}
+  const out=[
+    // Insight → Bridge → Ask
+    `${s} We bundled the workflows so you can plug them into today’s post. Grab the ${o}.`,
+    // Story → Lesson → Ask
+    `That pivot is how we turned views into revenue last quarter. If you want the exact checklist we used, download the ${o}.`,
+    // Problem → Relief → Ask
+    `Most founders stall at the CTA. Follow this 5-line structure to fix it. Get the ${o}.`
+  ].join('\n');
+  sel('#t_out').value=out;
+}
+
+/* Labeler */
+function labelLink(){sel('#ll_text').textContent = `${cap(val('#ll_action'))} ${val('#ll_outcome')}`.trim()||'—'}
+
+/* Tabs */
+function showTab(id){sel('#tabx').style.display = id==='tabx'?'block':'none'; sel('#tabli').style.display = id==='tabli'?'block':'none'}
+
+/* UTM Builder */
+function buildUTM(){
+  const u=val('#u_base').replace(/\?+.*/,'');
+  const q=[
+    ['utm_source',val('#u_source')],
+    ['utm_medium',val('#u_medium')],
+    ['utm_campaign',val('#u_campaign')],
+    ['utm_content',val('#u_content')]
+  ].filter(x=>x[1]).map(([k,v])=>`${k}=${encodeURIComponent(v)}`).join('&');
+  sel('#u_out').value = u + (q?`?${q}`:'');
+}
+function saveUTM(){
+  const p={base:val('#u_base'),source:val('#u_source'),medium:val('#u_medium'),campaign:val('#u_campaign'),content:val('#u_content')};
+  localStorage.setItem('utm_preset',JSON.stringify(p)); alert('UTM preset saved.');
+}
+function loadUTM(){
+  const raw=localStorage.getItem('utm_preset'); if(!raw){alert('No preset found.');return}
+  const p=JSON.parse(raw);
+  ['base','source','medium','campaign','content'].forEach(k=>{const el=sel('#u_'+k); if(el) el.value=p[k]||'';});
+  buildUTM();
+}
+
+/* AB Calculator */
+function calcAB(){
+  const aC=+val('#a_clicks')||0, aI=+val('#a_imps')||1, bC=+val('#b_clicks')||0, bI=+val('#b_imps')||1;
+  const aCTR=aC/aI, bCTR=bC/bI;
+  // two-proportion z test
+  const p=(aC+bC)/(aI+bI); const se=Math.sqrt(p*(1-p)*(1/aI+1/bI)); const z=(bCTR-aCTR)/se;
+  const better = bCTR>aCTR?'B':'A';
+  sel('#ab_out').innerHTML = `
+    <div><b>CTR A:</b> ${(aCTR*100).toFixed(2)}% • <b>CTR B:</b> ${(bCTR*100).toFixed(2)}% → <b>${better}</b> leads</div>
+    <div class="${Math.abs(z)>=1.96?'ok':Math.abs(z)>=1.64?'warn':'bad'}">z = ${z.toFixed(2)} ${Math.abs(z)>=1.96?'(≈95% conf)':Math.abs(z)>=1.64?'(≈90% conf)':'(insufficient evidence)'}</div>
+    <div class="note" style="margin-top:.4rem">Change one variable only. Re-test winners next window.</div>
+  `;
+}
+
+/* Logger */
+let LOG=[];
+function addLog(){
+  const line=val('#log_line').trim(); if(!line){alert('Add a log line.');return}
+  LOG.push(line); renderLog();
+}
+function renderLog(){
+  sel('#log_table').innerHTML = LOG.length? '<ul style="margin-left:1rem">'+LOG.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : '<span class="muted">No entries yet.</span>';
+}
+function exportLog(){
+  const blob=new Blob([LOG.join('\n')],{type:'text/plain'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='cta-log.txt'; a.click(); URL.revokeObjectURL(url);
+}
+function clearLog(){LOG=[]; renderLog()}
+
+/* QA Save */
+function saveQA(){
+  const q={}; document.querySelectorAll('.qa').forEach(x=>q[x.dataset.k]=x.checked);
+  localStorage.setItem('cta_qa',JSON.stringify(q)); alert('QA saved.');
+}
+function clearQA(){document.querySelectorAll('.qa').forEach(x=>x.checked=false); localStorage.removeItem('cta_qa');}
+(function loadQA(){
+  const raw=localStorage.getItem('cta_qa'); if(!raw) return; const q=JSON.parse(raw);
+  document.querySelectorAll('.qa').forEach(x=>x.checked=!!q[x.dataset.k]);
+})();
+
+/* Version Control */
+function addVer(){
+  const d=new Date().toLocaleDateString();
+  sel('#vc').insertAdjacentHTML('beforeend',`<tr><td>v${(Math.random()*1.5+1.1).toFixed(1)}</td><td>${d}</td><td>Refined CTA copy + placement + UTM scheme.</td></tr>`);
+}
+
+/* Helpers */
+function val(q){return sel(q).value}
+function sel(q){return document.querySelector(q)}
+function copy(q){const el=sel(q); el.select(); document.execCommand('copy'); alert('Copied.')}
+function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+(function init(){ renderLog(); })();
+</script>
+</body>
+</html>
