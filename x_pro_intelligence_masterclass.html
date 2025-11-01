@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>THE X PRO INTELLIGENCE MASTERCLASS™ | Vyralab</title>
+<style>
+  :root{
+    --vl-black:#0A0A0A; --vl-green:#00FF41; --vl-white:#F4F4F4;
+    --vl-steel:#1b1b1b; --vl-steel-2:#2a2a2a; --glow:0 0 22px rgba(0,255,65,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Arial,sans-serif;background:var(--vl-black);color:var(--vl-white);line-height:1.6}
+  a{color:var(--vl-green);text-decoration:none}
+  .bg{position:fixed;inset:0;background-image:
+    radial-gradient(circle at 20% 10%, rgba(0,255,65,.08), transparent 38%),
+    radial-gradient(circle at 80% 90%, rgba(0,255,65,.07), transparent 40%);
+    pointer-events:none;z-index:0}
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--vl-steel);z-index:999}
+  .progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--vl-green),#00ffa0);box-shadow:var(--glow);transition:width .2s}
+  .wrap{max-width:1240px;margin:0 auto;padding:2rem 1.2rem;position:relative;z-index:1}
+  .hero{min-height:86vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+  .badge{display:inline-flex;border:1px solid var(--vl-green);color:var(--vl-green);padding:.45rem .9rem;border-radius:999px;
+         gap:.5rem;align-items:center;margin-bottom:.9rem;text-transform:uppercase;font-size:.8rem;letter-spacing:.12em;box-shadow:var(--glow)}
+  h1{font-size:clamp(2.2rem,5.5vw,4.3rem);font-weight:900;line-height:1.08;margin:.25rem 0 1rem;background:
+     linear-gradient(135deg,#fff,var(--vl-green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:#CFCFCF;max-width:980px;margin:.2rem auto 1.2rem;text-wrap:balance}
+  .row{display:flex;gap:.75rem;flex-wrap:wrap}
+  .cta{background:linear-gradient(135deg,var(--vl-green),#00FFA0);color:#0a0a0a;border:none;border-radius:12px;padding:1rem 1.15rem;
+       font-weight:800;cursor:pointer;box-shadow:var(--glow)}
+  .ghost{background:transparent;border:1px solid var(--vl-green);color:var(--vl-green);border-radius:12px;padding:.9rem 1.1rem;font-weight:700;cursor:pointer}
+  .section{margin:3.6rem 0;opacity:0;transform:translateY(22px);transition:all .5s ease}
+  .section.visible{opacity:1;transform:translateY(0)}
+  .s-head{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+  .icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--vl-green),#00FFA0);display:flex;align-items:center;justify-content:center;color:#0a0a0a;font-weight:900;box-shadow:var(--glow)}
+  .title{font-size:1.9rem;font-weight:800}
+  .panel{background:var(--vl-steel);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.15rem}
+  .muted{opacity:.88}
+  h3{font-size:1.1rem;margin-bottom:.35rem}
+  label{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#DADADA;margin-bottom:.35rem;display:block}
+  input,select,textarea{width:100%;background:#0f0f0f;border:1px solid var(--vl-steel-2);border-radius:12px;color:#f3f3f3;
+                        padding:.85rem 1rem;outline:none}
+  textarea{min-height:120px}
+  .grid{display:grid;gap:1rem}
+  @media(min-width:980px){.grid-2{grid-template-columns:1.1fr .9fr}.grid-2-w{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}}
+  .accordion{border:1px solid var(--vl-steel-2);border-radius:12px;overflow:hidden}
+  .acc-h{background:var(--vl-steel);padding:1.05rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .acc-h:hover{background:#2c2c2c}
+  .acc-c{max-height:0;overflow:hidden;background:#111;transition:max-height .3s ease,padding .3s ease}
+  .acc-c.open{max-height:1800px;padding:1rem}
+  .pill{display:inline-block;background:#101010;border:1px solid #2f2f2f;border-radius:999px;padding:.32rem .72rem;margin:.22rem;font-size:.82rem;cursor:pointer}
+  .pill.sel{border-color:var(--vl-green);color:var(--vl-green);box-shadow:var(--glow)}
+  .callout{background:rgba(0,255,65,.09);border-left:3px solid var(--vl-green);padding:1rem;border-radius:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:.8rem 0;border-radius:12px;overflow:hidden;background:#0f0f0f}
+  th{background:linear-gradient(135deg,var(--vl-steel),var(--vl-steel-2));color:var(--vl-green);text-align:left;padding:.8rem 1rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+  td{padding:1rem;border-top:1px solid var(--vl-steel)}
+  tr:hover td{background:rgba(0,255,65,.06)}
+  .status{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .6rem;border-radius:999px;border:1px solid #2f2f2f;font-size:.78rem}
+  .ok{color:#00ffa0}.warn{color:#ffd166}.bad{color:#ff5c5c}
+  .btn-sm{padding:.55rem .85rem;border-radius:10px;font-weight:700}
+  .final{background:linear-gradient(135deg,rgba(0,255,65,.12),transparent);border:1px solid rgba(0,255,65,.2);border-radius:16px;padding:2rem;text-align:center}
+  .tag{border:1px solid #444;border-radius:999px;padding:.15rem .55rem;margin:.15rem;font-size:.76rem}
+  .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:#121212;border:1px solid #2a2a2a;border-radius:8px;padding:.25rem .4rem}
+  .mini{font-size:.86rem;color:#cfcfcf}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="progress"><div id="pbar"></div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap" style="text-align:center">
+    <div class="badge">Vyralab Masterclass</div>
+    <h1>THE X PRO INTELLIGENCE MASTERCLASS™</h1>
+    <p class="sub">Engineer viral hooks, surface high-signal posts, and run an elite idea lab on X — with a complete X Pro workspace, engagement-gated search, hook validation, and an execution stack that turns attention into pipeline. Built for Ghostwriters. By Ghostwriters.™</p>
+    <div class="row" style="justify-content:center;margin-top:.6rem">
+      <button class="cta" onclick="toId('overview')">Start → Overview</button>
+      <button class="ghost" onclick="toId('decks')">Build Decks</button>
+      <button class="ghost" onclick="window.print()">Print / PDF</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- OVERVIEW -->
+  <section id="overview" class="section visible">
+    <div class="s-head"><div class="icon">ⓘ</div><div class="title">Program Overview</div></div>
+    <div class="panel">
+      <div class="grid grid-2-w">
+        <div>
+          <p class="muted">
+          • Platform foundation — X Pro vs default feed • Decks and Columns • Filters and Saved Searches.<br/>
+          • Lists and discovery — topic-first Lists and private client/competitor Lists.<br/>
+          • Signal over noise — engagement thresholds with advanced search operators inside Search columns.<br/>
+          • Premium access — choose Premium (mid-tier) for X Pro and creator tools.
+          </p>
+          <div class="row" style="margin-top:.8rem">
+            <a class="pill" target="_blank" href="https://help.x.com/en/using-x/x-pro">help.x.com → X Pro</a>
+            <a class="pill" target="_blank" href="https://help.x.com/en/using-x/communities/using-lists">help.x.com → Lists</a>
+            <a class="pill" target="_blank" href="https://help.x.com/en/using-x/advanced-tweetdeck">help.x.com → Filters</a>
+            <a class="pill" target="_blank" href="https://help.x.com/en/using-x/x-premium">help.x.com → Premium tiers</a>
+          </div>
+        </div>
+        <div class="callout">
+          <b>Outcome:</b> a 3-deck command center.<br/>
+          Deck A: Discovery • Deck B: Hooks Lab • Deck C: Clients.<br/>
+          Each column is gated by a search threshold or a curated List. Every post idea enters the Idea Bank with a CTA fit.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 1 -->
+  <section class="section" id="m1">
+    <div class="s-head"><div class="icon">1</div><div class="title">Module 1 — X Pro Setup, From Zero to Operational</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Step-by-step</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Upgrade to <b>Premium</b> to access X Pro features.</li>
+          <li>Open <span class="kbd">X Pro</span> and create your first <b>Deck</b>.</li>
+          <li>Add starter columns: Home (filtered), List: Industry, Search: Topic A (with thresholds), Mentions/Alerts if needed.</li>
+          <li>Save each Search; name clearly with the threshold and topic.</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Starter Queries</h3>
+        <label>Topic keywords</label><input id="sq_kw" placeholder="e.g., procrastination OR deep work"/>
+        <div class="grid">
+          <div><label>min_faves</label><input id="sq_f" value="300"></div>
+          <div><label>min_retweets</label><input id="sq_r" value="40"></div>
+          <div><label>Exclude replies</label><select id="sq_rep"><option value="-is:reply">Yes</option><option value="">No</option></select></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildStarter()">Build Search</button>
+          <button class="ghost btn-sm" onclick="copy('#sq_out')">Copy</button>
+        </div>
+        <textarea id="sq_out" style="margin-top:.6rem" placeholder="Your X search query appears here..."></textarea>
+        <div class="mini" style="margin-top:.4rem">Paste this into an X Pro <b>Search</b> column.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 2: LISTS -->
+  <section class="section" id="m2">
+    <div class="s-head"><div class="icon">2</div><div class="title">Module 2 — Lists That Drive Signal</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>How to construct Lists</h3>
+        <p class="muted">Create topic Lists for public positioning and private Lists for clients and competitors. Each List becomes a filtered column inside Deck A or C. View as timelines. Pin them for quick switching.</p>
+        <div class="callout" style="margin-top:.6rem"><b>House Rules:</b> client Lists stay private • minimum 25 accounts per List • refresh quarterly.</div>
+      </div>
+      <div class="panel">
+        <h3>List Builder</h3>
+        <div class="grid">
+          <input id="lb_name" placeholder="List name (e.g., AI Operators)"/>
+          <select id="lb_type"><option>Topic</option><option>Client</option><option>Competitor</option></select>
+        </div>
+        <label style="margin-top:.5rem">Account @handles (comma-separated)</label><textarea id="lb_handles" placeholder="@vyralab,@founder1,@creator2"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="addList()">Add</button>
+          <button class="ghost btn-sm" onclick="exportLists()">Export CSV</button>
+          <button class="ghost btn-sm" onclick="clearLists()">Clear</button>
+        </div>
+        <table id="lb_tbl" style="margin-top:.6rem"><thead><tr><th>Name</th><th>Type</th><th>Members</th><th>✕</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 3: SIGNAL FILTER -->
+  <section class="section" id="m3">
+    <div class="s-head"><div class="icon">3</div><div class="title">Module 3 — The Signal Filter</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Operators that matter</h3>
+        <p class="muted">Use advanced search operators inside X web and X Pro search columns.</p>
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc">
+          <li><span class="kbd">min_faves:500</span> — minimum likes</li>
+          <li><span class="kbd">min_retweets:50</span> — minimum reposts</li>
+          <li><span class="kbd">min_replies:20</span> — discussion density</li>
+          <li>Combine with quotes, OR groups, from:, until:, since:</li>
+        </ul>
+        <div class="callout" style="margin-top:.6rem"><b>Example:</b> <span class="kbd">("grok" OR "agents") (guide OR playbook) min_faves:300 -is:reply</span></div>
+      </div>
+      <div class="panel">
+        <h3>Threshold Evaluator</h3>
+        <div class="grid">
+          <div><label>Likes</label><input id="te_like" placeholder="e.g., 650"></div>
+          <div><label>Reposts</label><input id="te_rt" placeholder="e.g., 90"></div>
+          <div><label>Replies</label><input id="te_rep" placeholder="e.g., 25"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="evalThresholds()">Evaluate</button>
+          <span id="te_out" class="status">—</span>
+        </div>
+        <div class="mini" style="margin-top:.4rem">Green ≥ defined floors • Yellow approaching • Red below floors.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 4: HOOK VALIDATION -->
+  <section class="section" id="m4">
+    <div class="s-head"><div class="icon">4</div><div class="title">Module 4 — Hook Validation & “Repeater” Patterns</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Validation workflow</h3>
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Pick a hook fragment (≤8 words).</li>
+          <li>Search the fragment with engagement floors.</li>
+          <li>Confirm breakouts across multiple accounts in 7–30 days.</li>
+          <li>Save strong fragments to the <b>Repeater Column</b> list.</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Repeater Generator</h3>
+        <label>Hook fragment</label><input id="hg_fragment" placeholder="e.g., Navy SEALs taught me"/>
+        <div class="grid">
+          <div><label>min_faves</label><input id="hg_f" value="500"></div>
+          <div><label>min_retweets</label><input id="hg_r" value="50"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildRepeater()">Build Search</button>
+          <button class="ghost btn-sm" onclick="copy('#hg_out')">Copy</button>
+          <button class="ghost btn-sm" onclick="saveRepeater()">Save</button>
+        </div>
+        <textarea id="hg_out" style="margin-top:.6rem" placeholder="Your Repeater search appears here..."></textarea>
+        <div id="hg_saved" class="mini" style="margin-top:.4rem"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 5: SWIPE → STRATEGY -->
+  <section class="section" id="m5">
+    <div class="s-head"><div class="icon">5</div><div class="title">Module 5 — From Swipe to Strategy (Originalization)</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Deconstruction map</h3>
+        <p class="muted">Break winners into Hook type → Angle → Proof → CTA → Asset. Replace domain, inject your receipts, upgrade clarity, match CTA to funnel.</p>
+        <div class="callout" style="margin-top:.6rem"><b>Ethics:</b> transform structure • use your data • credit when close.</div>
+      </div>
+      <div class="panel">
+        <h3>Swipe → Strategy Board</h3>
+        <label>Post URL</label><input id="ss_url" placeholder="https://x.com/..."/>
+        <label style="margin-top:.4rem">Hook / Angle</label><input id="ss_ha" placeholder="e.g., 7 mistakes → 7 fixes"/>
+        <label style="margin-top:.4rem">Proof</label><input id="ss_proof" placeholder="Case metric, screenshot, before/after"/>
+        <label style="margin-top:.4rem">CTA</label><input id="ss_cta" placeholder="Download, Book, Join"/>
+        <label style="margin-top:.4rem">Asset</label><input id="ss_asset" placeholder="Text, Image, Thread"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="ssAdd()">Add</button>
+          <button class="ghost btn-sm" onclick="ssExport()">Export CSV</button>
+          <button class="ghost btn-sm" onclick="ssClear()">Clear</button>
+        </div>
+        <table id="ss_tbl" style="margin-top:.6rem"><thead><tr><th>URL</th><th>Hook/Angle</th><th>Proof</th><th>CTA</th><th>Asset</th><th>✕</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 6: ANALYTICS + UTM + AB -->
+  <section class="section" id="m6">
+    <div class="s-head"><div class="icon">6</div><div class="title">Module 6 — Analytics, KPIs, Testing, UTMs</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>KPI focus</h3>
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc">
+          <li>Primary: Reposts & Saves</li>
+          <li>Secondary: Profile visits, CTR, follows</li>
+          <li>Tertiary: Comment quality</li>
+        </ul>
+        <div class="callout" style="margin-top:.6rem"><b>Windows:</b> 24–72h for X. Keep a control format. Change one element only.</div>
+      </div>
+      <div class="panel">
+        <h3>UTM Builder</h3>
+        <label>Base URL</label><input id="u_base" placeholder="https://yourpage.com"/>
+        <div class="grid">
+          <div><label>Source</label><input id="u_source" value="x"></div>
+          <div><label>Medium</label><input id="u_medium" value="social"></div>
+          <div><label>Campaign</label><input id="u_campaign" placeholder="offer_q1"></div>
+          <div><label>Content</label><input id="u_content" placeholder="hookA_soft"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="buildUTM()">Build</button>
+          <button class="ghost btn-sm" onclick="copy('#u_out')">Copy</button>
+          <button class="ghost btn-sm" onclick="saveUTM()">Save Preset</button>
+          <button class="ghost btn-sm" onclick="loadUTM()">Load Preset</button>
+        </div>
+        <textarea id="u_out" style="margin-top:.6rem"></textarea>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:1rem">
+      <div class="panel">
+        <h3>A/B Calculator</h3>
+        <div class="grid">
+          <div><label>A Clicks</label><input id="a_clicks"></div>
+          <div><label>A Impressions</label><input id="a_imps"></div>
+          <div><label>B Clicks</label><input id="b_clicks"></div>
+          <div><label>B Impressions</label><input id="b_imps"></div>
+        </div>
+        <div class="row" style="margin-top:.6rem"><button class="cta btn-sm" onclick="calcAB()">Compute CTR + z-score</button></div>
+        <div id="ab_out" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem"></div>
+      </div>
+      <div class="panel">
+        <h3>Analytics Log</h3>
+        <label>Log Entry</label>
+        <textarea id="log_line" placeholder="date | url | deck | column | query | topic | hook | asset | imps | reposts | saves | ctr | notes"></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="addLog()">Add</button>
+          <button class="ghost btn-sm" onclick="exportLog()">Export</button>
+          <button class="ghost btn-sm" onclick="clearLog()">Clear</button>
+        </div>
+        <div id="log_table" class="panel" style="background:#101010;border-color:#1b1b1b;margin-top:.6rem;max-height:240px;overflow:auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 7: GOVERNANCE -->
+  <section class="section" id="m7">
+    <div class="s-head"><div class="icon">7</div><div class="title">Module 7 — Governance, Roles, and Ethics</div></div>
+    <div class="grid grid-2">
+      <div class="panel">
+        <h3>Roles</h3>
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc">
+          <li>Research — Deck A</li>
+          <li>Writing — Hooks Lab</li>
+          <li>Design — Assets</li>
+          <li>Publishing — Scheduler</li>
+          <li>Analytics — KPIs and retro</li>
+        </ul>
+        <div class="callout" style="margin-top:.6rem"><b>Cadence:</b> 60–90 minutes/day • weekly retro.</div>
+      </div>
+      <div class="panel">
+        <h3>Ethics SOP</h3>
+        <label><input type="checkbox" class="er"> Abstract structure</label><br/>
+        <label><input type="checkbox" class="er"> Replace examples with our data</label><br/>
+        <label><input type="checkbox" class="er"> Upgrade clarity and asset</label><br/>
+        <label><input type="checkbox" class="er"> Credit when close</label>
+        <div class="row" style="margin-top:.6rem">
+          <button class="ghost btn-sm" onclick="saveER()">Save</button>
+          <button class="ghost btn-sm" onclick="clearER()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LABS QUICK LAUNCH -->
+  <section class="section" id="labs">
+    <div class="s-head"><div class="icon">LAB</div><div class="title">Labs — Hands-on Execution</div></div>
+    <div class="accordion">
+      <div class="acc-h" onclick="tog(this)">Lab 1 — Build Your Decks (30 min)</div>
+      <div class="acc-c">
+        <ol class="muted" style="margin-left:1.2rem">
+          <li>Create <b>Deck A: Discovery</b>. Add Home (filtered), List: Industry, Search: Topic A with thresholds.</li>
+          <li>Create <b>Deck B: Hooks Lab</b>. Add Repeater columns for your best fragments.</li>
+          <li>Create <b>Deck C: Clients</b>. Add private Lists and from: queries per client/competitor.</li>
+          <li>Save all queries with clear names.</li>
+        </ol>
+      </div>
+      <div class="acc-h" onclick="tog(this)">Lab 2 — Create Lists the Right Way (20 min)</div>
+      <div class="acc-c">
+        <p class="muted">Draft 3 public topic Lists and 2 private Lists. Add 25–40 accounts each. Pin and columnize.</p>
+      </div>
+      <div class="acc-h" onclick="tog(this)">Lab 3 — Engagement-Gated Search Columns (25 min)</div>
+      <div class="acc-c">
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc">
+          <li><span class="kbd">("cold email" OR "outreach") min_faves:400 -is:reply</span></li>
+          <li><span class="kbd">("prompt engineering" OR "agents") min_retweets:50 -is:reply</span></li>
+          <li><span class="kbd">from:bigcreator1 OR from:bigcreator2 min_faves:300</span></li>
+        </ul>
+      </div>
+      <div class="acc-h" onclick="tog(this)">Lab 4 — Hook Repeater Validation (20 min)</div>
+      <div class="acc-c"><p class="muted">Enter fragments, add floors, save the best Repeaters to Deck B.</p></div>
+      <div class="acc-h" onclick="tog(this)">Lab 5 — Idea Bank & Swipe → Strategy (30 min)</div>
+      <div class="acc-c"><p class="muted">Extract Hook/Angle/Proof/CTA; produce 3 original variants per winner; log in the board.</p></div>
+      <div class="acc-h" onclick="tog(this)">Lab 6 — Publishing & Tracking (20 min)</div>
+      <div class="acc-c"><p class="muted">Post on best slots; log metrics at T+24/48/72; track CTR via UTMs.</p></div>
+      <div class="acc-h" onclick="tog(this)">Lab 7 — Weekly Retro (30 min)</div>
+      <div class="acc-c"><p class="muted">Top 3 winners rerun with stronger hooks; retire weak angles and note causes.</p></div>
+    </div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section class="section" id="templates">
+    <div class="s-head"><div class="icon">TPL</div><div class="title">Templates & Tools</div></div>
+    <div class="grid grid-2-w">
+      <div class="panel">
+        <h3>Deck Blueprint</h3>
+        <ul class="muted" style="margin-left:1.2rem;list-style:disc">
+          <li><b>Deck A: Discovery</b> — Home (filtered) • List: Industry • List: Operators • Search: Topic A (min_faves) • Search: Topic B (min_retweets) • Search: Hook Repeater</li>
+          <li><b>Deck B: Hooks Lab</b> — Repeater columns (“Navy SEALs”, “I asked 100…”, “Steal my…”, “I tried …”)</li>
+          <li><b>Deck C: Clients</b> — Private Lists • Search from:clientA • Search from:competitorX</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Analytics Sheet Columns</h3>
+        <div class="muted">Date | URL | Deck | Column | Query | Topic | Hook | Asset | Impr | Reposts | Saves | CTR | Notes</div>
+      </div>
+      <div class="panel">
+        <h3>Hook Fragment Helper</h3>
+        <label>Topic</label><input id="hf_topic" placeholder="e.g., bootstrapping"/>
+        <div class="row" style="margin-top:.6rem">
+          <button class="cta btn-sm" onclick="hfBuild()">Generate 10 Fragments</button>
+          <button class="ghost btn-sm" onclick="copy('#hf_out')">Copy</button>
+        </div>
+        <textarea id="hf_out" style="margin-top:.6rem" placeholder='"I asked 100 founders"\n"Navy SEALs taught me"\n"Steal my checklist" ...'></textarea>
+        <div class="mini" style="margin-top:.4rem">Paste fragments into Repeater Generator with thresholds.</div>
+      </div>
+      <div class="panel">
+        <h3>FAQ</h3>
+        <p class="muted"><b>Premium+?</b> Premium covers X Pro. Premium+ adds extras. <br/>
+        <b>GUI likes filter?</b> Hide Replies/Quotes via Filters; enforce floors with search operators inside Search columns. <br/>
+        <b>Are Lists worth it?</b> Lists create clean, topic-specific timelines and remain central to this system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="section" id="final">
+    <div class="final">
+      <h2 style="font-size:2rem;margin-bottom:.6rem">Build the command center. Gate for signal. Ship with proof.</h2>
+      <div style="margin-top:.6rem;color:#CFCFCF">Built for Ghostwriters. By Ghostwriters.™ • Creating Tomorrow’s Creators is in Our DNA.™</div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* Progress + reveal */
+const pbar=document.getElementById('pbar');
+window.addEventListener('scroll',()=>{
+  const t=window.scrollY; const h=document.documentElement.scrollHeight-window.innerHeight;
+  pbar.style.width=((t/h)*100)+'%';
+  document.querySelectorAll('.section').forEach(s=>{
+    const r=s.getBoundingClientRect(); if(r.top<window.innerHeight*0.82){s.classList.add('visible')}
+  });
+});
+function toId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const $=q=>document.querySelector(q); const $$=q=>[...document.querySelectorAll(q)];
+const val=q=>$(q).value;
+function copy(q){const el=$(q); el.select(); document.execCommand('copy'); alert('Copied.');}
+function dl(name,text){const blob=new Blob([text],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]) )}
+
+/* Starter search builder */
+function buildStarter(){
+  const kw=val('#sq_kw').trim(); const f=val('#sq_f').trim(); const r=val('#sq_r').trim(); const rep=$('#sq_rep').value;
+  if(!kw){alert('Add topic keywords.');return}
+  const parts=[`(${kw})`]; if(f) parts.push(`min_faves:${f}`); if(r) parts.push(`min_retweets:${r}`); if(rep) parts.push(rep);
+  $('#sq_out').value=parts.join(' ');
+}
+
+/* Lists */
+let LISTS=[]; (function loadLists(){const raw=localStorage.getItem('xp_lists'); if(raw){LISTS=JSON.parse(raw);} renderLists();})();
+function renderLists(){ const tb=$('#lb_tbl tbody'); tb.innerHTML=''; LISTS.forEach((x,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.type)}</td><td>${x.members.length}</td><td><button class="ghost btn-sm" onclick="delList(${i})">✕</button></td>`; tb.appendChild(tr);});}
+function addList(){ const name=val('#lb_name').trim(); const type=$('#lb_type').value; const handles=val('#lb_handles').split(',').map(s=>s.trim()).filter(Boolean);
+  if(!name||!handles.length){alert('List name + at least one handle.');return}
+  LISTS.push({name,type,members:handles}); localStorage.setItem('xp_lists',JSON.stringify(LISTS)); renderLists();
+}
+function delList(i){LISTS.splice(i,1); localStorage.setItem('xp_lists',JSON.stringify(LISTS)); renderLists();}
+function exportLists(){ const head=['Name','Type','Members']; const rows=LISTS.map(x=>[x.name,x.type,x.members.join(' ')]); const csv=[head].concat(rows).map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); dl('xpro_lists.csv',csv); }
+function clearLists(){ if(!confirm('Clear lists?')) return; LISTS=[]; localStorage.setItem('xp_lists','[]'); renderLists();}
+
+/* Threshold evaluator */
+function evalThresholds(){ const L=+val('#te_like')||0, R=+val('#te_rt')||0, P=+val('#te_rep')||0;
+  const likeOK=L>=500, rtOK=R>=50, repOK=P>=20; const pass=likeOK&&rtOK; const el=$('#te_out'); el.textContent = `${L}❤️ ${R}↻ ${P}💬 • ${pass?'PASS':'LOW'}`; el.className='status '+(pass?'ok':(likeOK||rtOK?'warn':'bad'));
+}
+
+/* Repeater */
+let REPEATERS=[]; (function loadRep(){const raw=localStorage.getItem('xp_rep'); if(raw){REPEATERS=JSON.parse(raw);} renderRep();})();
+function buildRepeater(){ const frag=val('#hg_fragment').trim(); const f=val('#hg_f').trim(); const r=val('#hg_r').trim(); if(!frag){alert('Add a fragment.');return}
+  const parts=[`"${frag}"`]; if(f) parts.push(`min_faves:${f}`); if(r) parts.push(`min_retweets:${r}`); $('#hg_out').value=parts.join(' ');
+}
+function saveRepeater(){ const q=val('#hg_out').trim(); if(!q){alert('Build a repeater first.');return} REPEATERS.push(q); localStorage.setItem('xp_rep',JSON.stringify(REPEATERS)); renderRep(); }
+function renderRep(){ const div=$('#hg_saved'); div.innerHTML = REPEATERS.length? '<b>Saved Repeaters:</b> '+REPEATERS.map(esc).join(' • ') : '<span class="muted">No saved repeaters yet.</span>'; }
+
+/* Swipe → Strategy */
+let SS=[]; (function ssLoad(){const raw=localStorage.getItem('xp_ss'); if(raw){SS=JSON.parse(raw);} ssRender();})();
+function ssAdd(){ const o={u:val('#ss_url'),h:val('#ss_ha'),p:val('#ss_proof'),c:val('#ss_cta'),a:val('#ss_asset')}; if(!o.u||!o.h){alert('URL and Hook/Angle required.');return}
+  SS.push(o); ssRender(); ssSave();
+}
+function ssRender(){ const tb=$('#ss_tbl tbody'); tb.innerHTML=''; SS.forEach((x,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td><a target="_blank" href="${esc(x.u)}">Open</a></td><td>${esc(x.h)}</td><td>${esc(x.p)}</td><td>${esc(x.c)}</td><td>${esc(x.a)}</td><td><button class="ghost btn-sm" onclick="ssDel(${i})">✕</button></td>`; tb.appendChild(tr);});}
+function ssDel(i){SS.splice(i,1); ssRender(); ssSave();}
+function ssSave(){ localStorage.setItem('xp_ss',JSON.stringify(SS));}
+function ssExport(){ const head=['URL','Hook/Angle','Proof','CTA','Asset']; const rows=SS.map(x=>[x.u,x.h,x.p,x.c,x.a]); const csv=[head].concat(rows).map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); dl('xpro_swipe_to_strategy.csv',csv); }
+function ssClear(){ if(!confirm('Clear board?')) return; SS=[]; ssRender(); ssSave();}
+
+/* Hook Fragment Helper */
+function hfBuild(){ const t=val('#hf_topic').trim(); if(!t){alert('Add a topic.');return}
+  const base=[
+    `I asked 100 ${t} operators`, `Navy SEALs taught me`, `Steal my ${t} checklist`,
+    `Do ${t} like this`, `7 ${t} mistakes`, `What ${t} pros ignore`, `The ${t} rule`,
+    `Everything I wish I knew about ${t}`, `I tried ${t} like a pro`, `The ${t} playbook`
+  ];
+  $('#hf_out').value=base.join('\n');
+}
+
+/* UTMs */
+function buildUTM(){const u=val('#u_base').replace(/\?+.*/,''); const q=[['utm_source',val('#u_source')],['utm_medium',val('#u_medium')],['utm_campaign',val('#u_campaign')],['utm_content',val('#u_content')]].filter(x=>x[1]).map(([k,v])=>`${k}=${encodeURIComponent(v)}`).join('&'); $('#u_out').value=u+(q?`?${q}`:'');}
+function saveUTM(){const p={base:val('#u_base'),source:val('#u_source'),medium:val('#u_medium'),campaign:val('#u_campaign'),content:val('#u_content')}; localStorage.setItem('xp_utm',JSON.stringify(p)); alert('UTM preset saved.')}
+function loadUTM(){const raw=localStorage.getItem('xp_utm'); if(!raw){alert('No preset found.');return} const p=JSON.parse(raw); ['base','source','medium','campaign','content'].forEach(k=>$('#u_'+k).value=p[k]||''); buildUTM();}
+
+/* AB */
+function calcAB(){ const aC=+val('#a_clicks')||0, aI=+val('#a_imps')||1, bC=+val('#b_clicks')||0, bI=+val('#b_imps')||1; const a=aC/aI, b=bC/bI; const p=(aC+bC)/(aI+bI); const se=Math.sqrt(p*(1-p)*(1/aI+1/bI)); const z=(b-a)/se; const better=b>a?'B':'A'; $('#ab_out').innerHTML=`<div><b>CTR A:</b> ${(a*100).toFixed(2)}% • <b>CTR B:</b> ${(b*100).toFixed(2)}% → <b>${better}</b> leads</div><div class="${Math.abs(z)>=1.96?'ok':'warn'}">z = ${z.toFixed(2)} ${Math.abs(z)>=1.96?'(≈95% conf)':'(directional; collect more)'} </div><div class="muted" style="margin-top:.4rem">Window 24–72h. Change one element only.</div>`;}
+
+/* Log */
+let LOG=[]; (function loadLog(){ const raw=localStorage.getItem('xp_log'); if(raw){ LOG=JSON.parse(raw); renderLog(); }})(); 
+function addLog(){ const line=val('#log_line').trim(); if(!line){alert('Add a log line.');return} LOG.push(line); renderLog(); saveLog(); }
+function renderLog(){ $('#log_table').innerHTML = LOG.length? '<ul style="margin-left:1rem">'+LOG.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : '<span class="muted">No entries yet.</span>'; }
+function exportLog(){ dl('xpro_analytics_log.txt', LOG.join('\n')); }
+function clearLog(){ if(!confirm('Clear analytics log?')) return; LOG=[]; renderLog(); saveLog(); }
+function saveLog(){ localStorage.setItem('xp_log', JSON.stringify(LOG)); }
+
+/* Ethics */
+function saveER(){ const e=[...$$('.er')].map(x=>x.checked?1:0); localStorage.setItem('xp_er',JSON.stringify(e)); alert('Saved.')}
+function clearER(){ $$('.er').forEach(x=>x.checked=false); localStorage.removeItem('xp_er');}
+(function loadER(){ const r=localStorage.getItem('xp_er'); if(!r) return; const e=JSON.parse(r); $$('.er').forEach((x,i)=>x.checked=!!e[i]);})();
+
+/* Accordion */
+function tog(h){ const c=h.nextElementSibling; c.classList.toggle('open'); }
+</script>
+</body>
+</html>
