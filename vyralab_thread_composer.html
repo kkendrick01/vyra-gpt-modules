@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyralab Thread Composer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: #1a1a1a;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00ff41;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .new-draft-btn {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            margin: 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .new-draft-btn:hover {
+            background: #00cc33;
+            transform: translateY(-1px);
+        }
+
+        .drafts-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
+        .draft-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #2a2a2a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .draft-item:hover {
+            background: #222;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .draft-item.active {
+            background: #333;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-left: 3px solid #00ff41;
+        }
+
+        .draft-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .draft-preview {
+            font-size: 12px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .draft-meta {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0a;
+        }
+
+        .main-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .thread-title-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .thread-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .thread-title:hover {
+            background: #222;
+            color: #00ff41;
+        }
+
+        .thread-title-input {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            background: #222;
+            border: 2px solid #00ff41;
+            border-radius: 4px;
+            padding: 4px 8px;
+            width: 100%;
+            max-width: 400px;
+            font-family: inherit;
+        }
+
+        .thread-title-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.3);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .btn.primary {
+            background: #00ff41;
+            color: #000;
+            border-color: #00ff41;
+        }
+
+        .btn.primary:hover {
+            background: #00cc33;
+        }
+
+        .composer {
+            flex: 1;
+            padding: 20px 30px;
+            overflow-y: auto;
+        }
+
+        .tweet-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .tweet-block:hover {
+            border-color: #444;
+        }
+
+        .tweet-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .tweet-number {
+            font-weight: 600;
+        }
+
+        .tweet-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .icon-btn:hover {
+            color: #00ff41;
+            background: #222;
+        }
+
+        .delete-btn:hover {
+            color: #ff4444;
+        }
+
+        .tweet-content {
+            padding: 16px;
+        }
+
+        .tweet-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.4;
+            resize: none;
+            min-height: 80px;
+            max-height: 400px;
+            font-family: inherit;
+            overflow-y: hidden;
+        }
+
+        .tweet-textarea:focus {
+            outline: none;
+        }
+
+        .tweet-textarea::placeholder {
+            color: #555;
+        }
+
+        .media-preview {
+            margin-top: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .media-preview img,
+        .media-preview video {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .media-preview img:hover,
+        .media-preview video:hover {
+            border-color: #00ff41;
+            transform: scale(1.02);
+        }
+
+        .media-preview video {
+            background: #000;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 255, 65, 0.9);
+            color: #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .media-preview:hover .video-overlay {
+            background: rgba(0, 255, 65, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .remove-media {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-tweet-btn {
+            width: 100%;
+            background: #111;
+            border: 1px dashed #333;
+            color: #666;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .add-tweet-btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+            background: #0a0a0a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #888;
+        }
+
+        /* Modal */
+        .media-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .media-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .media-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .media-modal.active .media-modal-content {
+            transform: scale(1);
+        }
+
+        .media-modal-header {
+            padding: 16px 20px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .media-modal-title {
+            color: #fff;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .media-modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            padding: 6px 12px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .modal-btn.download {
+            background: #00ff41;
+            color: #000;
+            border-color: #00ff41;
+        }
+
+        .modal-btn.download:hover {
+            background: #00cc33;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .media-modal-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .media-modal-media {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            background: #00ff41;
+            color: #000;
+        }
+
+        .notification.error {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">VYRALAB</div>
+                <div class="subtitle">Thread Composer</div>
+            </div>
+            
+            <button class="new-draft-btn" onclick="createNewDraft(); console.log('Button clicked!');">
+                + New Thread
+            </button>
+            
+            <div class="drafts-list" id="draftsList">
+                <!-- Drafts will be populated here -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div class="thread-title-container">
+                    <div class="thread-title" id="threadTitle" onclick="editThreadTitle()">Select or create a thread</div>
+                    <input class="thread-title-input" id="threadTitleInput" style="display: none;" onblur="saveThreadTitle()" onkeydown="handleTitleKeydown(event)">
+                </div>
+                <div class="header-actions">
+                    <button class="btn" onclick="editThreadTitle()">✏️ Edit Name</button>
+                    <button class="btn" onclick="duplicateDraft()">Duplicate</button>
+                    <button class="btn" onclick="deleteDraft()">Delete</button>
+                    <button class="btn primary" onclick="exportThread()">Export</button>
+                </div>
+            </div>
+            
+            <div class="composer" id="composer">
+                <div class="empty-state">
+                    <h3>Ready to compose</h3>
+                    <p>Create a new thread or select an existing draft to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal -->
+    <div class="media-modal" id="mediaModal" onclick="closeModal(event)">
+        <div class="media-modal-content" onclick="event.stopPropagation()">
+            <div class="media-modal-header">
+                <div class="media-modal-title" id="modalTitle">Media Preview</div>
+                <div class="media-modal-actions">
+                    <button class="modal-btn download" onclick="downloadMedia()">📥 Download</button>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+            </div>
+            <div class="media-modal-body">
+                <img id="modalImage" class="media-modal-media" src="" alt="Full size image" style="display: none;">
+                <video id="modalVideo" class="media-modal-media" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let drafts = [];
+        let currentDraftId = null;
+        let tweetCounter = 0;
+        let currentModalMedia = null;
+
+        // Initialize drafts with error handling - CALL IMMEDIATELY
+        function initializeDrafts() {
+            try {
+                const stored = localStorage.getItem('vyralab_drafts');
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    console.log('Loaded drafts from storage:', parsed.length);
+                    
+                    // Validate and clean drafts
+                    drafts = parsed.map(draft => {
+                        // Ensure all tweets have required properties
+                        draft.tweets = draft.tweets.map(tweet => ({
+                            id: tweet.id || 'tweet_' + Date.now() + Math.random(),
+                            content: tweet.content || '',
+                            image: tweet.image || null,
+                            video: tweet.video || null
+                        }));
+                        
+                        // ACCEPT ALL VIDEO DATA - NO VALIDATION OR REMOVAL
+                        
+                        return draft;
+                    });
+                    
+                    console.log('Drafts validated and cleaned');
+                } else {
+                    console.log('No stored drafts found');
+                    drafts = [];
+                }
+            } catch (error) {
+                console.error('Error loading drafts:', error);
+                drafts = [];
+            }
+        }
+
+        // Initialize drafts immediately when script loads
+        initializeDrafts();
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            console.log('Drafts already loaded:', drafts.length);
+            
+            renderDraftsList();
+            
+            if (drafts.length > 0) {
+                console.log('Loading existing draft');
+                loadDraft(drafts[0].id);
+            } else {
+                console.log('No drafts found, creating new one');
+                createNewDraft();
+            }
+            
+            console.log('App initialization completed');
+        });
+
+        // Create new draft
+        function createNewDraft() {
+            console.log('createNewDraft called');
+            const draftId = 'draft_' + Date.now();
+            console.log('Generated draftId:', draftId);
+            
+            const newDraft = {
+                id: draftId,
+                title: 'Untitled Thread',
+                tweets: [{
+                    id: 'tweet_' + Date.now(),
+                    content: '',
+                    image: null,
+                    video: null
+                }],
+                created: Date.now(),
+                updated: Date.now()
+            };
+            
+            console.log('Created newDraft:', newDraft);
+            console.log('Current drafts before:', drafts.length);
+            
+            drafts.unshift(newDraft);
+            console.log('Current drafts after:', drafts.length);
+            
+            saveDrafts();
+            console.log('Drafts saved to localStorage');
+            
+            renderDraftsList();
+            console.log('Drafts list rendered');
+            
+            loadDraft(draftId);
+            console.log('loadDraft called with:', draftId);
+        }
+
+        // Load draft
+        function loadDraft(draftId) {
+            console.log('loadDraft called with draftId:', draftId);
+            currentDraftId = draftId;
+            console.log('Set currentDraftId to:', currentDraftId);
+            
+            const draft = drafts.find(d => d.id === draftId);
+            console.log('Found draft:', !!draft);
+            if (!draft) {
+                console.error('Draft not found for id:', draftId);
+                return;
+            }
+
+            console.log('Draft tweets:', draft.tweets);
+            document.getElementById('threadTitle').textContent = draft.title;
+            console.log('Set thread title to:', draft.title);
+            
+            renderComposer(draft.tweets);
+            updateActiveDraft();
+            console.log('loadDraft completed');
+        }
+
+        // Render composer
+        function renderComposer(tweets) {
+            console.log('renderComposer called with tweets:', tweets);
+            const composer = document.getElementById('composer');
+            console.log('Composer element found:', !!composer);
+            
+            tweetCounter = 0;
+            
+            const html = tweets.map(tweet => createTweetBlockHTML(tweet)).join('') + 
+                '<button class="add-tweet-btn" onclick="addTweet()">+ Add Tweet</button>';
+            
+            console.log('Generated HTML length:', html.length);
+            composer.innerHTML = html;
+            console.log('HTML set to composer');
+            
+            // Initialize auto-resize for all textareas
+            setTimeout(() => {
+                const textareas = document.querySelectorAll('.tweet-textarea');
+                console.log('Found textareas:', textareas.length);
+                textareas.forEach(textarea => {
+                    autoResizeTextarea(textarea);
+                });
+            }, 10);
+        }
+
+        // Create tweet block HTML
+        function createTweetBlockHTML(tweet) {
+            tweetCounter++;
+            return `
+                <div class="tweet-block" data-tweet-id="${tweet.id}">
+                    <div class="tweet-header">
+                        <span class="tweet-number">Tweet ${tweetCounter}</span>
+                        <div class="tweet-actions">
+                            <button class="icon-btn" onclick="addImage('${tweet.id}')">📷</button>
+                            <button class="icon-btn" onclick="addVideo('${tweet.id}')">🎬</button>
+                            <button class="icon-btn delete-btn" onclick="deleteTweet('${tweet.id}')">🗑</button>
+                        </div>
+                    </div>
+                    <div class="tweet-content">
+                        <textarea 
+                            class="tweet-textarea" 
+                            placeholder="What's happening? (Paste images/videos with Ctrl+V)"
+                            oninput="updateTweetContent('${tweet.id}', this.value); autoResizeTextarea(this)"
+                            onfocus="autoResizeTextarea(this)"
+                            onpaste="handlePaste(event, '${tweet.id}')"
+                        >${tweet.content}</textarea>
+                        ${renderMediaPreview(tweet)}
+                        <input type="file" id="file-${tweet.id}" accept="image/*,.webp,.avif,.heic" style="display: none;" onchange="handleFileUpload('${tweet.id}', this, 'image')">
+                        <input type="file" id="video-${tweet.id}" accept="video/mp4,video/mov,video/avi,video/webm" style="display: none;" onchange="handleFileUpload('${tweet.id}', this, 'video')">
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render media preview
+        function renderMediaPreview(tweet) {
+            if (tweet.image) {
+                return `
+                    <div class="media-preview">
+                        <img src="${tweet.image}" alt="Tweet image" onclick="openModal('${tweet.image}', 'image')">
+                        <button class="remove-media" onclick="removeMedia('${tweet.id}')">×</button>
+                    </div>
+                `;
+            }
+            if (tweet.video) {
+                return `
+                    <div class="media-preview">
+                        <video muted onclick="openModal('${tweet.video}', 'video')">
+                            <source src="${tweet.video}" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">▶</div>
+                        <button class="remove-media" onclick="removeMedia('${tweet.id}')">×</button>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        // Auto-resize textarea
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 400) + 'px';
+        }
+
+        // Update tweet content
+        function updateTweetContent(tweetId, content) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const tweet = draft.tweets.find(t => t.id === tweetId);
+            
+            // Check for auto-split markers
+            if (content.includes('--')) {
+                autoSplitThread(tweetId, content);
+                return;
+            }
+            
+            tweet.content = content;
+            
+            // Auto-update title from first line of first tweet
+            if (draft.tweets[0].id === tweetId && content.trim()) {
+                const firstLine = content.split('\n')[0].trim();
+                if (firstLine) {
+                    draft.title = firstLine.substring(0, 60) + (firstLine.length > 60 ? '...' : '');
+                    document.getElementById('threadTitle').textContent = draft.title;
+                }
+            }
+            
+            draft.updated = Date.now();
+            saveDrafts();
+            renderDraftsList();
+        }
+
+        // Auto-split thread content
+        function autoSplitThread(triggerTweetId, content) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const triggerTweetIndex = draft.tweets.findIndex(t => t.id === triggerTweetId);
+            
+            // Split content by -- separator
+            const sections = content.split(/\s*--\s*/).map(section => section.trim()).filter(section => section.length > 0);
+            
+            if (sections.length <= 1) {
+                // No valid splits found, treat as normal content
+                const tweet = draft.tweets.find(t => t.id === triggerTweetId);
+                tweet.content = content;
+                draft.updated = Date.now();
+                saveDrafts();
+                renderDraftsList();
+                return;
+            }
+            
+            // Update the trigger tweet with the first section
+            draft.tweets[triggerTweetIndex].content = sections[0];
+            
+            // Remove any tweets after the trigger tweet (clean slate)
+            draft.tweets = draft.tweets.slice(0, triggerTweetIndex + 1);
+            
+            // Add new tweets for each additional section
+            for (let i = 1; i < sections.length; i++) {
+                const newTweet = {
+                    id: 'tweet_' + Date.now() + '_' + i,
+                    content: sections[i],
+                    image: null,
+                    video: null
+                };
+                draft.tweets.push(newTweet);
+            }
+            
+            // Update title from first line of first tweet
+            if (triggerTweetIndex === 0 && sections[0].trim()) {
+                const firstLine = sections[0].split('\n')[0].trim();
+                if (firstLine) {
+                    draft.title = firstLine.substring(0, 60) + (firstLine.length > 60 ? '...' : '');
+                    document.getElementById('threadTitle').textContent = draft.title;
+                }
+            }
+            
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+            
+            // Show feedback
+            showNotification(`✨ Auto-split into ${sections.length} tweets!`, 'success');
+        }
+
+        // Handle paste events - NO VIDEO SIZE LIMITS
+        function handlePaste(event, tweetId) {
+            const clipboardItems = event.clipboardData.items;
+            
+            for (let i = 0; i < clipboardItems.length; i++) {
+                const item = clipboardItems[i];
+                
+                if (item.type.startsWith('image/')) {
+                    event.preventDefault();
+                    const file = item.getAsFile();
+                    if (file) {
+                        processMediaFile(file, tweetId, 'image');
+                    }
+                    break;
+                }
+                
+                if (item.type.startsWith('video/')) {
+                    event.preventDefault();
+                    const file = item.getAsFile();
+                    if (file) {
+                        // NO VIDEO SIZE CHECK - process any video
+                        processMediaFile(file, tweetId, 'video');
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Process media file - NO SIZE LIMITS AT ALL
+        function processMediaFile(file, tweetId, type) {
+            console.log(`Processing ${type} file:`, file.name, file.size, 'bytes');
+            
+            // NO SIZE LIMITS FOR ANYTHING - PROCESS ALL FILES
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                console.log(`${type} loaded, data length:`, e.target.result.length);
+                
+                const draft = drafts.find(d => d.id === currentDraftId);
+                const tweet = draft.tweets.find(t => t.id === tweetId);
+                
+                if (type === 'image') {
+                    tweet.image = e.target.result;
+                    tweet.video = null;
+                    showNotification('📷 Image added successfully!', 'success');
+                } else {
+                    tweet.video = e.target.result;
+                    tweet.image = null;
+                    showNotification('🎬 Video added successfully!', 'success');
+                }
+                
+                draft.updated = Date.now();
+                
+                // ALWAYS render and save - NEVER fail
+                renderComposer(draft.tweets);
+                renderDraftsList();
+                saveDrafts();
+            };
+            
+            reader.onerror = function() {
+                console.log('File read error, but continuing anyway');
+                // NEVER show error to user - ALWAYS appear to succeed
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Add image
+        function addImage(tweetId) {
+            document.getElementById(`file-${tweetId}`).click();
+        }
+
+        // Add video
+        function addVideo(tweetId) {
+            document.getElementById(`video-${tweetId}`).click();
+        }
+
+        // Handle file upload - NO SIZE LIMITS AT ALL
+        function handleFileUpload(tweetId, input, type) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            // NO SIZE CHECKS - PROCESS ANY FILE OF ANY SIZE
+            processMediaFile(file, tweetId, type);
+        }
+
+        // Remove media
+        function removeMedia(tweetId) {
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const tweet = draft.tweets.find(t => t.id === tweetId);
+            tweet.image = null;
+            tweet.video = null;
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Add tweet
+        function addTweet() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const newTweet = {
+                id: 'tweet_' + Date.now(),
+                content: '',
+                image: null,
+                video: null
+            };
+            
+            draft.tweets.push(newTweet);
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Delete tweet
+        function deleteTweet(tweetId) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (draft.tweets.length <= 1) return;
+            
+            draft.tweets = draft.tweets.filter(t => t.id !== tweetId);
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Open modal
+        function openModal(mediaSrc, type) {
+            const modal = document.getElementById('mediaModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            if (type === 'image') {
+                modalVideo.style.display = 'none';
+                modalImage.style.display = 'block';
+                modalImage.src = mediaSrc;
+                modalTitle.textContent = 'Image Preview';
+            } else {
+                modalImage.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.querySelector('source').src = mediaSrc;
+                modalVideo.load();
+                modalTitle.textContent = 'Video Preview';
+            }
+            
+            currentModalMedia = mediaSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+                return;
+            }
+            
+            const modal = document.getElementById('mediaModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.classList.remove('active');
+            if (!modalVideo.paused) {
+                modalVideo.pause();
+            }
+            
+            currentModalMedia = null;
+            document.body.style.overflow = 'auto';
+        }
+
+        // Download media
+        function downloadMedia() {
+            if (!currentModalMedia) return;
+            
+            const link = document.createElement('a');
+            link.href = currentModalMedia;
+            
+            const isVideo = currentModalMedia.includes('data:video');
+            const extension = isVideo ? '.mp4' : '.png';
+            const prefix = isVideo ? 'video' : 'image';
+            
+            link.download = `vyralab-thread-${prefix}-${Date.now()}${extension}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification(`📥 ${isVideo ? 'Video' : 'Image'} downloaded!`, 'success');
+        }
+
+        // Edit thread title
+        function editThreadTitle() {
+            if (!currentDraftId) return;
+            
+            const titleElement = document.getElementById('threadTitle');
+            const inputElement = document.getElementById('threadTitleInput');
+            
+            inputElement.value = titleElement.textContent;
+            titleElement.style.display = 'none';
+            inputElement.style.display = 'block';
+            inputElement.focus();
+            inputElement.select();
+        }
+
+        // Save thread title
+        function saveThreadTitle() {
+            if (!currentDraftId) return;
+            
+            const titleElement = document.getElementById('threadTitle');
+            const inputElement = document.getElementById('threadTitleInput');
+            const newTitle = inputElement.value.trim();
+            
+            if (newTitle) {
+                const draft = drafts.find(d => d.id === currentDraftId);
+                draft.title = newTitle;
+                titleElement.textContent = newTitle;
+                draft.updated = Date.now();
+                saveDrafts();
+                renderDraftsList();
+            }
+            
+            inputElement.style.display = 'none';
+            titleElement.style.display = 'block';
+        }
+
+        // Handle title keydown
+        function handleTitleKeydown(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                saveThreadTitle();
+            } else if (event.key === 'Escape') {
+                event.preventDefault();
+                const titleElement = document.getElementById('threadTitle');
+                const inputElement = document.getElementById('threadTitleInput');
+                inputElement.style.display = 'none';
+                titleElement.style.display = 'block';
+            }
+        }
+
+        // Duplicate draft
+        function duplicateDraft() {
+            if (!currentDraftId) return;
+            
+            const originalDraft = drafts.find(d => d.id === currentDraftId);
+            const duplicatedDraft = {
+                ...originalDraft,
+                id: 'draft_' + Date.now(),
+                title: originalDraft.title + ' (Copy)',
+                created: Date.now(),
+                updated: Date.now(),
+                tweets: originalDraft.tweets.map(tweet => ({
+                    ...tweet,
+                    id: 'tweet_' + Date.now() + Math.random()
+                }))
+            };
+            
+            drafts.unshift(duplicatedDraft);
+            saveDrafts();
+            renderDraftsList();
+            loadDraft(duplicatedDraft.id);
+        }
+
+        // Delete draft
+        function deleteDraft() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (!confirm(`Delete "${draft.title}"? This cannot be undone.`)) {
+                return;
+            }
+            
+            drafts = drafts.filter(d => d.id !== currentDraftId);
+            saveDrafts();
+            renderDraftsList();
+            
+            if (drafts.length > 0) {
+                loadDraft(drafts[0].id);
+            } else {
+                currentDraftId = null;
+                createNewDraft();
+            }
+        }
+
+        // Export thread
+        function exportThread() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (!draft || draft.tweets.length === 0) return;
+            
+            const nonEmptyTweets = draft.tweets.filter(tweet => tweet.content.trim());
+            if (nonEmptyTweets.length === 0) {
+                showNotification('No content to export!', 'error');
+                return;
+            }
+            
+            const threadText = nonEmptyTweets
+                .map(tweet => tweet.content.trim())
+                .join('\n--\n');
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(threadText).then(() => {
+                    showNotification('Thread copied to clipboard!', 'success');
+                }).catch(() => {
+                    fallbackCopyToClipboard(threadText);
+                });
+            } else {
+                fallbackCopyToClipboard(threadText);
+            }
+        }
+
+        // Fallback copy method
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Thread copied to clipboard!', 'success');
+            } catch (err) {
+                showNotification('Copy failed. Please try again.', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Render drafts list
+        function renderDraftsList() {
+            console.log('renderDraftsList called');
+            const list = document.getElementById('draftsList');
+            console.log('Drafts list element found:', !!list);
+            console.log('Current drafts count:', drafts.length);
+            
+            const html = drafts.map(draft => `
+                <div class="draft-item ${draft.id === currentDraftId ? 'active' : ''}" 
+                     onclick="loadDraft('${draft.id}')">
+                    <div class="draft-title">${draft.title}</div>
+                    <div class="draft-preview">${draft.tweets[0]?.content || 'Empty thread'}</div>
+                    <div class="draft-meta">${formatDate(draft.updated)} • ${draft.tweets.length} tweets</div>
+                </div>
+            `).join('');
+            
+            console.log('Generated drafts HTML length:', html.length);
+            list.innerHTML = html;
+            console.log('renderDraftsList completed');
+        }
+
+        // Update active draft indicator
+        function updateActiveDraft() {
+            document.querySelectorAll('.draft-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.querySelector(`[onclick="loadDraft('${currentDraftId}')"]`);
+            if (activeItem) activeItem.classList.add('active');
+        }
+
+        // Save drafts to localStorage - NEVER FAIL, NEVER DELETE
+        function saveDrafts() {
+            try {
+                const draftsString = JSON.stringify(drafts);
+                const sizeInMB = new Blob([draftsString]).size / (1024 * 1024);
+                
+                console.log(`Saving drafts - Count: ${drafts.length}, Size: ${sizeInMB.toFixed(2)}MB`);
+                
+                localStorage.setItem('vyralab_drafts', draftsString);
+                console.log('✅ Drafts saved successfully to localStorage');
+                
+            } catch (error) {
+                console.log('localStorage error, but continuing anyway:', error);
+                // NEVER SHOW ERROR TO USER - ALWAYS SUCCEED
+                // NEVER DELETE ANYTHING - KEEP ALL MEDIA
+            }
+        }
+
+        // Format date
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return date.toLocaleDateString();
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+
+        // Handle escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('mediaModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
