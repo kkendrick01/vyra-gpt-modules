@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyralab Thread Composer</title>
+	<link rel="icon" type="image/png" sizes="512x512" href="https://kkendrick01.github.io/vyra-gpt-modules/ace_logo_tr.png">
+    <link rel="apple-touch-icon" href="https://kkendrick01.github.io/vyra-gpt-modules/ace_logo_tr.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: #1a1a1a;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            display: block;
+            height: 56px;
+            width: auto;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .storage-indicator {
+            margin: 10px 20px;
+            padding: 8px;
+            background: #222;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .storage-bar {
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .storage-fill {
+            height: 100%;
+            background: #00ff41;
+            transition: width 0.3s ease;
+        }
+
+        .new-draft-btn {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            margin: 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .new-draft-btn:hover {
+            background: #00cc33;
+            transform: translateY(-1px);
+        }
+
+        .drafts-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
+        .draft-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #2a2a2a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .draft-item:hover {
+            background: #222;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .draft-item.active {
+            background: #333;
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-left: 3px solid #00ff41;
+        }
+
+        .draft-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .draft-preview {
+            font-size: 12px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .draft-meta {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0a;
+        }
+
+        .main-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .thread-title-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .thread-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .thread-title:hover {
+            background: #222;
+            color: #00ff41;
+        }
+
+        .thread-title-input {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            background: #222;
+            border: 2px solid #00ff41;
+            border-radius: 4px;
+            padding: 4px 8px;
+            width: 100%;
+            max-width: 400px;
+            font-family: inherit;
+        }
+
+        .thread-title-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.3);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .btn.primary {
+            background: #00ff41;
+            color: #000;
+            border-color: #00ff41;
+        }
+
+        .btn.primary:hover {
+            background: #00cc33;
+        }
+
+        .composer {
+            flex: 1;
+            padding: 20px 30px;
+            overflow-y: auto;
+        }
+
+        .tweet-block {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .tweet-block:hover {
+            border-color: #444;
+        }
+
+        .tweet-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .tweet-number {
+            font-weight: 600;
+        }
+
+        .tweet-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .icon-btn:hover {
+            color: #00ff41;
+            background: #222;
+        }
+
+        .delete-btn:hover {
+            color: #ff4444;
+        }
+
+        .tweet-content {
+            padding: 16px;
+        }
+
+        .tweet-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.4;
+            resize: none;
+            min-height: 80px;
+            max-height: 400px;
+            font-family: inherit;
+            overflow-y: hidden;
+        }
+
+        .tweet-textarea:focus {
+            outline: none;
+        }
+
+        .tweet-textarea::placeholder {
+            color: #555;
+        }
+
+        .media-preview {
+            margin-top: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .media-preview img,
+        .media-preview video {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .media-preview img:hover,
+        .media-preview video:hover {
+            border-color: #00ff41;
+            transform: scale(1.02);
+        }
+
+        .media-preview video {
+            background: #000;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 255, 65, 0.9);
+            color: #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .media-preview:hover .video-overlay {
+            background: rgba(0, 255, 65, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .remove-media {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-tweet-btn {
+            width: 100%;
+            background: #111;
+            border: 1px dashed #333;
+            color: #666;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .add-tweet-btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+            background: #0a0a0a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #888;
+        }
+
+        /* Modal */
+        .media-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .media-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .media-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: #111;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .media-modal.active .media-modal-content {
+            transform: scale(1);
+        }
+
+        .media-modal-header {
+            padding: 16px 20px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .media-modal-title {
+            color: #fff;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .media-modal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            padding: 6px 12px;
+            border: 1px solid #333;
+            background: transparent;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn:hover {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+
+        .modal-btn.download {
+            background: #00ff41;
+            color: #000;
+            border-color: #00ff41;
+        }
+
+        .modal-btn.download:hover {
+            background: #00cc33;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .media-modal-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .media-modal-media {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            background: #00ff41;
+            color: #000;
+        }
+
+        .notification.error {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        /* Loading indicator */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #333;
+            border-top: 2px solid #00ff41;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/vyralab_logo_tr.png" alt="Vyralab logo" class="logo-img">
+                </div>
+                <div class="subtitle">Thread Composer</div>
+            </div>
+            
+            <div class="storage-indicator" id="storageIndicator">
+                <div>Storage: <span id="storageText">Calculating...</span></div>
+                <div class="storage-bar">
+                    <div class="storage-fill" id="storageFill"></div>
+                </div>
+            </div>
+            
+            <button class="new-draft-btn" onclick="createNewDraft()">
+                + New Thread
+            </button>
+            
+            <div class="drafts-list" id="draftsList">
+                <!-- Drafts will be populated here -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div class="thread-title-container">
+                    <div class="thread-title" id="threadTitle" onclick="editThreadTitle()">Select or create a thread</div>
+                    <input class="thread-title-input" id="threadTitleInput" style="display: none;" onblur="saveThreadTitle()" onkeydown="handleTitleKeydown(event)">
+                </div>
+                <div class="header-actions">
+                    <button class="btn" onclick="editThreadTitle()">✏️ Edit Name</button>
+                    <button class="btn" onclick="duplicateDraft()">Duplicate</button>
+                    <button class="btn" onclick="deleteDraft()">Delete</button>
+                    <button class="btn primary" onclick="exportThread()">Export</button>
+                </div>
+            </div>
+            
+            <div class="composer" id="composer">
+                <div class="empty-state">
+                    <h3>Ready to compose</h3>
+                    <p>Create a new thread or select an existing draft to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Modal -->
+    <div class="media-modal" id="mediaModal" onclick="closeModal(event)">
+        <div class="media-modal-content" onclick="event.stopPropagation()">
+            <div class="media-modal-header">
+                <div class="media-modal-title" id="modalTitle">Media Preview</div>
+                <div class="media-modal-actions">
+                    <button class="modal-btn download" onclick="downloadMedia()">📥 Download</button>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+            </div>
+            <div class="media-modal-body">
+                <img id="modalImage" class="media-modal-media" src="" alt="Full size image" style="display: none;">
+                <video id="modalVideo" class="media-modal-media" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ROBUST STORAGE SYSTEM WITH INDEXEDDB FOR MEDIA
+        let drafts = [];
+        let currentDraftId = null;
+        let tweetCounter = 0;
+        let currentModalMedia = null;
+        let db = null;
+        let totalStorageUsed = 0;
+
+        // Initialize IndexedDB for media storage
+        async function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('VyralabThreadComposer', 2);
+                
+                request.onerror = () => {
+                    console.error('IndexedDB failed to open');
+                    reject(request.error);
+                };
+                
+                request.onsuccess = () => {
+                    db = request.result;
+                    console.log('✅ IndexedDB initialized');
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    db = event.target.result;
+                    
+                    // Create media store if it doesn't exist
+                    if (!db.objectStoreNames.contains('media')) {
+                        const mediaStore = db.createObjectStore('media', { keyPath: 'id' });
+                        mediaStore.createIndex('draftId', 'draftId', { unique: false });
+                        console.log('Created media object store');
+                    }
+                };
+            });
+        }
+
+        // Store media in IndexedDB
+        async function storeMedia(mediaId, draftId, tweetId, type, dataUrl) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(['media'], 'readwrite');
+                const store = transaction.objectStore('media');
+                
+                const mediaObject = {
+                    id: mediaId,
+                    draftId: draftId,
+                    tweetId: tweetId,
+                    type: type,
+                    data: dataUrl,
+                    timestamp: Date.now()
+                };
+                
+                const request = store.put(mediaObject);
+                
+                request.onsuccess = () => {
+                    console.log(`✅ Stored ${type} for tweet ${tweetId}`);
+                    resolve(mediaId);
+                };
+                
+                request.onerror = () => {
+                    console.error('Failed to store media:', request.error);
+                    reject(request.error);
+                };
+            });
+        }
+
+        // Retrieve media from IndexedDB
+        async function retrieveMedia(mediaId) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+                
+                const transaction = db.transaction(['media'], 'readonly');
+                const store = transaction.objectStore('media');
+                const request = store.get(mediaId);
+                
+                request.onsuccess = () => {
+                    if (request.result && request.result.data) {
+                        resolve(request.result.data);
+                    } else {
+                        resolve(null);
+                    }
+                };
+                
+                request.onerror = () => {
+                    console.error('Failed to retrieve media:', request.error);
+                    resolve(null);
+                };
+            });
+        }
+
+        // Delete media from IndexedDB
+        async function deleteMedia(mediaId) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(['media'], 'readwrite');
+                const store = transaction.objectStore('media');
+                const request = store.delete(mediaId);
+                
+                request.onsuccess = () => {
+                    console.log(`Deleted media: ${mediaId}`);
+                    resolve();
+                };
+                
+                request.onerror = () => {
+                    console.error('Failed to delete media:', request.error);
+                    reject(request.error);
+                };
+            });
+        }
+
+        // Clean up orphaned media
+        async function cleanupOrphanedMedia() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['media'], 'readwrite');
+            const store = transaction.objectStore('media');
+            const request = store.openCursor();
+            
+            const validMediaIds = new Set();
+            drafts.forEach(draft => {
+                draft.tweets.forEach(tweet => {
+                    if (tweet.imageId) validMediaIds.add(tweet.imageId);
+                    if (tweet.videoId) validMediaIds.add(tweet.videoId);
+                });
+            });
+            
+            request.onsuccess = (event) => {
+                const cursor = event.target.result;
+                if (cursor) {
+                    if (!validMediaIds.has(cursor.value.id)) {
+                        cursor.delete();
+                        console.log(`Cleaned up orphaned media: ${cursor.value.id}`);
+                    }
+                    cursor.continue();
+                }
+            };
+        }
+
+        // Calculate storage usage
+        async function calculateStorageUsage() {
+            try {
+                if (navigator.storage && navigator.storage.estimate) {
+                    const estimate = await navigator.storage.estimate();
+                    const usage = estimate.usage || 0;
+                    const quota = estimate.quota || 0;
+                    
+                    totalStorageUsed = usage;
+                    const percentage = quota > 0 ? (usage / quota) * 100 : 0;
+                    
+                    updateStorageIndicator(usage, quota, percentage);
+                }
+            } catch (error) {
+                console.error('Failed to estimate storage:', error);
+            }
+        }
+
+        // Update storage indicator
+        function updateStorageIndicator(usage, quota, percentage) {
+            const storageText = document.getElementById('storageText');
+            const storageFill = document.getElementById('storageFill');
+            
+            const usageMB = (usage / (1024 * 1024)).toFixed(1);
+            const quotaGB = (quota / (1024 * 1024 * 1024)).toFixed(1);
+            
+            storageText.textContent = `${usageMB} MB / ${quotaGB} GB`;
+            storageFill.style.width = Math.min(percentage, 100) + '%';
+            
+            // Change color based on usage
+            if (percentage > 90) {
+                storageFill.style.background = '#ff4444';
+            } else if (percentage > 70) {
+                storageFill.style.background = '#ffaa00';
+            } else {
+                storageFill.style.background = '#00ff41';
+            }
+        }
+
+        // Load drafts from localStorage (metadata only)
+        async function loadDrafts() {
+            try {
+                const stored = localStorage.getItem('vyralab_drafts_v2');
+                if (stored) {
+                    drafts = JSON.parse(stored);
+                    console.log('✅ Loaded', drafts.length, 'drafts from localStorage');
+                    
+                    // Clean up orphaned media after loading drafts
+                    await cleanupOrphanedMedia();
+                } else {
+                    drafts = [];
+                    console.log('No drafts found, starting fresh');
+                }
+            } catch (error) {
+                console.error('Error loading drafts:', error);
+                drafts = [];
+            }
+        }
+
+        // Save drafts to localStorage (metadata only, media stays in IndexedDB)
+        function saveDrafts() {
+            try {
+                // Store only metadata, not the actual media data
+                const draftsToSave = drafts.map(draft => ({
+                    ...draft,
+                    tweets: draft.tweets.map(tweet => ({
+                        id: tweet.id,
+                        content: tweet.content,
+                        imageId: tweet.imageId || null,
+                        videoId: tweet.videoId || null
+                    }))
+                }));
+                
+                localStorage.setItem('vyralab_drafts_v2', JSON.stringify(draftsToSave));
+                console.log('✅ Drafts metadata saved');
+                
+                // Update storage indicator
+                calculateStorageUsage();
+                
+                return true;
+            } catch (error) {
+                console.error('❌ Save failed:', error);
+                showNotification('Failed to save. Storage might be full.', 'error');
+                return false;
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 App starting...');
+            
+            // Initialize IndexedDB first
+            try {
+                await initDB();
+                console.log('✅ Database ready');
+            } catch (error) {
+                console.error('Database initialization failed:', error);
+                showNotification('⚠️ Media storage unavailable. Images/videos may not persist.', 'error');
+            }
+            
+            // Load drafts
+            await loadDrafts();
+            renderDraftsList();
+            
+            if (drafts.length > 0) {
+                await loadDraft(drafts[0].id);
+            } else {
+                createNewDraft();
+            }
+            
+            // Calculate initial storage
+            calculateStorageUsage();
+            
+            console.log('✅ App ready!');
+        });
+
+        // Create new draft
+        function createNewDraft() {
+            const draftId = 'draft_' + Date.now();
+            const newDraft = {
+                id: draftId,
+                title: 'Untitled Thread',
+                tweets: [{
+                    id: 'tweet_' + Date.now(),
+                    content: '',
+                    imageId: null,
+                    videoId: null
+                }],
+                created: Date.now(),
+                updated: Date.now()
+            };
+            
+            drafts.unshift(newDraft);
+            saveDrafts();
+            renderDraftsList();
+            loadDraft(draftId);
+        }
+
+        // Load draft
+        async function loadDraft(draftId) {
+            currentDraftId = draftId;
+            const draft = drafts.find(d => d.id === draftId);
+            if (!draft) return;
+
+            document.getElementById('threadTitle').textContent = draft.title;
+            
+            // Load media for all tweets
+            for (const tweet of draft.tweets) {
+                if (tweet.imageId) {
+                    tweet.imageData = await retrieveMedia(tweet.imageId);
+                }
+                if (tweet.videoId) {
+                    tweet.videoData = await retrieveMedia(tweet.videoId);
+                }
+            }
+            
+            renderComposer(draft.tweets);
+            updateActiveDraft();
+        }
+
+        // Render composer
+        function renderComposer(tweets) {
+            const composer = document.getElementById('composer');
+            tweetCounter = 0;
+            
+            composer.innerHTML = tweets.map(tweet => createTweetBlockHTML(tweet)).join('') + 
+                '<button class="add-tweet-btn" onclick="addTweet()">+ Add Tweet</button>';
+            
+            // Initialize auto-resize for all textareas
+            setTimeout(() => {
+                document.querySelectorAll('.tweet-textarea').forEach(textarea => {
+                    autoResizeTextarea(textarea);
+                });
+            }, 10);
+        }
+
+        // Create tweet block HTML
+        function createTweetBlockHTML(tweet) {
+            tweetCounter++;
+            return `
+                <div class="tweet-block" data-tweet-id="${tweet.id}">
+                    <div class="tweet-header">
+                        <span class="tweet-number">Tweet ${tweetCounter}</span>
+                        <div class="tweet-actions">
+                            <button class="icon-btn" onclick="addImage('${tweet.id}')">📷</button>
+                            <button class="icon-btn" onclick="addVideo('${tweet.id}')">🎬</button>
+                            <button class="icon-btn delete-btn" onclick="deleteTweet('${tweet.id}')">🗑</button>
+                        </div>
+                    </div>
+                    <div class="tweet-content">
+                        <textarea 
+                            class="tweet-textarea" 
+                            placeholder="What's happening? (Paste images/videos with Ctrl+V)"
+                            oninput="updateTweetContent('${tweet.id}', this.value); autoResizeTextarea(this)"
+                            onfocus="autoResizeTextarea(this)"
+                            onpaste="handlePaste(event, '${tweet.id}')"
+                        >${tweet.content}</textarea>
+                        ${renderMediaPreview(tweet)}
+                        <input type="file" id="file-${tweet.id}" accept="image/*,.webp,.avif,.heic" style="display: none;" onchange="handleFileUpload('${tweet.id}', this, 'image')">
+                        <input type="file" id="video-${tweet.id}" accept="video/mp4,video/mov,video/avi,video/webm" style="display: none;" onchange="handleFileUpload('${tweet.id}', this, 'video')">
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render media preview
+        function renderMediaPreview(tweet) {
+            if (tweet.imageData || tweet.imageId) {
+                const imageSrc = tweet.imageData || '';
+                if (!imageSrc && tweet.imageId) {
+                    // Media not loaded yet, show loading indicator
+                    return '<div class="media-preview"><div class="loading"></div></div>';
+                }
+                return `
+                    <div class="media-preview">
+                        <img src="${imageSrc}" alt="Tweet image" onclick="openModal('${tweet.imageId}', 'image')">
+                        <button class="remove-media" onclick="removeMedia('${tweet.id}')">×</button>
+                    </div>
+                `;
+            }
+            if (tweet.videoData || tweet.videoId) {
+                const videoSrc = tweet.videoData || '';
+                if (!videoSrc && tweet.videoId) {
+                    // Media not loaded yet, show loading indicator
+                    return '<div class="media-preview"><div class="loading"></div></div>';
+                }
+                return `
+                    <div class="media-preview">
+                        <video muted onclick="openModal('${tweet.videoId}', 'video')">
+                            <source src="${videoSrc}" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">▶</div>
+                        <button class="remove-media" onclick="removeMedia('${tweet.id}')">×</button>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        // Auto-resize textarea
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 400) + 'px';
+        }
+
+        // Update tweet content
+        function updateTweetContent(tweetId, content) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const tweet = draft.tweets.find(t => t.id === tweetId);
+            
+            // Check for auto-split markers
+            if (content.includes('--')) {
+                autoSplitThread(tweetId, content);
+                return;
+            }
+            
+            tweet.content = content;
+            
+            // Auto-update title from first line of first tweet
+            if (draft.tweets[0].id === tweetId && content.trim()) {
+                const firstLine = content.split('\n')[0].trim();
+                if (firstLine) {
+                    draft.title = firstLine.substring(0, 60) + (firstLine.length > 60 ? '...' : '');
+                    document.getElementById('threadTitle').textContent = draft.title;
+                }
+            }
+            
+            draft.updated = Date.now();
+            saveDrafts();
+            renderDraftsList();
+        }
+
+        // Auto-split thread content
+        function autoSplitThread(triggerTweetId, content) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const triggerTweetIndex = draft.tweets.findIndex(t => t.id === triggerTweetId);
+            
+            // Split content by -- separator
+            const sections = content.split(/\s*--\s*/).map(section => section.trim()).filter(section => section.length > 0);
+            
+            if (sections.length <= 1) {
+                // No valid splits found, treat as normal content
+                const tweet = draft.tweets.find(t => t.id === triggerTweetId);
+                tweet.content = content;
+                draft.updated = Date.now();
+                saveDrafts();
+                renderDraftsList();
+                return;
+            }
+            
+            // Update the trigger tweet with the first section
+            draft.tweets[triggerTweetIndex].content = sections[0];
+            
+            // Remove any tweets after the trigger tweet
+            draft.tweets = draft.tweets.slice(0, triggerTweetIndex + 1);
+            
+            // Add new tweets for each additional section
+            for (let i = 1; i < sections.length; i++) {
+                const newTweet = {
+                    id: 'tweet_' + Date.now() + '_' + i,
+                    content: sections[i],
+                    imageId: null,
+                    videoId: null
+                };
+                draft.tweets.push(newTweet);
+            }
+            
+            // Update title from first line of first tweet
+            if (triggerTweetIndex === 0 && sections[0].trim()) {
+                const firstLine = sections[0].split('\n')[0].trim();
+                if (firstLine) {
+                    draft.title = firstLine.substring(0, 60) + (firstLine.length > 60 ? '...' : '');
+                    document.getElementById('threadTitle').textContent = draft.title;
+                }
+            }
+            
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+            
+            showNotification(`✨ Auto-split into ${sections.length} tweets!`, 'success');
+        }
+
+        // Handle paste events
+        function handlePaste(event, tweetId) {
+            const clipboardItems = event.clipboardData.items;
+            
+            for (let i = 0; i < clipboardItems.length; i++) {
+                const item = clipboardItems[i];
+                
+                if (item.type.startsWith('image/')) {
+                    event.preventDefault();
+                    const file = item.getAsFile();
+                    if (file) {
+                        processMediaFile(file, tweetId, 'image');
+                    }
+                    break;
+                }
+                
+                if (item.type.startsWith('video/')) {
+                    event.preventDefault();
+                    const file = item.getAsFile();
+                    if (file) {
+                        processMediaFile(file, tweetId, 'video');
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Process media file
+        async function processMediaFile(file, tweetId, type) {
+            console.log(`Processing ${type}:`, file.name, (file.size / (1024 * 1024)).toFixed(2), 'MB');
+            
+            // Show warning for large files
+            if (file.size > 50 * 1024 * 1024) { // 50MB
+                showNotification(`⚠️ Large ${type} (${(file.size / (1024 * 1024)).toFixed(1)}MB) - uploading...`, 'error');
+            }
+            
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const draft = drafts.find(d => d.id === currentDraftId);
+                const tweet = draft.tweets.find(t => t.id === tweetId);
+                
+                // Generate unique media ID
+                const mediaId = `media_${currentDraftId}_${tweetId}_${type}_${Date.now()}`;
+                
+                try {
+                    // Store media in IndexedDB
+                    await storeMedia(mediaId, currentDraftId, tweetId, type, e.target.result);
+                    
+                    // Update tweet with media reference
+                    if (type === 'image') {
+                        // Delete old image if exists
+                        if (tweet.imageId) {
+                            await deleteMedia(tweet.imageId);
+                        }
+                        tweet.imageId = mediaId;
+                        tweet.imageData = e.target.result;
+                        tweet.videoId = null;
+                        tweet.videoData = null;
+                    } else {
+                        // Delete old video if exists
+                        if (tweet.videoId) {
+                            await deleteMedia(tweet.videoId);
+                        }
+                        tweet.videoId = mediaId;
+                        tweet.videoData = e.target.result;
+                        tweet.imageId = null;
+                        tweet.imageData = null;
+                    }
+                    
+                    draft.updated = Date.now();
+                    saveDrafts();
+                    renderComposer(draft.tweets);
+                    renderDraftsList();
+                    
+                    showNotification(`${type === 'image' ? '📷 Image' : '🎬 Video'} added successfully!`, 'success');
+                } catch (error) {
+                    console.error('Failed to store media:', error);
+                    showNotification(`Failed to save ${type}. Try a smaller file.`, 'error');
+                }
+            };
+            
+            reader.onerror = function() {
+                showNotification(`Failed to load ${type} file.`, 'error');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Add image
+        function addImage(tweetId) {
+            document.getElementById(`file-${tweetId}`).click();
+        }
+
+        // Add video
+        function addVideo(tweetId) {
+            document.getElementById(`video-${tweetId}`).click();
+        }
+
+        // Handle file upload
+        function handleFileUpload(tweetId, input, type) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            processMediaFile(file, tweetId, type);
+        }
+
+        // Remove media
+        async function removeMedia(tweetId) {
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const tweet = draft.tweets.find(t => t.id === tweetId);
+            
+            // Delete from IndexedDB
+            if (tweet.imageId) {
+                await deleteMedia(tweet.imageId);
+            }
+            if (tweet.videoId) {
+                await deleteMedia(tweet.videoId);
+            }
+            
+            tweet.imageId = null;
+            tweet.imageData = null;
+            tweet.videoId = null;
+            tweet.videoData = null;
+            
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Add tweet
+        function addTweet() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            const newTweet = {
+                id: 'tweet_' + Date.now(),
+                content: '',
+                imageId: null,
+                videoId: null
+            };
+            
+            draft.tweets.push(newTweet);
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Delete tweet
+        async function deleteTweet(tweetId) {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (draft.tweets.length <= 1) return;
+            
+            const tweet = draft.tweets.find(t => t.id === tweetId);
+            
+            // Delete associated media from IndexedDB
+            if (tweet.imageId) {
+                await deleteMedia(tweet.imageId);
+            }
+            if (tweet.videoId) {
+                await deleteMedia(tweet.videoId);
+            }
+            
+            draft.tweets = draft.tweets.filter(t => t.id !== tweetId);
+            draft.updated = Date.now();
+            saveDrafts();
+            renderComposer(draft.tweets);
+            renderDraftsList();
+        }
+
+        // Open modal
+        async function openModal(mediaId, type) {
+            const modal = document.getElementById('mediaModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            // Retrieve media from IndexedDB
+            const mediaData = await retrieveMedia(mediaId);
+            
+            if (!mediaData) {
+                showNotification('Media not found', 'error');
+                return;
+            }
+            
+            if (type === 'image') {
+                modalVideo.style.display = 'none';
+                modalImage.style.display = 'block';
+                modalImage.src = mediaData;
+                modalTitle.textContent = 'Image Preview';
+            } else {
+                modalImage.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.querySelector('source').src = mediaData;
+                modalVideo.load();
+                modalTitle.textContent = 'Video Preview';
+            }
+            
+            currentModalMedia = mediaData;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+                return;
+            }
+            
+            const modal = document.getElementById('mediaModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.classList.remove('active');
+            if (!modalVideo.paused) {
+                modalVideo.pause();
+            }
+            
+            currentModalMedia = null;
+            document.body.style.overflow = 'auto';
+        }
+
+        // Download media
+        function downloadMedia() {
+            if (!currentModalMedia) return;
+            
+            const link = document.createElement('a');
+            link.href = currentModalMedia;
+            
+            const isVideo = currentModalMedia.includes('data:video');
+            const extension = isVideo ? '.mp4' : '.png';
+            const prefix = isVideo ? 'video' : 'image';
+            
+            link.download = `vyralab-thread-${prefix}-${Date.now()}${extension}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification(`📥 ${isVideo ? 'Video' : 'Image'} downloaded!`, 'success');
+        }
+
+        // Edit thread title
+        function editThreadTitle() {
+            if (!currentDraftId) return;
+            
+            const titleElement = document.getElementById('threadTitle');
+            const inputElement = document.getElementById('threadTitleInput');
+            
+            inputElement.value = titleElement.textContent;
+            titleElement.style.display = 'none';
+            inputElement.style.display = 'block';
+            inputElement.focus();
+            inputElement.select();
+        }
+
+        // Save thread title
+        function saveThreadTitle() {
+            if (!currentDraftId) return;
+            
+            const titleElement = document.getElementById('threadTitle');
+            const inputElement = document.getElementById('threadTitleInput');
+            const newTitle = inputElement.value.trim();
+            
+            if (newTitle) {
+                const draft = drafts.find(d => d.id === currentDraftId);
+                draft.title = newTitle;
+                titleElement.textContent = newTitle;
+                draft.updated = Date.now();
+                saveDrafts();
+                renderDraftsList();
+            }
+            
+            inputElement.style.display = 'none';
+            titleElement.style.display = 'block';
+        }
+
+        // Handle title keydown
+        function handleTitleKeydown(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                saveThreadTitle();
+            } else if (event.key === 'Escape') {
+                event.preventDefault();
+                const titleElement = document.getElementById('threadTitle');
+                const inputElement = document.getElementById('threadTitleInput');
+                inputElement.style.display = 'none';
+                titleElement.style.display = 'block';
+            }
+        }
+
+        // Duplicate draft
+        async function duplicateDraft() {
+            if (!currentDraftId) return;
+            
+            const originalDraft = drafts.find(d => d.id === currentDraftId);
+            const newDraftId = 'draft_' + Date.now();
+            
+            // Create duplicated draft
+            const duplicatedDraft = {
+                id: newDraftId,
+                title: originalDraft.title + ' (Copy)',
+                created: Date.now(),
+                updated: Date.now(),
+                tweets: []
+            };
+            
+            // Duplicate tweets with new media IDs
+            for (const originalTweet of originalDraft.tweets) {
+                const newTweetId = 'tweet_' + Date.now() + Math.random();
+                const newTweet = {
+                    id: newTweetId,
+                    content: originalTweet.content,
+                    imageId: null,
+                    videoId: null
+                };
+                
+                // Duplicate media if exists
+                if (originalTweet.imageId) {
+                    const mediaData = await retrieveMedia(originalTweet.imageId);
+                    if (mediaData) {
+                        const newMediaId = `media_${newDraftId}_${newTweetId}_image_${Date.now()}`;
+                        await storeMedia(newMediaId, newDraftId, newTweetId, 'image', mediaData);
+                        newTweet.imageId = newMediaId;
+                    }
+                }
+                
+                if (originalTweet.videoId) {
+                    const mediaData = await retrieveMedia(originalTweet.videoId);
+                    if (mediaData) {
+                        const newMediaId = `media_${newDraftId}_${newTweetId}_video_${Date.now()}`;
+                        await storeMedia(newMediaId, newDraftId, newTweetId, 'video', mediaData);
+                        newTweet.videoId = newMediaId;
+                    }
+                }
+                
+                duplicatedDraft.tweets.push(newTweet);
+            }
+            
+            drafts.unshift(duplicatedDraft);
+            saveDrafts();
+            renderDraftsList();
+            await loadDraft(duplicatedDraft.id);
+            
+            showNotification('Thread duplicated successfully!', 'success');
+        }
+
+        // Delete draft
+        async function deleteDraft() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (!confirm(`Delete "${draft.title}"? This cannot be undone.`)) {
+                return;
+            }
+            
+            // Delete all media associated with this draft
+            for (const tweet of draft.tweets) {
+                if (tweet.imageId) {
+                    await deleteMedia(tweet.imageId);
+                }
+                if (tweet.videoId) {
+                    await deleteMedia(tweet.videoId);
+                }
+            }
+            
+            drafts = drafts.filter(d => d.id !== currentDraftId);
+            saveDrafts();
+            renderDraftsList();
+            
+            if (drafts.length > 0) {
+                await loadDraft(drafts[0].id);
+            } else {
+                currentDraftId = null;
+                createNewDraft();
+            }
+        }
+
+        // Export thread
+        function exportThread() {
+            if (!currentDraftId) return;
+            
+            const draft = drafts.find(d => d.id === currentDraftId);
+            if (!draft || draft.tweets.length === 0) return;
+            
+            const nonEmptyTweets = draft.tweets.filter(tweet => tweet.content.trim());
+            if (nonEmptyTweets.length === 0) {
+                showNotification('No content to export!', 'error');
+                return;
+            }
+            
+            const threadText = nonEmptyTweets
+                .map(tweet => tweet.content.trim())
+                .join('\n--\n');
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(threadText).then(() => {
+                    showNotification('Thread copied to clipboard!', 'success');
+                }).catch(() => {
+                    fallbackCopyToClipboard(threadText);
+                });
+            } else {
+                fallbackCopyToClipboard(threadText);
+            }
+        }
+
+        // Fallback copy method
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('Thread copied to clipboard!', 'success');
+            } catch (err) {
+                showNotification('Copy failed. Please try again.', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Render drafts list
+        function renderDraftsList() {
+            const list = document.getElementById('draftsList');
+            list.innerHTML = drafts.map(draft => `
+                <div class="draft-item ${draft.id === currentDraftId ? 'active' : ''}" 
+                     onclick="loadDraft('${draft.id}')">
+                    <div class="draft-title">${draft.title}</div>
+                    <div class="draft-preview">${draft.tweets[0]?.content || 'Empty thread'}</div>
+                    <div class="draft-meta">${formatDate(draft.updated)} • ${draft.tweets.length} tweets</div>
+                </div>
+            `).join('');
+        }
+
+        // Update active draft indicator
+        function updateActiveDraft() {
+            document.querySelectorAll('.draft-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.querySelector(`[onclick="loadDraft('${currentDraftId}')"]`);
+            if (activeItem) activeItem.classList.add('active');
+        }
+
+        // Format date
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return date.toLocaleDateString();
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+
+        // Handle escape key for modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('mediaModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Periodic storage check
+        setInterval(() => {
+            calculateStorageUsage();
+        }, 30000); // Check every 30 seconds
+    </script>
+</body>
+</html>
