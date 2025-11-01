@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 0 - Welcome to the Lab! | VyraLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --vl-electric-glow: rgba(0, 255, 65, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 20%, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            z-index: 2;
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-electric), rgba(0, 255, 65, 0.7));
+            color: var(--vl-black);
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            box-shadow: 0 0 40px var(--vl-electric-glow);
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 40px var(--vl-electric-glow); }
+            50% { box-shadow: 0 0 60px var(--vl-electric-glow), 0 0 100px rgba(0, 255, 65, 0.2); }
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric), var(--vl-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            animation: slide-up 0.8s ease-out;
+        }
+
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--vl-white);
+            margin-bottom: 50px;
+            font-weight: 500;
+            animation: slide-up 0.8s ease-out 0.2s both;
+        }
+
+        /* Architects Section */
+        .architects-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(42, 42, 42, 0.8));
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--vl-electric), var(--vl-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-intro {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Bio Cards */
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            margin: 60px 0;
+        }
+
+        .bio-card {
+            background: linear-gradient(145deg, rgba(42, 42, 42, 0.8), rgba(0, 0, 0, 0.9));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 25px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .bio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bio-card:hover::before {
+            opacity: 1;
+        }
+
+        .bio-card:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.1);
+        }
+
+        .bio-header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .bio-image {
+            width: 200px;
+            height: 300px;
+            border-radius: 15px;
+            border: 3px solid var(--vl-electric);
+            object-fit: cover;
+            object-position: center top;
+            box-shadow: 0 0 30px var(--vl-electric-glow);
+        }
+
+        .bio-info h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--vl-white);
+            margin-bottom: 10px;
+        }
+
+        .bio-title {
+            font-size: 1.2rem;
+            color: var(--vl-electric);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .bio-credentials {
+            font-size: 1rem;
+            color: var(--vl-white);
+            font-weight: 500;
+        }
+
+        .bio-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--vl-white);
+        }
+
+        .bio-content p {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--vl-electric);
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(0, 255, 65, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vl-electric);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--vl-white);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Social Proof Section */
+        .proof-section {
+            background: var(--vl-black);
+            padding: 100px 20px;
+        }
+
+        .proof-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--vl-white);
+        }
+
+        .proof-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .proof-card {
+            background: linear-gradient(145deg, rgba(42, 42, 42, 0.6), rgba(0, 0, 0, 0.8));
+            border: 1px solid var(--vl-dark-steel);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proof-card:hover {
+            border-color: var(--vl-electric);
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.1);
+        }
+
+        .proof-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--vl-dark-steel);
+        }
+
+        .proof-caption {
+            font-size: 1rem;
+            color: var(--vl-white);
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .success-highlight {
+            color: var(--vl-electric);
+            font-weight: 700;
+        }
+
+        /* VyraSphere Section */
+        .sphere-section {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.9));
+            padding: 100px 20px;
+        }
+
+        .sphere-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .sphere-feature {
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sphere-feature:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--vl-white);
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            color: var(--vl-white);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .ranks-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .rank-badge {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 0, 0, 0.8));
+            border: 1px solid var(--vl-electric);
+            border-radius: 25px;
+            padding: 15px 25px;
+            font-weight: 700;
+            color: var(--vl-white);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Promise Section */
+        .promise-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(42, 42, 42, 0.8));
+            padding: 100px 20px;
+        }
+
+        .promise-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .promise-points {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .promise-point {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--vl-electric);
+            border-radius: 0 15px 15px 0;
+            padding: 30px;
+            text-align: left;
+        }
+
+        .point-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+        }
+
+        .point-desc {
+            color: var(--vl-white);
+            line-height: 1.6;
+        }
+
+        /* Teaser Section */
+        .teaser-section {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 1));
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .teaser-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .teaser-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+        }
+
+        .teaser-text {
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .mystery-box {
+            background: linear-gradient(145deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-electric);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mystery-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .final-cta {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--vl-white);
+            margin-top: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .bio-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .bio-image {
+                width: 120px;
+                height: 120px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .proof-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="day-badge">Day 0</div>
+            <h1 class="hero-title">Welcome to the Lab!</h1>
+            <p class="hero-subtitle">Before we jump into the full course walkthrough, let's talk about who's actually running this lab... and why you can trust what you're about to learn.</p>
+        </div>
+    </section>
+
+    <!-- Architects Section -->
+    <section class="architects-section">
+        <div class="section-content">
+            <h2 class="section-title">Meet Your Architects</h2>
+            <p class="section-intro">The minds behind the systems that have generated billions of views and millions in revenue</p>
+
+            <div class="bio-grid">
+                <!-- Kyle Bio -->
+                <div class="bio-card">
+                    <div class="bio-header">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/kyle_tall.png" alt="Kyle Kendrick" class="bio-image">
+                        <div class="bio-info">
+                            <h3>Kyle Kendrick</h3>
+                            <div class="bio-title">Founder & CEO, VyraLab</div>
+                            <div class="bio-credentials">M.A. Industrial-Organizational Psychology | PMP Certified</div>
+                        </div>
+                    </div>
+                    <div class="bio-content">
+                        <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Engineered viral systems driving <span class="highlight">2+ billion views</span> across X and LinkedIn
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Helped clients generate <span class="highlight">over $100 million in revenue</span>
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Trained <span class="highlight">500+ ghostwriters</span> who now run successful businesses and agencies
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Works directly with <span class="highlight">CEOs, founders, politicians, and investors</span> across 50+ industries
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                <span class="highlight">Master's in Industrial-Organizational Psychology</span> + PMP certification
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Systems rooted in <span class="highlight">performance, process, and psychology</span> — not guesswork
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Students have built <span class="highlight">six-figure agencies</span> and work with high-profile clients worldwide
+                            </li>
+                        </ul>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-number">2B+</span>
+                                <span class="stat-label">Total Views Generated</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">$100M+</span>
+                                <span class="stat-label">Client Revenue</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Ghostwriters Trained</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Industries Served</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ali Bio -->
+                <div class="bio-card">
+                    <div class="bio-header">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/ali_tall1.png" alt="Ali Moiz" class="bio-image">
+                        <div class="bio-info">
+                            <h3>Ali Moiz</h3>
+                            <div class="bio-title">Chief Operating Officer & Head Architect</div>
+                            <div class="bio-credentials">Certified AI Prompt Engineer | Vanderbilt University</div>
+                        </div>
+                    </div>
+                    <div class="bio-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                <span class="highlight">Certified AI Prompt Engineer</span> from Vanderbilt University
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Architect who designs the frameworks powering <span class="highlight">VyraLab's ACE Studio</span>
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Ensures everything runs with <span class="highlight">precision, speed, and reliability</span>
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Expert in advanced prompt engineering and AI system architecture
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Transforms Kyle's psychology insights into <span class="highlight">scalable, automated systems</span>
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                Continuously optimizes technical infrastructure for <span class="highlight">maximum efficiency</span>
+                            </li>
+                            <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--vl-electric); font-weight: bold;">•</span>
+                                If something in VyraLab runs smooth, fast, and precise — <span class="highlight">Ali built it</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(0, 255, 65, 0.1); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 40px; margin: 50px 0; text-align: center;">
+                <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; margin-bottom: 20px;">Our Philosophy</h3>
+                <p style="font-size: 1.3rem; color: var(--vl-white); line-height: 1.6;">We don't teach theory. We build frameworks that get real-world results. The writers we've trained have gone on to build six-figure agencies, land high-profile clients, and work directly with business owners, investors, and public figures all over the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="proof-section">
+        <div class="section-content">
+            <h2 class="proof-title">Real Results, Real People</h2>
+            <p class="proof-subtitle">These are just a few examples of the transformation our students experience when they implement our systems</p>
+
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_1week.png" alt="Baptiste 1 Week Results" class="proof-image">
+                    <p class="proof-caption">Baptiste's results after <span class="success-highlight">just 1 week</span> implementing VyraLab systems</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_2months.png" alt="Baptiste 2 Months Results" class="proof-image">
+                    <p class="proof-caption">Baptiste's growth at <span class="success-highlight">2 months</span> - scaling systematically</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_6months.png" alt="Baptiste 6 Months Results" class="proof-image">
+                    <p class="proof-caption">Baptiste at <span class="success-highlight">6 months</span> - building sustainable income</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_bmw.png" alt="Baptiste BMW Achievement" class="proof-image">
+                    <p class="proof-caption">Baptiste celebrating his success - <span class="success-highlight">from zero to BMW</span> using VyraLab systems</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_family.png" alt="Baptiste Family Success" class="proof-image">
+                    <p class="proof-caption">Baptiste providing for his family through <span class="success-highlight">ghostwriting mastery</span></p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_stewart.png" alt="Baptiste Stewart Island" class="proof-image">
+                    <p class="proof-caption">Baptiste's <span class="success-highlight">location freedom</span> - working from anywhere</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_youtube.png" alt="Baptiste YouTube Success" class="proof-image">
+                    <p class="proof-caption">Baptiste scaling to <span class="success-highlight">multiple platforms</span> with confidence</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/fernando_may.png" alt="Fernando May Results" class="proof-image">
+                    <p class="proof-caption">Fernando's breakthrough in <span class="success-highlight">May</span> - rapid implementation</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/fernando_year.png" alt="Fernando Year Results" class="proof-image">
+                    <p class="proof-caption">Fernando's <span class="success-highlight">full year transformation</span> using VyraLab methods</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/tim_year.png" alt="Tim Year Results" class="proof-image">
+                    <p class="proof-caption">Tim's <span class="success-highlight">annual success story</span> - consistent growth</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/vinay_2months.png" alt="Vinay 2 Months Results" class="proof-image">
+                    <p class="proof-caption">Vinay's results at <span class="success-highlight">2 months</span> - accelerated progress</p>
+                </div>
+
+                <div class="proof-card">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/fernando_stripe.png" alt="Fernando Stripe Success" class="proof-image">
+                    <p class="proof-caption">Fernando's <span class="success-highlight">payment processing success</span> - real revenue flowing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VyraSphere Section -->
+    <section class="sphere-section">
+        <div class="section-content">
+            <h2 class="section-title">Inside the VyraSphere™</h2>
+            <p class="section-intro">Your HQ for growth, accountability, and proof. This is where transformation happens.</p>
+
+            <div class="sphere-features">
+                <div class="sphere-feature">
+                    <span class="feature-icon">🏠</span>
+                    <div class="feature-title">Home Feed & Live Discussions</div>
+                    <div class="feature-desc">A dynamic community feed full of wins, insights, and real-time discussions with fellow writers and operators</div>
+                </div>
+
+                <div class="sphere-feature">
+                    <span class="feature-icon">📝</span>
+                    <div class="feature-title">Dedicated Channels</div>
+                    <div class="feature-desc">Specialized channels for writing feedback, client strategy, AI tools, and industry-specific discussions</div>
+                </div>
+
+                <div class="sphere-feature">
+                    <span class="feature-icon">🏆</span>
+                    <div class="feature-title">Leaderboards & Proof Points</div>
+                    <div class="feature-desc">Track your progress and earn recognition as you hit milestones and achieve results</div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 2rem; font-weight: 700; text-align: center; margin: 60px 0 40px 0;">The Weekly Rhythm That Builds You</h3>
+            <p style="color: var(--vl-white); font-size: 1.2rem; text-align: center; margin-bottom: 40px;">Inside the VyraSphere, every week runs like a performance cycle — engineered for momentum:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin: 40px 0;">
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Monday – 🎯 Mission Post</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We set the focus for the week. It gives you clarity, direction, and a real measurable goal.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "This week, the challenge is to rewrite one founder post using the VyraBoost method."</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Tuesday – 💬 Tactical Tip</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We drop a new AI prompt, framework, or system — short, sharp, and immediately usable.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "Try this 3-step CTA rewrite formula. Post your before/after in the thread."</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Wednesday – 🧩 Member Spotlight</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We highlight wins and proof from inside the community. Rewrites that blew up. Client results. Growth screenshots. This is how we build proof culture.</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Thursday – 🔥 Live Q&A + Open Thread</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">You get direct access. Bring your roadblocks, rewrites, or client challenges — and we solve them live. Then we open the floor for community discussion.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "What's one lesson you learned from rewriting viral hooks this week?"</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Friday – 🏆 Proof Recap + Rewards</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We summarize the week's top performers, biggest client wins, and rank advancements. Proof Points are tallied. Rewards and templates unlock. Your progress is visible — and celebrated.</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Saturday/Sunday – 🧘 Optional Inspiration & Reflection</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">Lighter content, long-game perspective, and rest for the creative operator. No pressure. Just space to reset and prep for another winning week.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; text-align: center; margin: 50px 0 30px 0;">Live Hook Workshops & Vault Access</h3>
+            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 15px; padding: 35px; margin: 30px 0;">
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">Once a week, we run a <span style="color: var(--vl-electric); font-weight: 700;">Live Hook Workshop</span> — where we tear down real posts, engineer viral angles in real time, and rebuild them into client-grade bangers. You'll see exactly how to turn an average post into a thread that pulls leads and builds trust.</p>
+                
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7;">After that, everything we teach — every framework, every prompt, every system — is stored in the <span style="color: var(--vl-electric); font-weight: 700;">VyraLab Playbook Vault™</span>. This vault is your private library of templates, swipe files, and step-by-step systems for every scenario: Client acquisition, content ideation, hooks, CTAs, brand strategy, AI workflows — it's all there.</p>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; text-align: center; margin: 50px 0 30px 0;">The Momentum Machine</h3>
+            <div style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8)); border: 2px solid var(--vl-electric); border-radius: 15px; padding: 35px; margin: 30px 0;">
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">Once per week, you'll also get a community announcement pinned at the top — a digest of:</p>
+                <ul style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Top discussions and featured rewrites</li>
+                    <li style="margin-bottom: 8px;">New templates or AI systems released</li>
+                    <li style="margin-bottom: 8px;">Upcoming challenges or live sessions</li>
+                    <li style="margin-bottom: 8px;">Leaderboard and reward updates</li>
+                </ul>
+                <p style="color: var(--vl-electric); font-size: 1.2rem; font-weight: 700; text-align: center; margin-top: 25px;">This rhythm keeps you locked in, learning fast, and building proof in public.</p>
+            </div>
+
+            <div style="text-align: center; margin: 50px 0;">
+                <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; margin-bottom: 30px;">Proof Point Ranking System</h3>
+                <p style="color: var(--vl-white); font-size: 1.2rem; margin-bottom: 40px;">Every win you share, every result you post, every client you land earns you Proof Points. Those points unlock ranks and new opportunities:</p>
+                
+                <div class="ranks-display">
+                    <div class="rank-badge">Initiate</div>
+                    <div class="rank-badge">Operator</div>
+                    <div class="rank-badge">Engineer</div>
+                    <div class="rank-badge">Commander</div>
+                    <div class="rank-badge">Master</div>
+                    <div class="rank-badge">Sentinel</div>
+                    <div class="rank-badge">Ascendant</div>
+                    <div class="rank-badge">Architect</div>
+                    <div class="rank-badge">Architect Prime</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; text-align: left;">
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">1. Initiate</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">The starting point. You've entered the lab and proven you're serious about mastering the craft, not chasing vanity.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">2. Operator</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You execute consistently, applying systems with precision and showing proof of measurable outcomes.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">3. Engineer</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You've built repeatable workflows and content architectures that drive results — not just posts.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">4. Commander</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You lead projects or clients with control, using data, psychology, and authority to deliver outcomes on command.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">5. Master</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You operate with elite discipline, teaching others through results and stacking high-value client proof at scale.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">6. Sentinel</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You guard standards and uphold the code — reviewing, validating, and protecting the integrity of the network.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">7. Ascendant</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You've achieved leverage. Systems, clients, and reputation now compound without you chasing.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">8. Architect</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">You design ecosystems — client brands, content machines, and writer teams that run with precision and purpose.</p>
+                    </div>
+                    <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                        <h4 style="color: var(--vl-electric); font-weight: 700; margin-bottom: 12px;">9. Architect Prime</h4>
+                        <p style="color: var(--vl-white); font-size: 0.95rem; line-height: 1.5;">The pinnacle. You are the system — a Vyralab operator who builds, scales, and dominates entire markets from the shadows.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 40px 0;">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/architect_prime_certification.png" alt="Architect Prime Certification" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid var(--vl-electric); box-shadow: 0 0 30px var(--vl-electric-glow);">
+                </div>
+
+                <p style="color: var(--vl-white); font-size: 1.1rem; margin-top: 30px;">Each rank opens new resources, templates, and collaboration opportunities. <span class="highlight">The more proof you create, the faster you evolve.</span></p>
+            </div>
+
+            <div style="background: rgba(0, 255, 65, 0.1); border: 2px solid var(--vl-electric); border-radius: 20px; padding: 40px; text-align: center; margin: 40px 0;">
+                <h3 style="color: var(--vl-electric); font-size: 1.6rem; font-weight: 700; margin-bottom: 20px;">Your Network, Your Growth</h3>
+                <p style="color: var(--vl-white); font-size: 1.2rem; line-height: 1.6;">The VyraSphere is more than a community — it's your network. These are writers and operators from all over the world who take this craft seriously. This is where you'll get feedback, collaborate, and level up together.</p>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 2rem; font-weight: 700; text-align: center; margin: 60px 0 40px 0;">The Weekly Rhythm That Builds You</h3>
+            <p style="color: var(--vl-white); font-size: 1.2rem; text-align: center; margin-bottom: 40px;">Inside the VyraSphere, every week runs like a performance cycle — engineered for momentum:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin: 40px 0;">
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Monday – 🎯 Mission Post</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We set the focus for the week. It gives you clarity, direction, and a real measurable goal.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "This week, the challenge is to rewrite one founder post using the VyraBoost method."</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Tuesday – 💬 Tactical Tip</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We drop a new AI prompt, framework, or system — short, sharp, and immediately usable.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "Try this 3-step CTA rewrite formula. Post your before/after in the thread."</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Wednesday – 🧩 Member Spotlight</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We highlight wins and proof from inside the community. Rewrites that blew up. Client results. Growth screenshots. This is how we build proof culture.</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Thursday – 🔥 Live Q&A + Open Thread</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">You get direct access. Bring your roadblocks, rewrites, or client challenges — and we solve them live. Then we open the floor for community discussion.</p>
+                    <p style="color: var(--vl-steel); font-style: italic; font-size: 0.95rem;">Example: "What's one lesson you learned from rewriting viral hooks this week?"</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Friday – 🏆 Proof Recap + Rewards</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">We summarize the week's top performers, biggest client wins, and rank advancements. Proof Points are tallied. Rewards and templates unlock. Your progress is visible — and celebrated.</p>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 12px; padding: 25px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;">Saturday/Sunday – 🧘 Optional Inspiration & Reflection</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6; margin-bottom: 10px;">Lighter content, long-game perspective, and rest for the creative operator. No pressure. Just space to reset and prep for another winning week.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; text-align: center; margin: 50px 0 30px 0;">Live Hook Workshops & Vault Access</h3>
+            <div style="background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 15px; padding: 35px; margin: 30px 0;">
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">Once a week, we run a <span style="color: var(--vl-electric); font-weight: 700;">Live Hook Workshop</span> — where we tear down real posts, engineer viral angles in real time, and rebuild them into client-grade bangers. You'll see exactly how to turn an average post into a thread that pulls leads and builds trust.</p>
+                
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7;">After that, everything we teach — every framework, every prompt, every system — is stored in the <span style="color: var(--vl-electric); font-weight: 700;">VyraLab Playbook Vault™</span>. This vault is your private library of templates, swipe files, and step-by-step systems for every scenario: Client acquisition, content ideation, hooks, CTAs, brand strategy, AI workflows — it's all there.</p>
+            </div>
+
+            <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; text-align: center; margin: 50px 0 30px 0;">The Momentum Machine</h3>
+            <div style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8)); border: 2px solid var(--vl-electric); border-radius: 15px; padding: 35px; margin: 30px 0;">
+                <p style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-bottom: 20px;">Once per week, you'll also get a community announcement pinned at the top — a digest of:</p>
+                <ul style="color: var(--vl-white); font-size: 1.1rem; line-height: 1.7; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">Top discussions and featured rewrites</li>
+                    <li style="margin-bottom: 8px;">New templates or AI systems released</li>
+                    <li style="margin-bottom: 8px;">Upcoming challenges or live sessions</li>
+                    <li style="margin-bottom: 8px;">Leaderboard and reward updates</li>
+                </ul>
+                <p style="color: var(--vl-electric); font-size: 1.2rem; font-weight: 700; text-align: center; margin-top: 25px;">This rhythm keeps you locked in, learning fast, and building proof in public.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promise Section -->
+    <section class="promise-section">
+        <div class="promise-content">
+            <h2 class="section-title">The Promise: What This Experience Delivers</h2>
+            <p class="section-intro">Let's talk about what this week actually means for you. You didn't come here to "take another writing course." You came here to build leverage—to get clients, make money, and take control of your time.</p>
+
+            <div style="background: rgba(0, 255, 65, 0.1); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 40px; margin: 40px 0; text-align: center;">
+                <p style="font-size: 1.3rem; color: var(--vl-white); line-height: 1.6;">You want a business that runs on <span class="highlight">proof, not pressure</span>. That's what this system gives you.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 50px 0;">
+                <div style="background: rgba(0, 255, 65, 0.05); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 30px;">
+                    <div style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">🎯 Build Real Leverage</div>
+                    <div style="color: var(--vl-white); line-height: 1.6;">You came here to get clients, make money, and take back control of your time. Not chase likes — build proof that pays.</div>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 30px;">
+                    <div style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">🧠 Think Like a Strategist</div>
+                    <div style="color: var(--vl-white); line-height: 1.6;">Learn to approach content with the mindset of a behavioral psychologist and business strategist, not just a writer.</div>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 30px;">
+                    <div style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">🏢 Deliver Like an Agency</div>
+                    <div style="color: var(--vl-white); line-height: 1.6;">All from your laptop, on your schedule. Master the systems that turn writing into predictable income.</div>
+                </div>
+
+                <div style="background: rgba(0, 255, 65, 0.05); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 30px;">
+                    <div style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">⚡ Create Compound Results</div>
+                    <div style="color: var(--vl-white); line-height: 1.6;">Every lab you complete pulls you closer to independence — to waking up knowing your writing can create income anytime you want it.</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(0, 255, 65, 0.1); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 40px; margin: 50px 0; text-align: center;">
+                <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; margin-bottom: 20px;">The Truth About Freedom</h3>
+                <p style="font-size: 1.3rem; color: var(--vl-white); line-height: 1.6;">Freedom doesn't come from luck. It comes from systems. And this week, you're going to build yours.</p>
+            </div>
+
+            <p style="color: var(--vl-white); font-size: 1.2rem; line-height: 1.6; margin-bottom: 50px; text-align: center;">Every day inside this training adds another piece of that machine. By the end of the week, you'll have the framework I've used to help writers hit six-figure incomes, close high-ticket retainers, and finally work on their own schedule.</p>
+
+            <h3 style="color: var(--vl-electric); font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 40px;">Here's How Your Week Unfolds:</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 25px; margin: 40px 0;">
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 1 – The Idea Engine</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll learn how to see viral stories before they happen—how to turn everyday noise into high-signal content your clients can't stop posting.</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 2 – Hooks That Hit</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll write openings that stop the scroll and make people feel. The kind that turn strangers into followers and followers into paying clients.</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 3 – Trust Threads</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll build credibility that attracts opportunity. Your posts will do the talking—DMs will start with "How can we work together?"</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 4 – CTAs That Convert</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll learn to guide readers from curiosity to action without ever sounding salesy. Real persuasion, written with elegance and control.</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 5 – Media with VyraMage™</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">We'll show you how to match emotion to imagery so your words look as powerful as they feel. This is where engagement multiplies.</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 6 – Boost Rewrite + Pitch</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll take a real client post, rebuild it using our system, and turn it into living proof of what you can do. No empty pitches—just results they can see.</p>
+                </div>
+                
+                <div style="background: rgba(0, 255, 65, 0.05); border: 1px solid rgba(0, 255, 65, 0.2); border-radius: 15px; padding: 30px;">
+                    <h4 style="color: var(--vl-electric); font-weight: 700; font-size: 1.3rem; margin-bottom: 15px;">Day 7 – Outreach + Close</h4>
+                    <p style="color: var(--vl-white); line-height: 1.6;">You'll learn the exact approach that turns that proof into income. Polished, confident, and in control. No chasing. No convincing. Just deals.</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.8)); border: 2px solid var(--vl-electric); border-radius: 20px; padding: 40px; margin: 50px 0; text-align: center;">
+                <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; margin-bottom: 20px;">Seven Days. Seven Labs. Each One Builds the Next.</h3>
+                <p style="color: var(--vl-white); font-size: 1.3rem; line-height: 1.6; margin-bottom: 20px;">When it's done, you won't have notes—you'll have a system that brings in clients, pays you well, and lets you live life on your own clock.</p>
+                <p style="color: var(--vl-white); font-size: 1.2rem; line-height: 1.6;">This isn't about going viral. It's about creating <span class="highlight">independence</span>. You'll know exactly how to attract attention, convert it into trust, and turn that trust into revenue.</p>
+            </div>
+
+            <p style="color: var(--vl-white); font-size: 1.2rem; text-align: center; margin: 40px 0;">And you're not doing it alone. You have me, Ali, and the entire VyraSphere at your back—ready to help you implement, refine, and win.</p>
+        </div>
+    </section>
+
+    <!-- Teaser Section -->
+    <section class="teaser-section">
+        <div class="teaser-content">
+            <h2 class="teaser-title">But That's Not All...</h2>
+            <p class="teaser-text">We're right here with you every step of the way — Kyle, Ali, and the entire VyraSphere. We built this place so you never have to guess alone again.</p>
+            
+            <div class="mystery-box">
+                <h3 style="color: var(--vl-electric); font-size: 1.8rem; font-weight: 700; margin-bottom: 20px;">Something Bigger Awaits</h3>
+                <p style="color: var(--vl-white); font-size: 1.3rem; line-height: 1.6; margin-bottom: 20px;">The next video opens the door to something we've been building quietly behind the scenes for those ready to go all in.</p>
+                <p style="color: var(--vl-white); font-size: 1.2rem; font-style: italic;">I can't say more yet. But when you see it... you'll understand why this is where the real players live.</p>
+            </div>
+
+            <p class="teaser-text">You're getting the first, exclusive behind-the-scenes access to the arsenal used by the pros.</p>
+
+            <div style="margin: 50px 0; padding: 30px; background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.8)); border-radius: 20px;">
+                <h3 style="color: var(--vl-electric); font-size: 1.6rem; font-weight: 700; margin-bottom: 15px;">So, get ready.</h3>
+                <p style="color: var(--vl-white); font-size: 1.4rem; font-weight: 600;">It's about to get big.</p>
+            </div>
+
+            <p class="final-cta">I will see YOU in the next lab!</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Hero section should always be visible
+        document.querySelector('.hero-section').style.opacity = '1';
+        document.querySelector('.hero-section').style.transform = 'translateY(0)';
+
+        // Add hover effects to proof cards
+        document.querySelectorAll('.proof-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1.02)';
+            });
+        });
+
+        // Animate stats on scroll
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const animateStats = () => {
+            statNumbers.forEach(stat => {
+                const rect = stat.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    stat.style.animation = 'none';
+                    stat.offsetHeight; // Trigger reflow
+                    stat.style.animation = 'countUp 2s ease-out';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateStats);
+
+        // Add CSS for count up animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes countUp {
+                from {
+                    opacity: 0;
+                    transform: scale(0.5);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
