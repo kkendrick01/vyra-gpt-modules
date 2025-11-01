@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Voice Mastery Masterclass™ | Vyralab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --electric-green: #00ff41;
+            --white: #ffffff;
+            --steel-grey: #808080;
+            --dark-grey: #1a1a1a;
+            --success-green: #00cc33;
+            --warning-orange: #ff8c00;
+            --error-red: #ff4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-grey) 100%);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--black);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--electric-green);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--electric-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 400px;
+            min-width: 300px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--steel-grey);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(128, 128, 128, 0.3);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--electric-green), var(--success-green));
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background: radial-gradient(circle at center, var(--dark-grey) 0%, var(--black) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--white), var(--electric-green), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+            line-height: 1.1;
+        }
+
+        @keyframes glow {
+            from { 
+                filter: drop-shadow(0 0 20px var(--electric-green));
+                transform: scale(1);
+            }
+            to { 
+                filter: drop-shadow(0 0 40px var(--electric-green));
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--steel-grey);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .hero-highlight {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--electric-green);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px auto;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .hero-highlight::before {
+            content: '🎯';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--black);
+            padding: 0 15px;
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--electric-green);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 255, 65, 0.3);
+            border-color: var(--success-green);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--electric-green);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--steel-grey);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-description {
+            color: var(--white);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Phase Sections */
+        .phase {
+            margin: 80px 0;
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 2px solid var(--steel-grey);
+            transition: all 0.3s ease;
+        }
+
+        .phase:hover {
+            border-color: var(--electric-green);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.1);
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, var(--electric-green), var(--success-green));
+            color: var(--black);
+            padding: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .phase-header:hover {
+            background: linear-gradient(135deg, var(--success-green), var(--electric-green));
+        }
+
+        .phase-title-group {
+            flex: 1;
+        }
+
+        .phase-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .phase-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .phase-meta {
+            text-align: right;
+            opacity: 0.7;
+        }
+
+        .phase-toggle {
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .phase-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .phase.active .phase-content {
+            max-height: 10000px;
+        }
+
+        .phase.active .phase-toggle {
+            transform: rotate(180deg);
+        }
+
+        .phase-inner {
+            padding: 50px;
+        }
+
+        .phase-intro {
+            font-size: 1.3rem;
+            color: var(--steel-grey);
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--electric-green);
+            border-radius: 10px;
+        }
+
+        .phase-intro strong {
+            color: var(--electric-green);
+        }
+
+        /* Steps */
+        .step {
+            background: var(--black);
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid var(--steel-grey);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: var(--electric-green);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.15);
+        }
+
+        .step-header {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .step-header:hover {
+            background: rgba(0, 255, 65, 0.15);
+        }
+
+        .step-number {
+            background: var(--electric-green);
+            color: var(--black);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-title-group {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .step-goal {
+            color: var(--electric-green);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .step-toggle {
+            font-size: 1.5rem;
+            color: var(--steel-grey);
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-toggle {
+            transform: rotate(180deg);
+            color: var(--electric-green);
+        }
+
+        .step-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .step.active .step-content {
+            max-height: 5000px;
+            padding: 0 30px 40px;
+        }
+
+        .step-inner {
+            padding-top: 20px;
+        }
+
+        /* Content Components */
+        .content-section {
+            margin: 30px 0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--electric-green);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--white);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Interactive Elements */
+        .checklist {
+            margin: 25px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(128, 128, 128, 0.1);
+            border-radius: 12px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .checklist-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+            border-color: var(--electric-green);
+            transform: translateX(10px);
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--steel-grey);
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checkbox.checked {
+            background: var(--electric-green);
+            border-color: var(--electric-green);
+            transform: scale(1.1);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: -1px;
+            left: 4px;
+            color: var(--black);
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .checklist-text {
+            flex: 1;
+            color: var(--white);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .checklist-description {
+            color: var(--steel-grey);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Prompt Boxes */
+        .prompt-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--electric-green);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .prompt-box::before {
+            content: attr(data-icon);
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: var(--black);
+            padding: 0 15px;
+            font-size: 1.5rem;
+        }
+
+        .prompt-title {
+            color: var(--electric-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .prompt-content {
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--black);
+            border: 1px solid var(--steel-grey);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+
+        .code-title {
+            color: var(--electric-green);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        /* Templates */
+        .template-box {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--warning-orange);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .template-box::before {
+            content: '📋';
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: var(--black);
+            padding: 0 15px;
+            font-size: 1.5rem;
+        }
+
+        .template-title {
+            color: var(--warning-orange);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .template-content {
+            background: var(--black);
+            border-radius: 10px;
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+            line-height: 1.6;
+            color: var(--white);
+        }
+
+        /* Warning Boxes */
+        .warning-box {
+            background: rgba(255, 68, 68, 0.1);
+            border: 2px solid var(--error-red);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: var(--black);
+            padding: 0 15px;
+            font-size: 1.5rem;
+        }
+
+        .warning-title {
+            color: var(--error-red);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 3px solid var(--electric-green);
+            position: relative;
+        }
+
+        .timeline-item {
+            margin: 25px 0;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--electric-green);
+            border-radius: 50%;
+            border: 3px solid var(--black);
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: var(--electric-green);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content {
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Progress Tracking */
+        .completion-badge {
+            background: linear-gradient(45deg, var(--electric-green), var(--success-green));
+            color: var(--black);
+            padding: 20px 30px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 30px 0;
+            animation: completionPulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        @keyframes completionPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black);
+            text-align: center;
+            padding: 60px 0;
+            border-top: 2px solid var(--electric-green);
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            color: var(--steel-grey);
+            font-size: 1.1rem;
+        }
+
+        .footer-highlight {
+            color: var(--electric-green);
+            font-weight: bold;
+        }
+
+        /* Floating Elements */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: var(--electric-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 20px 50px rgba(0, 255, 65, 0.6);
+        }
+
+        .fab-icon {
+            color: var(--black);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-title {
+                font-size: 1.8rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .progress-container {
+                max-width: 100%;
+            }
+
+            .phase-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .step-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">VYRALAB</div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Masterclass Progress</span>
+                        <span id="progressText">0% Complete</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>The Brand Voice Mastery Masterclass™</h1>
+            <div class="hero-subtitle">From Voice Copycat to Voice Chameleon</div>
+            <p class="hero-description">
+                Master the complete system for extracting, defining, and embodying any client's authentic writing voice. 
+                This isn't just another copywriting course—it's a psychological deep-dive into becoming the voice, not just writing it.
+            </p>
+            
+            <div class="hero-highlight">
+                <strong>What You'll Master:</strong> The exact 8-step system used by elite ghostwriters and creative directors to capture communication DNA so precisely that clients can't tell the difference between their writing and yours. This is the methodology behind $10K+ monthly retainers.
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Strategic Steps</div>
+                    <div class="stat-description">Each step builds on the last, creating an unbreakable voice replication system</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Master Phases</div>
+                    <div class="stat-description">Extraction → Internalization → Implementation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Voice Accuracy</div>
+                    <div class="stat-description">So precise, even the client's mother couldn't tell the difference</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Client Potential</div>
+                    <div class="stat-description">Once mastered, you can become anyone's voice</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Phase 1: Extraction -->
+        <section class="phase active" id="phase1">
+            <div class="phase-header" onclick="togglePhase(this)">
+                <div class="phase-title-group">
+                    <div class="phase-title">PHASE 1 — EXTRACTION</div>
+                    <div class="phase-subtitle">Building Your Voice Intelligence Database</div>
+                </div>
+                <div class="phase-meta">
+                    <div>2 Steps</div>
+                    <div style="font-size: 0.9rem; opacity: 0.7;">Foundation Building</div>
+                </div>
+                <div class="phase-toggle">▼</div>
+            </div>
+            <div class="phase-content">
+                <div class="phase-inner">
+                    <div class="phase-intro">
+                        <strong>Mission Critical:</strong> Transform scattered client materials into organized voice intelligence. Think of yourself as a voice detective gathering DNA evidence. Every piece of content is a clue to their communication DNA—from the way they use em dashes to the stories they tell when explaining complex ideas. This phase is about building the foundation that everything else depends on.
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="step active">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">1</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Collate All Client Resources</div>
+                                <div class="step-goal">🎯 Build the data foundation for voice analysis</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🕵️ The Voice Detective Protocol</div>
+                                    <div class="section-description">
+                                        Every piece of content is a fingerprint. Your job is to collect every possible sample of their communication DNA. The more material you gather, the more accurate your voice replication will be. This isn't just about quantity—you need diversity across different contexts, emotions, and topics.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">📋 Primary Resource Collection</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Onboarding forms and call transcripts</strong>
+                                                <div class="checklist-description">These reveal their natural speaking patterns, priorities, and how they structure thoughts in real-time</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>YouTube or podcast transcripts</strong>
+                                                <div class="checklist-description">Long-form content shows their natural rhythm, how they build arguments, and their storytelling patterns</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Newsletters, blog posts, and articles</strong>
+                                                <div class="checklist-description">Written content reveals their editing style, preferred structure, and how they connect with readers</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Social media: Tweets, threads, LinkedIn posts, captions</strong>
+                                                <div class="checklist-description">Short-form content shows their personality quirks, humor style, and how they compress complex ideas</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Existing branding or tone-of-voice documents</strong>
+                                                <div class="checklist-description">Reveals their conscious decisions about voice—what they think they sound like vs. what they actually sound like</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Written notes, emails, or Loom feedback</strong>
+                                                <div class="checklist-description">Unfiltered communication shows their raw voice without performance or editing</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="warning-box">
+                                    <div class="warning-title">🚨 No Client Content? Emergency Protocol</div>
+                                    <p>If your client has minimal existing content, you're not dead in the water. Here's your backup strategy:</p>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Source 3-5 creators they want to emulate</strong>
+                                                <div class="checklist-description">Get this from your onboarding form—who do they admire? Who do they want to sound like?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Collect representative samples from these creators</strong>
+                                                <div class="checklist-description">Threads, newsletters, video clips—gather diverse content types to understand the voice they're aspiring to</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">🗂️ Organization System</div>
+                                    <div class="code-block">
+                                        <div class="code-title">File Structure Template:</div>
+📂 Brand Voice Resources → [Client Name]
+├── 📁 Original Content/
+│   ├── 📄 Transcripts/
+│   ├── 📄 Written Content/
+│   └── 📄 Social Media/
+├── 📁 Reference Materials/
+├── 📁 Analysis Output/
+└── 📁 Templates & Tools/
+                                    </div>
+                                </div>
+
+                                <div class="prompt-box" data-icon="💡">
+                                    <div class="prompt-title">Pro Tip: Quality Over Quantity</div>
+                                    <div class="prompt-content">
+                                        Don't just grab everything—be strategic. One authentic, unguarded email where they're explaining something complex is worth more than 10 polished blog posts. Look for content where they drop their guard and speak naturally.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">2</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Generate Brand Voice Draft Using AI</div>
+                                <div class="step-goal">🎯 Extract key characteristics of tone, personality, and style</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🤖 The Voice Extraction Protocol</div>
+                                    <div class="section-description">
+                                        This is where raw materials become structured intelligence. You're not just asking AI to "describe their voice"—you're running a systematic analysis that breaks down every element of their communication DNA.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">🔬 Step-by-Step Process</div>
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Consolidate All Materials</div>
+                                            <div class="timeline-content">Copy all collected writing/transcripts into your AI workspace (Claude, GPT, etc.). Aim for 10,000+ words minimum for robust analysis.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Run the Brand Voice Prompt</div>
+                                            <div class="timeline-content">Use the comprehensive template below. Don't rush this—the quality of your prompt determines the quality of your analysis.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Cross-Check for Accuracy</div>
+                                            <div class="timeline-content">Review the output against original material. Look for patterns the AI might have missed or misinterpreted.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Edit and Refine</div>
+                                            <div class="timeline-content">Lightly edit for clarity and accuracy. Add examples from the source material to support each observation.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Document and Store</div>
+                                            <div class="timeline-content">Save as "Brand Voice Document – v1.0" with version control for future iterations.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="template-box">
+                                    <div class="template-title">🎯 Master Brand Voice Extraction Prompt</div>
+                                    <div class="template-content">Analyze the following client writing samples and extract their brand voice identity. 
+For each category below, summarize the defining traits with examples where possible:
+
+1. Brand Voice Summary
+2. Tone (Formal, Casual, Bold, etc.)
+3. Emotions Evoked
+4. Personality Traits
+5. Stylistic Techniques (e.g., analogies, storytelling, repetition, rhetorical questions)
+6. Recurring Themes or Messages
+7. Verbal Quirks & Expressions
+8. Approach to Explaining Complex Ideas
+9. Use of Examples, Analogies, or Anecdotes
+10. Grammar & Punctuation Style
+11. Vocabulary & Word Choice
+12. Distinctive Phrases or Expressions
+
+For each point, provide 2-3 specific examples from the source material.</div>
+                                </div>
+
+                                <div class="prompt-box" data-icon="⚡">
+                                    <div class="prompt-title">Advanced Technique: Multiple AI Perspectives</div>
+                                    <div class="prompt-content">
+                                        Run the same analysis through 2-3 different AI models (Claude, GPT, Gemini) and compare results. Where they agree, you've found strong patterns. Where they disagree, you've found areas that need human judgment.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 2: Internalization -->
+        <section class="phase" id="phase2">
+            <div class="phase-header" onclick="togglePhase(this)">
+                <div class="phase-title-group">
+                    <div class="phase-title">PHASE 2 — INTERNALIZATION</div>
+                    <div class="phase-subtitle">Becoming the Voice, Not Just Writing It</div>
+                </div>
+                <div class="phase-meta">
+                    <div>3 Steps</div>
+                    <div style="font-size: 0.9rem; opacity: 0.7;">Psychological Transformation</div>
+                </div>
+                <div class="phase-toggle">▼</div>
+            </div>
+            <div class="phase-content">
+                <div class="phase-inner">
+                    <div class="phase-intro">
+                        <strong>The Actor's Method for Ghostwriting:</strong> This is where copywriters become voice chameleons. You're not just analyzing their voice—you're stepping into their mental model, understanding how they think, and learning to see the world through their perspective.
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">3</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Review the Creative Brief</div>
+                                <div class="step-goal">🎯 Internalize the "rules of voice"</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🧠 The Voice Immersion Session</div>
+                                    <div class="section-description">
+                                        Before you write a single word, you need to program your brain with their communication patterns. This isn't passive reading—this is active internalization.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">📖 Deep Study Elements</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Key tone descriptors and emotional triggers</strong>
+                                                <div class="checklist-description">What words consistently evoke their desired emotional response? How do they build tension and release?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Common structures and narrative arcs</strong>
+                                                <div class="checklist-description">Do they prefer short bursts or long-form development? How do they structure arguments?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Distinct phrasing, humor, and stylistic quirks</strong>
+                                                <div class="checklist-description">What makes them laugh? How do they use humor? What phrases are uniquely theirs?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Non-negotiables and brand taboos</strong>
+                                                <div class="checklist-description">Words they never use, topics they avoid, required sign-offs or disclaimers</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">4</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Review Client Onboarding Form</div>
+                                <div class="step-goal">🎯 Connect voice with strategy</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🎯 The Strategic Context Layer</div>
+                                    <div class="section-description">
+                                        Voice without strategy is just mimicry. You need to understand not just how they communicate, but why they communicate that way.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">🔍 Critical Intelligence Gathering</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Target audience demographics and psychographics</strong>
+                                                <div class="checklist-description">Who are they speaking to? Age, education, income, values, fears, aspirations</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Audience pain points and desires</strong>
+                                                <div class="checklist-description">What keeps their audience up at night? What do they desperately want to achieve?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Core brand values and mission</strong>
+                                                <div class="checklist-description">What principles guide their decisions? What change do they want to create?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Achievements and proof points</strong>
+                                                <div class="checklist-description">Revenue milestones, client successes, industry recognition—what gives them credibility?</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">5</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Embody the Client's Voice</div>
+                                <div class="step-goal">🎯 Write as the client, not for them</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🎭 The Method Actor's Approach</div>
+                                    <div class="section-description">
+                                        This is the deepest level of voice work. You're stepping into their mental model and seeing the world through their eyes.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">🎬 Immersion Techniques</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Watch/listen to their video content</strong>
+                                                <div class="checklist-description">Study vocal rhythm, pacing, emphasis. How do they use pauses? Where does their energy peak?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Read their long-form content out loud</strong>
+                                                <div class="checklist-description">Feel the rhythm in your mouth. Notice where you naturally pause, where you speed up</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Close eyes and mentally "step into" client persona</strong>
+                                                <div class="checklist-description">Ask: How would they speak about this? How would they respond emotionally?</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Write sample paragraph mimicking their voice</strong>
+                                                <div class="checklist-description">Compare tone and flow with original material. Does it sound like them or like you?</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 3: Implementation -->
+        <section class="phase" id="phase3">
+            <div class="phase-header" onclick="togglePhase(this)">
+                <div class="phase-title-group">
+                    <div class="phase-title">PHASE 3 — IMPLEMENTATION</div>
+                    <div class="phase-subtitle">From Voice Actor to Voice Master</div>
+                </div>
+                <div class="phase-meta">
+                    <div>3 Steps</div>
+                    <div style="font-size: 0.9rem; opacity: 0.7;">System Deployment</div>
+                </div>
+                <div class="phase-toggle">▼</div>
+            </div>
+            <div class="phase-content">
+                <div class="phase-inner">
+                    <div class="phase-intro">
+                        <strong>Mission Critical:</strong> Deploy your voice mastery into real content that converts, connects, and captivates. This is where theory becomes practice, where voice replication becomes voice optimization.
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">6</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Integrate Voice into Content</div>
+                                <div class="step-goal">🎯 Synthesize personal tone + performance strategy</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">⚡ The SUCCESs Integration Method</div>
+                                    <div class="section-description">
+                                        Now you combine their authentic voice with proven psychological principles that make content memorable and persuasive. This is voice + psychology = conversion magic.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">🧬 Voice-Strategy Synthesis</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Blend personal elements with voice traits</strong>
+                                                <div class="checklist-description">Their personality from onboarding + their communication patterns from analysis</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Maintain paragraph rhythm consistent with client cadence</strong>
+                                                <div class="checklist-description">Short, punchy, or reflective—match their natural flow</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Apply SUCCESs principles through their voice</strong>
+                                                <div class="checklist-description">Simple, Unexpected, Concrete, Credible, Emotional, Story-driven</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="prompt-box" data-icon="🧠">
+                                    <div class="prompt-title">The SUCCESs Framework Through Their Voice</div>
+                                    <div class="prompt-content">
+                                        <strong>S</strong>imple: Focus on one clear idea per piece (in their style)<br>
+                                        <strong>U</strong>nexpected: Add insight twist or story turn (using their examples)<br>
+                                        <strong>C</strong>oncrete: Use vivid examples, not abstractions (their type of examples)<br>
+                                        <strong>C</strong>redible: Use metrics, proof, testimonials (their achievements)<br>
+                                        <strong>E</strong>motional: Trigger feeling before logic (their emotional patterns)<br>
+                                        <strong>S</strong>tory-driven: Anchor posts in human moments (their storytelling style)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">7</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Test and Iterate</div>
+                                <div class="step-goal">🎯 Refine through feedback cycles</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">🔄 The Feedback Evolution Protocol</div>
+                                    <div class="section-description">
+                                        Perfect voice replication doesn't happen overnight. It's an iterative process where each round of feedback refines your understanding and improves your accuracy.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">📅 The 3-Week Optimization Cycle</div>
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Week 1: Content Delivery + Feedback Collection</div>
+                                            <div class="timeline-content">Deliver one week of content in their voice. Schedule feedback session (call or Loom). Ask specific questions about accuracy.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Week 2: Revision Implementation</div>
+                                            <div class="timeline-content">Apply feedback systematically. Adjust tone, phrasing, structure based on their input. Update your voice document.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Week 3: Voice Finalization</div>
+                                            <div class="timeline-content">Deliver refined content with improvements. Confirm the "dialed-in" version of their voice.</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-title">Ongoing: Quarterly Evolution</div>
+                                            <div class="timeline-content">Revisit and evolve the voice document quarterly or after major brand shifts. Voices evolve—stay current.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="checklist">
+                                    <div class="checklist-item" onclick="toggleCheck(this)">
+                                        <div class="checkbox"></div>
+                                        <div class="checklist-text">
+                                            <strong>Document all feedback in detail</strong>
+                                            <div class="checklist-description">Record specific quotes, tone adjustments, and structural preferences</div>
+                                        </div>
+                                    </div>
+                                    <div class="checklist-item" onclick="toggleCheck(this)">
+                                        <div class="checkbox"></div>
+                                        <div class="checklist-text">
+                                            <strong>Update voice document immediately</strong>
+                                            <div class="checklist-description">Don't let insights get lost—capture them while fresh</div>
+                                        </div>
+                                    </div>
+                                    <div class="checklist-item" onclick="toggleCheck(this)">
+                                        <div class="checkbox"></div>
+                                        <div class="checklist-text">
+                                            <strong>Test changes in next content batch</strong>
+                                            <div class="checklist-description">Apply learnings immediately to reinforce new patterns</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 8 -->
+                    <div class="step">
+                        <div class="step-header" onclick="toggleStep(this)">
+                            <div class="step-number">8</div>
+                            <div class="step-title-group">
+                                <div class="step-title">Document and Share Updates</div>
+                                <div class="step-goal">🎯 Keep the Brand Voice System alive</div>
+                            </div>
+                            <div class="step-toggle">▼</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-inner">
+                                <div class="content-section">
+                                    <div class="section-title">📚 The Living Voice System</div>
+                                    <div class="section-description">
+                                        A Brand Voice Document isn't a static artifact—it's a living system that evolves with the client, the market, and your understanding.
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <div class="section-title">📝 Documentation Update Protocol</div>
+                                    <div class="checklist">
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Update the Brand Voice Document</strong>
+                                                <div class="checklist-description">Incorporate all feedback and refinements with specific examples and version control</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Revise the Onboarding Form</strong>
+                                                <div class="checklist-description">Update if target audience or business goals have shifted during the process</div>
+                                            </div>
+                                        </div>
+                                        <div class="checklist-item" onclick="toggleCheck(this)">
+                                            <div class="checkbox"></div>
+                                            <div class="checklist-text">
+                                                <strong>Share with all team members</strong>
+                                                <div class="checklist-description">Distribute to writers, editors, and creative directors with training if needed</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="template-box">
+                                    <div class="template-title">🗂️ Version Control System</div>
+                                    <div class="template-content">BRAND VOICE DOCUMENT VERSIONS:
+
+Brand Voice v1.0 – Initial creation (Date)
+Brand Voice v1.1 – Client feedback integration (Date)
+Brand Voice v1.2 – Tone refinements (Date)
+Brand Voice v2.0 – Major voice evolution (Date)
+
+CHANGE LOG FORMAT:
+Version | Date | Author | Changes Made
+v2.1 | Nov 15, 2025 | [Name] | Updated emotional patterns
+v2.2 | Dec 01, 2025 | [Name] | Added new signature phrases</div>
+                                </div>
+
+                                <div class="completion-badge" id="finalCompletionBadge" style="display: none;">
+                                    🏆 VOICE MASTERY ACHIEVED! You are now a certified Brand Voice Chameleon.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Master Checklist Section -->
+        <section style="margin: 80px 0;">
+            <div class="prompt-box" data-icon="📋">
+                <div class="prompt-title">🎯 Master Completion Checklist</div>
+                <div class="prompt-content">
+                    <div class="checklist">
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Gather & organize all client materials</strong>
+                                <div class="checklist-description">Complete resource collection and organization system</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Generate initial Brand Voice using AI</strong>
+                                <div class="checklist-description">Comprehensive voice analysis with detailed examples</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Review, edit, and finalize tone elements</strong>
+                                <div class="checklist-description">Refined voice document with quality control</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Study onboarding + audience context</strong>
+                                <div class="checklist-description">Strategic context integration and persona alignment</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Practice embodying the client voice</strong>
+                                <div class="checklist-description">Psychological transformation and voice internalization</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Draft & test one week of content</strong>
+                                <div class="checklist-description">Voice integration with performance optimization</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Iterate through structured feedback</strong>
+                                <div class="checklist-description">Systematic refinement and accuracy improvement</div>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <div class="checkbox"></div>
+                            <div class="checklist-text">
+                                <strong>✅ Maintain version control and continuous updates</strong>
+                                <div class="checklist-description">Living system documentation and team distribution</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section style="text-align: center; margin: 100px 0;">
+            <div style="background: rgba(0, 255, 65, 0.1); border: 2px solid var(--electric-green); border-radius: 25px; padding: 60px; position: relative;">
+                <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: var(--black); padding: 0 20px; font-size: 2rem;">🎯</div>
+                
+                <h2 style="color: var(--electric-green); margin-bottom: 30px; font-size: 2.5rem;">What You've Just Mastered</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin: 40px 0;">
+                    <div>
+                        <div style="font-size: 3rem; color: var(--electric-green); margin-bottom: 15px;">🧬</div>
+                        <h3 style="color: var(--white); margin-bottom: 15px;">Voice DNA Extraction</h3>
+                        <p style="color: var(--steel-grey);">The ability to analyze any content and extract the exact communication patterns that make someone's voice unique.</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 3rem; color: var(--electric-green); margin-bottom: 15px;">🎭</div>
+                        <h3 style="color: var(--white); margin-bottom: 15px;">Psychological Embodiment</h3>
+                        <p style="color: var(--steel-grey);">The method actor approach to becoming the voice, not just mimicking it.</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 3rem; color: var(--electric-green); margin-bottom: 15px;">⚡</div>
+                        <h3 style="color: var(--white); margin-bottom: 15px;">Performance Optimization</h3>
+                        <p style="color: var(--steel-grey);">Combining authentic voice with psychological principles for maximum impact and conversion.</p>
+                    </div>
+                </div>
+
+                <div style="margin: 50px 0; padding: 40px; background: rgba(0, 255, 65, 0.05); border-radius: 15px;">
+                    <h3 style="color: var(--electric-green); margin-bottom: 20px;">The Bottom Line</h3>
+                    <p style="color: var(--white); font-size: 1.3rem; line-height: 1.6;">
+                        You now possess the complete system for voice mastery that elite ghostwriters and creative directors use to command $10K+ monthly retainers. This isn't just a skill—it's a superpower that transforms your relationship with every client.
+                    </p>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <p style="color: var(--steel-grey); font-size: 1.1rem;">
+                        Ready to turn theory into profit? Start with your next client and watch the magic happen.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 <span class="footer-highlight">Vyralab</span>. Master the voice. Master the client. Master the game.</p>
+                <p style="margin-top: 20px; font-size: 1rem;">
+                    "The difference between a copywriter and a voice chameleon is the difference between mimicry and mastery."
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="scrollToTop()" title="Back to Top">
+        <div class="fab-icon">↑</div>
+    </div>
+
+    <script>
+        // Progress tracking
+        let completedChecks = 0;
+        const totalChecks = document.querySelectorAll('.checklist-item').length;
+
+        function updateProgress() {
+            const overallProgress = (completedChecks / totalChecks) * 100;
+            document.getElementById('progressFill').style.width = overallProgress + '%';
+            document.getElementById('progressText').textContent = Math.round(overallProgress) + '% Complete';
+            
+            // Check if all steps are completed
+            if (completedChecks === totalChecks) {
+                document.getElementById('finalCompletionBadge').style.display = 'inline-flex';
+                
+                // Trigger completion celebration
+                setTimeout(() => {
+                    alert('🎉 CONGRATULATIONS! You have completed the Brand Voice Mastery Masterclass. You are now a certified Voice Chameleon! Time to put this knowledge into practice.');
+                }, 500);
+            }
+        }
+
+        function togglePhase(element) {
+            const phase = element.closest('.phase');
+            phase.classList.toggle('active');
+            
+            // Smooth scroll to phase if opening
+            if (phase.classList.contains('active')) {
+                setTimeout(() => {
+                    phase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
+        }
+
+        function toggleStep(element) {
+            const step = element.closest('.step');
+            step.classList.toggle('active');
+        }
+
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('.checkbox');
+            const isChecked = checkbox.classList.contains('checked');
+            
+            if (isChecked) {
+                checkbox.classList.remove('checked');
+                completedChecks--;
+            } else {
+                checkbox.classList.add('checked');
+                completedChecks++;
+            }
+            
+            updateProgress();
+            
+            // Add completion animation
+            if (!isChecked) {
+                element.style.animation = 'completionPulse 0.6s ease';
+                setTimeout(() => {
+                    element.style.animation = '';
+                }, 600);
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'T' to go to top
+            if (e.key === 't' || e.key === 'T') {
+                scrollToTop();
+            }
+            
+            // Press 'P' to show progress
+            if (e.key === 'p' || e.key === 'P') {
+                alert(`Progress: ${Math.round((completedChecks / totalChecks) * 100)}% Complete\n${completedChecks}/${totalChecks} tasks completed`);
+            }
+        });
+    </script>
+</body>
+</html>
