@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyralab | THE PERSONALIZED CONTENT SUCCESS MASTERCLASS™</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vl-black:#000000;
+  --vl-electric:#00ff41;
+  --vl-white:#ffffff;
+  --vl-steel:#404040;
+  --vl-dark:#2a2a2a;
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--vl-white);
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(0,255,65,.08), transparent 60%),
+              radial-gradient(900px 500px at 120% 10%, rgba(0,255,65,.06), transparent 65%),
+              linear-gradient(180deg, #0b0b0b 0%, #0a0a0a 60%, #070707 100%);
+}
+/* Layout */
+.app{
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  min-height:100vh;
+}
+.sidebar{
+  background:linear-gradient(180deg,#0f0f0f,#0a0a0a);
+  border-right:1px solid #111;
+  position:sticky; top:0; height:100vh; overflow:auto;
+  padding:24px 16px;
+}
+.logo{
+  display:flex; align-items:center; gap:12px; margin-bottom:18px;
+}
+.logo-badge{
+  width:40px; height:40px; border-radius:12px;
+  background:conic-gradient(from 180deg, rgba(0,255,65,.25), rgba(0,255,65,.06));
+  border:1px solid rgba(0,255,65,.25);
+  box-shadow:0 0 0 1px rgba(0,255,65,.1) inset, 0 10px 30px rgba(0,255,65,.05);
+}
+.logo h1{
+  font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:#cfcfcf; margin:0;
+}
+.slogan{
+  font-size:11px; color:#9f9f9f; margin:0 0 16px 52px;
+}
+.nav-group{margin:18px 0 10px 0}
+.nav-group h3{
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#9f9f9f; margin:10px 12px;
+}
+.nav{
+  display:flex; flex-direction:column; gap:6px;
+}
+.nav button{
+  text-align:left;
+  background:#0f0f0f; color:#cfcfcf;
+  border:1px solid #151515;
+  padding:10px 12px; border-radius:12px; cursor:pointer;
+  transition:.2s ease;
+}
+.nav button:hover{border-color:#1f1f1f; color:#fff}
+.nav button.active{border-color:var(--vl-electric); color:#fff; box-shadow:0 0 0 1px rgba(0,255,65,.25) inset}
+.cta-save{
+  margin-top:16px; display:flex; gap:8px;
+}
+.cta-save button, .export-btn, .pill{
+  background:linear-gradient(180deg, rgba(0,255,65,.18), rgba(0,255,65,.08));
+  color:#fff; border:1px solid rgba(0,255,65,.4);
+  padding:10px 12px; border-radius:12px; cursor:pointer;
+}
+.export-btn{margin-left:auto}
+main{
+  padding:28px clamp(20px, 4vw, 60px);
+}
+.header{
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+}
+.header h2{margin:0; font-weight:800; font-size: clamp(22px, 2.6vw, 40px)}
+.header .tagline{color:#9f9f9f}
+.card{
+  background:linear-gradient(180deg,#0f0f0f,#0b0b0b);
+  border:1px solid #151515; border-radius:var(--radius);
+  padding:18px; margin:14px 0;
+  box-shadow: 0 6px 20px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+}
+.card h3{margin:0 0 10px 0; font-size:18px}
+.card .sub{color:#9f9f9f; font-size:13px; margin-bottom:10px}
+.grid{display:grid; gap:14px}
+.grid.cols-2{grid-template-columns:1fr 1fr}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1080px){.app{grid-template-columns: 1fr}; .sidebar{position:relative; height:auto} .grid.cols-3{grid-template-columns:1fr} .grid.cols-2{grid-template-columns:1fr}}
+label{font-size:12px; color:#bdbdbd; display:block; margin-bottom:6px}
+input[type="text"], input[type="number"], textarea, select{
+  width:100%; background:#0b0b0b; border:1px solid #222; color:#e9e9e9;
+  padding:10px 12px; border-radius:10px; outline:none; transition:.2s;
+}
+textarea{min-height:110px; resize:vertical}
+input:focus, textarea:focus, select:focus{border-color:var(--vl-electric); box-shadow:0 0 0 1px rgba(0,255,65,.25)}
+.kpi{
+  display:flex; align-items:center; justify-content:space-between;
+  background:#0b0b0b; border:1px solid #1a1a1a; border-radius:14px;
+  padding:12px 14px; font-weight:600;
+}
+.kpi small{color:#a8a8a8; font-weight:500}
+.badge{font-size:11px; padding:4px 8px; border:1px solid #232323; border-radius:999px; color:#bdbdbd}
+.hl{color:var(--vl-electric); font-weight:800}
+ul.clean{padding-left:18px}
+hr.sep{border:0; border-top:1px solid #161616; margin:16px 0}
+/* Accordions */
+.accordion{border:1px solid #161616; border-radius:14px; overflow:hidden}
+.accordion details{background:#0b0b0b}
+.accordion summary{
+  list-style:none; cursor:pointer; padding:12px 14px; font-weight:700;
+  border-bottom:1px solid #121212; display:flex; align-items:center; justify-content:space-between
+}
+.accordion summary::marker, summary::-webkit-details-marker{display:none}
+.accordion .content{padding:14px}
+/* Table */
+.table{width:100%; border-collapse:collapse; font-size:13px}
+.table th,.table td{border:1px solid #1a1a1a; padding:10px; text-align:left}
+.table th{background:#0d0d0d}
+/* Toggle checklist */
+.checkrow{display:flex; align-items:center; gap:10px; padding:8px 10px; border:1px solid #1a1a1a; border-radius:12px; margin:8px 0}
+.checkrow input[type="checkbox"]{width:18px; height:18px}
+/* Footer note */
+.footer{color:#9f9f9f; font-size:12px; text-align:center; padding:30px 0 10px}
+/* Buttons */
+.btn{
+  background:#0e0e0e; color:#eaeaea; border:1px solid #1c1c1c; padding:10px 12px; border-radius:10px; cursor:pointer
+}
+.btn:hover{border-color:#2a2a2a}
+.btn.primary{
+  background:linear-gradient(180deg, rgba(0,255,65,.18), rgba(0,255,65,.08));
+  border:1px solid rgba(0,255,65,.35); color:#fff
+}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.small{font-size:12px; color:#9f9f9f}
+.tag{background:#0f0f0f; border:1px solid #1b1b1b; border-radius:999px; padding:6px 10px; font-size:12px; color:#bdbdbd}
+.code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background:#0e0e0e; border:1px solid #1f1f1f; border-radius:10px; padding:8px 10px; display:inline-block}
+.mark{background:rgba(0,255,65,.1); border:1px dashed rgba(0,255,65,.25); padding:8px 10px; border-radius:10px}
+/* Toast */
+.toast{
+  position:fixed; right:16px; bottom:16px; background:#0f0f0f; border:1px solid #1f1f1f; padding:12px 16px; border-radius:12px; display:none
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-badge"></div>
+      <div>
+        <h1>Vyralab™ Masterclass</h1>
+        <p class="slogan">Built for Ghostwriters. By Ghostwriters.™</p>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <h3>Program</h3>
+      <div class="nav" id="nav">
+        <button data-target="intro" class="active">Overview</button>
+        <button data-target="foundation">I. CS Foundation</button>
+        <button data-target="program">II. Personal Content Program</button>
+        <button data-target="legal">III. Legal & Consent</button>
+        <button data-target="metrics">IV. Metrics & Health</button>
+        <button data-target="templates">V. Templates</button>
+        <button data-target="operations">VI. Operating System</button>
+        <button data-target="risk">VII. Risk & Escalation</button>
+        <button data-target="assets">VIII. Client-Ready Assets</button>
+        <button data-target="labs">Interactive Labs</button>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <h3>Quick Actions</h3>
+      <div class="nav">
+        <button onclick="saveAll()">Save Progress</button>
+        <button onclick="loadAll()">Load Progress</button>
+        <button onclick="exportAll()" class="export-btn">Export .txt</button>
+      </div>
+      <div class="cta-save">
+        <span class="badge">Local save via localStorage</span>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="header">
+      <h2>THE PERSONALIZED CONTENT SUCCESS MASTERCLASS™</h2>
+      <span class="tagline">Turn client insights into proof-driven content… and retention into renewals</span>
+      <span class="pill">Customer Success • Retention • Personalization • SOPs</span>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section id="intro" class="card">
+      <h3>What you’ll get</h3>
+      <div class="grid cols-3">
+        <div class="kpi"><span><small>Playbook</small><br>Onboarding → QBR → Renewal</span><span class="hl">End-to-End</span></div>
+        <div class="kpi"><span><small>Systems</small><br>Async outline capture & content bank</span><span class="hl">Frictionless</span></div>
+        <div class="kpi"><span><small>Dashboards</small><br>Health score • NPS/CES • Adoption</span><span class="hl">Live</span></div>
+      </div>
+      <hr class="sep">
+      <p class="sub">This masterclass is designed to be fully offline and interactive. Fill the builders, run the calculators, and export your Customer Success plan for any client without external tools.</p>
+      <div class="accordion">
+        <details open>
+          <summary>How to use this masterclass <span class="badge">3 steps</span></summary>
+          <div class="content">
+            <ol>
+              <li>Work through the modules left to right. Use the <span class="mark">builders</span> in each section.</li>
+              <li>Open <b>Interactive Labs</b> for calculators, checklists, and wizards (NPS/CES, Health Score, QBR generator, Renewal forecaster, Escalation wizard).</li>
+              <li>Click <b>Save Progress</b> anytime (localStorage). Use <b>Export .txt</b> to deliver your plan.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- FOUNDATION -->
+    <section id="foundation" class="card" style="display:none">
+      <h3>I. Customer Success Foundation</h3>
+      <p class="sub">Onboarding isn’t paperwork… it’s <b>time-to-value</b>. Personalize early, set success criteria, engineer fast wins, and reduce client effort.</p>
+      <div class="grid cols-2">
+        <div>
+          <h4>Principles</h4>
+          <ul class="clean">
+            <li><b>Success Plans</b> make outcomes objective and renewal-ready.</li>
+            <li><b>Low client effort</b> (CES) correlates with loyalty—opt for async inputs.</li>
+            <li><b>Personalization</b> improves consideration & repurchase intent.</li>
+            <li>QBRs are executive briefings—talk <b>business outcomes</b>, not vanity metrics.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Foundation Builder</h4>
+          <label>Write your one-sentence CS thesis for this client</label>
+          <input id="cs_thesis" type="text" placeholder="Example: Reduce time-to-value to two weeks by capturing async outlines and shipping 2 personal posts/week.">
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="saveField('cs_thesis')">Save statement</button>
+            <span class="small">Tip: This guides every decision.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAM -->
+    <section id="program" class="card" style="display:none">
+      <h3>II. The Personal Content Program (PCP)</h3>
+      <p class="sub">Client-facing, plug-and-play. Add this to your Success Plan and SOW.</p>
+
+      <div class="grid cols-2">
+        <div>
+          <h4>Cadence & Intent</h4>
+          <label>Personal : Non-personal ratio (per week)</label>
+          <div class="row">
+            <input id="cad_personal" type="number" min="0" placeholder="e.g., 2">
+            <input id="cad_nonpersonal" type="number" min="0" placeholder="e.g., 2">
+            <button class="btn" onclick="saveFields(['cad_personal','cad_nonpersonal'])">Save</button>
+          </div>
+
+          <label style="margin-top:10px">Priority themes (comma-separated)</label>
+          <input id="themes" type="text" placeholder="Founder journey, Hiring, Operations, Pricing power">
+
+          <label style="margin-top:10px">Outline workflow summary</label>
+          <textarea id="outline_workflow" placeholder="Where to submit outlines, who approves, SLAs, media handling"></textarea>
+        </div>
+
+        <div>
+          <h4>Outline Capture Modes</h4>
+          <div class="checkrow"><input id="cap_voice" type="checkbox"><label for="cap_voice">Voice→Text (Loom/voice notes) captured async</label></div>
+          <div class="checkrow"><input id="cap_bullets" type="checkbox"><label for="cap_bullets">Bullets in Typefully (tagged “Personal Idea”)</label></div>
+          <div class="checkrow"><input id="cap_media" type="checkbox"><label for="cap_media">Media drop (original photos/screens) → synced to Drive</label></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="saveProgram()">Save Program</button>
+            <button class="btn" onclick="previewPCP()">Preview one-pager</button>
+          </div>
+          <div id="pcp_preview" class="card" style="display:none">
+            <h4>PCP Preview</h4>
+            <pre id="pcp_text" class="code" style="white-space:pre-wrap"></pre>
+            <button class="btn" onclick="downloadText('PCP_preview.txt', document.getElementById('pcp_text').innerText)">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGAL -->
+    <section id="legal" class="card" style="display:none">
+      <h3>III. Legal, Consent & Media Hygiene</h3>
+      <p class="sub">Protect trust. Get consent, track ownership, use lawful media, and minimize data stored.</p>
+
+      <div class="grid cols-2">
+        <div>
+          <h4>Consent & Ownership</h4>
+          <div class="checkrow"><input id="consent_people" type="checkbox"><label for="consent_people">Consent captured for identifiable people in images</label></div>
+          <div class="checkrow"><input id="consent_usage" type="checkbox"><label for="consent_usage">SOW specifies ownership, use locations, and duration</label></div>
+          <div class="checkrow"><input id="consent_approvals" type="checkbox"><label for="consent_approvals">Approvals recorded per post (date, approver)</label></div>
+          <div class="checkrow"><input id="consent_storage" type="checkbox"><label for="consent_storage">Minimal storage of personal data; documented retention</label></div>
+        </div>
+        <div>
+          <h4>Media License Helper</h4>
+          <label>License type selected</label>
+          <select id="license_type">
+            <option value="">Select</option>
+            <option>Owned / Original</option>
+            <option>Paid License (commercial use OK)</option>
+            <option>Creative Commons BY</option>
+            <option>Creative Commons BY-SA</option>
+            <option>Creative Commons BY-NC (avoid for commercial)</option>
+          </select>
+          <div id="license_note" class="mark" style="margin-top:10px">Pick a license to see guidance.</div>
+          <script>
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS -->
+    <section id="metrics" class="card" style="display:none">
+      <h3>IV. Metrics, Health & Reviews</h3>
+      <p class="sub">Adoption → Impact → Relationship. Track all three to predict renewals.</p>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <h4>NPS® Calculator</h4>
+          <label>Promoters (9–10)</label><input id="nps_prom" type="number" min="0" value="0">
+          <label>Passives (7–8)</label><input id="nps_pass" type="number" min="0" value="0">
+          <label>Detractors (0–6)</label><input id="nps_det" type="number" min="0" value="0">
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="calcNPS()">Compute</button>
+            <span id="nps_out" class="badge">NPS: —</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>CES (Effort) Snapshot</h4>
+          <label>Avg. effort (1 very easy → 7 very hard)</label>
+          <input id="ces" type="number" min="1" max="7" value="3">
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="saveField('ces')">Save CES</button>
+            <span class="small">Lower is better; act on friction notes.</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Adoption KPIs</h4>
+          <label>Outline Participation Rate (% of cycles with at least one personal outline)</label>
+          <input id="kpi_participation" type="number" min="0" max="100">
+          <label>Personal Content Mix (% of outputs that are personal)</label>
+          <input id="kpi_mix" type="number" min="0" max="100">
+          <label>Approval Lead Time (days)</label>
+          <input id="kpi_lead" type="number" min="0">
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Health Score Designer</h4>
+        <p class="small">Set weights (sum auto-normalized). Score bands: Green ≥80, Yellow 60–79, Red &lt;60.</p>
+        <div class="grid cols-3">
+          <div>
+            <label>Adoption (0–100)</label><input id="hs_adopt" type="number" min="0" max="100">
+            <label>Weight</label><input id="w_adopt" type="number" min="0" max="100" value="40">
+          </div>
+          <div>
+            <label>Impact (CTR/Leads) (0–100)</label><input id="hs_impact" type="number" min="0" max="100">
+            <label>Weight</label><input id="w_impact" type="number" min="0" max="100" value="40">
+          </div>
+          <div>
+            <label>Relationship (NPS/CES) (0–100)</label><input id="hs_rel" type="number" min="0" max="100">
+            <label>Weight</label><input id="w_rel" type="number" min="0" max="100" value="20">
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" onclick="calcHealth()">Compute Health</button>
+          <span id="hs_out" class="badge">Health: —</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Review Cadence</h4>
+        <ul class="clean">
+          <li><b>Content Reviews</b> — agenda-driven approvals & feedback</li>
+          <li><b>QBRs</b> — outcomes, strategy, next-quarter focus; treat as exec briefings</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TEMPLATES -->
+    <section id="templates" class="card" style="display:none">
+      <h3>V. Templates</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>Personal Outline Card</h4>
+          <label>Title</label><input id="oc_title" type="text">
+          <label>The story (5–10 bullets)</label><textarea id="oc_story"></textarea>
+          <label>Media (links)</label><textarea id="oc_media"></textarea>
+          <label>Angle (viral-relevant)</label><input id="oc_angle" type="text">
+          <label>CTA direction</label><input id="oc_cta" type="text">
+          <div class="checkrow"><input id="oc_legal" type="checkbox"><label for="oc_legal">Legal/consent cleared</label></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="appendOutline()">Add to Bank</button>
+            <button class="btn" onclick="downloadText('outline_card.txt', getOutlineText())">Export</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Success Plan (PCSP) — one pager</h4>
+          <label>Goals</label><textarea id="sp_goals"></textarea>
+          <label>ICP</label><input id="sp_icp" type="text">
+          <label>Cadence (personal/non-personal)</label><input id="sp_cadence" type="text">
+          <label>Outline Workflow</label><textarea id="sp_flow"></textarea>
+          <label>Definition of Done</label><textarea id="sp_dod"></textarea>
+          <label>Metrics</label><textarea id="sp_metrics"></textarea>
+          <label>Risks & Escalations</label><textarea id="sp_risks"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="previewSP()">Preview</button>
+            <button class="btn" onclick="downloadText('success_plan.txt', document.getElementById('sp_preview').innerText)">Download</button>
+          </div>
+          <pre id="sp_preview" class="code" style="white-space:pre-wrap; margin-top:10px"></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Content Bank Index</h4>
+        <table class="table" id="bank_table">
+          <thead><tr><th>Title</th><th>Theme</th><th>Media</th><th>Proof</th><th>Platform</th><th>Date</th><th>Performance</th><th>Reuse Tags</th></tr></thead>
+          <tbody id="bank_body"></tbody>
+        </table>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" onclick="downloadBank()">Export Bank .csv</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERATIONS -->
+    <section id="operations" class="card" style="display:none">
+      <h3>VI. Operating System (RACI & SOP)</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>RACI</h4>
+          <table class="table">
+            <thead><tr><th>Role</th><th>Responsibilities</th></tr></thead>
+            <tbody>
+              <tr><td>Client</td><td>Supplies outlines/media; approves; provides truth data</td></tr>
+              <tr><td>Writer</td><td>Drafts; research; hook & transition frameworks</td></tr>
+              <tr><td>Creative Director</td><td>Voice fit; validations; final polish</td></tr>
+              <tr><td>CSM/AM</td><td>Owns Success Plan; NPS/CES; QBRs; escalation</td></tr>
+              <tr><td>Legal/Brand</td><td>Media approvals; sensitive claims</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h4>Weekly Rhythm</h4>
+          <ul class="clean">
+            <li><b>Mon:</b> Idea prompts out; capture outlines async</li>
+            <li><b>Tue:</b> Drafts + media; approvals requested</li>
+            <li><b>Wed:</b> Ship 2 personal posts</li>
+            <li><b>Thu:</b> Non-personal posts + bank updates</li>
+            <li><b>Fri:</b> Metrics review; QBR prep notes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RISK -->
+    <section id="risk" class="card" style="display:none">
+      <h3>VII. Risk & Escalation</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>Common Blockers</h4>
+          <ul class="clean">
+            <li>Slow outline submission → send 2 templates + 3 voice prompt starters; offer transcription</li>
+            <li>Media rights unclear → use owned/licensed media; capture permissions</li>
+            <li>“Off-brand” → re-sync voice brief; side-by-side compare with rules</li>
+            <li>Exec interest waning → QBR with outcomes; propose personal series tied to priorities</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Escalation Wizard</h4>
+          <label>Choose blocker</label>
+          <select id="esc_issue">
+            <option value="">Select</option>
+            <option>Slow outlines</option>
+            <option>Media rights</option>
+            <option>Off-brand feedback</option>
+            <option>Executive interest waning</option>
+          </select>
+          <label style="margin-top:8px">Context/notes</label>
+          <textarea id="esc_notes"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="runEscalation()">Generate plan</button>
+          </div>
+          <pre id="esc_plan" class="code" style="white-space:pre-wrap; margin-top:10px"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASSETS -->
+    <section id="assets" class="card" style="display:none">
+      <h3>VIII. Client-Ready Assets</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>Client-Facing Explainer (Email/Slack)</h4>
+          <textarea id="client_explainer" placeholder="We’re launching your Personal Content Program..."></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="downloadText('client_explainer.txt', document.getElementById('client_explainer').value)">Download</button>
+          </div>
+        </div>
+        <div class="card">
+          <h4>QBR Agenda Generator</h4>
+          <label>Quarter</label><input id="qbr_quarter" type="text" placeholder="Q1 2026">
+          <label>Top outcomes achieved</label><textarea id="qbr_outcomes"></textarea>
+          <label>Risks & asks</label><textarea id="qbr_risks"></textarea>
+          <label>Next-quarter priorities</label><textarea id="qbr_next"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="genQBR()">Generate</button>
+            <button class="btn" onclick="downloadText('QBR_agenda.txt', document.getElementById('qbr_preview').innerText)">Download</button>
+          </div>
+          <pre id="qbr_preview" class="code" style="white-space:pre-wrap; margin-top:10px"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LABS -->
+    <section id="labs" class="card" style="display:none">
+      <h3>Interactive Labs</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>Renewal Forecast</h4>
+          <label>Monthly retainer ($)</label><input id="rf_mrr" type="number" min="0">
+          <label>Probability of renewal (%)</label><input id="rf_prob" type="number" min="0" max="100">
+          <label>Projected term (months)</label><input id="rf_term" type="number" min="1" value="12">
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" onclick="calcRenewal()">Compute</button>
+            <span id="rf_out" class="badge">Expected LTV: —</span>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Churn Risk Heatmap</h4>
+          <p class="small">Score 0–100 for each factor.</p>
+          <label>Adoption</label><input id="cr_adopt" type="number" min="0" max="100">
+          <label>Impact</label><input id="cr_impact" type="number" min="0" max="100">
+          <label>Relationship</label><input id="cr_rel" type="number" min="0" max="100">
+          <div class="row" style="margin-top:10px">
+            <button class="btn" onclick="heatmap()">Render</button>
+          </div>
+          <div id="heat" class="row" style="gap:6px; margin-top:10px"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Export Everything</h4>
+        <button class="btn primary" onclick="exportAll()">Export .txt</button>
+        <span class="small">Compiles your plan, metrics, and decisions into a single text file.</span>
+      </div>
+    </section>
+
+    <div class="footer">Vyralab™ — Creating Tomorrow’s Creators is in Our DNA.™</div>
+    <div class="toast" id="toast">Saved.</div>
+  </main>
+</div>
+
+<script>
+// Simple router
+const nav = document.getElementById('nav').querySelectorAll('button');
+nav.forEach(b=>b.addEventListener('click',()=>{
+  nav.forEach(nb=>nb.classList.remove('active'));
+  b.classList.add('active');
+  document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+  document.getElementById(b.dataset.target).style.display='block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}));
+
+// Toast helper
+function toast(msg='Saved.'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.display='block';
+  setTimeout(()=>t.style.display='none',1400);
+}
+
+// Save/load helpers
+function saveField(id){localStorage.setItem('vl_'+id, document.getElementById(id).value); toast();}
+function saveFields(ids){ids.forEach(id=>saveField(id));}
+function loadField(id){const v=localStorage.getItem('vl_'+id); if(v!==null) document.getElementById(id).value=v;}
+function saveCheck(id){localStorage.setItem('vl_'+id, document.getElementById(id).checked?'1':'0');}
+function loadCheck(id){const v=localStorage.getItem('vl_'+id); if(v!==null) document.getElementById(id).checked=(v==='1');}
+function saveAll(){
+  document.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(el.type==='checkbox') saveCheck(el.id);
+    else localStorage.setItem('vl_'+el.id, el.value);
+  });
+  toast('All fields saved.');
+}
+function loadAll(){
+  document.querySelectorAll('input,textarea,select').forEach(el=>{
+    const v=localStorage.getItem('vl_'+el.id);
+    if(v!==null){
+      if(el.type==='checkbox') el.checked=(v==='1');
+      else el.value=v;
+    }
+  });
+  toast('Loaded from localStorage.');
+}
+window.addEventListener('load',loadAll);
+
+// License helper
+document.getElementById('license_type').addEventListener('change', e=>{
+  const v=e.target.value, box=document.getElementById('license_note');
+  const notes={
+    "Owned / Original":"Best. Keep consent on file for identifiable people. Store minimally; document approvals.",
+    "Paid License (commercial use OK)":"Verify scope (channels, duration, geos). Keep receipt. Avoid resale restrictions conflicts.",
+    "Creative Commons BY":"Attribution required. Include author, title, license link. Commercial use OK.",
+    "Creative Commons BY-SA":"Attribution + share-alike required. Derivatives must carry same license—rarely ideal for brand assets.",
+    "Creative Commons BY-NC (avoid for commercial)":"No commercial use allowed. Avoid for client content."
+  };
+  box.textContent=notes[v]||'Pick a license to see guidance.';
+});
+
+// PCP preview
+function saveProgram(){
+  saveFields(['cad_personal','cad_nonpersonal','themes','outline_workflow']);
+  ['cap_voice','cap_bullets','cap_media'].forEach(id=>saveCheck(id));
+  toast();
+}
+function previewPCP(){
+  const per=document.getElementById('cad_personal').value||'—';
+  const non=document.getElementById('cad_nonpersonal').value||'—';
+  const themes=document.getElementById('themes').value||'—';
+  const flow=document.getElementById('outline_workflow').value||'—';
+  const modes=['cap_voice','cap_bullets','cap_media'].filter(id=>document.getElementById(id).checked).map(id=>({
+    cap_voice:'Voice→Text', cap_bullets:'Bullets in Typefully', cap_media:'Media drop'
+  }[id])).join(', ') || '—';
+  const txt=[
+    'Personal Content Program (PCP) — One-Pager',
+    'Cadence: '+per+' personal / '+non+' non-personal per week',
+    'Priority themes: '+themes,
+    'Capture modes: '+modes,
+    'Outline workflow: '+flow,
+    'Definition of Done: value-first, legal-cleared, CTA-aligned, banked on approval.'
+  ].join('\n');
+  document.getElementById('pcp_text').innerText=txt;
+  document.getElementById('pcp_preview').style.display='block';
+}
+
+// Outline card
+function getOutlineText(){
+  return [
+    'Title: '+(document.getElementById('oc_title').value||'—'),
+    'Story: '+(document.getElementById('oc_story').value||'—'),
+    'Media: '+(document.getElementById('oc_media').value||'—'),
+    'Angle: '+(document.getElementById('oc_angle').value||'—'),
+    'CTA: '+(document.getElementById('oc_cta').value||'—'),
+    'Legal cleared: '+(document.getElementById('oc_legal').checked?'Yes':'No')
+  ].join('\n');
+}
+function appendOutline(){
+  const tbody=document.getElementById('bank_body');
+  const tr=document.createElement('tr');
+  const now=new Date().toISOString().slice(0,10);
+  tr.innerHTML=`
+    <td>${escapeHtml(document.getElementById('oc_title').value||'—')}</td>
+    <td>${escapeHtml(document.getElementById('oc_angle').value||'—')}</td>
+    <td>${escapeHtml(document.getElementById('oc_media').value||'—')}</td>
+    <td>${escapeHtml('—')}</td>
+    <td>${escapeHtml('X/LinkedIn')}</td>
+    <td>${now}</td>
+    <td>—</td>
+    <td>${escapeHtml('personal; banked')}</td>`;
+  tbody.appendChild(tr);
+  toast('Added to Content Bank.');
+}
+function downloadBank(){
+  const rows=[['Title','Theme','Media','Proof','Platform','Date','Performance','ReuseTags']];
+  document.querySelectorAll('#bank_body tr').forEach(tr=>{
+    const cells=Array.from(tr.children).map(td=>`"${td.innerText.replace(/"/g,'""')}"`);
+    rows.push(cells);
+  });
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  downloadText('content_bank.csv', csv);
+}
+
+// Success Plan preview
+function previewSP(){
+  const get=id=>document.getElementById(id).value||'—';
+  const txt=[
+    'Personal Content Success Plan (PCSP)',
+    'Goals: '+get('sp_goals'),
+    'ICP: '+get('sp_icp'),
+    'Cadence: '+get('sp_cadence'),
+    'Outline Workflow: '+get('sp_flow'),
+    'Definition of Done: '+get('sp_dod'),
+    'Metrics: '+get('sp_metrics'),
+    'Risks & Escalations: '+get('sp_risks')
+  ].join('\n');
+  document.getElementById('sp_preview').innerText=txt;
+}
+
+// Calculators
+function calcNPS(){
+  const p=+document.getElementById('nps_prom').value||0;
+  const pa=+document.getElementById('nps_pass').value||0;
+  const d=+document.getElementById('nps_det').value||0;
+  const total=p+pa+d; if(!total){document.getElementById('nps_out').textContent='NPS: —'; return;}
+  const score=Math.round(((p/total)-(d/total))*100);
+  document.getElementById('nps_out').textContent='NPS: '+score;
+}
+function calcHealth(){
+  const a=clamp(+document.getElementById('hs_adopt').value,0,100);
+  const i=clamp(+document.getElementById('hs_impact').value,0,100);
+  const r=clamp(+document.getElementById('hs_rel').value,0,100);
+  let wa=+document.getElementById('w_adopt').value||0;
+  let wi=+document.getElementById('w_impact').value||0;
+  let wr=+document.getElementById('w_rel').value||0;
+  const sum=wa+wi+wr || 1;
+  wa/=sum; wi/=sum; wr/=sum;
+  const score=Math.round(a*wa + i*wi + r*wr);
+  const band = score>=80?'Green':(score>=60?'Yellow':'Red');
+  document.getElementById('hs_out').textContent='Health: '+score+' ('+band+')';
+}
+function calcRenewal(){
+  const mrr=+document.getElementById('rf_mrr').value||0;
+  const prob=(+document.getElementById('rf_prob').value||0)/100;
+  const term=+document.getElementById('rf_term').value||12;
+  const ltv = Math.round(mrr * prob * term);
+  document.getElementById('rf_out').textContent='Expected LTV: $'+ltv.toLocaleString();
+}
+function heatmap(){
+  const a=clamp(+document.getElementById('cr_adopt').value,0,100);
+  const i=clamp(+document.getElementById('cr_impact').value,0,100);
+  const r=clamp(+document.getElementById('cr_rel').value,0,100);
+  const cont=document.getElementById('heat'); cont.innerHTML='';
+  [ ['Adoption',a],['Impact',i],['Relationship',r] ].forEach(([label,val])=>{
+    const chip=document.createElement('div');
+    chip.className='tag';
+    chip.style.borderColor='#1a1a1a';
+    chip.style.background=`linear-gradient(90deg, rgba(0,255,65,.22) ${val}%, #0f0f0f ${val}%)`;
+    chip.textContent = label+': '+val;
+    cont.appendChild(chip);
+  });
+}
+
+// Escalation wizard
+function runEscalation(){
+  const issue=document.getElementById('esc_issue').value;
+  const notes=document.getElementById('esc_notes').value||'';
+  let plan='';
+  if(issue==='Slow outlines'){
+    plan = `Escalation: Slow outlines\n1) Send 2 fill-in templates + 3 voice-prompt starters.\n2) Offer to transcribe a 3–5 min Loom.\n3) Reduce required cadence for one cycle; protect time-to-value.\n4) CSM sets reminder SLA in Success Plan.\nNotes: ${notes}`;
+  } else if(issue==='Media rights'){
+    plan = `Escalation: Media rights\n1) Swap to owned/licensed assets immediately.\n2) Capture permissions and document in card.\n3) Update SOW usage clauses.\nNotes: ${notes}`;
+  } else if(issue==='Off-brand feedback'){
+    plan = `Escalation: Off-brand feedback\n1) Re-sync Brand Voice brief with side-by-side compare.\n2) Identify 3 stylistic rules; add to checklist.\n3) CD approval gate for next 2 cycles.\nNotes: ${notes}`;
+  } else if(issue==='Executive interest waning'){
+    plan = `Escalation: Executive interest waning\n1) QBR framed as outcomes (pipeline, hiring, PR).\n2) Propose personal content series tied to quarterly priorities.\n3) Book 15-min exec check-in for alignment.\nNotes: ${notes}`;
+  } else {
+    plan = 'Select an issue to generate a plan.';
+  }
+  document.getElementById('esc_plan').innerText=plan;
+}
+
+// QBR generator
+function genQBR(){
+  const q=document.getElementById('qbr_quarter').value||'This Quarter';
+  const out=document.getElementById('qbr_outcomes').value||'—';
+  const risks=document.getElementById('qbr_risks').value||'—';
+  const next=document.getElementById('qbr_next').value||'—';
+  const txt=`QBR — ${q}
+1) Outcomes & Proof
+${out}
+
+2) Risks & Asks
+${risks}
+
+3) Next-Quarter Priorities
+${next}
+
+Attachments: Metrics snapshot, Content Bank highlights, Upcoming PCP themes.`;
+  document.getElementById('qbr_preview').innerText=txt;
+}
+
+// Export all
+function exportAll(){
+  const fields=[
+    'cs_thesis','cad_personal','cad_nonpersonal','themes','outline_workflow','ces','kpi_participation','kpi_mix','kpi_lead',
+    'oc_title','oc_story','oc_media','oc_angle','oc_cta',
+    'sp_goals','sp_icp','sp_cadence','sp_flow','sp_dod','sp_metrics','sp_risks',
+    'client_explainer','qbr_quarter','qbr_outcomes','qbr_risks','qbr_next','rf_mrr','rf_prob','rf_term','cr_adopt','cr_impact','cr_rel'
+  ];
+  const obj={};
+  fields.forEach(id=>{obj[id]=document.getElementById(id)?document.getElementById(id).value:''});
+  ['cap_voice','cap_bullets','cap_media','oc_legal','consent_people','consent_usage','consent_approvals','consent_storage']
+    .forEach(id=>{obj[id]=(document.getElementById(id)&&document.getElementById(id).checked)?'Yes':'No'});
+  obj['nps_display']=document.getElementById('nps_out').textContent;
+  obj['health_display']=document.getElementById('hs_out').textContent;
+  const bank=[];
+  document.querySelectorAll('#bank_body tr').forEach(tr=>{
+    bank.push(Array.from(tr.children).map(td=>td.innerText));
+  });
+  obj['content_bank']=bank;
+  const text='Vyralab — Personalized Content Success Masterclass Export\n\n'+JSON.stringify(obj,null,2);
+  downloadText('personalized_content_success_export.txt', text);
+}
+
+// Utils
+function clamp(n,min,max){return Math.max(min, Math.min(max, n));}
+function escapeHtml(s){return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' }[m]));}
+function downloadText(filename, text){
+  const blob = new Blob([text], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=filename; a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
