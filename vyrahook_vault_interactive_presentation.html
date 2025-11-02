@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraHook™ Vault Stack - Interactive Masterclass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff88;
+            --vyra-white: #ffffff;
+            --vyra-steel: #2a2a2a;
+            --vyra-dark-steel: #1a1a1a;
+            --vyra-light-steel: #404040;
+        }
+
+        body {
+            font-family: 'Arial', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-steel) 100%);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--vyra-white), var(--vyra-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--vyra-green);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--vyra-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--vyra-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--vyra-green);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--vyra-white);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--vyra-green);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* VyraPAST Method */
+        .vyrapast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .vyrapast-step {
+            background: linear-gradient(135deg, var(--vyra-steel) 0%, var(--vyra-dark-steel) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .vyrapast-step:hover {
+            transform: translateY(-10px);
+            border-color: var(--vyra-green);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--vyra-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Template Cards */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            justify-items: center;
+        }
+
+        .template-card {
+            background: linear-gradient(135deg, var(--vyra-steel) 0%, var(--vyra-dark-steel) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .template-card:hover::before {
+            left: 100%;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--vyra-green);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.3);
+        }
+
+        .template-number {
+            color: var(--vyra-green);
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 1rem;
+        }
+
+        .template-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .template-structure {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--vyra-green);
+            margin-bottom: 1rem;
+        }
+
+        .psychology-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .psychology-tag {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--vyra-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+			.template-example {
+				background: rgba(0, 0, 0, 0.4);
+				padding: 1rem;
+				border-radius: 8px;
+				border-left: 3px solid var(--vyra-green);
+				margin-top: 1rem;
+				display: none;
+				line-height: 1.9;
+			}
+			.template-card.expanded .template-example {
+				display: block;
+				animation: slideDown 0.3s ease;
+			}
+			.template-example p { margin: 0 0 1rem; }
+			.template-example p:last-child { margin-bottom: 0; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CTA Sections */
+        .cta-section {
+            background: linear-gradient(135deg, var(--vyra-green) 0%, #00cc6a 100%);
+            padding: 4rem 2rem;
+            margin: 5rem 0;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vyra-black);
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--vyra-dark-steel);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--vyra-black);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--vyra-black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: var(--vyra-steel);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            border-left: 5px solid var(--vyra-green);
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .testimonial-author {
+            color: var(--vyra-green);
+            font-weight: 700;
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: var(--vyra-steel);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .demo-input {
+            width: 100%;
+            background: var(--vyra-dark-steel);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--vyra-white);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .demo-output {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--vyra-green);
+            min-height: 100px;
+            color: var(--vyra-green);
+            font-weight: 600;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vyra-green), #00cc6a);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vyrapast-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Module Introduction Styles */
+        .module-intro {
+            background: linear-gradient(135deg, var(--vyra-dark-steel) 0%, var(--vyra-black) 100%);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .module-title {
+            color: var(--vyra-green);
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .module-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .highlight {
+    color: var(--vyra-green);
+    font-weight: 700;
+		}
+		
+		/* Bullet styling for CTA list */
+		.cta-section ul li strong {
+			color: var(--vyra-black);
+			font-weight: 900;
+		}
+		
+		a[href="#join"]:hover {
+			background-color: #00cc33;
+			transform: translateY(-2px);
+		}
+
+	</style>
+
+</head>
+<body>
+    <!-- Progress Tracker -->
+    <div class="progress-tracker">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1>VyraHook™ Vault Stack</h1>
+                <p class="subtitle">MODULE 1: 20+ Viral Hook Templates Interactive Masterclass</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">2B+</div>
+                        <div class="stat-label">Total Views Generated</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$100M+</div>
+                        <div class="stat-label">Client Revenue Attributed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Proven Hook Templates</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4-Step</div>
+                        <div class="stat-label">VyraPAST™ Method</div>
+                    </div>
+                </div>
+
+                <div class="module-intro">
+                    <h2 class="module-title">Welcome Inside The Vault</h2>
+                    <p class="module-description">
+                        This is your foundation — the <span class="highlight">"20+ Viral Hook Templates"</span> interactive masterclass. 
+                        This isn't a swipe file or a guide. It's your <span class="highlight">hook-writing operating system</span> — 
+                        a field manual for creating openers that stop the scroll, command attention, and build belief in seconds.
+                        <br><br>
+                        If you've ever struggled to turn a strong idea into a post that lands — this is where that problem ends.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VyraPAST Method Section -->
+    <section id="method" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The VyraPAST™ Method</h2>
+                <p class="section-subtitle">Vyralab's 4-Step Hook Framework That Generated 2+ Billion Views</p>
+            </div>
+
+            <div class="vyrapast-grid">
+                <div class="vyrapast-step" onclick="highlightStep(this)">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Problem</h3>
+                    <p class="step-description">Call out the core tension or risk with clarity and edge. It should feel undeniable.</p>
+                </div>
+                <div class="vyrapast-step" onclick="highlightStep(this)">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Agitation</h3>
+                    <p class="step-description">Intensify that tension with an emotional, high-stakes expansion.</p>
+                </div>
+                <div class="vyrapast-step" onclick="highlightStep(this)">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Solution</h3>
+                    <p class="step-description">Introduce the reaction or twist that changes the equation.</p>
+                </div>
+                <div class="vyrapast-step" onclick="highlightStep(this)">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Transformation</h3>
+                    <p class="step-description">Tease the bigger picture or payoff that's still to come.</p>
+                </div>
+            </div>
+
+
+
+            <div class="testimonial">
+                <h2 class="testimonial-quote">"The 3-Second Rule of Virality:</p> You have < 3 seconds to win the scroll. In reality, the average thumb hovers for about 1.7 seconds before moving on. That moment — that microscopic window — decides everything."</p>
+                <p class="testimonial-author">— Kyle Kendrick, Vyralab Founder</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section id="templates" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">20+ Viral Hook Templates</h2>
+                <p style="color: var(--vyra-green); font-size: 1.8rem; font-weight: 800; margin-top: 0.5rem;">
+				Click any template
+				</p>
+ 
+				<p>to see the psychology, structure, and Examples that generated millions of views</p>
+            </div>
+
+            <div class="templates-grid">
+    <!-- Template 1: The Billion-Dollar Ultimatum -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #1</div>
+        <h3 class="template-title">The Billion-Dollar Ultimatum</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Power</span>
+            <span class="psychology-tag">Authority</span>
+            <span class="psychology-tag">Tension</span>
+        </div>
+        <p class="template-description">A tension-filled, high-stakes hook that spotlights power, money, and consequence. It triggers awe and curiosity by revealing who holds control when everything's on the line.</p>
+        <div class="template-structure">
+            [Public figure] just threatened [major company] with a [$X Billion] [action or penalty].<br>
+            They were given 2 options: [option 1] or [consequence].<br>
+            When they refused, [name] did what they had to.<br>
+            Here's the [$X+] power play no one saw coming:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (16.6M Views):</strong></p>
+            <p>"Trump just threatened Apple with a $22 billion tariff:</p>
+            <p>He gave them 2 options: Bring production to America or pay the price.</p>
+            <p>When they refused, Trump did what he had to.</p>
+            <p>Here's the $600+ BILLION power play no one saw coming: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 2: The Empire Gambler -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #2</div>
+        <h3 class="template-title">The Empire Gambler</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Desperation</span>
+            <span class="psychology-tag">Risk</span>
+            <span class="psychology-tag">Redemption</span>
+        </div>
+        <p class="template-description">A comeback-driven hook that blends desperation, risk, and redemption. It hits deep emotional notes of fear, grit, and triumph under impossible odds.</p>
+        <div class="template-structure">
+            After losing [huge fortune or company], [founder] was [on edge/days from collapse].<br>
+            [Tesla/company] was losing [$X/month]. Everyone thought it was over.<br>
+            Their response? Bet their last [$X] on [a crazy move or long shot].<br>
+            Here's how [the risk] turned into [legendary comeback]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (11.1M Views)</strong></p>
+            <p>"After losing his $180 Million PayPal fortune...</p>
+            <p>Elon was 3 weeks from bankruptcy.</p>
+            <p>Tesla was losing $10 Million/month. Everyone thought he was finished.</p>
+            <p>Then, he bet his last $6 Million on his cousin's dying startup.</p>
+            <p>Here's how a family meeting saved him:"</p>
+        </div>
+    </div>
+
+    <!-- Template 3: The Life-Changing Post -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #3</div>
+        <h3 class="template-title">The Life-Changing Post</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Shock</span>
+            <span class="psychology-tag">Strategy</span>
+            <span class="psychology-tag">Genius</span>
+        </div>
+        <p class="template-description">A shock-and-reveal hook that flips chaos into strategy. It evokes intrigue and admiration by showing how a risky public move became a masterstroke.</p>
+        <div class="template-structure">
+            In [month + year], [founder or CEO] lost [$X] with a single tweet—on purpose.<br>
+            When they announced [shocking company decision]...<br>
+            [Market/reactions] crashed. Everyone called them crazy.<br>
+            Here's why it was actually the most [power adjective] move in [industry] history:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.4M Views):</strong></p>
+            <p>"In May 2021, Elon lost $14 BILLION with a single tweet - on purpose:</p>
+            <p>When he announced Tesla no longer accepted the world's #1 crypto...</p>
+            <p>Stocks plummeted. Everyone called him crazy.</p>
+            <p>Here's why it was actually the most genius move in corporate history: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 4: When Saying "No" Wins -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #4</div>
+        <h3 class="template-title">When Saying "No" Wins</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Defiance</span>
+            <span class="psychology-tag">Vision</span>
+            <span class="psychology-tag">Independence</span>
+        </div>
+        <p class="template-description">A defiance-driven hook built on conviction and long-term vision. It stirs respect and curiosity by spotlighting someone who risked everything to bet on themselves.</p>
+        <div class="template-structure">
+            This [person] is the most [stubborn/fearless/unshakable] [position] in history:<br>
+            In [year], [corporate giant] offered [$X Billion] for ["dumb" or niche business].<br>
+            [Founder] refused. Everyone called them insane.<br>
+            Today, that same business makes [$X/year] with [tiny team or no funding].<br>
+            Here's why they said "no" to a guaranteed fortune:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (216.5K Views):</strong></p>
+            <p>"This man is the most stubborn CEO in history:</p>
+            <p>In 2004, eBay offered to buy his 'ugly ads website' for $1 BILLION.</p>
+            <p>He refused.</p>
+            <p>Today? That site makes $1 Billion per YEAR with just 50 employees.</p>
+            <p>Here's why he said 'No' to a guaranteed fortune:"</p>
+        </div>
+    </div>
+
+    <!-- Template 5: The Lost "Breakthrough" Moment -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #5</div>
+        <h3 class="template-title">The Lost "Breakthrough" Moment</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Regret</span>
+            <span class="psychology-tag">FOMO</span>
+            <span class="psychology-tag">Hindsight</span>
+        </div>
+        <p class="template-description">A regret-fueled hook built on missed opportunities and costly mistakes. It triggers disbelief and hindsight envy by showing how one decision changed everything.</p>
+        <div class="template-structure">
+            In [year], [company] had the chance to buy [now-dominant company] for cheap.<br>
+            Instead, they bought a dying asset—and paid the price.<br>
+            Today, that "miss" is worth [$X Billion].<br>
+            Here's why critics still call it the [curse or dumbest move in tech]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.8M Views):</strong></p>
+            <p>"In 2013, Yahoo had the chance to buy Netflix for $4 Billion.</p>
+            <p>Instead, their 37-year-old CEO chose to buy a dying blog site.</p>
+            <p>Today, Netflix is worth over $400 BILLION. And the blog?</p>
+            <p>Here's why critics still call it 'The Netflix Curse': 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 6: The Forbidden Confessional -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #6</div>
+        <h3 class="template-title">The Forbidden Confessional</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Shock</span>
+            <span class="psychology-tag">Insider Access</span>
+            <span class="psychology-tag">Authority</span>
+        </div>
+        <p class="template-description">A shock-value hook that humanizes power. It sparks fascination and disbelief by exposing unfiltered truths from figures usually guarded by PR.</p>
+        <div class="template-structure">
+            [Unexpected high-status figure] just revealed [never-before-admitted truth] on [casual/unfiltered platform]:<br>
+            • [Controversial insight #1]<br>
+            • [Conspiracy/suspicion-confirming insight #2]<br>
+            • [Shocking stat or leak #3]<br>
+            Here are the [number] most [emotionally loaded adjective] moments:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (130.7K Views):</strong></p>
+            <p>"JD Vance revealed things on Theo Von's podcast no VP has ever admitted:</p>
+            <p>• Why Elon turned against Trump</p>
+            <p>• How tech hooks us through addiction</p>
+            <p>• How DOGE found at least $170B in government waste</p>
+            <p>Here are the 5 most revealing moments:"</p>
+        </div>
+    </div>
+
+    <!-- Template 7: The Insider Detonator -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #7</div>
+        <h3 class="template-title">The Insider Detonator</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Explosive Truth</span>
+            <span class="psychology-tag">Expose</span>
+            <span class="psychology-tag">Secrecy</span>
+        </div>
+        <p class="template-description">An explosive, truth-to-power hook built on exposure and secrecy. It triggers outrage and curiosity by promising inside knowledge the public "wasn't supposed to see."</p>
+        <div class="template-structure">
+            [High-ranking insider] just dropped a [tell-all/revealing format] that exposes everything:<br>
+            From [founder/exec's scandal] to [global conspiracy or hidden agenda], nothing's off limits.<br>
+            Now, [company/institution] is scrambling to shut it down.<br>
+            Here are the [number] most shocking details from the [platform/accolade] bestseller:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (130K.8 Views)</strong></p>
+            <p>"Meta's global policy director just exposed everything in her tell-all book:</p>
+            <p>From Zuck's private scandals to secret Chinese deals, nothing's off limits.</p>
+            <p>Now, Facebook's trying to shut her down.</p>
+            <p>Here are the 3 most shocking details from her Amazon bestseller:"</p>
+        </div>
+    </div>
+
+    <!-- Template 8: The Truth Bomb -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #8</div>
+        <h3 class="template-title">The Truth Bomb</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Revelation</span>
+            <span class="psychology-tag">Danger</span>
+            <span class="psychology-tag">Moral Tension</span>
+        </div>
+        <p class="template-description">A revelation-driven hook that blends mystery, danger, and moral tension. It hits hard by exposing the hidden cost of innovation and the people brave enough to challenge it.</p>
+        <div class="template-structure">
+            The most [superlative] [profession/type of person] in [industry] isn't [well-known person] or [well-known person].<br>
+            It's a [age]-year-old [profession] they call the "[nickname or title]."<br>
+            After discovering [disturbing truth] inside [company or system], [he/she] risked everything to expose it.<br>
+            Here's why [powerful entity] paid [him/her] [$X] to keep quiet:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.3M Views):</strong></p>
+            <p>"The most dangerous man in tech isn't Elon or Sam Altman.</p>
+            <p>It's a 75-year-old professor they call the 'Godfather of AI.'</p>
+            <p>After discovering a horrifying truth in Google's AI, he risked everything to expose it.</p>
+            <p>Here's why they paid him $44 Million to keep quiet: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 9: The Rogue Underdog -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #9</div>
+        <h3 class="template-title">The Rogue Underdog</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Rebellion</span>
+            <span class="psychology-tag">Defiance</span>
+            <span class="psychology-tag">Disruption</span>
+        </div>
+        <p class="template-description">A rebellion-fueled hook that celebrates defiance and disruption. It evokes shock and admiration by showing how an underestimated outsider beats the system.</p>
+        <div class="template-structure">
+            This is [unexpectedly young/unknown person].<br>
+            They just got [punished/shamed/fired] by [elite institution or company].<br>
+            Not for [expected wrongdoing]...<br>
+            But for [exposing/revealing/attacking] [high-stakes industry secret].<br>
+            Here's how a [age]-year-old [provocative verb] their way into [$X/mo] "trolling" [powerful group]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.6M Views):</strong></p>
+            <p>"This is Roy Lee.</p>
+            <p>He is an undergrad student who just got EXPELLED from Columbia.</p>
+            <p>Not for cheating on exams.</p>
+            <p>But for EXPOSING Big Tech's hiring secrets.</p>
+            <p>Here's how a 21-year-old made $170K/month 'trolling' Silicon Valley:"</p>
+        </div>
+    </div>
+
+    <!-- Template 10: The Good Samaritan -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #10</div>
+        <h3 class="template-title">The Good Samaritan</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Irony</span>
+            <span class="psychology-tag">Integrity</span>
+            <span class="psychology-tag">Surprise</span>
+        </div>
+        <p class="template-description">A feel-good yet suspenseful hook built on irony and integrity. It draws readers in with tension, then flips expectations through humility or moral surprise.</p>
+        <div class="template-structure">
+            [Major company] [accidentally or recklessly] [did something unthinkable].<br>
+            When [unlikely character] realized it, they [unexpected action] for just [$X].<br>
+            [Company] had no choice but to [forced response].<br>
+            Their response? Not [$larger amount]. Not [$even larger amount].<br>
+            Here's what they asked for instead:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (945.7K Views)</strong></p>
+            <p>"In 2015, Google accidentally put their website up for sale.</p>
+            <p>When this former employee realized it, he bought it for just $12.</p>
+            <p>Google had no choice but to give him whatever he wanted.</p>
+            <p>His response? Not $100,000. Not $100 Million.</p>
+            <p>Here's what he asked for instead:"</p>
+        </div>
+    </div>
+
+    <!-- Template 11: The Quiet Assassin -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #11</div>
+        <h3 class="template-title">The Quiet Assassin</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Stealth Success</span>
+            <span class="psychology-tag">Mastery</span>
+            <span class="psychology-tag">Genius</span>
+        </div>
+        <p class="template-description">A stealth-success hook that highlights quiet mastery and underestimated genius. It inspires awe by revealing how someone ignored became unstoppable.</p>
+        <div class="template-structure">
+            At [age], [unknown person] shocked [industry or market].<br>
+            Not through [expected trend or field].<br>
+            But by solving the one problem [companies or leaders] couldn't crack.<br>
+            Here's why [entire industry or top competitors] are now fighting over their invention:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (1.3M Views):</strong></p>
+            <p>"At 25, he became the world's youngest self-made BILLIONAIRE.</p>
+            <p>Not through apps, crypto, or social media.</p>
+            <p>But by solving the ONE problem Ford, Volvo, and BMW couldn't crack.</p>
+            <p>Here's why the entire industry is fighting over his game-changing invention:"</p>
+        </div>
+    </div>
+
+    <!-- Template 12: The Silent Exit -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #12</div>
+        <h3 class="template-title">The Silent Exit</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Mystery</span>
+            <span class="psychology-tag">Success</span>
+            <span class="psychology-tag">Intrigue</span>
+        </div>
+        <p class="template-description">A reflective, intrigue-heavy hook that mixes success with mystery. It evokes fascination and quiet disbelief over why someone would leave at their peak.</p>
+        <div class="template-structure">
+            In [year], [young founders] sold [startup] for [$X Billion].<br>
+            Then vanished—no interviews, no headlines, no second act.<br>
+            Today? That startup is worth [$XX Billion].<br>
+            Here's why they walked away from the most valuable site in history:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (34.3M Views):</strong></p>
+            <p>"These kids sold a video-sharing website for $1.65 billion in 2006.</p>
+            <p>Then vanished overnight.</p>
+            <p>Today, that site is worth over $455 BILLION dollars.</p>
+            <p>Here's why they walked away from the most valuable website in history:"</p>
+        </div>
+    </div>
+
+    <!-- Template 13: The Unseen Power Shift -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #13</div>
+        <h3 class="template-title">The Unseen Power Shift</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Alliances</span>
+            <span class="psychology-tag">Influence</span>
+            <span class="psychology-tag">Drama</span>
+        </div>
+        <p class="template-description">A tension-charged hook built on unexpected alliances and shifting influence. It sparks curiosity and drama by revealing how new relationships disrupt existing power structures.</p>
+        <div class="template-structure">
+            [Public figure] has never had a [relationship type] like [unexpected ally].<br>
+            And [rival companies or critics] aren't holding back their reactions.<br>
+            [Insider name] just warned [person] could become a "[concerning label or threat]."<br>
+            And they're not the only one... Here's what others are saying:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (457K Views)</strong></p>
+            <p>"Donald Trump has never had a friend like Elon.</p>
+            <p>And other tech giants are not holding back their thoughts on the matter.</p>
+            <p>Meta's Nick Clegg just warned Elon could become a 'political puppet master.'</p>
+            <p>And Clegg's not alone... Here's what others are saying:"</p>
+        </div>
+    </div>
+
+    <!-- Template 14: The Genius Filter -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #14</div>
+        <h3 class="template-title">The Genius Filter</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Hidden Wisdom</span>
+            <span class="psychology-tag">Decision Making</span>
+            <span class="psychology-tag">Greatness</span>
+        </div>
+        <p class="template-description">A curiosity-driven hook that reveals hidden wisdom behind genius-level decision-making. It triggers fascination by promising access to a private filter used to spot greatness.</p>
+        <div class="template-structure">
+            [Legendary founder] interviewed [#] of people at [company].<br>
+            But only hired the ones who answered [one specific question] perfectly.<br>
+            It was so effective, it helped him spot [famous hires] before anyone else.<br>
+            Here's his secret to predicting future legends:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2M Views):</strong></p>
+            <p>"Steve Jobs interviewed thousands of people at Apple.</p>
+            <p>But he only hired people who answered this ONE question perfectly.</p>
+            <p>It was so effective, it helped him spot Wozniak, Ive, and Cook before anyone knew their names.</p>
+            <p>Here's his secret to predicting future legends: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 15: The Billionaire's Bet -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #15</div>
+        <h3 class="template-title">The Billionaire's Bet</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">High Risk</span>
+            <span class="psychology-tag">Defiance</span>
+            <span class="psychology-tag">Mastery</span>
+        </div>
+        <p class="template-description">A high-risk, high-reward hook that captures the thrill of defiance and payoff. It pulls readers in with tension, disbelief, and the promise of mastering chaos.</p>
+        <div class="template-structure">
+            In [year], [famous investor] risked their career on a single trade.<br>
+            Everyone said it would fail. Markets crashed. Panic spread.<br>
+            But by [month], they had turned [$X] into [$XX Billion].<br>
+            Here's their contrarian playbook for winning in chaos:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.3M Views):</strong></p>
+            <p>"During the '08 market crash, this man turned $27M into $50 BILLION.</p>
+            <p>He was accused of cheating, stealing, and insider trading.</p>
+            <p>The truth? He simply did the OPPOSITE of what others told him to.</p>
+            <p>Here's David Tepper's contrarian guide to making Billions in a crisis: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 16: The Hidden War -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #16</div>
+        <h3 class="template-title">The Hidden War</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Rivalry</span>
+            <span class="psychology-tag">Warfare</span>
+            <span class="psychology-tag">Retaliation</span>
+        </div>
+        <p class="template-description">A rivalry-fueled hook that turns business competition into psychological warfare. It hooks readers through conflict, retaliation, and the drama of power plays between giants.</p>
+        <div class="template-structure">
+            In [year], [underdog company] started stealing [dominant company]'s top talent.<br>
+            Then they raised [$X Billion] to dethrone their biggest rival.<br>
+            But [rival founder] found out—and took matters into his own hands.<br>
+            Here's the message they sent that no one will forget:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (4.1M Views)</strong></p>
+            <p>"In 2020, Rivian started stealing Tesla's employees & raised $12 BILLION to dethrone Elon Musk.</p>
+            <p>When Elon found out, he took matters into his own hands.</p>
+            <p>His response? A message to Rivian they'd never forget:"</p>
+        </div>
+    </div>
+
+    <!-- Template 17: The Master Predictor -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #17</div>
+        <h3 class="template-title">The Master Predictor</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Foresight</span>
+            <span class="psychology-tag">Credibility</span>
+            <span class="psychology-tag">Fear</span>
+        </div>
+        <p class="template-description">A credibility-fueled hook that blends foresight with fear. It grabs attention through proven prediction power and teases another coming disruption.</p>
+        <div class="template-structure">
+            In [month/year], [economic expert] made a [prediction that sounded crazy].<br>
+            Everyone ignored it.<br>
+            Then [global event] wiped out [$X Trillion]—exactly as they warned.<br>
+            Here's why their latest forecast has Wall Street on edge:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (3.6M Views):</strong></p>
+            <p>"This man can predict the future:</p>
+            <p>In January 2020, he warned us the global economy would collapse.</p>
+            <p>Everyone ignored him.</p>
+            <p>But by March, COVID-19 had wiped out $30 Trillion in global markets.</p>
+            <p>Here's why Ray Dalio's latest warning has Wall Street listening: 🧵"</p>
+        </div>
+    </div>
+
+    <!-- Template 18: The Foresight Savior -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #18</div>
+        <h3 class="template-title">The Foresight Savior</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Redemption</span>
+            <span class="psychology-tag">Vision</span>
+            <span class="psychology-tag">Salvation</span>
+        </div>
+        <p class="template-description">A redemption-style hook that turns chaos into clarity. It evokes respect and fascination by showing how one person's vision saved a company everyone else had written off.</p>
+        <div class="template-structure">
+            This [person/executive/investor] saved [company] from total collapse.<br>
+            In [year], [company] lost [$X Billion] in [crisis or market crash].<br>
+            But while everyone panicked, [he/she] saw an opportunity...<br>
+            After a call with [founder/CEO], [he/she] bought stock for just [$X/share or amount].<br>
+            Here's the move that built an empire:
+        </div>
+        <div class="template-example">
+            <p><strong>Example: (495K Views)</strong></p>
+            <p>"This man saved Amazon from total collapse:</p>
+            <p>In 2001, Amazon lost $27 BILLION in the dot-com crash.</p>
+            <p>But while everyone panicked, he saw an opportunity...</p>
+            <p>After a call with Bezos, he bought stock for just $15/share.</p>
+            <p>Here's the call that built an empire:"</p>
+        </div>
+    </div>
+
+    <!-- Template 19: The Health Myth -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #19</div>
+        <h3 class="template-title">The Health Myth</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Belief Shattering</span>
+            <span class="psychology-tag">Truth</span>
+            <span class="psychology-tag">Self-Reflection</span>
+        </div>
+        <p class="template-description">A belief-shattering hook that challenges conventional wisdom with data-backed truth. It triggers curiosity and self-reflection by exposing what people thought they knew about health.</p>
+        <div class="template-structure">
+            [Harsh truth or unpopular claim].<br>
+            [Cause or excuse] didn't kill your [health outcome]—[modern factor] did.<br>
+            That [# pounds or symptom]? Research shows it wasn't [common belief].<br>
+            Here's what actually happened (and [#] ways to fix it):
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.4M Views):</strong></p>
+            <p>"Harsh truth:</p>
+            <p>Your metabolism didn't slow at 30.</p>
+            <p>Modern life killed it.</p>
+            <p>That extra 20+ pounds? Research shows it wasn't age.</p>
+            <p>Here's what really happened (and 5 ways to fix it):"</p>
+        </div>
+    </div>
+
+    <!-- Template 20: The Holiday Health Blueprint -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #20</div>
+        <h3 class="template-title">The Holiday Health Blueprint</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Results</span>
+            <span class="psychology-tag">Transformation</span>
+            <span class="psychology-tag">Trust</span>
+        </div>
+        <p class="template-description">A results-driven hook that promises rapid transformation without pain or sacrifice. It builds excitement and trust by offering a realistic shortcut to visible change.</p>
+        <div class="template-structure">
+            I've cracked the code to losing [# pounds] before [event or deadline]:<br>
+            • No [painful method #1]<br>
+            • No [painful method #2]<br>
+            • No [negative experience #3]<br>
+            So if you want to walk into [event/season] in [desired condition]...<br>
+            Start these [#] [tips/hacks/habits] today:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2M Views):</strong></p>
+            <p>"I've cracked the code to losing 20+ pounds before Christmas:</p>
+            <p>• No endless cardio</p>
+            <p>• No crash diets</p>
+            <p>• No misery</p>
+            <p>So if you want to walk into the holidays in amazing shape...</p>
+            <p>Start these 9 fitness hacks today:"</p>
+        </div>
+    </div>
+
+    <!-- Template 21: The Sport Savant -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #21</div>
+        <h3 class="template-title">The Sport Savant</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Innovation</span>
+            <span class="psychology-tag">Performance</span>
+            <span class="psychology-tag">Technology</span>
+        </div>
+        <p class="template-description">A tech-meets-talent hook that fuses innovation with human performance. It sparks awe and curiosity by showing how science and strategy redefine what's possible.</p>
+        <div class="template-structure">
+            This [rookie/prodigy/athlete] just changed [sport or industry] forever.<br>
+            Not with [expected skill #1], [expected skill #2], or [expected trait #3].<br>
+            But with a [$X innovation/tool] that trains [unique ability or advantage].<br>
+            Here's how [name] is revolutionizing [sport/field] with [technology or method]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (2.1M Views):</strong></p>
+            <p>"This rookie quarterback just changed the NFL forever.</p>
+            <p>Not with his arm, legs, or football IQ.</p>
+            <p>But with a $2 Million device that trains his brain to see plays before they happen.</p>
+            <p>Here's how Jayden Daniels is revolutionizing football with technology:"</p>
+        </div>
+    </div>
+
+    <!-- Template 22: The Legend's Gamble -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #22</div>
+        <h3 class="template-title">The Legend's Gamble</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Conviction</span>
+            <span class="psychology-tag">Foresight</span>
+            <span class="psychology-tag">Independence</span>
+        </div>
+        <p class="template-description">A conviction-driven hook that celebrates foresight and independence. It evokes admiration and curiosity by showing how a bold, unconventional partnership became a generational win.</p>
+        <div class="template-structure">
+            In [year], [celebrity/athlete/founder] walked away from a [$X Million] deal with [major brand].<br>
+            But instead of joining [obvious alternative or rival]...<br>
+            They partnered with a [small/unknown/unexpected] company making [unusual or overlooked product].<br>
+            Here's the [shocking] move that made them a [billionaire/icon]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (1.2M Views):</strong></p>
+            <p>"In 2018, Roger Federer walked away from his $100 MILLION Nike deal.</p>
+            <p>But instead of going to Adidas or Reebok...</p>
+            <p>He signed with a no-name brand making running shoes out of garden hoses.</p>
+            <p>Here's the bizarre gamble that made him a BILLIONAIRE:"</p>
+        </div>
+    </div>
+
+    <!-- Template 23: The Engineered Miracle -->
+    <div class="template-card" onclick="toggleTemplate(this)">
+        <div class="template-number">TEMPLATE #23</div>
+        <h3 class="template-title">The Engineered Miracle</h3>
+        <div class="psychology-tags">
+            <span class="psychology-tag">Innovation</span>
+            <span class="psychology-tag">Precision</span>
+            <span class="psychology-tag">Achievement</span>
+        </div>
+        <p class="template-description">An innovation-fueled hook that blurs the line between mastery and manipulation. It captivates readers by revealing how science, money, and precision made the impossible finally happen.</p>
+        <div class="template-structure">
+            This is the biggest [scientific/athletic/technological] breakthrough in history:<br>
+            [Major company or institution] spent [$X Millions] creating the perfect conditions for [impossible achievement].<br>
+            But it didn't happen in a [real/tested/public] environment...<br>
+            Here's how [person or team] ["broke the rules" / "cheated science" / "rewrote history"] to break [historic barrier]:
+        </div>
+        <div class="template-example">
+            <p><strong>Example (1.1M Views):</strong></p>
+            <p>"This is the biggest physical breakthrough in history:</p>
+            <p>Nike spent MILLIONS to create the perfect conditions for the impossible run.</p>
+            <p>But it wasn't in a real race...</p>
+            <p>Here is how Eliud Kipchoge cheated to break the 2 hour marathon barrier:"</p>
+        </div>
+    </div>
+</div>
+
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <div class="cta-content">
+				    <h1 class="cta-title">READY TO UNLOCK THE FULL FREEDOM GHOSTWRITER SYSTEM?</h1>
+                    <h2 class="cta-title">The 7-Day AI Ghostwriter Training</h2>
+                    <p class="cta-subtitle">From Zero Followers to $10K/Month Retainers — The Complete System That Turns Writers Into Client Magnets</p>
+                    <div style="margin: 2rem 0; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        <p style="color: var(--vyra-black); font-weight: 900; margin-bottom: 1rem;">What You Get Inside:</p>
+                        <ul style="color: var(--vyra-black); font-weight: 500; line-height: 1.8;">
+						<li><strong>7 Days of Deep Mastery</strong> — unlock an elite archive of advanced trainings, case studies, and performance systems that transform you from writer to operator.</li>
+						<li><strong>Masterclass Vault Access</strong> — get the unfiltered breakdowns, live replays, and internal playbooks normally reserved for top-tier Vyralab creators.</li>
+						<li><strong>Proprietary AI Systems</strong> — learn to integrate VyraSearch™, VyraHook™, ACE™, and VyraPAST™ into your client workflow for faster, higher-quality output.</li>
+						<li><strong>The VyraSphere™ Community</strong> — connect with elite creators, share proof, and level up through live workshops, Q&As, and proof-based progression.</li>
+						<li><strong>Lifetime Access</strong> — get every future masterclass, replay, and resource drop as Vyralab evolves — no upsells, no paywalls, no limits.</li>
+					</ul>
+
+                    </div>
+                    <a href="#training" class="cta-button">Get the 7-Day Training + Community + Vault →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masterclass Content -->
+    <section id="module-content" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Anatomy of Billion-View Hooks</h2>
+                <p class="section-subtitle">Why 99% of writers fail at the first line—and how the top 1% engineer attention on demand</p>
+            </div>
+
+            <!-- The Problem Section -->
+            <div class="module-intro">
+                <h3 class="module-title">The Attention Economy Reality</h3>
+                <div class="module-description">
+                    <span class="highlight">The hook isn't the beginning—it's the entire model.</span></p>
+                    
+                    <p>Every day, 2.5 billion pieces of content get published. Your competition isn't other writers. It's Netflix, TikTok, breaking news, and that notification from their ex.</p>
+                    
+                    <p>In this war for attention, <span class="highlight">average hooks get average results</span>. And average results mean zero clients, zero income, and watching other writers land the retainers you want.</p>
+                </div>
+            </div>
+
+            <!-- The Science Section -->
+            <div class="vyrapast-grid">
+                <div class="vyrapast-step">
+                    <div class="step-number">🧠</div>
+                    <h3 class="step-title">The Neuroscience of Scroll-Stopping</h3>
+                    <p class="step-description">Human brains process 11 million bits of information per second but only consciously notice 40. Your hook has 1.7 seconds to break through that filter and trigger the "pay attention" signal.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">⚡</div>
+                    <h3 class="step-title">The Three Primal Triggers</h3>
+                    <p class="step-description">Every viral hook activates Hope (gain), Fear (loss), or Envy (comparison). These aren't marketing tactics—they're evolutionary survival mechanisms that bypass rational thought.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">🎯</div>
+                    <h3 class="step-title">Pattern Recognition Mastery</h3>
+                    <p class="step-description">Elite ghostwriters don't write by feel. They reverse-engineer emotional patterns, catalog psychological frameworks, and deploy proven structures that force engagement.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">🔬</div>
+                    <h3 class="step-title">The Gap Theory Applied</h3>
+                    <p class="step-description">Curiosity isn't random—it's mechanical. Create information gaps that feel urgent to close, and readers become psychologically compelled to continue reading.</p>
+                </div>
+            </div>
+
+            <!-- The Framework Reveal -->
+            <div class="testimonial">
+                <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">The Elite Hook Architecture</h3>
+                <div class="module-description">
+                    <p>After analyzing 1,000+ viral posts that generated 2+ billion views, we discovered something: <span class="highlight">Every high-performing hook follows the same hidden structure.</span></p>
+                    
+                    <p><strong>Problem:</strong> Present an undeniable tension that feels personal and urgent</p>
+                    <p><strong>Agitation:</strong> Amplify that tension with emotional stakes and consequences</p>
+                    <p><strong>Solution:</strong> Introduce the twist, insight, or revelation that changes everything</p>
+                    <p><strong>Transformation:</strong> Tease the bigger payoff or outcome still to come</p>
+                    
+                    <p>This isn't theory. It's the exact framework behind every template in your arsenal.</p>
+                </div>
+            </div>
+
+            <!-- Advanced Strategies -->
+            <div class="interactive-demo">
+                <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">Advanced Hook Engineering</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div style="background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--vyra-green);">
+                        <h4 style="color: var(--vyra-green); margin-bottom: 1rem;">Specificity Weapons</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.6;">"I studied successful people" gets ignored. "I studied 847 millionaires for 5 years" gets millions of views. Specificity creates believability and urgency.</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--vyra-green);">
+                        <h4 style="color: var(--vyra-green); margin-bottom: 1rem;">Authority Anchoring</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.6;">Lead with credentials that matter to your audience. "Former Goldman Sachs trader" for finance content. "Ex-Navy SEAL" for performance content. Match authority to niche.</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--vyra-green);">
+                        <h4 style="color: var(--vyra-green); margin-bottom: 1rem;">Contrast Amplification</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.6;">Extreme contrasts create cognitive dissonance. "$12 vs $14 billion," "3 weeks vs 30 years," "Unknown vs Unstoppable." The bigger the gap, the stronger the pull.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template Mastery Reveal -->
+            <div class="module-intro">
+                <h3 class="module-title">⚡ From Templates to Mastery</h3>
+                <div class="module-description">
+                    <p>These 23 templates aren't just copy-paste formulas. They're <span class="highlight">psychological frameworks decoded into repeatable systems.</span></p>
+                    
+                    <p>Each template represents hundreds of hours analyzing why certain hooks work, reverse-engineering the emotional triggers, and distilling the patterns into fillable structures.</p>
+                    
+                    <p>Your job isn't to memorize them all. Pick 3-5 that match your client's voice, master those completely, then expand your arsenal as you build confidence and results.</p>
+                    
+                    <p><span class="highlight">Remember: Amateur writers write hooks. Professional ghostwriters engineer attention.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sales Section -->
+    <section id="training" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Problem With</h2>
+				<h2 class="section-title">Other Templates Files</h2>
+                <p class="section-subtitle">Templates are just the beginning.</p>
+				<p class="section-subtitle">Elite ghostwriters need the complete system.</p>
+            </div>
+
+            <!-- The Reality Check -->
+            <div class="module-intro">
+                <h3 class="module-title">⚠️ Why 97% of Writers Never Make It</h3>
+                <div class="module-description">
+                    					
+					<p>Here's what happens next for most people:</p>
+                    
+                    <p><span class="highlight">They try a few templates. Get mediocre results. Blame the framework. Give up.</span></p>
+                    
+                    <p>Why? Because templates without strategy are just fancy mad libs.</p>
+					
+					<p>You need the complete client acquisition system, the AI tools that 10x your output, and the community that keeps you accountable.</p>
+                    
+                    <p><span class="highlight">The writers making $10K+ per month aren't just better at hooks. They have better systems.</span></p>
+                </div>
+            </div>
+
+            <!-- The Complete System -->
+            <div class="vyrapast-grid">
+                <div class="vyrapast-step">
+                    <div class="step-number">🎯</div>
+                    <h3 class="step-title">Client Hunting System</h3>
+                    <p class="step-description">The "Trojan Horse" method that gets founders begging to work with you. Plus the exact LinkedIn sequences that book $5K+ discovery calls.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">🤖</div>
+                    <h3 class="step-title">Vyralab ACE™ Studio</h3>
+                    <p class="step-description">The private AI app that writes client-ready content in 90 seconds. While competitors spend hours crafting posts, you're shipping content and closing deals.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">🔥</div>
+                    <h3 class="step-title">Elite Vyralab Network</h3>
+                    <p class="step-description">Join professional ghostwriters sharing live client referrals, template variations, and weekly masterclasses with Kyle & Ali.</p>
+                </div>
+                <div class="vyrapast-step">
+                    <div class="step-number">💰</div>
+                    <h3 class="step-title">Revenue Scaling Blueprints</h3>
+                    <p class="step-description">Move beyond one-off gigs to retainers, productized services, and revenue share deals. Build a business, not just a freelance hustle.</p>
+                </div>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="testimonial">
+                <p class="testimonial-quote">"The Vyralab creators have done what few ghostwriters even attempt: they've built a complete course + community + platform of tactical firepower that pulls from deep wells of knowledge and expertise. Their method is as rigorous as it is potent."</p>
+                <p class="testimonial-author">— Hosun Chung, COO, Thoughtleadr.xyz</p>
+            </div>
+
+            <!-- Urgency & Scarcity -->
+            <div class="interactive-demo">
+                <h3 style="color: var(--vyra-green); margin-bottom: 1rem;">The Timing Problem</h3>
+                <div class="module-description">
+                    <p><strong>🟢 AI is commoditizing basic writing.</strong> 
+					<p>Clients can get average content from ChatGPT. They need strategic thinking and viral frameworks—exactly what Vyralab teaches.</p><br><br>
+
+                    
+                    <p><strong>🟢 Elite clients are consolidating vendors.</strong> 
+					<p>Instead of hiring 5 different writers, they're finding one expert who handles everything. That's where the real money is.</p><br><br>
+
+                    
+                    <p><strong>🟢 The window is closing.</strong> 
+					<p>Every month more writers discover these systems. The ones who move fast win the premium clients. The ones who hesitate fight for scraps.</p><br><br>
+
+                </div>
+            </div>
+
+            <!-- The Offer -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Stop Competing on Price.</h2>
+					<h2 class="cta-title">Start Commanding Your Value.</h2>
+                    <p class="cta-subtitle">Join the 7-Day AI Ghostwriter Training and build a $10+K/month business in the next 90 days</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <div style="background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 15px; border: 2px solid var(--vyra-green); max-width: 400px; margin: 0 auto;">
+                            <h4 style="color: var(--vyra-green); margin-bottom: 1rem; font-size: 1.3rem;">Complete Training System</h4>
+                            <ul style="color: var(--vyra-white); line-height: 1.8; text-align: left; margin: 1rem 0;">
+                                <li>7-day mastery program</li>
+                                <li>Advanced masterclass vault access</li>
+                                <li>Proprietary All-in-One AI systems</li>
+                                <li>Elite VyraSphere™ community access</li>
+                                <li>Lifetime updates & resource drops</li>
+                            </ul>
+                            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,255,136,0.3);">
+                                <p style="color: var(--vyra-green); font-size: 2rem; font-weight: 900;">Just $37</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="https://Vyralab.com" class="cta-button" target="_blank">Get the 7-Day Training + Community + Vault →</a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--vyra-dark-steel);">⚡ Limited spots • 30-day money-back guarantee</p>
+                </div>
+            </div>
+
+            <!-- Final Push -->
+            <div class="module-intro">
+                <div class="module-description">
+			<p style="text-align: center; font-size: 1.1rem; color: rgba(255,255,255,0.9);">
+				<strong>Question:</strong> Where will you be 90 days from now?
+				<br><br>
+				Still struggling with $500 gigs and competing on price?
+				<br>
+				Or commanding $5K+ retainers with a waiting list of premium clients?
+				<br><br>
+				<span style="color: var(--vyra-green); font-weight: 700;">The choice is yours. The system is ready.</span><br>
+				<span style="color: var(--vyra-green); font-weight: 1000;">We'll see YOU inside the lab!</span>
+			</p>
+			
+			<!-- CTA Button -->
+			<div style="text-align: center; margin-top: 1.5rem;">
+				<a href="#join" 
+				style="background-color: var(--vyra-green); 
+						color: var(--vyra-black); 
+						padding: 14px 36px; 
+						border-radius: 8px; 
+						font-weight: 800; 
+						text-decoration: none; 
+						text-transform: uppercase; 
+						letter-spacing: 0.5px; 
+						display: inline-block; 
+						transition: all 0.3s ease;">
+				Get the 7-Day Training + Community + Vault →
+				</a>
+			</div>
+			</div>
+
+    </section>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Template card expansion
+        function toggleTemplate(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // VyraPAST step highlighting
+        function highlightStep(step) {
+            document.querySelectorAll('.vyrapast-step').forEach(s => s.style.borderColor = 'rgba(0, 255, 136, 0.3)');
+            step.style.borderColor = 'var(--vyra-green)';
+            step.style.boxShadow = '0 20px 40px rgba(0, 255, 136, 0.3)';
+        }
+
+        // Interactive Hook Builder
+        document.getElementById('hookInput').addEventListener('input', function(e) {
+            const topic = e.target.value;
+            if (topic.length > 3) {
+                generateHook(topic);
+            }
+        });
+
+        // Template filtering system
+        function filterTemplates(category) {
+            const templates = document.querySelectorAll('.template-card');
+            const categoryMap = {
+                'power': [1, 2, 3],
+                'opportunities': [4, 5],
+                'insider': [6, 7, 8],
+                'underdogs': [9, 10, 11, 12],
+                'strategic': [13, 14, 15, 16, 17, 18],
+                'performance': [19, 20, 21, 22, 23]
+            };
+            
+            templates.forEach((template, index) => {
+                const templateNumber = index + 1;
+                if (category === 'all' || categoryMap[category]?.includes(templateNumber)) {
+                    template.style.display = 'block';
+                    template.style.opacity = '1';
+                } else {
+                    template.style.display = 'none';
+                }
+            });
+        }
+
+        // Advanced template interaction tracking
+        let templateInteractions = {};
+        let timeOnPage = 0;
+        
+        function toggleTemplate(card) {
+            card.classList.toggle('expanded');
+            
+            // Track interaction
+            const templateNumber = card.querySelector('.template-number').textContent;
+            if (!templateInteractions[templateNumber]) {
+                templateInteractions[templateNumber] = 0;
+            }
+            templateInteractions[templateNumber]++;
+            
+            // Show engagement feedback
+            if (templateInteractions[templateNumber] === 1) {
+                showEngagementFeedback(card);
+            }
+        }
+
+        function showEngagementFeedback(card) {
+            const feedback = document.createElement('div');
+            feedback.innerHTML = '✨ Template saved to your toolkit!';
+            feedback.style.cssText = `
+                position: absolute;
+                top: -40px;
+                right: 10px;
+                background: var(--vyra-green);
+                color: var(--vyra-black);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                animation: slideInOut 3s ease forwards;
+                z-index: 10;
+            `;
+            
+            card.style.position = 'relative';
+            card.appendChild(feedback);
+            
+            setTimeout(() => {
+                if (feedback.parentNode) {
+                    feedback.parentNode.removeChild(feedback);
+                }
+            }, 3000);
+        }
+
+        // Add engagement animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInOut {
+                0% { opacity: 0; transform: translateX(20px); }
+                20% { opacity: 1; transform: translateX(0); }
+                80% { opacity: 1; transform: translateX(0); }
+                100% { opacity: 0; transform: translateX(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Page engagement tracking
+        setInterval(() => {
+            timeOnPage++;
+            if (timeOnPage === 30) { // After 30 seconds
+                showEngagementPrompt();
+            }
+        }, 1000);
+
+        function showEngagementPrompt() {
+            const prompt = document.createElement('div');
+            prompt.innerHTML = `
+                <div style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, var(--vyra-green), #00cc6a);
+                    color: var(--vyra-black);
+                    padding: 1rem 1.5rem;
+                    border-radius: 15px;
+                    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+                    z-index: 1000;
+                    max-width: 300px;
+                    animation: slideIn 0.5s ease;
+                    cursor: pointer;
+                ">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">🔥 Loving the templates?</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Get all 23 templates + AI tools in the complete VyraHook™ system</p>
+                    <div style="margin-top: 0.5rem; font-weight: 700; font-size: 0.8rem;">Click to unlock →</div>
+                </div>
+            `;
+            
+            prompt.onclick = () => {
+                document.querySelector('#training').scrollIntoView({ behavior: 'smooth' });
+                document.body.removeChild(prompt);
+            };
+            
+            const closeBtn = document.createElement('span');
+            closeBtn.innerHTML = '×';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                cursor: pointer;
+                font-size: 1.2rem;
+                font-weight: 700;
+            `;
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                document.body.removeChild(prompt);
+            };
+            
+            prompt.firstElementChild.appendChild(closeBtn);
+            document.body.appendChild(prompt);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (document.body.contains(prompt)) {
+                    document.body.removeChild(prompt);
+                }
+            }, 10000);
+        }
+
+        // Add slide-in animation
+        const slideInStyle = document.createElement('style');
+        slideInStyle.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(slideInStyle);
+
+        // Enhanced scroll tracking with milestones
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+            
+            // Milestone tracking
+            if (scrollPercent > 25 && !window.milestone25) {
+                window.milestone25 = true;
+                console.log('User reached 25% of content');
+            }
+            if (scrollPercent > 50 && !window.milestone50) {
+                window.milestone50 = true;
+                console.log('User reached 50% of content');
+            }
+            if (scrollPercent > 75 && !window.milestone75) {
+                window.milestone75 = true;
+                console.log('User reached 75% of content');
+            }
+        });
+
+        // Template search functionality
+        function addSearchFilter() {
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Search templates by name or psychology tag...';
+            searchInput.style.cssText = `
+                width: 100%;
+                max-width: 400px;
+                margin: 2rem auto;
+                display: block;
+                padding: 1rem;
+                background: var(--vyra-dark-steel);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+                border-radius: 8px;
+                color: var(--vyra-white);
+                font-size: 1rem;
+            `;
+            
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const templates = document.querySelectorAll('.template-card');
+                
+                templates.forEach(template => {
+                    const title = template.querySelector('.template-title').textContent.toLowerCase();
+                    const tags = Array.from(template.querySelectorAll('.psychology-tag'))
+                        .map(tag => tag.textContent.toLowerCase());
+                    const description = template.querySelector('.template-description').textContent.toLowerCase();
+                    
+                    const matches = title.includes(searchTerm) || 
+                                  tags.some(tag => tag.includes(searchTerm)) ||
+                                  description.includes(searchTerm);
+                    
+                    template.style.display = matches ? 'block' : 'none';
+                });
+            });
+            
+            const templatesSection = document.querySelector('#templates .section-header');
+            templatesSection.appendChild(searchInput);
+        }
+
+        // Initialize search after DOM loads
+        window.addEventListener('load', () => {
+            addSearchFilter();
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.querySelectorAll('.section, .template-card, .vyrapast-step').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some dynamic behavior on load
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-content').classList.add('fade-in-up');
+            
+            // Stagger template card animations
+            setTimeout(() => {
+                document.querySelectorAll('.template-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 500);
+        });
+
+        // Initialize template cards with opacity 0
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+        });
+    </script>
+</body>
+</html>
