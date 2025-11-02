@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 0 - Lesson 3: The Access Code | VyraLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vl-black: #000000;
+            --vl-electric: #00ff41;
+            --vl-white: #ffffff;
+            --vl-steel: #404040;
+            --vl-dark-steel: #2a2a2a;
+            --vl-electric-glow: rgba(0, 255, 65, 0.3);
+            --vl-gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--vl-black);
+            color: var(--vl-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cinematic Hero */
+        .cinematic-hero {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 30%, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cinematic-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, rgba(0, 255, 65, 0.02) 50%, transparent 52%);
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .lesson-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--vl-gold), rgba(255, 215, 0, 0.8));
+            color: var(--vl-black);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+            animation: pulse-gold 3s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.6), 0 0 100px rgba(255, 215, 0, 0.3); }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-white), var(--vl-electric), var(--vl-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            line-height: 1.1;
+            animation: title-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.3)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 65, 0.6)); }
+        }
+
+        .hero-opening {
+            font-size: 1.4rem;
+            color: var(--vl-white);
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            animation: fade-in-up 1s ease-out 0.5s both;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Elite Sections */
+        .elite-section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .elite-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--vl-electric), transparent);
+        }
+
+        .section-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-number {
+            color: var(--vl-electric);
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--vl-white);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .section-intro {
+            font-size: 1.3rem;
+            color: var(--vl-white);
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+
+        .power-statement {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-electric);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .power-statement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .power-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vl-white);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Stack Visual */
+        .stack-container {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0;
+            perspective: 1000px;
+        }
+
+        .stack-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform-style: preserve-3d;
+        }
+
+        .stack-layer {
+            background: linear-gradient(145deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-electric);
+            border-radius: 15px;
+            padding: 30px 60px;
+            text-align: center;
+            position: relative;
+            transform: rotateX(5deg);
+            transition: all 0.3s ease;
+            min-width: 300px;
+        }
+
+        .stack-layer:hover {
+            transform: rotateX(0deg) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.3);
+        }
+
+        .stack-layer.crown {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(0, 0, 0, 0.9));
+            border-color: var(--vl-gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .layer-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--vl-electric);
+            margin-bottom: 10px;
+        }
+
+        .crown .layer-title {
+            color: var(--vl-gold);
+        }
+
+        .layer-subtitle {
+            font-size: 1rem;
+            color: var(--vl-white);
+            font-weight: 500;
+        }
+
+        /* ACE Studio Feature */
+        .ace-showcase {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.95));
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .ace-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-electric), var(--vl-white), var(--vl-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: electric-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes electric-pulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            border-color: var(--vl-electric);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--vl-electric);
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            color: var(--vl-white);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Exclusive Access */
+        .exclusive-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.95));
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .exclusive-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--vl-gold);
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefit-card {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.8));
+            border: 2px solid var(--vl-gold);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: gold-shimmer 4s infinite;
+        }
+
+        @keyframes gold-shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .benefit-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--vl-gold);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit-desc {
+            color: var(--vl-white);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Invitation Section */
+        .invitation-section {
+            background: var(--vl-black);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .countdown-style {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 0, 0, 0.9));
+            border: 2px solid #ff4444;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .countdown-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .countdown-text {
+            font-size: 1.2rem;
+            color: var(--vl-white);
+            line-height: 1.6;
+        }
+
+        /* Final CTA */
+        .finale-section {
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.2), rgba(0, 0, 0, 1));
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .finale-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--vl-electric), var(--vl-white), var(--vl-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            animation: finale-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes finale-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 65, 0.8)); }
+        }
+
+        .finale-text {
+            font-size: 1.4rem;
+            color: var(--vl-white);
+            line-height: 1.7;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--vl-electric), rgba(0, 255, 65, 0.8));
+            color: var(--vl-black);
+            padding: 30px 60px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+            animation: welcome-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes welcome-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Quote Styling */
+        .draper-quote {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--vl-white);
+            font-style: italic;
+            margin: 40px 0;
+            position: relative;
+            padding: 0 40px;
+        }
+
+        .draper-quote::before,
+        .draper-quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--vl-electric);
+            position: absolute;
+            font-style: normal;
+        }
+
+        .draper-quote::before {
+            left: 0;
+            top: -10px;
+        }
+
+        .draper-quote::after {
+            right: 0;
+            bottom: -20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .ace-title {
+                font-size: 2.5rem;
+            }
+            .finale-title {
+                font-size: 2.5rem;
+            }
+            .stack-visual {
+                gap: 15px;
+            }
+            .stack-layer {
+                padding: 20px 30px;
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cinematic Hero -->
+    <section class="cinematic-hero">
+        <div class="hero-content">
+            <div class="lesson-badge">Day 0 — Lesson 3</div>
+            <h1 class="hero-title">The Access Code</h1>
+            <div class="hero-opening">
+                <p style="margin-bottom: 30px;">You've made it this far — and that says something about you.</p>
+                <p style="margin-bottom: 30px;">You didn't just "sign up for a course."<br>You took action.<br>You started building something most people only talk about.</p>
+                <p style="margin-bottom: 30px;"><strong>You showed up.</strong><br><strong>You put in the work.</strong></p>
+                <p style="color: var(--vl-electric); font-weight: 700; font-size: 1.6rem;">And that tells me one thing: you're serious.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You've Unlocked -->
+    <section class="elite-section">
+        <div class="section-content">
+            <span class="section-number">Section 1</span>
+            <h2 class="section-title">What You've Unlocked</h2>
+            <p class="section-intro">Because you took this 7-Day Training, you now have exclusive early access to everything we've been building behind the scenes.</p>
+
+            <div class="power-statement">
+                <p class="power-text">This is the <span style="color: var(--vl-electric);">Access Code</span>.<br>The key to the complete system.</p>
+            </div>
+
+            <p style="font-size: 1.3rem; color: var(--vl-white); text-align: center; margin-bottom: 60px;">You're not just getting "the next step." You're getting the first look at the full VyraPro+ ecosystem — before the public ever sees it.</p>
+
+            <div class="stack-container">
+                <div class="stack-visual">
+                    <div class="stack-layer crown">
+                        <div class="layer-title">ACE Studio™</div>
+                        <div class="layer-subtitle">The Crown Jewel</div>
+                    </div>
+                    <div class="stack-layer">
+                        <div class="layer-title">VyraSphere™</div>
+                        <div class="layer-subtitle">Private Community & Proof Economy</div>
+                    </div>
+                    <div class="stack-layer">
+                        <div class="layer-title">VyraPro+™</div>
+                        <div class="layer-subtitle">14 Modules of Systems & Psychology</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 50px 0;">
+                <p style="font-size: 1.2rem; color: var(--vl-white); line-height: 1.7;">At the foundation, you have <strong style="color: var(--vl-electric);">VyraPro+™</strong> — fourteen modules of systems, psychology, and playbooks. Everything you need to research, write, scale, automate, and close clients like a pro.</p>
+                <p style="font-size: 1.2rem; color: var(--vl-white); line-height: 1.7; margin: 20px 0;">Above that is the <strong style="color: var(--vl-electric);">VyraSphere™</strong> — the private community and Proof Economy where professionals play. It's where your proof becomes progress, your results turn into rank, and your name starts to mean something.</p>
+                <p style="font-size: 1.2rem; color: var(--vl-white); line-height: 1.7;">And at the top — the crown jewel — is <strong style="color: var(--vl-gold);">ACE Studio™</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACE Studio Showcase -->
+    <section class="ace-showcase">
+        <div class="section-content">
+            <span class="section-number">Section 2</span>
+            <h2 class="ace-title">The Engine of Automation</h2>
+            
+            <div class="power-statement">
+                <p class="power-text">ACE Studio isn't a "feature."<br><span style="color: var(--vl-electric);">It's a force.</span></p>
+            </div>
+
+            <p style="font-size: 1.3rem; color: var(--vl-white); margin-bottom: 50px; line-height: 1.7;">It's your AI partner — built by Ali, engineered for precision, and trained on billions of data points from real viral content.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <div class="feature-title">Hook Generation</div>
+                    <div class="feature-desc">Generates viral hooks from a single command</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧵</span>
+                    <div class="feature-title">Thread Building</div>
+                    <div class="feature-desc">Creates full threads with perfect flow</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📅</span>
+                    <div class="feature-title">Content Calendars</div>
+                    <div class="feature-desc">Plans your entire content strategy</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-title">CTA Writing</div>
+                    <div class="feature-desc">Crafts calls-to-action that convert</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <div class="feature-title">Cross-Platform</div>
+                    <div class="feature-desc">Repurposes content across all platforms</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <div class="feature-title">Brand Kits</div>
+                    <div class="feature-desc">Builds complete brand identity systems</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-title">Engagement Data</div>
+                    <div class="feature-desc">Tracks and analyzes performance metrics</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-title">Multi-Client</div>
+                    <div class="feature-desc">Manages multiple accounts without burnout</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧲</span>
+                    <div class="feature-title">Advanced Lead Magnets</div>
+                    <div class="feature-desc">Creates educational email campaigns (EEC), long-form newsletters, landing pages, and more</div>
+                </div>
+            </div>
+
+            <div class="power-statement">
+                <p class="power-text">It doesn't replace you.<br><span style="color: var(--vl-electric);">It amplifies you.</span></p>
+            </div>
+
+            <p style="font-size: 1.3rem; color: var(--vl-white); margin-top: 40px; line-height: 1.7;">It makes you faster, sharper, and more powerful than you've ever been. It's the secret weapon our top ghostwriters use to run multiple client accounts without burning out.</p>
+        </div>
+    </section>
+
+    <!-- Exclusive Access -->
+    <section class="exclusive-section">
+        <div class="section-content">
+            <span class="section-number">Section 3</span>
+            <h2 class="exclusive-title">What This Means for You</h2>
+            
+            <p style="font-size: 1.4rem; color: var(--vl-white); margin-bottom: 50px; line-height: 1.7;">And now — for the first time — it's being opened to the public. But not to everyone. Only to the writers who <strong style="color: var(--vl-gold);">earned it</strong>.</p>
+
+            <div class="power-statement">
+                <p class="power-text">That's you.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-title">🥇 First Rights</div>
+                    <div class="benefit-desc">You're not just getting early access — you're getting first rights to everything we build.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-title">💰 Founder Pricing</div>
+                    <div class="benefit-desc">Lock in exclusive pricing that will never be available again.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-title">🔓 Lifetime Access</div>
+                    <div class="benefit-desc">Complete access to every system, forever. No recurring fees, no limits.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-title">👑 Private Onboarding</div>
+                    <div class="benefit-desc">Direct onboarding with Kyle, Ali, and our top operators.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-title">🚀 Forever Upgrades</div>
+                    <div class="benefit-desc">Access to every ACE upgrade and enhancement, automatically.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-title">⭐ First Generation</div>
+                    <div class="benefit-desc">You'll be part of the first generation inside this system — the ones who got in early.</div>
+                </div>
+            </div>
+
+            <div class="draper-quote">
+                Timing beats talent. And you're here at the perfect time.
+            </div>
+        </div>
+    </section>
+
+    <!-- The Invitation -->
+    <section class="invitation-section">
+        <div class="section-content">
+            <span class="section-number">Section 4</span>
+            <h2 class="section-title">The Invitation</h2>
+            
+            <p style="font-size: 1.4rem; color: var(--vl-white); margin-bottom: 50px; text-align: center; line-height: 1.7;">So here's what happens next:</p>
+
+            <div class="countdown-style">
+                <div class="countdown-title">💎 You're Already on the List 💎</div>
+                <div class="countdown-text">You are the first wave to get access the moment VyraPro+ and ACE Studio go live</div>
+            </div>
+
+            <p style="font-size: 1.3rem; color: var(--vl-white); text-align: center; line-height: 1.7; margin: 40px 0;">It's your pass to join VyraPro+, step into the VyraSphere, and install ACE Studio before the rest of the world even sees it.</p>
+
+            <div class="power-statement">
+                <p class="power-text">Only the first 100 people <span style="color: #ff6b6b;">will receive Founder’s Exclusive VIP Access — lifetime pricing, private onboarding, and early upgrades no one else will get.</span></p>
+            </div>
+
+            <p style="font-size: 1.2rem; color: var(--vl-white); text-align: center; line-height: 1.7;">Once we fill the early seats, that door closes — permanently.</p>
+
+            <div style="background: rgba(0, 255, 65, 0.1); border-left: 4px solid var(--vl-electric); border-radius: 0 15px 15px 0; padding: 40px; margin: 50px 0; text-align: center;">
+                <p style="font-size: 1.4rem; color: var(--vl-electric); font-weight: 700;">You earned this moment.<br>Don't let it slip.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Finale -->
+    <section class="finale-section">
+        <div class="section-content">
+            <span class="section-number">Section 5</span>
+            <h2 class="finale-title">This Is Where Everything Changes</h2>
+            
+            <div class="finale-text">
+                <p style="margin-bottom: 30px;">You've proved you deserve this.<br>You've seen the system.</p>
+                <p style="margin-bottom: 30px; color: var(--vl-electric); font-weight: 700;">Now it's time to step inside the machine that runs it.</p>
+                <p style="margin-bottom: 30px;">Every lab, every deliverable, every framework — it all leads here.</p>
+                <p style="font-size: 1.6rem; font-weight: 700;">This is your access point.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 0, 0, 0.8)); border: 2px solid var(--vl-electric); border-radius: 20px; padding: 50px; margin: 50px 0;">
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--vl-white); margin-bottom: 20px;">Take it.</p>
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--vl-white); margin-bottom: 20px;">Use it.</p>
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--vl-electric);">And build something that lasts.</p>
+            </div>
+
+            <div class="welcome-banner">Welcome to the VyraPro Lab!</div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for staggered animations
+        document.querySelectorAll('.elite-section, .ace-showcase, .exclusive-section, .invitation-section, .finale-section').forEach((section, index) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+            observer.observe(section);
+        });
+
+        // Stack layer hover effects
+        document.querySelectorAll('.stack-layer').forEach(layer => {
+            layer.addEventListener('mouseenter', () => {
+                layer.style.transform = 'rotateX(0deg) scale(1.05) translateZ(20px)';
+            });
+            
+            layer.addEventListener('mouseleave', () => {
+                layer.style.transform = 'rotateX(5deg) scale(1) translateZ(0px)';
+            });
+        });
+
+        // Feature cards staggered animation
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 500 + (index * 100));
+        });
+
+        // Power statement emphasis
+        document.querySelectorAll('.power-statement').forEach(statement => {
+            statement.addEventListener('mouseenter', () => {
+                statement.style.transform = 'scale(1.02)';
+                statement.style.boxShadow = '0 20px 60px rgba(0, 255, 65, 0.3)';
+            });
+            
+            statement.addEventListener('mouseleave', () => {
+                statement.style.transform = 'scale(1)';
+                statement.style.boxShadow = 'none';
+            });
+        });
+
+        // Add cinematic typing effect to hero
+        const heroText = document.querySelector('.hero-opening');
+        if (heroText) {
+            const paragraphs = heroText.querySelectorAll('p');
+            paragraphs.forEach((p, index) => {
+                p.style.opacity = '0';
+                p.style.transform = 'translateY(20px)';
+                p.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                setTimeout(() => {
+                    p.style.opacity = '1';
+                    p.style.transform = 'translateY(0)';
+                }, 1000 + (index * 800));
+            });
+        }
+    </script>
+</body>
+</html>
