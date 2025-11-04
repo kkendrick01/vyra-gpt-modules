@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraProof™ Masterclass - $997 Show-Don't-Tell Outreach Engine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff41;
+            --vyra-white: #ffffff;
+            --vyra-steel: #646464;
+            --vyra-dark-bg: #0a0a0a;
+            --vyra-card-bg: #111111;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-bg) 100%);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--vyra-green);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--vyra-green);
+        }
+
+        .progress-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 30px;
+            height: 4px;
+            background: var(--vyra-steel);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vyra-green), #00cc33);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .value-badge {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--vyra-white) 0%, var(--vyra-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--vyra-steel);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero .value-prop {
+            font-size: 1.2rem;
+            color: var(--vyra-green);
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        /* Section Navigation */
+        .section-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+        }
+
+        .section-card {
+            background: var(--vyra-card-bg);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .section-card:hover::before {
+            left: 100%;
+        }
+
+        .section-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .section-number {
+            color: var(--vyra-green);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            color: var(--vyra-steel);
+            font-size: 0.95rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            margin: 40px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--vyra-steel);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Blocks */
+        .content-block {
+            background: var(--vyra-card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid var(--vyra-green);
+        }
+
+        .content-block h3 {
+            color: var(--vyra-green);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .content-block h4 {
+            color: var(--vyra-white);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 25px 0 15px;
+        }
+
+        .highlight-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--vyra-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--vyra-card-bg);
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Interactive Elements */
+        .phase-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .phase-card {
+            background: var(--vyra-card-bg);
+            border: 2px solid var(--vyra-steel);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .phase-card:hover {
+            border-color: var(--vyra-green);
+            transform: scale(1.02);
+        }
+
+        .phase-number {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin: 0 auto 20px;
+        }
+
+        /* Tables */
+        .data-table {
+            background: var(--vyra-card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid var(--vyra-steel);
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 15px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--vyra-steel);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: var(--vyra-card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .check-mark {
+            color: var(--vyra-green);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            font-weight: 800;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            gap: 20px;
+        }
+
+        .btn {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #00cc33;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--vyra-green);
+            border: 2px solid var(--vyra-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 0;
+            border-top: 1px solid var(--vyra-steel);
+            margin-top: 80px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .progress-bar {
+                margin: 0;
+                max-width: 200px;
+            }
+
+            .hero {
+                padding: 40px 0;
+            }
+
+            .section-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .phase-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .quote-block {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--vyra-green);
+            padding: 20px 25px;
+            margin: 25px 0;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--vyra-white);
+        }
+
+        .framework-box {
+            background: var(--vyra-card-bg);
+            border: 2px solid var(--vyra-green);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .metric-display {
+            display: inline-block;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">VyraLab™</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="value-badge">$997 VALUE</div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>VyraProof™ Masterclass</h1>
+                <p class="subtitle">The Show-Don't-Tell Outreach Engine</p>
+                <p class="value-prop">Replace Persuasion with Proof. Stop Pitching. Start Proving.</p>
+            </div>
+        </section>
+
+        <!-- Section Navigation -->
+        <section class="container">
+            <div class="section-nav">
+                <div class="section-card" onclick="showSection(1)">
+                    <div class="section-number">SECTION 01</div>
+                    <div class="section-title">Core Philosophy</div>
+                    <div class="section-desc">The foundational mindset shift from persuasion to proof-driven outreach</div>
+                </div>
+                <div class="section-card" onclick="showSection(2)">
+                    <div class="section-number">SECTION 02</div>
+                    <div class="section-title">3-Phase System</div>
+                    <div class="section-desc">Setup → Present → Follow-Up framework for consistent results</div>
+                </div>
+                <div class="section-card" onclick="showSection(3)">
+                    <div class="section-number">SECTION 03</div>
+                    <div class="section-title">Tool Flow & GPT</div>
+                    <div class="section-desc">Step-by-step automation for scaling your outreach operations</div>
+                </div>
+                <div class="section-card" onclick="showSection(4)">
+                    <div class="section-number">SECTION 04</div>
+                    <div class="section-title">Outreach Masterclass</div>
+                    <div class="section-desc">Psychology, scripts, and anatomy of high-converting messages</div>
+                </div>
+                <div class="section-card" onclick="showSection(5)">
+                    <div class="section-number">SECTION 05</div>
+                    <div class="section-title">Research & Targeting</div>
+                    <div class="section-desc">Data-driven prospect identification and analysis frameworks</div>
+                </div>
+                <div class="section-card" onclick="showSection(6)">
+                    <div class="section-number">SECTION 06</div>
+                    <div class="section-title">Advanced Strategy</div>
+                    <div class="section-desc">Leverage, reciprocity, and authority-building at scale</div>
+                </div>
+                <div class="section-card" onclick="showSection(7)">
+                    <div class="section-number">SECTION 07</div>
+                    <div class="section-title">Execution Checklist</div>
+                    <div class="section-desc">Your daily action plan for implementing VyraProof™</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1 - Core Philosophy -->
+        <section class="container content-section" id="section1">
+            <div class="section-header">
+                <h2>Core Philosophy</h2>
+                <p>The foundational mindset that separates elite operators from everyone else</p>
+            </div>
+
+            <div class="content-block">
+                <h3>The Universal Truth</h3>
+                <p>VyraProof™ exists for one reason: <strong>To replace persuasion with proof.</strong></p>
+                
+                <div class="highlight-box">
+                    <p>Clients don't respond to words about what you can do. They respond to visible results — screenshots, metrics, and rewrites that outperform their own.</p>
+                </div>
+
+                <p>Every outreach, Loom, and DM created through VyraProof™ follows one universal rule:</p>
+
+                <div class="quote-block">
+                    "Show outcomes. Don't explain potential."
+                </div>
+
+                <p>Your job isn't to pitch services. Your job is to <em>demonstrate improvement</em> before the prospect ever pays a cent.</p>
+            </div>
+
+            <div class="framework-box">
+                <h3>The Mindset Shift</h3>
+                <p><strong>Old Way:</strong> "We can help you grow your LinkedIn engagement"</p>
+                <p><strong>VyraProof™ Way:</strong> "I rewrote your post — it got <span class="metric-display">3.2x</span> more views in <span class="metric-display">24 hours</span>"</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(0)">← Back to Overview</button>
+                <button class="btn" onclick="showSection(2)">Next: 3-Phase System →</button>
+            </div>
+        </section>
+
+        <!-- Section 2 - 3-Phase System -->
+        <section class="container content-section" id="section2">
+            <div class="section-header">
+                <h2>The 3-Phase System</h2>
+                <p>Your repeatable framework for turning cold prospects into warm opportunities</p>
+            </div>
+
+            <div class="phase-container">
+                <div class="phase-card">
+                    <div class="phase-number">1</div>
+                    <h3>Proof Setup</h3>
+                    <p>Find underperforming content, rewrite it using VyraLab frameworks, and collect performance data</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">2</div>
+                    <h3>Proof Presentation</h3>
+                    <p>Show your improved version with metrics, explain changes briefly, and invite continued testing</p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">3</div>
+                    <h3>Follow-Up Loop</h3>
+                    <p>Maintain engagement with updated results and fresh examples over 3-5 day intervals</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Phase 1 — Proof Setup</h3>
+                <ol style="color: var(--vyra-steel); margin-left: 20px;">
+                    <li>Find a post from a founder, CEO, or thought-leader that underperformed</li>
+                    <li>Rewrite it using VyraLab frameworks (VyraBoost™, VyraPAST™, VyraHook™, etc.)</li>
+                    <li>Post the rewrite or test it privately to gather proof metrics:
+                        <ul style="margin-top: 10px;">
+                            <li>Views</li>
+                            <li>Likes / Comments</li>
+                            <li>Reposts / Shares</li>
+                            <li>Profile visits</li>
+                        </ul>
+                    </li>
+                    <li>Collect your before-and-after visuals and data. This becomes your ammunition.</li>
+                </ol>
+            </div>
+
+            <div class="content-block">
+                <h3>Phase 2 — Proof Presentation</h3>
+                <ol style="color: var(--vyra-steel); margin-left: 20px;">
+                    <li>Use the best performing rewrite as your showcase</li>
+                    <li>Build outreach using VyraProof™: DM, email, or Loom script</li>
+                    <li>Structure:
+                        <ul style="margin-top: 10px;">
+                            <li>Respect their original post</li>
+                            <li>Show your rewrite and metrics</li>
+                            <li>Briefly explain what you changed</li>
+                            <li>End with a low-pressure CTA</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="quote-block">
+                    "If you'd like, I can do another one so you can see it live on your page."
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Phase 3 — Follow-Up (Trust Loop)</h3>
+                <ol style="color: var(--vyra-steel); margin-left: 20px;">
+                    <li>Wait 3–5 days</li>
+                    <li>Send an updated proof result or a fresh example</li>
+                    <li>Keep tone relaxed, confident, factual</li>
+                    <li>Close after three touches if silent</li>
+                </ol>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(1)">← Previous Section</button>
+                <button class="btn" onclick="showSection(3)">Next: Tool Flow →</button>
+            </div>
+        </section>
+
+        <!-- Section 3 - Tool Flow -->
+        <section class="container content-section" id="section3">
+            <div class="section-header">
+                <h2>Tool Flow Inside GPT</h2>
+                <p>Streamline your process with automation and consistent outputs</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Step-by-Step Interaction</h3>
+                <div style="background: var(--vyra-dark-bg); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <ol style="color: var(--vyra-steel); margin-left: 20px; line-height: 2;">
+                        <li><strong style="color: var(--vyra-green);">Start Chat →</strong> GPT shows the Main Menu</li>
+                        <li><strong style="color: var(--vyra-green);">Select</strong> what you want: Outreach Message / Loom Script / Follow-Up / Research</li>
+                        <li>GPT will ask you one question at a time — client name → post → rewrite → metrics</li>
+                        <li>It uses the knowledge files to output the correct asset (DM, email, or Loom)</li>
+                        <li><strong style="color: var(--vyra-green);">You copy, paste, and send</strong></li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <p>Every output is proof-first and formatted per the <strong>tone_rules.txt</strong> and <strong>proof_scripting_rules.txt</strong> frameworks.</p>
+                </div>
+            </div>
+
+            <div class="framework-box">
+                <h3>Automation Benefits</h3>
+                <p>✅ Consistent messaging across all outreach</p>
+                <p>✅ Reduced time from idea to execution</p>
+                <p>✅ Built-in best practices and psychology</p>
+                <p>✅ Scalable to 100+ prospects per day</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(2)">← Previous Section</button>
+                <button class="btn" onclick="showSection(4)">Next: Outreach Masterclass →</button>
+            </div>
+        </section>
+
+        <!-- Section 4 - Outreach Masterclass -->
+        <section class="container content-section" id="section4">
+            <div class="section-header">
+                <h2>Outreach Masterclass</h2>
+                <p>The psychology, anatomy, and scripts that convert cold contacts into warm leads</p>
+            </div>
+
+            <div class="content-block">
+                <h3>A. The Anatomy of a Proof Message</h3>
+                <p>Each message must contain these four elements:</p>
+
+                <div style="background: var(--vyra-dark-bg); padding: 25px; border-radius: 8px; margin: 20px 0;">
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vyra-green);">1. Respect line:</strong> 
+                        <span style="color: var(--vyra-steel);">"Loved your post on [topic] — sharp insight."</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vyra-green);">2. Action line:</strong> 
+                        <span style="color: var(--vyra-steel);">"I reworked it using my framework."</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vyra-green);">3. Proof line:</strong> 
+                        <span style="color: var(--vyra-steel);">"The rewrite pulled [metrics] in [time]."</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--vyra-green);">4. Invitation line:</strong> 
+                        <span style="color: var(--vyra-steel);">"If you'd like, I can do another one for you this week."</span>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Keep it under 100 words.</strong><br>
+                    <strong>Numbers replace adjectives.</strong></p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>B. Loom Script Psychology</h3>
+                
+                <div class="phase-container">
+                    <div class="phase-card">
+                        <h4>30 Sec Proof Hit</h4>
+                        <p>For cold outreach. Fast impact.</p>
+                    </div>
+                    <div class="phase-card">
+                        <h4>90 Sec Breakdown</h4>
+                        <p>For warm leads. Adds context.</p>
+                    </div>
+                    <div class="phase-card">
+                        <h4>2 Min Pitch</h4>
+                        <p>For ready buyers. Includes next-step ask.</p>
+                    </div>
+                </div>
+
+                <div class="framework-box">
+                    <h4>Universal Framework:</h4>
+                    <p><strong>Hook → What You Changed → Why It Worked → Invitation</strong></p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>C. Follow-Up Framework</h3>
+                <p>Use the <strong>Trust Loop:</strong></p>
+
+                <div style="background: var(--vyra-dark-bg); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vyra-green);">Touch 1:</strong> 
+                        <span style="color: var(--vyra-steel);">"Quick update — post crossed X views."</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--vyra-green);">Touch 2:</strong> 
+                        <span style="color: var(--vyra-steel);">"Saw your new post, thought of this rewrite pattern."</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--vyra-green);">Touch 3:</strong> 
+                        <span style="color: var(--vyra-steel);">"No worries if not the right time — appreciate your work."</span>
+                    </div>
+                </div>
+
+                <p><strong>Always leave the door open with composure.</strong></p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(3)">← Previous Section</button>
+                <button class="btn" onclick="showSection(5)">Next: Research & Targeting →</button>
+            </div>
+        </section>
+
+        <!-- Section 5 - Research & Targeting -->
+        <section class="container content-section" id="section5">
+            <div class="section-header">
+                <h2>Research & Targeting</h2>
+                <p>Data-driven prospect identification that ensures higher conversion rates</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Pre-Outreach Research Protocol</h3>
+                <p>Use prompts from <strong>client_research_prompts.txt</strong> before writing. Collect three critical data points:</p>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Voice</strong></td>
+                                <td>6–10 word tone description</td>
+                                <td>"Analytical, sharp, proof-driven."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Audience Focus</strong></td>
+                                <td>Who they speak to</td>
+                                <td>"Founders and B2B operators."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Opportunity</strong></td>
+                                <td>Outreach angle</td>
+                                <td>"Posts lack measurable proof — rewrite to show authority."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Target Selection Criteria</h3>
+                <p>Pick targets with <strong>traction, credibility, and consistency</strong> — not random profiles.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Quality leads mean faster closes.</strong></p>
+                </div>
+
+                <h4>Ideal Prospect Indicators:</h4>
+                <ul style="color: var(--vyra-steel); margin-left: 20px; margin-top: 15px;">
+                    <li>Regular posting schedule (3+ times per week)</li>
+                    <li>Engagement rate above industry average</li>
+                    <li>Clear business model or revenue streams</li>
+                    <li>Active in comments on others' content</li>
+                    <li>Has demonstrated growth mindset</li>
+                </ul>
+            </div>
+
+            <div class="framework-box">
+                <h3>Research Efficiency Hack</h3>
+                <p>Spend <span class="metric-display">10 minutes</span> researching to save <span class="metric-display">2 hours</span> of ineffective outreach</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(4)">← Previous Section</button>
+                <button class="btn" onclick="showSection(6)">Next: Advanced Strategy →</button>
+            </div>
+        </section>
+
+        <!-- Section 6 - Advanced Strategy -->
+        <section class="container content-section" id="section6">
+            <div class="section-header">
+                <h2>Advanced Strategy</h2>
+                <p>Scale your results with leverage, reciprocity, and systematic authority building</p>
+            </div>
+
+            <div class="content-block">
+                <h3>1. Leverage Compounding Proof</h3>
+                <p>Once one rewrite performs, repeat the process on two more posts. By the third, you have a measurable pattern — your <em>proof portfolio.</em></p>
+
+                <div class="framework-box">
+                    <h4>The Compound Effect</h4>
+                    <p><strong>Rewrite 1:</strong> Gets attention<br>
+                    <strong>Rewrite 2:</strong> Shows consistency<br>
+                    <strong>Rewrite 3:</strong> Proves systematic ability</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>2. Convert with Reciprocity</h3>
+                <p>When you've shown three wins, DM:</p>
+
+                <div class="quote-block">
+                    "I've been testing a few of your post frameworks. Would you want to run a week of rewrites together and track results?"
+                </div>
+
+                <div class="highlight-box">
+                    <p>This shifts the conversation from <strong>"Can I help you?"</strong> to <strong>"Want to collaborate on an experiment?"</strong></p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>3. Build Authority Assets</h3>
+                <p>Upload your best proof examples into a "Results Vault." Each contains:</p>
+
+                <ul style="color: var(--vyra-steel); margin-left: 20px; margin-top: 15px;">
+                    <li>Screenshot</li>
+                    <li>Original / Rewrite</li>
+                    <li>Metrics (views, likes, reposts)</li>
+                    <li>2-line takeaway</li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>This becomes your visual resume.</strong></p>
+            </div>
+
+            <div class="framework-box">
+                <h3>Authority Multiplier Effect</h3>
+                <p>Each proof example doesn't just show one success — it demonstrates your <strong>systematic approach</strong> to creating results</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(5)">← Previous Section</button>
+                <button class="btn" onclick="showSection(7)">Next: Execution Checklist →</button>
+            </div>
+        </section>
+
+        <!-- Section 7 - Execution Checklist -->
+        <section class="container content-section" id="section7">
+            <div class="section-header">
+                <h2>Execution Checklist</h2>
+                <p>Your daily action plan for implementing VyraProof™</p>
+            </div>
+
+            <div class="checklist">
+                <h3>Daily Implementation Protocol</h3>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>Find → Rewrite → Prove → Show → Follow Up</span>
+                </div>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>All communication ≤ 100 words</span>
+                </div>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>Every message includes one measurable result</span>
+                </div>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>Use declarative tone — no fluff</span>
+                </div>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>Never pitch services directly; invite continued testing</span>
+                </div>
+                
+                <div class="checklist-item">
+                    <span class="check-mark">✅</span>
+                    <span>Store and reuse your best examples for future outreach</span>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>The VyraProof™ Mindset</h3>
+                
+                <div class="quote-block">
+                    "Proof is the offer."
+                </div>
+
+                <p>When you show measurable improvement, you don't compete for attention — you command it.</p>
+
+                <p>VyraProof™ turns cold outreach into undeniable evidence. Use it daily. Refine your rewrites. Collect data. Build leverage.</p>
+
+                <div class="highlight-box">
+                    <p><strong>That's how you stop asking for work — and start getting invited.</strong></p>
+                </div>
+            </div>
+
+            <div class="framework-box">
+                <h3>Success Metrics to Track</h3>
+                <p><span class="metric-display">Response Rate</span> <span class="metric-display">Meeting Bookings</span> <span class="metric-display">Proof Performance</span> <span class="metric-display">Conversion Rate</span></p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="showSection(6)">← Previous Section</button>
+                <button class="btn" onclick="showSection(0)">Complete Masterclass</button>
+            </div>
+        </section>
+
+        <!-- Overview Section (hidden by default) -->
+        <section class="container content-section active" id="section0">
+            <div class="content-block">
+                <h3>🎯 What You'll Master</h3>
+                <p>This masterclass transforms how you approach outreach forever. No more hoping prospects will respond to your pitches. Instead, you'll demonstrate value before they even consider hiring you.</p>
+
+                <div class="highlight-box">
+                    <p><strong>The Result:</strong> Prospects will start reaching out to YOU because they've seen what you can do for them.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>📊 Expected Outcomes</h3>
+                <ul style="color: var(--vyra-steel); margin-left: 20px;">
+                    <li><span class="metric-display">3-5x</span> higher response rates on cold outreach</li>
+                    <li><span class="metric-display">60%</span> reduction in sales cycle length</li>
+                    <li><span class="metric-display">10x</span> more qualified prospects in your pipeline</li>
+                    <li>Complete elimination of "let me think about it" responses</li>
+                </ul>
+            </div>
+
+            <div class="framework-box">
+                <h3>Start Your Transformation</h3>
+                <p>Select any section above to begin building your proof-driven outreach system.</p>
+                <p><strong>Recommended path:</strong> Complete sections 1-7 in order for maximum impact.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="color: var(--vyra-steel);">© 2024 VyraLab™ - Elite Growth Operations</p>
+            <p style="color: var(--vyra-green); margin-top: 10px;">Transform Your Outreach. Command Attention. Close Deals.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSection = 0;
+        const totalSections = 7;
+
+        function showSection(sectionNum) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show selected section
+            const targetSection = document.getElementById(`section${sectionNum}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                currentSection = sectionNum;
+                updateProgress();
+                
+                // Scroll to the section content (accounting for fixed header)
+                setTimeout(() => {
+                    if (sectionNum === 0) {
+                        // For overview, scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        // For other sections, scroll to the section
+                        const rect = targetSection.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset + rect.top - 100; // 100px offset for header
+                        window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+        }
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = (currentSection / totalSections) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+        }
+
+        // Initialize progress
+        updateProgress();
+
+        // Add hover effects to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.section-card, .phase-card, .checklist-item');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth scroll for navigation
+            const navLinks = document.querySelectorAll('.section-card');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // No additional scrolling needed since showSection handles it
+                });
+            });
+        });
+
+        // Add some dynamic effects
+        function addDynamicEffects() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            const animatedElements = document.querySelectorAll('.content-block, .phase-card, .checklist');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Initialize dynamic effects
+        addDynamicEffects();
+    </script>
+</body>
+</html>
