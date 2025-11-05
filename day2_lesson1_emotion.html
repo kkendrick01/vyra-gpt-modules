@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Before Ink - Day 2 Training</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff88;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+            --neural-blue: #0099ff;
+            --dopamine-orange: #ff6b35;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--vyra-green), var(--neural-blue));
+            transition: width 0.3s ease;
+            z-index: 101;
+        }
+
+        .slide-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 20px 60px;
+            border-bottom: 1px solid var(--vyra-green);
+        }
+
+        .vyra-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--vyra-grey);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--vyra-grey);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .scroll-dot.active {
+            background: var(--vyra-green);
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .scroll-dot:hover {
+            background: var(--vyra-green);
+            transform: scale(1.2);
+        }
+
+        .presentation-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 120px;
+            font-weight: 900;
+            color: rgba(0, 255, 136, 0.08);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            position: relative;
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(20px, 3vw, 28px);
+            color: var(--vyra-green);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slide-text {
+            font-size: clamp(18px, 2vw, 22px);
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .slide-text.large {
+            font-size: clamp(22px, 2.5vw, 28px);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: var(--vyra-green);
+            font-weight: 700;
+        }
+
+        .neural-highlight {
+            color: var(--neural-blue);
+            font-weight: 700;
+        }
+
+        .dopamine-highlight {
+            color: var(--dopamine-orange);
+            font-weight: 700;
+        }
+
+        .brain-container {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 153, 255, 0.1));
+            border: 2px solid var(--vyra-green);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brain-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.15), transparent);
+            transition: left 1s ease;
+        }
+
+        .brain-container:hover::before {
+            left: 100%;
+        }
+
+        .psychology-sequence {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            gap: 30px;
+        }
+
+        .sequence-step {
+            flex: 1;
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--vyra-dark-grey), rgba(0, 255, 136, 0.1));
+            border-radius: 20px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .sequence-step:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .sequence-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--vyra-green);
+            font-weight: 900;
+        }
+
+        .sequence-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: var(--vyra-grey);
+            line-height: 1.4;
+        }
+
+        .hook-example {
+            background: var(--vyra-dark-grey);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: left;
+            border: 1px solid var(--vyra-grey);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .hook-example:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.2);
+            border-color: var(--vyra-green);
+        }
+
+        .hook-text {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--vyra-white);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .hook-metrics {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 12px;
+            flex: 1;
+        }
+
+        .metric-number {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--vyra-grey);
+            text-transform: uppercase;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .emotion-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), rgba(0, 255, 136, 0.05));
+            border-radius: 18px;
+            padding: 30px 25px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emotion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--vyra-green);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .emotion-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .emotion-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.25);
+        }
+
+        .emotion-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .case-study-image {
+            max-width: 100%;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease;
+            border: 2px solid var(--vyra-grey);
+        }
+
+        .case-study-image:hover {
+            transform: scale(1.03);
+            border-color: var(--vyra-green);
+        }
+
+        .science-container {
+            background: linear-gradient(135deg, rgba(0, 153, 255, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--neural-blue);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .formula-display {
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 800;
+            color: var(--vyra-green);
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            letter-spacing: 2px;
+        }
+
+        .quote-style {
+            font-style: italic;
+            font-size: clamp(20px, 2.2vw, 26px);
+            color: var(--vyra-white);
+            margin: 30px 0;
+            padding: 30px;
+            border-left: 4px solid var(--vyra-green);
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 0 15px 15px 0;
+        }
+
+        .neuro-pulse {
+            animation: neuralPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .brain-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50%;
+            animation: brainWave 3s ease-in-out infinite;
+        }
+
+        @keyframes brainWave {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.1; }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 80px 20px 60px;
+            }
+            
+            .slide-header {
+                padding: 15px 20px;
+            }
+            
+            .section-number {
+                top: 20px;
+                right: 20px;
+                font-size: 80px;
+            }
+            
+            .psychology-sequence {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .sequence-step::after {
+                display: none;
+            }
+            
+            .emotion-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .scroll-indicator {
+                right: 15px;
+            }
+            
+            .scroll-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .hook-metrics {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="slide-header">
+        <div class="vyra-logo">VYRALAB</div>
+        <div class="slide-counter">Emotion Before Ink Training</div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-dot active" onclick="scrollToSection(0)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(1)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(2)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(3)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(4)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(5)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(6)"></div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Section 1: Opening -->
+        <div class="slide" id="section-0">
+            <div class="section-number">01</div>
+            <div class="brain-wave"></div>
+            <div class="slide-content fade-in-on-scroll">
+                <div class="slide-subtitle">Day 2 — Section 1</div>
+                <h1 class="slide-title">Emotion Before Ink</h1>
+                <div class="brain-container">
+                    <p class="slide-text large">What's good, operators. Welcome back inside the lab.</p>
+                    <p class="slide-text">Yesterday, you built your <span class="highlight">VyraSearch system</span>—the intelligence engine. You learned how to see what others miss.</p>
+                    <p class="slide-text">Today, we flip the switch.</p>
+                </div>
+                <p class="slide-text large">Because ideas don't make people move. <span class="highlight">Emotion does.</span></p>
+            </div>
+        </div>
+
+        <!-- Section 2: Psychology of Attention -->
+        <div class="slide" id="section-1">
+            <div class="section-number">02</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Psychology of Attention</h2>
+                <p class="slide-text">Before we write a single line, you need to understand how the human brain actually decides what to read.</p>
+                
+                <div class="psychology-sequence">
+                    <div class="sequence-step">
+                        <span class="step-number">1</span>
+                        <div class="step-title">Attention</div>
+                        <div class="step-description">The eye stops</div>
+                    </div>
+                    <div class="sequence-step">
+                        <span class="step-number">2</span>
+                        <div class="step-title">Emotion</div>
+                        <div class="step-description">The body feels</div>
+                    </div>
+                    <div class="sequence-step">
+                        <span class="step-number">3</span>
+                        <div class="step-title">Logic</div>
+                        <div class="step-description">The mind decides</div>
+                    </div>
+                </div>
+
+                <div class="brain-container">
+                    <p class="slide-text">Every viral post you've ever seen hijacks that order. It doesn't convince—<span class="highlight">it compels.</span></p>
+                    <p class="slide-text">It trips the <span class="neural-highlight">limbic system</span> before the rational brain even wakes up.</p>
+                    <div class="quote-style">
+                        "Emotion is the ignition switch. Logic? That's just the steering wheel that comes after."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: The Job of a Hook -->
+        <div class="slide" id="section-2">
+            <div class="section-number">03</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Job of a Hook</h2>
+                <p class="slide-text large">Let's get one thing straight: <span class="highlight">Hooks are not summaries.</span></p>
+                
+                <div class="brain-container">
+                    <p class="slide-text">Your hook isn't a headline. It's a <span class="highlight">trigger.</span></p>
+                    <p class="slide-text">Its only job is to make the reader feel like they <span class="dopamine-highlight">need</span> to keep reading.</p>
+                    <p class="slide-text">If a reader can scroll past line one and feel complete—you already lost.</p>
+                </div>
+
+                <p class="slide-text">A great hook doesn't explain the post. It opens a loop the brain is desperate to close.</p>
+                
+                <div class="formula-display">
+                    Feed → <span class="dopamine-highlight">Dopamine Spike</span> → <span class="neural-highlight">Cognitive Pause</span> → Click
+                </div>
+
+                <div class="science-container">
+                    <p class="slide-text">Your first line must release <span class="dopamine-highlight">dopamine</span>—the "pay attention" chemical.</p>
+                    <p class="slide-text">That spike creates a momentary pause, a tiny bit of internal tension that screams, <span class="highlight">"finish the thought."</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: The Science of the Open Loop -->
+        <div class="slide" id="section-3">
+            <div class="section-number">04</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Science of the Open Loop</h2>
+                <p class="slide-text">This isn't copywriting folklore. <span class="highlight">It's psychology</span>, proven nearly a century ago.</p>
+                
+                <div class="science-container">
+                    <p class="slide-text">In <span class="neural-highlight">1927</span>, psychologist <span class="highlight">Bluma Zeigarnik</span> noticed that waiters remembered unpaid orders perfectly—but forgot them the moment the bill was settled.</p>
+                    <p class="slide-text">She called it the <span class="highlight">Zeigarnik Effect</span>—the mind's obsession with unfinished tasks.</p>
+                </div>
+
+                <div class="brain-container neuro-pulse">
+                    <p class="slide-text">When something's incomplete, your brain holds it open like a tab it can't close.</p>
+                    <p class="slide-text">Modern neuroscience calls it the <span class="neural-highlight">Information Gap</span>.</p>
+                    <p class="slide-text">When there's a gap between what we know and what we want to know, <span class="dopamine-highlight">dopamine floods the system</span>.</p>
+                </div>
+
+                <div class="quote-style">
+                    "That's what your hook does. It opens that gap—and refuses to close it."
+                </div>
+
+                <p class="slide-text">Explain too much, and the loop collapses. Withhold just enough truth, and the reader leans in.</p>
+                <p class="slide-text large"><span class="highlight">That's why the best line you'll ever write is the one that hurts to stop reading.</span></p>
+            </div>
+        </div>
+
+        <!-- Section 5: Surface vs Deep Emotion -->
+        <div class="slide" id="section-4">
+            <div class="section-number">05</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Surface vs Deep Emotion</h2>
+                <p class="slide-text">Most writers mistake adjectives for emotion. That's surface level—<span class="highlight">cheap sugar</span>.</p>
+                
+                <div class="brain-container">
+                    <p class="slide-text large">Deep emotion lives in <span class="highlight">values</span>:</p>
+                </div>
+
+                <div class="emotion-grid">
+                    <div class="emotion-card">
+                        <div class="emotion-title">Risk</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Betrayal</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Victory</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Envy</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Survival</div>
+                    </div>
+                </div>
+
+                <div class="science-container">
+                    <p class="slide-text">Writers describe emotion. <span class="highlight">Operators trigger it.</span></p>
+                    <p class="slide-text">When someone feels, they act. When they act, they remember who made them feel.</p>
+                    <p class="slide-text large"><span class="highlight">That's power.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: The Preview Hook -->
+        <div class="slide" id="section-5">
+            <div class="section-number">06</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Preview Hook</h2>
+                <p class="slide-text">Now let's preview a post that embodies everything we've just talked about.</p>
+                <p class="slide-text">No breakdown yet—just <span class="highlight">listen to what it does to your brain</span>.</p>
+                
+                <div class="hook-example">
+                    <div class="hook-text">
+                        "During the '08 market crash, this man turned $27 million into $50 Billion.<br><br>
+                        He was accused of cheating, stealing, and insider trading.<br><br>
+                        The truth? He simply did the opposite of what others told him to.<br><br>
+                        Here's David Tepper's contrarian guide to making billions in a crisis."
+                    </div>
+                    <div class="hook-metrics">
+                        <div class="metric">
+                            <span class="metric-number">2.3M</span>
+                            <span class="metric-label">Views</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">8.1K</span>
+                            <span class="metric-label">Likes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/gary_tepper.png" alt="David Tepper Hook Example" class="case-study-image">
+                
+                <div class="brain-container">
+                    <p class="slide-text">Don't analyze it yet. <span class="highlight">Just feel it.</span></p>
+                    <p class="slide-text">That's the open loop in real time—the <span class="dopamine-highlight">tension</span>, the <span class="highlight">envy</span>, the <span class="neural-highlight">curiosity</span>.</p>
+                    <p class="slide-text">We'll dissect it in the next section. For now, <span class="highlight">hold that feeling</span>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: VyraPsych EmotionStack & Bridge -->
+        <div class="slide" id="section-6">
+            <div class="section-number">07</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The VyraPsych EmotionStack™</h2>
+                <p class="slide-text">Because next, we make that reaction <span class="highlight">repeatable</span>.</p>
+                
+                <p class="slide-text">Every viral hook you'll ever write runs on one dominant driver—what we call the <span class="highlight">VyraPsych EmotionStack™</span>:</p>
+
+                <div class="emotion-grid">
+                    <div class="emotion-card">
+                        <div class="emotion-title">Hope</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Fear</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Envy</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Pride</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Curiosity</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Anger</div>
+                    </div>
+                    <div class="emotion-card">
+                        <div class="emotion-title">Awe</div>
+                    </div>
+                </div>
+
+                <div class="brain-container">
+                    <p class="slide-text">When you know which one you're writing from, you're not guessing—<span class="highlight">you're engineering</span>.</p>
+                    <p class="slide-text">Inside your course portal, you already have access to the <span class="highlight">VyraHook™ 3-in-1 Vault Stack</span>.</p>
+                    <p class="slide-text">That vault is your private lab. You'll use it all week to study what works and build your own arsenal.</p>
+                </div>
+
+                <div class="science-container">
+                    <p class="slide-text large">You've just learned the physics behind why emotion controls attention.</p>
+                    <p class="slide-text">In the next lesson, we turn that emotion into structure—using the <span class="highlight">VyraPAST™ Framework</span>:</p>
+                    <p class="slide-text"><span class="neural-highlight">Four lines that have built brands, sold millions, and dominated feeds.</span></p>
+                    <div class="quote-style">
+                        "Let's get to work. I'll see YOU in the next lab."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll-based progress bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Update active scroll indicator
+        function updateScrollIndicator() {
+            const sections = document.querySelectorAll('.slide');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const dots = scrollIndicator.querySelectorAll('.scroll-dot');
+            
+            let activeSection = 0;
+            const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    activeSection = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeSection);
+            });
+        }
+
+        // Scroll to specific section
+        function scrollToSection(sectionIndex) {
+            const section = document.getElementById(`section-${sectionIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Fade in elements on scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentActive = document.querySelector('.scroll-dot.active');
+            const currentIndex = Array.from(document.querySelectorAll('.scroll-dot')).indexOf(currentActive);
+            
+            if (e.key === 'ArrowDown' && currentIndex < 6) {
+                scrollToSection(currentIndex + 1);
+            }
+            if (e.key === 'ArrowUp' && currentIndex > 0) {
+                scrollToSection(currentIndex - 1);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Add hover effects to emotion cards
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-12px) scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click effects to sequence steps
+        document.querySelectorAll('.sequence-step').forEach(step => {
+            step.addEventListener('click', () => {
+                step.style.transform = 'translateY(-10px) scale(1.02)';
+                setTimeout(() => {
+                    step.style.transform = 'translateY(-10px) scale(1)';
+                }, 200);
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
