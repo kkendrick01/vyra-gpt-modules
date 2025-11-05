@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Hook Arsenal - Day 2 Outro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff88;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+            --energy-orange: #ff6b35;
+            --elite-gold: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--vyra-green), var(--energy-orange), var(--elite-gold));
+            transition: width 0.3s ease;
+            z-index: 101;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .slide-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 60px;
+            border-bottom: 2px solid var(--vyra-green);
+        }
+
+        .vyra-logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .slide-counter {
+            font-size: 16px;
+            color: var(--vyra-grey);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .scroll-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--vyra-grey);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .scroll-dot.active {
+            background: var(--vyra-green);
+            transform: scale(1.5);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .scroll-dot:hover {
+            background: var(--vyra-green);
+            transform: scale(1.3);
+        }
+
+        .presentation-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 120px 60px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 50%, var(--vyra-black) 100%);
+            border-bottom: 3px solid rgba(0, 255, 136, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        /* Animated background elements */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+            animation: backgroundPulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        .section-number {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 140px;
+            font-weight: 900;
+            color: rgba(0, 255, 136, 0.06);
+            pointer-events: none;
+            z-index: 1;
+            text-shadow: 0 0 50px rgba(0, 255, 136, 0.2);
+        }
+
+        .energy-badge {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            background: linear-gradient(45deg, var(--vyra-green), var(--energy-orange));
+            color: var(--vyra-black);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            animation: energyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes energyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .slide-content {
+            max-width: 1300px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            position: relative;
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-title {
+            font-size: clamp(40px, 7vw, 80px);
+            font-weight: 900;
+            color: var(--vyra-white);
+            margin-bottom: 40px;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .slide-subtitle {
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--vyra-green);
+            font-weight: 800;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .slide-text {
+            font-size: clamp(20px, 2.2vw, 26px);
+            color: var(--vyra-white);
+            margin-bottom: 40px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .slide-text.large {
+            font-size: clamp(26px, 3vw, 36px);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .highlight {
+            color: var(--vyra-green);
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .energy-highlight {
+            color: var(--energy-orange);
+            font-weight: 800;
+        }
+
+        .elite-highlight {
+            color: var(--elite-gold);
+            font-weight: 800;
+        }
+
+        .impact-container {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(255, 107, 53, 0.1));
+            border: 3px solid var(--vyra-green);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
+        }
+
+        .impact-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 1.5s ease;
+        }
+
+        .impact-container:hover::before {
+            left: 100%;
+        }
+
+        .weapons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .weapon-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), rgba(0, 255, 136, 0.1));
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weapon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--vyra-green), var(--energy-orange));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .weapon-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .weapon-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 255, 136, 0.3);
+        }
+
+        .weapon-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .weapon-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .weapon-description {
+            font-size: 16px;
+            color: var(--vyra-grey);
+            line-height: 1.5;
+        }
+
+        .challenge-container {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 255, 136, 0.1));
+            border: 4px solid var(--elite-gold);
+            border-radius: 35px;
+            padding: 70px;
+            margin: 60px 0;
+            position: relative;
+            text-align: left;
+            box-shadow: 0 25px 70px rgba(255, 215, 0, 0.2);
+        }
+
+        .challenge-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            color: var(--elite-gold);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .challenge-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .challenge-step {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px 25px;
+            border: 2px solid var(--vyra-green);
+            transition: all 0.4s ease;
+        }
+
+        .challenge-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .step-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .step-action {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 10px;
+        }
+
+        .step-detail {
+            font-size: 16px;
+            color: var(--vyra-grey);
+            line-height: 1.4;
+        }
+
+        .cta-container {
+            background: linear-gradient(45deg, var(--vyra-green), var(--energy-orange));
+            border-radius: 30px;
+            padding: 50px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            animation: ctaPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(0, 255, 136, 0.6); }
+        }
+
+        .cta-text {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 900;
+            color: var(--vyra-black);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .next-preview {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 26, 0.9));
+            border: 3px solid var(--vyra-green);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .preview-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .quote-style {
+            font-style: italic;
+            font-size: clamp(22px, 2.5vw, 30px);
+            color: var(--vyra-white);
+            margin: 40px 0;
+            padding: 40px;
+            border-left: 6px solid var(--vyra-green);
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 0 20px 20px 0;
+            position: relative;
+        }
+
+        .quote-style::before {
+            content: '"';
+            font-size: 80px;
+            color: var(--vyra-green);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .final-cta {
+            background: linear-gradient(135deg, var(--vyra-black), var(--vyra-dark-grey));
+            border: 4px solid var(--vyra-green);
+            border-radius: 40px;
+            padding: 80px 60px;
+            margin: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: finalShine 4s ease-in-out infinite;
+        }
+
+        @keyframes finalShine {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            color: rgba(0, 255, 136, 0.1);
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 100px 25px 80px;
+            }
+            
+            .slide-header {
+                padding: 15px 25px;
+            }
+            
+            .section-number {
+                top: 20px;
+                right: 25px;
+                font-size: 100px;
+            }
+            
+            .energy-badge {
+                top: 20px;
+                left: 25px;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .weapons-grid,
+            .challenge-steps {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .scroll-indicator {
+                right: 20px;
+            }
+            
+            .impact-container,
+            .challenge-container {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="slide-header">
+        <div class="vyra-logo">VYRALAB</div>
+        <div class="slide-counter">Day 2 Complete • Arsenal Building Time</div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-dot active" onclick="scrollToSection(0)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(1)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(2)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(3)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(4)"></div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Section 1: The Turning Point -->
+        <div class="slide" id="section-0">
+            <div class="section-number">01</div>
+            <div class="energy-badge">Elite Status</div>
+            <div class="floating-elements">
+                <div class="floating-element" style="top: 20%; left: 10%;">⚡</div>
+                <div class="floating-element" style="top: 60%; right: 15%; animation-delay: 2s;">🎯</div>
+                <div class="floating-element" style="bottom: 30%; left: 20%; animation-delay: 4s;">🚀</div>
+            </div>
+            <div class="slide-content fade-in-on-scroll">
+                <h1 class="slide-title">The Turning Point</h1>
+                <div class="impact-container">
+                    <p class="slide-text large">Let's stop right here—because what you just learned puts you in the <span class="highlight">top 1% of writers online</span>.</p>
+                    <p class="slide-text">Most people never touch this level of clarity. They don't know how emotion actually works. They throw words at the wall and pray something sticks.</p>
+                </div>
+                
+                <p class="slide-text large">But now? <span class="highlight">You don't pray. You engineer.</span></p>
+                
+                <div class="weapons-grid">
+                    <div class="weapon-card">
+                        <span class="weapon-icon">📐</span>
+                        <div class="weapon-title">PAST System</div>
+                        <div class="weapon-description">Four-line emotional architecture that compels action</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🧠</span>
+                        <div class="weapon-title">EmotionStack™</div>
+                        <div class="weapon-description">Seven psychological triggers that drive human behavior</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🔬</span>
+                        <div class="weapon-title">VyraHook™</div>
+                        <div class="weapon-description">Forensic tools to turn instinct into real results</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">⚡</span>
+                        <div class="weapon-title">Open Loop Mastery</div>
+                        <div class="weapon-description">Creating irresistible curiosity gaps</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🎯</span>
+                        <div class="weapon-title">Emotional Precision</div>
+                        <div class="weapon-description">Targeting specific psychological responses</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🚀</span>
+                        <div class="weapon-title">Viral Engineering</div>
+                        <div class="weapon-description">Scientific approach to content that spreads</div>
+                    </div>
+                </div>
+
+                <div class="quote-style">
+                    This is the turning point most people skip. They read a few tips. They scribble a few headlines. And then they wonder why their posts flop. Not you.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Your Weapon -->
+        <div class="slide" id="section-1">
+            <div class="section-number">02</div>
+            <div class="energy-badge">Weapon Unlocked</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">You've Got a Weapon</h2>
+                <p class="slide-text">Because now you've got VyraHook™ — the same <span class="elite-highlight">elite rating system</span> that's analyzed billions of views, tested hooks that broke the internet, and reverse-engineered the triggers that drive real human action.</p>
+                
+                <div class="impact-container">
+                    <div class="weapons-grid">
+                        <div class="weapon-card">
+                            <span class="weapon-icon">🔥</span>
+                            <div class="weapon-title">Surgical</div>
+                            <div class="weapon-description">Precision analysis of every emotional trigger</div>
+                        </div>
+                        <div class="weapon-card">
+                            <span class="weapon-icon">⚔️</span>
+                            <div class="weapon-title">Savage</div>
+                            <div class="weapon-description">Ruthlessly exposes every weakness in your lines</div>
+                        </div>
+                        <div class="weapon-card">
+                            <span class="weapon-icon">💪</span>
+                            <div class="weapon-title">Powerful</div>
+                            <div class="weapon-description">Transforms weaknesses into viral strength</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="slide-text large">This is no hype tool. It's <span class="energy-highlight">surgical</span>. It's <span class="energy-highlight">savage</span>. It's built to expose every weakness in your line — and turn it into <span class="highlight">power</span>.</p>
+                
+                <div class="cta-container">
+                    <div class="cta-text">From Knowledge → Impact. Right Now.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: The Challenge -->
+        <div class="slide" id="section-2">
+            <div class="section-number">03</div>
+            <div class="energy-badge">Challenge Mode</div>
+            <div class="slide-content fade-in-on-scroll">
+                <div class="challenge-container">
+                    <div class="challenge-title">🎯 Your Hook Arsenal Challenge</div>
+                    
+                    <div class="challenge-steps">
+                        <div class="challenge-step">
+                            <span class="step-number">1</span>
+                            <div class="step-action">Pull Your Best Idea</div>
+                            <div class="step-detail">From Day 1 — one that made your blood move</div>
+                        </div>
+                        <div class="challenge-step">
+                            <span class="step-number">2</span>
+                            <div class="step-action">Run VyraPAST Framework</div>
+                            <div class="step-detail">Apply the four-line structure you just mastered</div>
+                        </div>
+                        <div class="challenge-step">
+                            <span class="step-number">3</span>
+                            <div class="step-action">Pick Dominant Emotion</div>
+                            <div class="step-detail">Hope, Envy, or Fear — choose your trigger</div>
+                        </div>
+                        <div class="challenge-step">
+                            <span class="step-number">4</span>
+                            <div class="step-action">Generate Three Variants</div>
+                            <div class="step-detail">Use VyraHook Creator GPT for emotional drivers</div>
+                        </div>
+                        <div class="challenge-step">
+                            <span class="step-number">5</span>
+                            <div class="step-action">Score with VyraHook™ Lite</div>
+                            <div class="step-detail">Compare tension, clarity, and curiosity</div>
+                        </div>
+                        <div class="challenge-step">
+                            <span class="step-number">6</span>
+                            <div class="step-action">Refine Until Elite</div>
+                            <div class="step-detail">Make it punch through the screen</div>
+                        </div>
+                    </div>
+
+                    <div class="impact-container">
+                        <p class="slide-text large">When you're ready? Drop your final hook and full scorecard in the <span class="highlight">#TopHook channel</span> inside the <span class="elite-highlight">VyraSphere™</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: The Proof -->
+        <div class="slide" id="section-3">
+            <div class="section-number">04</div>
+            <div class="energy-badge">Proof Mode</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Greatness Comes from Proof</h2>
+                
+                <div class="impact-container">
+                    <p class="slide-text large">Don't wait. Don't overthink it. <span class="highlight">Greatness comes from proof.</span></p>
+                    <p class="slide-text">We don't get better by guessing. We get better by posting, scoring, refining — and proving we belong.</p>
+                </div>
+
+                <div class="weapons-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="weapon-card">
+                        <span class="weapon-icon">📊</span>
+                        <div class="weapon-title">Post</div>
+                        <div class="weapon-description">Share your work with the community</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">📈</span>
+                        <div class="weapon-title">Score</div>
+                        <div class="weapon-description">Get forensic feedback on performance</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🔄</span>
+                        <div class="weapon-title">Refine</div>
+                        <div class="weapon-description">Iterate based on elite standards</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">✅</span>
+                        <div class="weapon-title">Prove</div>
+                        <div class="weapon-description">Demonstrate you belong at the top</div>
+                    </div>
+                </div>
+
+                <div class="quote-style">
+                    We don't get better by guessing. We get better by posting, scoring, refining — and proving we belong.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: What's Next -->
+        <div class="slide" id="section-4">
+            <div class="section-number">05</div>
+            <div class="energy-badge">Next Level</div>
+            <div class="slide-content fade-in-on-scroll">
+                <div class="next-preview">
+                    <div class="preview-title">🔥 Next Up...</div>
+                    <p class="slide-text">Because tomorrow? We're taking that hook — and building your very first <span class="highlight">VyraThread™</span>.</p>
+                    <p class="slide-text">Not a thread that talks at people. A thread that <span class="energy-highlight">builds trust</span>, <span class="energy-highlight">generates demand</span>, and makes high-ticket leads raise their hand.</p>
+                </div>
+
+                <div class="weapons-grid">
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🏗️</span>
+                        <div class="weapon-title">VyraTrust™ Thread Creator</div>
+                        <div class="weapon-description">Advanced thread building system</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">💰</span>
+                        <div class="weapon-title">Content → Conversion</div>
+                        <div class="weapon-description">Turn engagement into revenue</div>
+                    </div>
+                    <div class="weapon-card">
+                        <span class="weapon-icon">🏆</span>
+                        <div class="weapon-title">Elite Narratives</div>
+                        <div class="weapon-description">Stories that get remembered and respected</div>
+                    </div>
+                </div>
+
+                <div class="final-cta">
+                    <p class="slide-text large">This is the moment where a lot of people stop.</p>
+                    <p class="slide-text large">You? <span class="highlight">You're just getting started.</span></p>
+                    
+                    <div class="cta-container">
+                        <div class="cta-text">Go Build Your Hook Arsenal</div>
+                    </div>
+                    
+                    <div class="quote-style">
+                        I'll see you tomorrow inside the Trust Lab.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll-based progress bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Update active scroll indicator
+        function updateScrollIndicator() {
+            const sections = document.querySelectorAll('.slide');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const dots = scrollIndicator.querySelectorAll('.scroll-dot');
+            
+            let activeSection = 0;
+            const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    activeSection = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeSection);
+            });
+        }
+
+        // Scroll to specific section
+        function scrollToSection(sectionIndex) {
+            const section = document.getElementById(`section-${sectionIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Fade in elements on scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Add random floating elements
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            const symbols = ['⚡', '🎯', '🚀', '💥', '🔥', '⭐', '💎', '🏆'];
+            
+            setInterval(() => {
+                if (document.querySelectorAll('.floating-element').length < 8) {
+                    const element = document.createElement('div');
+                    element.className = 'floating-element';
+                    element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    element.style.left = Math.random() * 90 + '%';
+                    element.style.top = Math.random() * 90 + '%';
+                    element.style.animationDelay = Math.random() * 3 + 's';
+                    container.appendChild(element);
+                    
+                    setTimeout(() => {
+                        element.remove();
+                    }, 6000);
+                }
+            }, 3000);
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentActive = document.querySelector('.scroll-dot.active');
+            const currentIndex = Array.from(document.querySelectorAll('.scroll-dot')).indexOf(currentActive);
+            
+            if (e.key === 'ArrowDown' && currentIndex < 4) {
+                scrollToSection(currentIndex + 1);
+            }
+            if (e.key === 'ArrowUp' && currentIndex > 0) {
+                scrollToSection(currentIndex - 1);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+            createFloatingElements();
+        });
+
+        // Add enhanced hover effects to weapon cards
+        document.querySelectorAll('.weapon-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.05)';
+                card.style.borderColor = 'var(--vyra-green)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.borderColor = 'transparent';
+            });
+        });
+
+        // Add click effects to challenge steps
+        document.querySelectorAll('.challenge-step').forEach(step => {
+            step.addEventListener('click', () => {
+                step.style.transform = 'translateY(-8px) scale(1.02)';
+                step.style.borderColor = 'var(--elite-gold)';
+                setTimeout(() => {
+                    step.style.transform = 'translateY(0) scale(1)';
+                    step.style.borderColor = 'var(--vyra-green)';
+                }, 300);
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add energy pulse effect to CTA containers
+        document.querySelectorAll('.cta-container').forEach(cta => {
+            cta.addEventListener('mouseenter', () => {
+                cta.style.animation = 'ctaPulse 1s ease-in-out infinite';
+            });
+            
+            cta.addEventListener('mouseleave', () => {
+                cta.style.animation = 'ctaPulse 3s ease-in-out infinite';
+            });
+        });
+    </script>
+</body>
+</html>
