@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraHook™ (Lite) Live Demo - Step by Step</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff88;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+            --warning-orange: #ff8c42;
+            --success-green: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--vyra-green);
+            transition: width 0.3s ease;
+            z-index: 101;
+        }
+
+        .slide-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 20px 60px;
+            border-bottom: 1px solid var(--vyra-green);
+        }
+
+        .vyra-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--vyra-grey);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--vyra-grey);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .scroll-dot.active {
+            background: var(--vyra-green);
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .scroll-dot:hover {
+            background: var(--vyra-green);
+            transform: scale(1.2);
+        }
+
+        .presentation-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 120px;
+            font-weight: 900;
+            color: rgba(0, 255, 136, 0.08);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            position: relative;
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(20px, 3vw, 28px);
+            color: var(--vyra-green);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slide-text {
+            font-size: clamp(18px, 2vw, 22px);
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .slide-text.large {
+            font-size: clamp(22px, 2.5vw, 28px);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: var(--vyra-green);
+            font-weight: 700;
+        }
+
+        .warning-highlight {
+            color: var(--warning-orange);
+            font-weight: 700;
+        }
+
+        .success-highlight {
+            color: var(--vyra-green);
+            font-weight: 700;
+        }
+
+        .tool-container {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid var(--vyra-green);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.15), transparent);
+            transition: left 1s ease;
+        }
+
+        .tool-container:hover::before {
+            left: 100%;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), rgba(0, 255, 136, 0.05));
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: left;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--vyra-green);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.25);
+        }
+
+        .step-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: var(--vyra-grey);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .step-action {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step-action:hover {
+            background: var(--vyra-white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .hook-demo {
+            background: var(--vyra-dark-grey);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: left;
+            border: 2px solid var(--vyra-green);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .hook-demo:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.3);
+            border-color: var(--vyra-green);
+        }
+
+        .hook-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--vyra-white);
+            font-weight: 500;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid var(--vyra-green);
+        }
+
+        .hook-metrics {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 20px 25px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            flex: 1;
+        }
+
+        .metric-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--vyra-grey);
+            text-transform: uppercase;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+            border: 3px solid var(--vyra-green);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .score-number {
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--vyra-green);
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .score-label {
+            font-size: 18px;
+            color: var(--vyra-white);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .dimension-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), rgba(0, 255, 136, 0.1));
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .dimension-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.25);
+        }
+
+        .dimension-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dimension-description {
+            font-size: 14px;
+            color: var(--vyra-grey);
+            line-height: 1.4;
+        }
+
+        .case-study-image {
+            max-width: 100%;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease;
+            border: 2px solid var(--vyra-green);
+        }
+
+        .case-study-image:hover {
+            transform: scale(1.03);
+            border-color: var(--vyra-green);
+        }
+
+        .interface-mockup {
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .mockup-header {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 15px 25px;
+            border-radius: 10px 10px 0 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: -30px -30px 20px -30px;
+        }
+
+        .mockup-content {
+            color: var(--vyra-white);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .action-checklist {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .checkmark {
+            color: var(--vyra-green);
+            font-size: 24px;
+            font-weight: 900;
+            margin-right: 15px;
+        }
+
+        .quote-style {
+            font-style: italic;
+            font-size: clamp(20px, 2.2vw, 26px);
+            color: var(--vyra-white);
+            margin: 30px 0;
+            padding: 30px;
+            border-left: 4px solid var(--vyra-green);
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 0 15px 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 80px 20px 60px;
+            }
+            
+            .slide-header {
+                padding: 15px 20px;
+            }
+            
+            .section-number {
+                top: 20px;
+                right: 20px;
+                font-size: 80px;
+            }
+            
+            .step-badge {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            
+            .step-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .hook-metrics {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .scroll-indicator {
+                right: 15px;
+            }
+            
+            .scroll-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="slide-header">
+        <div class="vyra-logo">VYRALAB</div>
+        <div class="slide-counter">VyraHook™ (Lite) Live Demo</div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-dot active" onclick="scrollToSection(0)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(1)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(2)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(3)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(4)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(5)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(6)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(7)"></div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Section 1: Introduction -->
+        <div class="slide" id="section-0">
+            <div class="section-number">01</div>
+            <div class="step-badge">Introduction</div>
+            <div class="slide-content fade-in-on-scroll">
+                <div class="slide-subtitle">Day 2 — Video 3</div>
+                <h1 class="slide-title">VyraHook™ (Lite) Live Demo</h1>
+                <div class="tool-container">
+                    <p class="slide-text large">Welcome back inside the lab.</p>
+                    <p class="slide-text">In this session, we're going hands-on with one of the most powerful weapons in the Vyralab arsenal: <span class="highlight">VyraHook™ (Lite) Rating and Refinement system</span>.</p>
+                </div>
+                
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-title">❌ Not a writing assistant</div>
+                        <div class="step-description">This isn't some "creative helper"</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-title">❌ Not guesswork</div>
+                        <div class="step-description">Most writers guess. We don't.</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-title">✅ Forensic-grade rating</div>
+                        <div class="step-description">Scores every hook line-by-line using real conversion psychology</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Seven Critical Dimensions -->
+        <div class="slide" id="section-1">
+            <div class="section-number">02</div>
+            <div class="step-badge">System Overview</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Seven Critical Dimensions</h2>
+                <p class="slide-text">VyraHook™ evaluates across seven critical dimensions that determine virality:</p>
+                
+                <div class="dimensions-grid">
+                    <div class="dimension-card">
+                        <div class="dimension-title">First-Line Power</div>
+                        <div class="dimension-description">Opening impact and attention capture</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">Emotional Trigger</div>
+                        <div class="dimension-description">Psychological response activation</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">Clarity & Simplicity</div>
+                        <div class="dimension-description">Message comprehension speed</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">Novelty & Surprise</div>
+                        <div class="dimension-description">Pattern-breaking elements</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">Open Loop Strength</div>
+                        <div class="dimension-description">Curiosity gap creation</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">ICP Resonance</div>
+                        <div class="dimension-description">Target audience alignment</div>
+                    </div>
+                    <div class="dimension-card">
+                        <div class="dimension-title">CTA Bridge Potential</div>
+                        <div class="dimension-description">Conversion pathway strength</div>
+                    </div>
+                </div>
+
+                <div class="tool-container">
+                    <p class="slide-text">Then it runs that through a <span class="highlight">100-point model</span> developed by breaking down over <span class="highlight">2 billion views</span> worth of data.</p>
+                    <div class="quote-style">
+                        "So instead of wondering 'Is this good?' You'll know: ✅ Why it works, ❌ Where it breaks, 🧠 What to fix, 🚀 And exactly how to refine it to elite status"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Real-World Example -->
+        <div class="slide" id="section-2">
+            <div class="section-number">03</div>
+            <div class="step-badge">Case Study</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Real-World Example</h2>
+                <p class="slide-text">Let me show you exactly how it works — using a real-world example.</p>
+                
+                <div class="tool-container">
+                    <p class="slide-text">This hook was written by <span class="highlight">Ayon</span>, a ghostwriter I personally trained — and one of our internal operators who took over one of my first client, <span class="highlight">Vinay's</span>, account at ThoughtLeadr when I was promoted to VP of Customer Success.</p>
+                </div>
+
+                <div class="hook-demo">
+                    <div class="hook-text">
+                        "Google just declared war on the future of work.<br><br>
+                        Their new AI talent strategy? Paying employees to disappear.<br><br>
+                        Critics call it an abuse of power in a $3T race for AI dominance...<br><br>
+                        But this isn't just about AI. It's about YOUR job and YOUR future:"
+                    </div>
+                    <div class="hook-metrics">
+                        <div class="metric">
+                            <span class="metric-number">149K+</span>
+                            <span class="metric-label">Views</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">260+</span>
+                            <span class="metric-label">Likes</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">B2B</span>
+                            <span class="metric-label">Tech Leadership</span>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/vinay_google.png" alt="Vinay's Google Hook Example" class="case-study-image">
+                
+                <div class="tool-container">
+                    <p class="slide-text">Pretty strong, right? It opens with instant tension, delivers a bold claim, builds with layered stakes, and ends with a personal punch — <span class="warning-highlight">"your job, your future."</span></p>
+                    <p class="slide-text">But performance doesn't mean perfection. Even good hooks like this are rarely optimized for maximum virality.</p>
+                    <p class="slide-text large"><span class="highlight">That's where VyraHook™ comes in.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Step 1 - Access Tool -->
+        <div class="slide" id="section-3">
+            <div class="section-number">04</div>
+            <div class="step-badge">Step 1</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Access VyraHook™ (Lite)</h2>
+                
+                <div class="step-grid">
+                    <div class="step-card">
+                        <span class="step-number">1</span>
+                        <div class="step-title">Open VyraHook™</div>
+                        <div class="step-description">Navigate to the VyraHook™ (Lite) interface in your course portal</div>
+                        <button class="step-action">Access Tool</button>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">2</span>
+                        <div class="step-title">Select "Rate My Hook"</div>
+                        <div class="step-description">Click on the main rating function to begin analysis</div>
+                        <button class="step-action">Start Rating</button>
+                    </div>
+                </div>
+
+                <div class="interface-mockup">
+                    <div class="mockup-header">VyraHook™ (Lite) Interface</div>
+                    <div class="mockup-content">
+                        > Rate My Hook<br>
+                        > Hook Library<br>
+                        > Performance Analytics<br>
+                        > Refinement Workshop
+                    </div>
+                </div>
+
+                <div class="tool-container">
+                    <p class="slide-text">So let's run this through the system. First, we need to access the tool and select the rating function.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Step 2 - Input Hook -->
+        <div class="slide" id="section-4">
+            <div class="section-number">05</div>
+            <div class="step-badge">Step 2</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Input Your Hook</h2>
+                
+                <div class="step-grid">
+                    <div class="step-card">
+                        <span class="step-number">3</span>
+                        <div class="step-title">Paste Hook Text</div>
+                        <div class="step-description">Copy and paste Vinay's hook (or your own) into the text field</div>
+                        <button class="step-action">Paste Hook</button>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">4</span>
+                        <div class="step-title">Generate Analysis</div>
+                        <div class="step-description">Click "Generate" to run the 100-point forensic analysis</div>
+                        <button class="step-action">Generate</button>
+                    </div>
+                </div>
+
+                <div class="interface-mockup">
+                    <div class="mockup-header">Hook Input Interface</div>
+                    <div class="mockup-content">
+                        [Text Area]<br>
+                        "Google just declared war on the future of work.<br>
+                        Their new AI talent strategy? Paying employees to disappear.<br>
+                        Critics call it an abuse of power in a $3T race for AI dominance...<br>
+                        But this isn't just about AI. It's about YOUR job and YOUR future:"<br><br>
+                        [Generate Analysis Button]
+                    </div>
+                </div>
+
+                <div class="tool-container">
+                    <p class="slide-text">The system will analyze every line against the seven critical dimensions, cross-reference with billion-view performance data, and generate your comprehensive score.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Step 3 - Review Score -->
+        <div class="slide" id="section-5">
+            <div class="section-number">06</div>
+            <div class="step-badge">Step 3</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Review Your Score</h2>
+                
+                <div class="score-display">
+                    <span class="score-number">HIGH</span>
+                    <span class="score-label">Performance Score</span>
+                </div>
+
+                <div class="tool-container">
+                    <p class="slide-text">The system generates a comprehensive performance score.</p>
+                    <p class="slide-text">That's strong. High performer. Real-world traction. <span class="warning-highlight">But always room for optimization.</span></p>
+                    <p class="slide-text">Here's the full forensic breakdown that shows exactly where the hook succeeds and where it can be optimized.</p>
+                </div>
+
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-title">✅ What Works</div>
+                        <div class="step-description">Strong emotional trigger, clear stakes, personal relevance</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-title">⚠️ What's Missing</div>
+                        <div class="step-description">Opening concept feels slightly familiar, reducing novelty score</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-title">🚀 Optimization Path</div>
+                        <div class="step-description">Clear upgrade recommendations to reach 93+ elite status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Step 4 - Analyze Recommendations -->
+        <div class="slide" id="section-6">
+            <div class="section-number">07</div>
+            <div class="step-badge">Step 4</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Analyze Recommendations</h2>
+                
+                <div class="tool-container">
+                    <p class="slide-text">See — you'd never catch that manually. And that's the point.</p>
+                    <p class="slide-text">This tool is built to <span class="highlight">out-diagnose human instinct</span>.</p>
+                    <ul style="text-align: left; max-width: 600px; margin: 30px auto;">
+                        <li class="slide-text">It sees what you don't.</li>
+                        <li class="slide-text">It quantifies what others ignore.</li>
+                        <li class="slide-text">And it gives you a clear upgrade path to outperform everyone stuck guessing.</li>
+                    </ul>
+                </div>
+
+                <div class="interface-mockup">
+                    <div class="mockup-header">Recommendation Engine</div>
+                    <div class="mockup-content">
+                        <strong>Dimension Analysis:</strong><br>
+                        First-Line Power: Strong but improvable<br>
+                        Emotional Trigger: Excellent activation<br>
+                        Novelty & Surprise: Concept feels familiar<br><br>
+                        
+                        <strong>Optimization Recommendations:</strong><br>
+                        • Replace "declared war" with more unique angle<br>
+                        • Add unexpected data point or statistic<br>
+                        • Strengthen the curiosity gap in line 4
+                    </div>
+                </div>
+
+                <div class="quote-style">
+                    "If your opening concept feels familiar, the reader's brain skips it. No attention = no engagement = no virality. That's the gap VyraHook™ exposes."
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Step 5 - Refine and Re-Score -->
+        <div class="slide" id="section-7">
+            <div class="section-number">08</div>
+            <div class="step-badge">Step 5</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Refine & Re-Score</h2>
+                
+                <div class="tool-container">
+                    <p class="slide-text">Now this is where most tools stop. But VyraHook™ is just getting started.</p>
+                    <p class="slide-text">You can click once — <span class="highlight">refine based on our system's formula</span> — and re-score instantly.</p>
+                </div>
+
+                <div class="step-grid">
+                    <div class="step-card">
+                        <span class="step-number">5</span>
+                        <div class="step-title">Apply Recommendations</div>
+                        <div class="step-description">Use the system's suggestions to refine your hook</div>
+                        <button class="step-action">Refine Hook</button>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">6</span>
+                        <div class="step-title">Re-Score Analysis</div>
+                        <div class="step-description">Generate new score to track improvement</div>
+                        <button class="step-action">Re-Analyze</button>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-number">7</span>
+                        <div class="step-title">Repeat Until Elite</div>
+                        <div class="step-description">Continue refining until you reach Elite Status</div>
+                        <button class="step-action">Optimize</button>
+                    </div>
+                </div>
+
+                <div class="tool-container">
+                    <p class="slide-text">This isn't "AI helping you write." This is a <span class="highlight">performance loop</span>.</p>
+                    <p class="slide-text">Built to train your instinct, sharpen your outputs, and give you predictable firepower on demand.</p>
+                </div>
+
+                <div class="action-checklist">
+                    <h3 style="color: var(--vyra-green); margin-bottom: 30px; text-transform: uppercase; font-weight: 800;">Your Action Plan</h3>
+                    <div class="checklist-item">
+                        <span class="checkmark">✅</span>
+                        Open VyraHook™
+                    </div>
+                    <div class="checklist-item">
+                        <span class="checkmark">✅</span>
+                        Paste your best line
+                    </div>
+                    <div class="checklist-item">
+                        <span class="checkmark">✅</span>
+                        Get your Elite Hook Analysis Report
+                    </div>
+                    <div class="checklist-item">
+                        <span class="checkmark">✅</span>
+                        Refine until you reach Elite Status
+                    </div>
+                </div>
+
+                <div class="quote-style">
+                    "When you can write like this on command? Everything else gets easier — Threads. Clients. Cashflow. Legacy. We're just getting warmed up. Let's move."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll-based progress bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Update active scroll indicator
+        function updateScrollIndicator() {
+            const sections = document.querySelectorAll('.slide');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const dots = scrollIndicator.querySelectorAll('.scroll-dot');
+            
+            let activeSection = 0;
+            const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    activeSection = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeSection);
+            });
+        }
+
+        // Scroll to specific section
+        function scrollToSection(sectionIndex) {
+            const section = document.getElementById(`section-${sectionIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Fade in elements on scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentActive = document.querySelector('.scroll-dot.active');
+            const currentIndex = Array.from(document.querySelectorAll('.scroll-dot')).indexOf(currentActive);
+            
+            if (e.key === 'ArrowDown' && currentIndex < 7) {
+                scrollToSection(currentIndex + 1);
+            }
+            if (e.key === 'ArrowUp' && currentIndex > 0) {
+                scrollToSection(currentIndex - 1);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Add click effects to step cards
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-10px) scale(1)';
+                }, 200);
+            });
+        });
+
+        // Add hover effects to dimension cards
+        document.querySelectorAll('.dimension-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
