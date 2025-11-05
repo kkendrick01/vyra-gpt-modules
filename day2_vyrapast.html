@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraPAST™ Framework - Day 2 Training</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff88;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .presentation-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            border-bottom: 2px solid var(--vyra-green);
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        .slide-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 60px;
+            border-bottom: 1px solid var(--vyra-green);
+        }
+
+        .vyra-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--vyra-grey);
+            font-weight: 500;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 120px;
+            font-weight: 800;
+            color: rgba(0, 255, 136, 0.1);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            position: relative;
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .slide-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--vyra-green);
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-text {
+            font-size: clamp(16px, 1.8vw, 20px);
+            color: var(--vyra-white);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            color: var(--vyra-green);
+            font-weight: 600;
+        }
+
+        .story-container {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.8s;
+        }
+
+        .story-container:hover::before {
+            left: 100%;
+        }
+
+        .tweet-mockup {
+            background: var(--vyra-dark-grey);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+            border: 1px solid var(--vyra-grey);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .tweet-mockup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .tweet-text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--vyra-white);
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .framework-step {
+            background: linear-gradient(135deg, var(--vyra-dark-grey) 0%, rgba(0, 255, 136, 0.1) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .framework-step:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .step-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: var(--vyra-grey);
+        }
+
+        .emotional-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: var(--vyra-dark-grey);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .emotional-table th,
+        .emotional-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--vyra-grey);
+        }
+
+        .emotional-table th {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .emotional-table tr:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--vyra-green);
+            transition: width 0.3s ease;
+            z-index: 101;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--vyra-grey);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            background: var(--vyra-green);
+            transform: scale(1.3);
+        }
+
+        .scroll-dot:hover {
+            background: var(--vyra-green);
+            transform: scale(1.2);
+        }
+
+        .case-study-image {
+            max-width: 100%;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .case-study-image:hover {
+            transform: scale(1.05);
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 30px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            flex: 1;
+        }
+
+        .metric-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--vyra-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--vyra-grey);
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .animated-text {
+            overflow: hidden;
+            border-right: 3px solid var(--vyra-green);
+            white-space: nowrap;
+            animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--vyra-green) }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 60px 20px;
+            }
+            
+            .slide-header {
+                padding: 15px 20px;
+            }
+            
+            .section-number {
+                top: 20px;
+                right: 20px;
+                font-size: 80px;
+            }
+            
+            .framework-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .metrics {
+                flex-direction: column;
+            }
+            
+            .scroll-indicator {
+                right: 15px;
+            }
+            
+            .scroll-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="slide-header">
+        <div class="vyra-logo">VYRALAB</div>
+        <div class="slide-counter">VyraPAST™ Framework Training</div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-dot active" onclick="scrollToSection(0)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(1)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(2)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(3)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(4)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(5)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(6)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(7)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(8)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(9)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(10)"></div>
+        <div class="scroll-dot" onclick="scrollToSection(11)"></div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Section 1: Title -->
+        <div class="slide" id="section-0">
+            <div class="section-number">01</div>
+            <div class="slide-content fade-in-on-scroll">
+                <div class="slide-subtitle">Day 2 — Section 2</div>
+                <h1 class="slide-title">The VyraPAST™ Framework</h1>
+                <p class="slide-text">"Structure That Speaks — The 4 Lines That Make Readers Feel Seen"</p>
+                <div class="story-container">
+                    <p class="slide-text">Welcome back inside the lab. Today we're diving deep into the emotional architecture that turns strangers into engaged readers with just four strategic lines.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: The Story Setup -->
+        <div class="slide" id="section-1">
+            <div class="section-number">02</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Story That Started Everything</h2>
+                <div class="story-container">
+                    <p class="slide-text">Our writer <span class="highlight">Lewis</span> was ghostwriting for a CEO named <span class="highlight">Sion</span> who runs a data company. Super analytical. Extremely brilliant.</p>
+                    <p class="slide-text">One morning, Lewis dropped a thread that was technically perfect: clean copy, tight structure, solid data.</p>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="metric-number">1,500</span>
+                            <span class="metric-label">Views</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">14</span>
+                            <span class="metric-label">Likes</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-number">2hrs</span>
+                            <span class="metric-label">Time Frame</span>
+                        </div>
+                    </div>
+                    <p class="slide-text">It wasn't wrong. <span class="highlight">It was soulless.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: The Problem & Solution -->
+        <div class="slide" id="section-2">
+            <div class="section-number">03</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Diagnosis</h2>
+                <p class="slide-text">It opened with numbers. It had logic, but no emotion. No tension. No story.</p>
+                <p class="slide-text highlight">And if there's no emotion, there's no attention.</p>
+                <div class="tweet-mockup">
+                    <div class="tweet-text">
+                        "In 2016, Leicester pulled off the greatest heist in sports history.<br><br>
+                        Their 'cheap' £54M squad was supposed to get crushed by £500M+ rivals.<br><br>
+                        So when they won, the world called it a 'miracle.'<br><br>
+                        The truth? A secret hack football's elite are STILL trying to copy."
+                    </div>
+                </div>
+                <img src="https://kkendrick01.github.io/vyra-gpt-modules/sion_leicester.png" alt="Leicester City Thread Example" class="case-study-image">
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-number">2.2M</span>
+                        <span class="metric-label">Views</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-number">8,000+</span>
+                        <span class="metric-label">Likes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Why Stories Stick -->
+        <div class="slide" id="section-3">
+            <div class="section-number">04</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Why Stories Stick</h2>
+                <p class="slide-text">This isn't luck. <span class="highlight">This is biology.</span></p>
+                <div class="framework-grid">
+                    <div class="framework-step">
+                        <div class="step-title">Oxford University</div>
+                        <div class="step-description">Heart rates and breathing synchronize with storyteller's rhythm</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-title">Stanford Research</div>
+                        <div class="step-description">22x more information retained in story form vs. plain facts</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-title">Brain Activation</div>
+                        <div class="step-description">Stories light up sensory cortex, motor cortex, and emotional centers</div>
+                    </div>
+                </div>
+                <div class="story-container">
+                    <p class="slide-text"><span class="highlight">Data activates comprehension.</span></p>
+                    <p class="slide-text"><span class="highlight">Stories activate connection.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Framework Introduction -->
+        <div class="slide" id="section-4">
+            <div class="section-number">05</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The VyraPAST™ Framework</h2>
+                <p class="slide-text">Four lines. Four psychological checkpoints. Every human moves through them before they decide to care.</p>
+                <div class="framework-grid">
+                    <div class="framework-step">
+                        <div class="step-number">P</div>
+                        <div class="step-title">Problem</div>
+                        <div class="step-description">The moment of recognition</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">A</div>
+                        <div class="step-title">Agitation</div>
+                        <div class="step-description">The emotional amplifier</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">S</div>
+                        <div class="step-title">Solution</div>
+                        <div class="step-description">The shift</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">T</div>
+                        <div class="step-title">Transformation</div>
+                        <div class="step-description">The invitation</div>
+                    </div>
+                </div>
+                <p class="slide-text">When you organize emotion in the right order, you don't just get attention — <span class="highlight">you get resonance.</span></p>
+            </div>
+        </div>
+
+        <!-- Section 6: Problem Line -->
+        <div class="slide" id="section-5">
+            <div class="section-number">06</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Line 1: Problem</h2>
+                <p class="slide-subtitle">The Moment of Recognition</p>
+                <div class="tweet-mockup">
+                    <div class="tweet-text highlight">
+                        "In 2016, Leicester pulled off the greatest heist in sports history."
+                    </div>
+                </div>
+                <p class="slide-text">Line one starts with truth — not your truth, <span class="highlight">theirs.</span></p>
+                <div class="story-container">
+                    <p class="slide-text">That line hits instantly because it collides two ideas: <span class="highlight">heist</span> and <span class="highlight">sports</span>.</p>
+                    <p class="slide-text">It breaks pattern. It carries risk, rebellion, and reward — all in a single breath.</p>
+                    <p class="slide-text">When your reader feels that flash of recognition — when they whisper, <span class="highlight">"That's me,"</span> — you've won the first battle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Agitation Line -->
+        <div class="slide" id="section-6">
+            <div class="section-number">07</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Line 2: Agitation</h2>
+                <p class="slide-subtitle">The Emotional Amplifier</p>
+                <div class="tweet-mockup">
+                    <div class="tweet-text highlight">
+                        "Their 'cheap' £54M squad was supposed to get crushed by £500M+ rivals."
+                    </div>
+                </div>
+                <p class="slide-text">Agitation isn't manipulation — <span class="highlight">it's validation.</span></p>
+                <div class="story-container">
+                    <p class="slide-text">That single line multiplies the emotional charge. Now it's not just an underdog story — <span class="highlight">it's injustice.</span></p>
+                    <p class="slide-text">You've layered class divide, odds, and expectation. It's identity-driven attention — people naturally take sides.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Solution Line -->
+        <div class="slide" id="section-7">
+            <div class="section-number">08</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Line 3: Solution</h2>
+                <p class="slide-subtitle">The Shift</p>
+                <div class="tweet-mockup">
+                    <div class="tweet-text highlight">
+                        "So when they won, the world called it a 'miracle.'"
+                    </div>
+                </div>
+                <p class="slide-text">Now the reader's emotionally locked in. They need relief — <span class="highlight">the pivot that explains how.</span></p>
+                <div class="story-container">
+                    <p class="slide-text">This is the release valve — the dopamine hit. You move from disbelief to revelation.</p>
+                    <p class="slide-text">The reader gets their micro <span class="highlight">"aha" moment.</span></p>
+                    <p class="slide-text">It's proof wrapped in surprise — the combination that keeps people scrolling.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Transformation Line -->
+        <div class="slide" id="section-8">
+            <div class="section-number">09</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Line 4: Transformation</h2>
+                <p class="slide-subtitle">The Invitation</p>
+                <div class="tweet-mockup">
+                    <div class="tweet-text highlight">
+                        "The truth? A secret hack football's elite are STILL trying to copy."
+                    </div>
+                </div>
+                <p class="slide-text">Finally, transformation. You open a loop the reader <span class="highlight">NEEDS</span> to close.</p>
+                <div class="story-container">
+                    <p class="slide-text">That's the promise of a payoff. It delivers authority, curiosity, and anticipation in one sentence.</p>
+                    <p class="slide-text">It reframes the story from <span class="highlight">"that was amazing"</span> to <span class="highlight">"I need to know what happens."</span></p>
+                    <p class="slide-text">That's what turns curiosity into reliance — and reliance into action.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 10: Emotional Blueprint -->
+        <div class="slide" id="section-9">
+            <div class="section-number">10</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">The Emotional Blueprint</h2>
+                <p class="slide-text">Here's what's really happening behind those four lines:</p>
+                <table class="emotional-table">
+                    <thead>
+                        <tr>
+                            <th>Line</th>
+                            <th>Emotional Trigger</th>
+                            <th>Reader's Thought</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Problem</strong></td>
+                            <td>Recognition</td>
+                            <td>"You see me."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agitation</strong></td>
+                            <td>Validation</td>
+                            <td>"You understand me."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solution</strong></td>
+                            <td>Relief</td>
+                            <td>"You can help me."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transformation</strong></td>
+                            <td>Aspiration</td>
+                            <td>"You can lead me."</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="story-container">
+                    <p class="slide-text">That's not copywriting — <span class="highlight">that's emotional architecture.</span></p>
+                    <p class="slide-text">It's how we turn attention into empathy, and empathy into influence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 11: Practice & Implementation -->
+        <div class="slide" id="section-10">
+            <div class="section-number">11</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">Your Practice Assignment</h2>
+                <div class="framework-grid">
+                    <div class="framework-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Access</div>
+                        <div class="step-description">VyraHook 3-in-1 Vault Stack with 20+ Viral Hook Templates</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Deconstruct</div>
+                        <div class="step-description">Pick any viral hook and analyze using VyraPAST</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Rebuild</div>
+                        <div class="step-description">Take your Day 1 VyraSearch output and rebuild through this lens</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Goal</div>
+                        <div class="step-description">Make your reader feel seen in four lines</div>
+                    </div>
+                </div>
+                <div class="story-container">
+                    <p class="slide-text">Templates that generated <span class="highlight">2+ Billion Views</span> + the 4-Step framework that led to <span class="highlight">$100 Million in Client Revenue</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 12: Bridge to Next Section -->
+        <div class="slide" id="section-11">
+            <div class="section-number">12</div>
+            <div class="slide-content fade-in-on-scroll">
+                <h2 class="slide-title">What's Next</h2>
+                <p class="slide-text">You've just learned how to turn <span class="highlight">empathy into a system.</span></p>
+                <p class="slide-text">You can now write hooks that make strangers feel understood in a single scroll.</p>
+                <div class="story-container">
+                    <p class="slide-text"><span class="highlight">Next, we measure it.</span></p>
+                    <p class="slide-text">We'll take your new hook and score it using VyraHook (Lite) — the system that quantifies what makes emotion hit, and what holds it back.</p>
+                </div>
+                <div class="framework-grid">
+                    <div class="framework-step">
+                        <div class="step-title">You've Mastered</div>
+                        <div class="step-description">Connection</div>
+                    </div>
+                    <div class="framework-step">
+                        <div class="step-title">Now Let's Measure</div>
+                        <div class="step-description">Persuasion</div>
+                    </div>
+                </div>
+                <p class="slide-text">I'll see YOU in the next lab.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll-based progress bar
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Update active scroll indicator
+        function updateScrollIndicator() {
+            const sections = document.querySelectorAll('.slide');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const dots = scrollIndicator.querySelectorAll('.scroll-dot');
+            
+            let activeSection = 0;
+            const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    activeSection = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeSection);
+            });
+        }
+
+        // Scroll to specific section
+        function scrollToSection(sectionIndex) {
+            const section = document.getElementById(`section-${sectionIndex}`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Fade in elements on scroll
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentActive = document.querySelector('.scroll-dot.active');
+            const currentIndex = Array.from(document.querySelectorAll('.scroll-dot')).indexOf(currentActive);
+            
+            if (e.key === 'ArrowDown' && currentIndex < 11) {
+                scrollToSection(currentIndex + 1);
+            }
+            if (e.key === 'ArrowUp' && currentIndex > 0) {
+                scrollToSection(currentIndex - 1);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            updateScrollIndicator();
+            handleScrollAnimations();
+        });
+
+        // Add hover effects to framework steps
+        document.querySelectorAll('.framework-step').forEach(step => {
+            step.addEventListener('mouseenter', () => {
+                step.style.transform = 'translateY(-10px) scale(1.05)';
+            });
+            
+            step.addEventListener('mouseleave', () => {
+                step.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
