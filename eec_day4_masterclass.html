@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ACE Studio™ Preview — Your Automated Content Engine</title>
+  <meta name="description" content="Preview the Vyralab ACE Studio™. See the clips, tour the system, and secure early-access perks by grabbing the VyraHook™ Stack (normally $97 — only $17)."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --vyra-black:#000000;
+      --vyra-green:#00ff41;
+      --vyra-white:#ffffff;
+      --vyra-grey:#8a8a8a;
+      --vyra-dark:#1a1a1a;
+      --vyra-steel:#2a2a2a;
+    }
+    body{
+      background:var(--vyra-black);
+      color:var(--vyra-white);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      line-height:1.6; overflow-x:hidden;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--vyra-dark);z-index:9999}
+    .progress > div{height:100%;width:0;background:var(--vyra-green);transition:width .25s ease}
+
+    /* Header */
+    header{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--vyra-black),var(--vyra-dark));padding:72px 0 56px;text-align:center}
+    header::before{content:'';position:absolute;inset:0;opacity:.08;background:repeating-linear-gradient(90deg,transparent,transparent 98px,var(--vyra-green) 100px,var(--vyra-green) 101px)}
+    .badge{display:inline-block;background:var(--vyra-green);color:var(--vyra-black);padding:8px 18px;border-radius:999px;font-weight:800;font-size:.9rem}
+    .title{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;margin:16px 0 10px;background:linear-gradient(135deg,var(--vyra-white),var(--vyra-green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .subtitle{color:var(--vyra-grey);font-size:1.1rem;max-width:820px;margin:0 auto}
+
+    /* Nav */
+    nav{position:sticky;top:0;background:var(--vyra-dark);border-bottom:1px solid var(--vyra-green);z-index:1000}
+    .nav-items{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 0}
+    .nav-items a{color:var(--vyra-grey);text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600;transition:all .2s ease;position:relative}
+    .nav-items a:hover,.nav-items a.active{color:var(--vyra-green);background:rgba(0,255,65,.1);transform:translateY(-1px)}
+    .nav-items a::after{content:'';position:absolute;left:50%;bottom:0;height:2px;width:0;background:var(--vyra-green);transition:width .2s ease;transform:translateX(-50%)}
+    .nav-items a:hover::after,.nav-items a.active::after{width:70%}
+
+    /* Sections */
+    section{padding:64px 0}
+    section.alt{background:var(--vyra-dark)}
+    .section-header{text-align:center;margin-bottom:36px}
+    .section-title{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;margin-bottom:10px}
+    .section-sub{color:var(--vyra-grey);max-width:760px;margin:0 auto}
+
+    /* Cards / grids */
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .card{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.2);border-radius:12px;padding:20px;transition:all .25s ease}
+    .card:hover{transform:translateY(-3px);border-color:var(--vyra-green);box-shadow:0 18px 36px rgba(0,255,65,.08)}
+    .hi{color:var(--vyra-green);font-weight:800;margin-bottom:6px}
+    .muted{color:var(--vyra-grey)}
+
+    /* Media blocks */
+    figure.media{background:var(--vyra-black);border:1px solid rgba(0,255,65,.2);border-radius:12px;padding:10px}
+    figure.media img,figure.media video{width:100%;height:auto;display:block;border-radius:8px}
+    figure.media img{cursor:zoom-in}
+    .cap{color:var(--vyra-grey);font-size:.95rem;margin-top:8px}
+
+    /* Toggle demo */
+    .toggle-wrap{display:flex;gap:10px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+    .chip{background:transparent;color:var(--vyra-green);border:2px solid var(--vyra-green);padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer;transition:all .2s ease}
+    .chip.active,.chip:hover{background:var(--vyra-green);color:var(--vyra-black)}
+    .demo{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.25);border-radius:12px;padding:18px;text-align:left}
+
+    /* CTA buttons — BLACK with GREEN text */
+    .btn{display:inline-block;background:var(--vyra-black);color:var(--vyra-green);padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800;border:2px solid var(--vyra-green);cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,color .2s ease}
+    .btn:hover{background:var(--vyra-green);color:var(--vyra-black);box-shadow:0 10px 20px rgba(0,255,65,.18);transform:translateY(-2px)}
+    .btn-wide{padding:14px 26px;border-radius:12px}
+
+    /* Footer CTA */
+    .cta{padding:64px 0;text-align:center;background:var(--vyra-black)}
+    .cta-box{background:linear-gradient(135deg,var(--vyra-green) 0%,#00d438 100%);color:var(--vyra-black);border-radius:20px;max-width:900px;margin:0 auto;padding:36px}
+    .cta-box h3{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;margin-bottom:8px}
+    .cta-box p{font-weight:700;margin-bottom:18px}
+
+    /* Lightbox (image pop-out) */
+    .lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.8);
+      display:none; align-items:center; justify-content:center;
+      z-index:2000; opacity:0; transition:opacity .2s ease;
+    }
+    .lightbox.open{display:flex; opacity:1}
+    .lightbox img{
+      max-width:92vw; max-height:90vh; border-radius:12px;
+      box-shadow:0 20px 48px rgba(0,0,0,.6); cursor:zoom-out;
+      transform:scale(.98); transition:transform .2s ease;
+    }
+    .lightbox.open img{transform:scale(1)}
+    .lb-close{
+      position:fixed; top:20px; right:24px; background:var(--vyra-black);
+      color:var(--vyra-green); border:2px solid var(--vyra-green);
+      padding:8px 12px; border-radius:10px; font-weight:800; cursor:pointer;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .grid-2{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+    }
+
+    /* Progress + animations */
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .in{animation:fadeInUp .6s ease forwards}
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><div id="progbar"></div></div>
+
+  <!-- HERO -->
+  <header>
+    <div class="container">
+      <span class="badge">Built for Ghostwriters. By Ghostwriters.™</span>
+      <h1 class="title">ACE Studio™ — Coming Online</h1>
+      <p class="subtitle">Your Automated Content Engine. One command center for research, hooks, threads, brand builds, proof assets, and delivery — engineered for speed, clarity, and client results.</p>
+      <div style="margin-top:18px">
+        <a class="btn btn-wide" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Secure your spot via VyraHook™ — normally $97, today only $17 →
+        </a>
+        <p class="muted" style="margin-top:8px">Buyers are auto-added to the ACE early-access waitlist with founder-level perks.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-items">
+        <a href="#why" class="active">Why ACE</a>
+        <a href="#clips">Clips</a>
+        <a href="#features">What You Control</a>
+        <a href="#demo">Workflow Demo</a>
+        <a href="#founders">Founder Perks</a>
+        <a href="#cta">Get Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- WHY ACE -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Operate with an edge</h2>
+        <p class="section-sub">ACE doesn’t write for you. It amplifies your judgment and accelerates execution. You move from hesitation to output… with the psychology baked in.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card in" style="animation-delay:.05s">
+          <div class="hi">Precision over paralysis</div>
+          <p>Stop iterating blindly. ACE aligns every action to proven patterns — EmotionStack™, VyraPAST™, Trust Threads™, CTA logic.</p>
+        </div>
+        <div class="card in" style="animation-delay:.10s">
+          <div class="hi">Speed that compounds</div>
+          <p>Research → hooks → thread → CTA → proof assets — in a single pass. Hours condense into minutes without losing quality.</p>
+        </div>
+        <div class="card in" style="animation-delay:.15s">
+          <div class="hi">Proof on demand</div>
+          <p>Export receipts you can show clients: before/after, engagement deltas, clean slides, and packaged wins that close deals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIPS (images before videos) -->
+  <section id="clips" class="alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">A first look at the Command Engine</h2>
+        <p class="section-sub">Tap into the modules that run your ghostwriting business like a machine.</p>
+      </div>
+
+      <!-- Clip Set 1 -->
+      <div class="grid-2" style="margin-bottom:24px">
+        <figure class="media in" style="animation-delay:.05s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip1a_intro.png" alt="ACE Studio overview panel"/>
+          <figcaption class="cap">ACE overview — clean control surface, zero clutter.</figcaption>
+        </figure>
+        <figure class="media in" style="animation-delay:.10s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip1b_intro.png" alt="ACE Studio modules grid"/>
+          <figcaption class="cap">Modules on deck — hooks, CTAs, authority, and delivery.</figcaption>
+        </figure>
+      </div>
+      <figure class="media in" style="animation-delay:.15s">
+        <video controls preload="metadata" src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip1_intro.mp4"></video>
+        <figcaption class="cap">Intro run — from ideation to ready-to-post in one flow.</figcaption>
+      </figure>
+
+      <!-- Clip Set 2 -->
+      <div class="grid-2" style="margin:38px 0 24px">
+        <figure class="media in" style="animation-delay:.05s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip2.png" alt="ACE Studio live refinement panel"/>
+          <figcaption class="cap">Live refinement — tighten clarity, emotion, tension, and curiosity.</figcaption>
+        </figure>
+        <figure class="media in" style="animation-delay:.10s">
+          <video controls preload="metadata" src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip2.mp4"></video>
+          <figcaption class="cap">Guided assist — structure and psychology embedded.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Clip Set 3 -->
+      <div class="grid-3" style="margin-bottom:24px">
+        <figure class="media in" style="animation-delay:.05s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip3a.png" alt="ACE performance tracking"/>
+          <figcaption class="cap">Performance tracking — turn data into proof.</figcaption>
+        </figure>
+        <figure class="media in" style="animation-delay:.10s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip3b.png" alt="ACE automation layer"/>
+          <figcaption class="cap">Automation layer — slides, funnels, assets, done.</figcaption>
+        </figure>
+        <figure class="media in" style="animation-delay:.15s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip3c.png" alt="ACE VyraSphere integration"/>
+          <figcaption class="cap">VyraSphere™ access — operators building proof together.</figcaption>
+        </figure>
+      </div>
+      <figure class="media in" style="animation-delay:.18s">
+        <video controls preload="metadata" src="https://kkendrick01.github.io/vyra-gpt-modules/ace_studio_clip3.mp4"></video>
+        <figcaption class="cap">Full pass — campaign build from a single command center.</figcaption>
+      </figure>
+
+      <div style="text-align:center;margin-top:22px">
+        <a class="btn btn-wide" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Join via VyraHook™ — normally $97, today only $17 → Early-access waitlist included
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What you control inside ACE</h2>
+        <p class="section-sub">A focused set of engines — each tied to outcomes that matter.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card in" style="animation-delay:.05s">
+          <div class="hi">Module Control Center</div>
+          <p>Open hooks, threads, CTAs, brand kits, offers, and media from one surface.</p>
+        </div>
+        <div class="card in" style="animation-delay:.10s">
+          <div class="hi">AI-Driven Workflow</div>
+          <p>Research → outline → write → refine → package → deliver. Zero tab-sprawl.</p>
+        </div>
+        <div class="card in" style="animation-delay:.15s">
+          <div class="hi">Performance + Proof</div>
+          <p>Track deltas, export client-ready slides, and stack receipts for renewals.</p>
+        </div>
+        <div class="card in" style="animation-delay:.20s">
+          <div class="hi">Automation Layer</div>
+          <p>Slides, funnels, and lead magnets in clicks — no coding, no Zapier.</p>
+        </div>
+        <div class="card in" style="animation-delay:.25s">
+          <div class="hi">VyraSphere™</div>
+          <p>High-signal community for critique, templates, and partner ops.</p>
+        </div>
+        <div class="card in" style="animation-delay:.30s">
+          <div class="hi">Operator-Grade Templates</div>
+          <p>EmotionStack™, VyraPAST™, Trust Threads™, CTA flows — baked in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO: BEFORE / AFTER -->
+  <section id="demo" class="alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">From guesswork to guided flow</h2>
+        <p class="section-sub">Use the toggle to see the mindset shift ACE enforces.</p>
+      </div>
+
+      <div class="toggle-wrap" role="tablist">
+        <button class="chip active" data-tab="tab1" role="tab" aria-selected="true">Without ACE</button>
+        <button class="chip" data-tab="tab2" role="tab" aria-selected="false">With ACE</button>
+      </div>
+
+      <div id="tab1" class="demo" role="tabpanel" aria-labelledby="Without ACE">
+        <ul>
+          <li>47 variations on one post, no clear rubric</li>
+          <li>Emotions out of sequence; hooks lack tension</li>
+          <li>No packaged proof → weak renewal leverage</li>
+          <li>Three hours… for 23 likes</li>
+        </ul>
+      </div>
+
+      <div id="tab2" class="demo" role="tabpanel" aria-labelledby="With ACE" style="display:none">
+        <ul>
+          <li>Run VyraPAST™ → hook vault → Trust Thread™ in one pass</li>
+          <li>Refine by Clarity, Emotion, Tension, Curiosity — scored live</li>
+          <li>Export before/after and slides for the client recap</li>
+          <li>Thirty minutes… to a publish-ready campaign</li>
+        </ul>
+      </div>
+
+      <div style="text-align:center;margin-top:18px">
+        <a class="btn btn-wide" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Lock early-access via VyraHook™ — normally $97, today only $17 →
+        </a>
+        <p class="muted" style="margin-top:8px">Purchase automatically adds you to the ACE early-access list + founder pricing for future drops.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER PERKS -->
+  <section id="founders">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Founder-level perks when you enter via VyraHook™</h2>
+        <p class="section-sub">Your $17 unlock is a signal — we reward committed operators.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card in" style="animation-delay:.05s">
+          <div class="hi">Reserved access</div>
+          <p>Priority invites to ACE Studio™ cohorts, feature previews, and roadmap votes.</p>
+        </div>
+        <div class="card in" style="animation-delay:.10s">
+          <div class="hi">Founder pricing</div>
+          <p>Exclusive deals on the 5-Day video series ($37), the flagship course + community, and ACE Studio™ when they drop.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:22px">
+        <a class="btn btn-wide" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Get VyraHook™ — normally $97, today only $17 → Waitlist included
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="cta" class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h3>Own the engine. Scale the proof.</h3>
+        <p>Grab the VyraHook™ 3-in-1 Vault Stack today and you’re automatically queued for ACE Studio™ early access, founder pricing, and launch-only perks. Hooks → threads → authority → inbound… on command.</p>
+        <a class="btn btn-wide" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Unlock instant access — normally $97, today only $17 →
+        </a>
+        <p style="margin-top:10px;font-weight:700">7-Day Guarantee • Instant Access • Built for Ghostwriters. By Ghostwriters.™</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <button class="lb-close" id="lbClose" aria-label="Close image">Close ✕</button>
+    <img id="lbImg" alt="">
+  </div>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll',()=>{
+      const st=document.documentElement.scrollTop||document.body.scrollTop;
+      const sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+      const pct=(st/(sh||1))*100; document.getElementById('progbar').style.width=pct+'%';
+    });
+
+    // Smooth nav + active state
+    const navLinks=[...document.querySelectorAll('.nav-items a')];
+    navLinks.forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    window.addEventListener('scroll',()=>{
+      let current=''; document.querySelectorAll('section').forEach(s=>{
+        const top=s.offsetTop-120; if(window.pageYOffset>=top) current=s.id;
+      });
+      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href').substring(1)===current));
+    });
+
+    // Toggle demo
+    const chips=[...document.querySelectorAll('.chip')];
+    chips.forEach(c=>{
+      c.addEventListener('click',()=>{
+        chips.forEach(x=>x.classList.remove('active'));
+        c.classList.add('active');
+        document.getElementById('tab1').style.display=c.dataset.tab==='tab1'?'block':'none';
+        document.getElementById('tab2').style.display=c.dataset.tab==='tab2'?'block':'none';
+      });
+    });
+
+    // Simple image lightbox (fade-in, ESC/Click to close)
+    const lb=document.getElementById('lightbox');
+    const lbImg=document.getElementById('lbImg');
+    const lbClose=document.getElementById('lbClose');
+    const imgs=[...document.querySelectorAll('figure.media img')];
+
+    imgs.forEach(img=>{
+      img.addEventListener('click',()=>{
+        lbImg.src=img.src;
+        lbImg.alt=img.alt || 'Preview image';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        // prevent scroll behind
+        document.body.style.overflow='hidden';
+      });
+    });
+
+    function closeLB(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src=''; // clear to release memory
+      document.body.style.overflow='';
+    }
+
+    lb.addEventListener('click',(e)=>{ if(e.target===lb || e.target===lbImg) closeLB(); });
+    lbClose.addEventListener('click', closeLB);
+    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLB(); });
+  </script>
+</body>
+</html>

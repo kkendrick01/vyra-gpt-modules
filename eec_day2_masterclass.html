@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategic Authenticity Masterclass — VyraPAST™</title>
+  <meta name="description" content="A hands-on masterclass to practice strategic authenticity with the VyraPAST™ method. Build client-ready posts, test your understanding, and export a one‑pager." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --vyra-black: #000000;
+      --vyra-green: #00ff41;
+      --vyra-white: #ffffff;
+      --vyra-grey: #8a8a8a;
+      --vyra-dark-grey: #1a1a1a;
+      --vyra-steel: #2a2a2a;
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--vyra-black);
+      color: var(--vyra-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Progress Bar */
+    .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: var(--vyra-dark-grey); z-index: 9999; }
+    .progress-bar { height: 100%; background: var(--vyra-green); width: 0%; transition: width 0.25s ease; }
+
+    /* Header */
+    header.header {
+      background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+      padding: 72px 0 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header.header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 98px, var(--vyra-green) 100px, var(--vyra-green) 101px);
+      opacity: 0.08;
+    }
+    .badge {
+      display: inline-block; background: var(--vyra-green); color: var(--vyra-black);
+      padding: 8px 18px; border-radius: 999px; font-weight: 800; font-size: .9rem; position: relative; z-index: 2;
+    }
+    .title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; margin: 16px 0 10px; position: relative; z-index: 2;
+      background: linear-gradient(135deg, var(--vyra-white), var(--vyra-green));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: var(--vyra-grey); font-size: 1.1rem; position: relative; z-index: 2; }
+
+    /* Nav */
+    .nav { background: var(--vyra-dark-grey); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--vyra-green); }
+    .nav-items { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+    .nav-item { color: var(--vyra-grey); text-decoration: none; padding: 10px 16px; border-radius: 8px; transition: all .25s ease; font-weight: 600; position: relative; }
+    .nav-item:focus-visible { outline: 2px solid var(--vyra-green); outline-offset: 2px; }
+    .nav-item:hover, .nav-item.active { color: var(--vyra-green); background: rgba(0,255,65,0.1); transform: translateY(-1px); }
+    .nav-item::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--vyra-green); transition: width .25s ease; transform: translateX(-50%); }
+    .nav-item:hover::after, .nav-item.active::after { width: 70%; }
+
+    /* Sections */
+    section.section { padding: 64px 0; position: relative; }
+    section.section.alt { background: var(--vyra-dark-grey); }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 12px; }
+    .section-subtitle { color: var(--vyra-grey); max-width: 720px; margin: 0 auto; }
+
+    /* Grid / Cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .card { background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 24px; transition: all .25s ease; position: relative; overflow: hidden; }
+    .card:hover { transform: translateY(-3px); border-color: var(--vyra-green); box-shadow: 0 18px 36px rgba(0,255,65,0.08); }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--vyra-green), transparent); transform: translateX(-100%); transition: transform .3s ease; }
+    .card:hover::before { transform: translateX(0); }
+    .card h3 { color: var(--vyra-green); font-size: 1.1rem; margin-bottom: 10px; }
+    .card p { color: var(--vyra-white); opacity: .9; }
+
+    /* Case Study */
+    .case-fig { background: var(--vyra-black); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 10px; }
+    .case-fig img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .stat { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--vyra-green); margin-top: 10px; }
+
+    /* Builder */
+    .builder { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .builder label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--vyra-white); }
+    .builder textarea, .builder input { width: 100%; background: #121212; color: var(--vyra-white); border: 1px solid rgba(0,255,65,0.25); border-radius: 10px; padding: 12px 14px; resize: vertical; min-height: 90px; }
+    .helper { color: var(--vyra-grey); font-size: .9rem; margin-top: 6px; }
+    .preview { background: var(--vyra-black); border: 1px solid rgba(0,255,65,0.25); border-radius: 12px; padding: 18px; min-height: 200px; }
+    .preview h4 { color: var(--vyra-green); margin-bottom: 8px; }
+    .preview .line { margin-bottom: 8px; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+    .btn { display: inline-block; background: var(--vyra-green); color: var(--vyra-black); padding: 12px 18px; border-radius: 10px; text-decoration: none; font-weight: 800; border: none; cursor: pointer; transition: transform .15s ease, box-shadow .2s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,255,65,0.18); }
+    .btn-outline { background: transparent; color: var(--vyra-green); border: 2px solid var(--vyra-green); }
+    .btn-outline:hover { background: var(--vyra-green); color: var(--vyra-black); }
+
+    /* Quiz */
+    .quiz { max-width: 860px; margin: 0 auto; }
+    .q { background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .q h4 { margin-bottom: 8px; }
+    .opt { display: block; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-top: 8px; cursor: pointer; }
+    .opt input { margin-right: 8px; }
+    .opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.12); }
+    .opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.12); }
+    .quiz-result { text-align: center; margin-top: 14px; font-weight: 800; }
+
+    /* One-Pager */
+    .onepager { background: var(--vyra-black); border: 1px solid rgba(0,255,65,0.25); border-radius: 14px; padding: 24px; }
+    .onepager h3 { color: var(--vyra-green); margin-bottom: 10px; }
+    .onepager ul { padding-left: 18px; }
+    .onepager li { margin: 6px 0; }
+    .onepager small { color: var(--vyra-grey); }
+
+    .footer-cta { text-align: center; padding: 64px 0; background: var(--vyra-black); }
+    .cta-box { background: linear-gradient(135deg, var(--vyra-green) 0%, #00d438 100%); border-radius: 20px; padding: 36px; color: var(--vyra-black); max-width: 780px; margin: 0 auto; }
+    .cta-box h3 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 900; margin-bottom: 8px; }
+    .cta-box p { font-weight: 700; margin-bottom: 18px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid-2, .builder { grid-template-columns: 1fr; }
+    }
+
+    /* Print styles for one‑pager */
+    @media print {
+      body { background: #fff; color: #000; }
+      .nav, .progress-container, .footer-cta, .controls .btn { display: none !important; }
+      .onepager { border: none; }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+    .animate-in { animation: fadeInUp .6s ease forwards; }
+  </style>
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-container" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <span class="badge" aria-label="Built for Ghostwriters. By Ghostwriters.">Built for Ghostwriters. By Ghostwriters.™</span>
+      <h1 class="title">Strategic Authenticity Masterclass</h1>
+      <p class="subtitle">Engineer client-side virality with the VyraPAST™ method. Precision over vibes. Outcomes over opinions.</p>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Primary">
+    <div class="container">
+      <div class="nav-items">
+        <a href="#overview" class="nav-item active">Overview</a>
+        <a href="#case" class="nav-item">Case Study</a>
+        <a href="#builder" class="nav-item">VyraPAST Builder</a>
+        <a href="#quiz" class="nav-item">3-Question Quiz</a>
+        <a href="#onepager" class="nav-item">Download One‑Pager</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Overview -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Authenticity that travels farther</h2>
+        <p class="section-subtitle">Real stories matter. Reach requires structure. Strategic authenticity turns a true experience into a market lesson the audience recognizes as their own.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card animate-in" style="animation-delay:.05s">
+          <h3>Strategic authenticity in one line</h3>
+          <p>Speak to the audience’s curiosity first, then reveal the client’s truth. Lead with tension. Pay off with a useful insight or outcome.</p>
+        </div>
+        <div class="card animate-in" style="animation-delay:.12s">
+          <h3>Four levers to pull every time</h3>
+          <p>
+            • Lead with audience curiosity<br />
+            • Create emotional tension before relief<br />
+            • Make the struggle universal, not private
+            <br />
+            • Promise a specific takeaway or result
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study -->
+  <section id="case" class="section alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Proof: healthcare client lift with VyraPAST™</h2>
+        <p class="section-subtitle">Ghostwriter: Kohsheen — applying PAST to founder‑style posts for a healthcare transformation initiative in Australia.</p>
+      </div>
+
+      <div class="grid-2">
+        <figure class="case-fig animate-in" style="animation-delay:.05s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/kohsheen_sam1.png" alt="Healthcare client post with ~193K views and 926 likes" />
+          <figcaption class="stat" aria-live="polite">⬆︎ 193K+ views • 926 likes</figcaption>
+        </figure>
+        <figure class="case-fig animate-in" style="animation-delay:.12s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/kohsheen_sam2.png" alt="Healthcare client post with ~17.9M views and 66K likes" />
+          <figcaption class="stat">⬆︎ 17.9M+ views • 66K likes</figcaption>
+        </figure>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <h3>What changed</h3>
+        <p>
+          The voice stayed true. The structure shifted. Posts began with the audience’s burning question, raised stakes with clear consequences, then delivered the client’s lived solution and a concrete takeaway. The pattern is teachable and repeatable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Builder -->
+  <section id="builder" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">VyraPAST™ Builder</h2>
+        <p class="section-subtitle">Turn a client’s experience into a structured, high‑reach post. Fill the fields. Watch the preview compile. Copy and ship.</p>
+      </div>
+
+      <div class="builder" role="form" aria-labelledby="builder-title">
+        <div>
+          <label for="icp">ICP / Audience</label>
+          <input id="icp" type="text" placeholder="e.g., Hospital administrators in private clinics" />
+          <p class="helper">Who must recognize themselves in this story?</p>
+
+          <label for="problem" style="margin-top:12px">P — Problem</label>
+          <textarea id="problem" placeholder="State a relatable struggle the audience faces. Keep it specific."></textarea>
+          <p class="helper">Example pattern: “A thing you depend on is failing at the exact moment you need it.”</p>
+
+          <label for="agitation" style="margin-top:12px">A — Agitation</label>
+          <textarea id="agitation" placeholder="Escalate consequences and emotion. What happens if nothing changes?"></textarea>
+
+          <label for="solution" style="margin-top:12px">S — Solution</label>
+          <textarea id="solution" placeholder="Reveal the authentic action or insight your client used."></textarea>
+
+          <label for="transformation" style="margin-top:12px">T — Transformation</label>
+          <textarea id="transformation" placeholder="Name the outcome. Promise a concrete win or lesson the audience can apply."></textarea>
+
+          <div class="controls">
+            <button class="btn" id="copyBtn" aria-label="Copy preview to clipboard">Copy Preview</button>
+            <button class="btn btn-outline" id="clearBtn" aria-label="Clear all fields">Clear</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="preview" id="preview" aria-live="polite">
+            <h4>Live Preview</h4>
+            <div class="line" id="pPrev"></div>
+            <div class="line" id="aPrev"></div>
+            <div class="line" id="sPrev"></div>
+            <div class="line" id="tPrev"></div>
+            <hr style="border-color: rgba(0,255,65,0.2); margin: 12px 0" />
+            <div class="line" id="ctaPrev"></div>
+          </div>
+          <div class="controls" style="margin-top:10px">
+            <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener" aria-label="Open VyraHook Stack">Get the 3-in-1 VyraHook™ Stack →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Check your instincts</h2>
+        <p class="section-subtitle">Three quick questions to lock the principles. Instant feedback included.</p>
+      </div>
+
+      <div class="quiz" role="group" aria-labelledby="quiz-title">
+        <div class="q" data-answer="b">
+          <h4>1) What signals strategic authenticity in a hook?</h4>
+          <label class="opt"><input type="radio" name="q1" value="a"> A. A personal diary line about the client’s day</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> B. A curiosity‑first line that frames a problem the audience already feels</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> C. A vague statement about caring deeply</label>
+        </div>
+
+        <div class="q" data-answer="c">
+          <h4>2) Where does tension belong?</h4>
+          <label class="opt"><input type="radio" name="q2" value="a"> A. Only at the end</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> B. Nowhere; tension is risky</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> C. Up front, before the solution, so the payoff matters</label>
+        </div>
+
+        <div class="q" data-answer="a">
+          <h4>3) What completes the transformation step?</h4>
+          <label class="opt"><input type="radio" name="q3" value="a"> A. A specific outcome or takeaway</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> B. A generic motivational line</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> C. A product list</label>
+        </div>
+
+        <div class="controls">
+          <button class="btn" id="gradeBtn" aria-label="Grade quiz">Grade Quiz</button>
+          <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- One-Pager -->
+  <section id="onepager" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Downloadable One‑Pager</h2>
+        <p class="section-subtitle">Export a concise reference with principles, prompts, and a checklist. Print to PDF or save as text.</p>
+      </div>
+
+      <div class="onepager" id="onepagerContent" aria-describedby="onepager-desc">
+        <h3>Strategic Authenticity — Field Guide</h3>
+        <p id="onepager-desc" class="helper">Use this sheet during client sessions and outline reviews.</p>
+
+        <h4 style="color: var(--vyra-white); margin: 10px 0 6px">Principles</h4>
+        <ul>
+          <li>Start with the audience’s curiosity. Name the tension.</li>
+          <li>Escalate consequences before offering relief.</li>
+          <li>Reveal a lived insight. Keep it grounded and useful.</li>
+          <li>Close with a concrete transformation or takeaway.</li>
+        </ul>
+
+        <h4 style="color: var(--vyra-white); margin: 14px 0 6px">VyraPAST™ Prompts</h4>
+        <ul>
+          <li><strong>P:</strong> What failure or friction does this audience feel weekly?</li>
+          <li><strong>A:</strong> What breaks next if nothing changes? Who pays the price?</li>
+          <li><strong>S:</strong> What action, system, or mindset shift did the client try?</li>
+          <li><strong>T:</strong> What quantifiable outcome or repeatable lesson resulted?</li>
+        </ul>
+
+        <h4 style="color: var(--vyra-white); margin: 14px 0 6px">Quality Checklist</h4>
+        <ul>
+          <li>First line raises a clear question in the reader’s mind.</li>
+          <li>Language is concrete; no filler or hedging.</li>
+          <li>Benefit is specific and observable.</li>
+          <li>CTA bridges to the next valuable step.</li>
+        </ul>
+        <small>Badge: Built for Ghostwriters. By Ghostwriters.™ • Vyralab</small>
+      </div>
+
+      <div class="controls" style="margin-top: 12px">
+        <button class="btn" id="printBtn" aria-label="Print one-pager (save to PDF)">Print / Save to PDF</button>
+        <button class="btn btn-outline" id="downloadTxtBtn" aria-label="Download one-pager as text">Download as .txt</button>
+        <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">Get the 3-in-1 VyraHook™ Stack →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Footer -->
+  <section class="footer-cta">
+    <div class="container">
+      <div class="cta-box">
+        <h3>Turn hooks into clients</h3>
+        <p>Use VyraHook™ to generate strategic angles, score your openings, and ship faster. Speed plus structure equals pipeline.</p>
+        <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">Get the 3-in-1 VyraHook™ Stack →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = (scrollTop / (scrollHeight || 1)) * 100;
+      document.getElementById('progressBar').style.width = pct + '%';
+    });
+
+    // Smooth nav + active state
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(item.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section.section');
+      let current = '';
+      sections.forEach((sec) => {
+        const top = sec.offsetTop - 120;
+        if (window.pageYOffset >= top) current = sec.getAttribute('id');
+      });
+      navItems.forEach((i) => {
+        i.classList.toggle('active', i.getAttribute('href').substring(1) === current);
+      });
+    });
+
+    // Intersection observer animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) en.target.classList.add('animate-in'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+    document.querySelectorAll('.card, .case-fig').forEach((el) => io.observe(el));
+
+    // Builder live preview
+    const fields = ['problem','agitation','solution','transformation'];
+    const els = Object.fromEntries(fields.map(k => [k, document.getElementById(k)]));
+    const icp = document.getElementById('icp');
+    const pPrev = document.getElementById('pPrev');
+    const aPrev = document.getElementById('aPrev');
+    const sPrev = document.getElementById('sPrev');
+    const tPrev = document.getElementById('tPrev');
+    const ctaPrev = document.getElementById('ctaPrev');
+
+    function renderPreview() {
+      const audience = icp.value.trim();
+      const P = els.problem.value.trim();
+      const A = els.agitation.value.trim();
+      const S = els.solution.value.trim();
+      const T = els.transformation.value.trim();
+
+      pPrev.textContent = P ? P : 'P — Problem goes here…';
+      aPrev.textContent = A ? A : 'A — Escalate stakes…';
+      sPrev.textContent = S ? S : 'S — Reveal the lived solution…';
+      tPrev.textContent = T ? T : 'T — Outcome or lesson…';
+
+      ctaPrev.textContent = audience ? `Next step for ${audience}: apply one element today and document the result.` : 'Next step: apply one element today and document the result.';
+    }
+    [icp, ...Object.values(els)].forEach(el => el.addEventListener('input', renderPreview));
+    renderPreview();
+
+    // Copy & Clear
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const text = [pPrev.textContent, aPrev.textContent, sPrev.textContent, tPrev.textContent, '', ctaPrev.textContent].join('\n');
+      try { await navigator.clipboard.writeText(text); toast('Preview copied.'); } catch { toast('Copy failed.'); }
+    });
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      icp.value = '';
+      Object.values(els).forEach(el => el.value = '');
+      renderPreview();
+    });
+
+    // Quiz grading
+    function gradeQuiz() {
+      let correct = 0;
+      document.querySelectorAll('.q').forEach((q, idx) => {
+        const ans = q.getAttribute('data-answer');
+        const picked = q.querySelector('input[type="radio"]:checked');
+        q.querySelectorAll('.opt').forEach(o => o.classList.remove('correct','wrong'));
+        if (picked) {
+          const chosen = picked.value;
+          const label = picked.closest('.opt');
+          if (chosen === ans) { label.classList.add('correct'); correct++; }
+          else { label.classList.add('wrong'); }
+        }
+      });
+      const out = document.getElementById('quizResult');
+      if (correct === 3) out.textContent = 'Perfect. You’re operating with structure.';
+      else if (correct === 2) out.textContent = 'Strong grasp. Re-read the principles and retake.';
+      else out.textContent = 'Restart. Anchor the four levers and try again.';
+    }
+    document.getElementById('gradeBtn').addEventListener('click', gradeQuiz);
+
+    // One‑pager: print and text download
+    document.getElementById('printBtn').addEventListener('click', () => { window.print(); });
+    document.getElementById('downloadTxtBtn').addEventListener('click', () => {
+      const content = document.getElementById('onepagerContent').innerText.trim();
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'Vyralab_Strategic_Authenticity_OnePager.txt'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Simple toast
+    function toast(msg) {
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position = 'fixed'; t.style.bottom = '18px'; t.style.right = '18px';
+      t.style.background = 'rgba(0,0,0,0.85)'; t.style.border = '1px solid rgba(0,255,65,0.6)'; t.style.color = '#fff';
+      t.style.padding = '10px 14px'; t.style.borderRadius = '10px'; t.style.fontWeight = '700'; t.style.zIndex = 99999;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 1800);
+    }
+  </script>
+</body>
+</html>

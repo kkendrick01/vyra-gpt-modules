@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 5 — The 10 v 10 Choice | Vyralab™ Masterclass</title>
+<meta name="description" content="Choose your path: 10x Agency or 1/10 Time Solo. Take the quiz, compare plans, generate your 90-day action map, and lock in VyraHook™ (normally $97 — only $17).">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --vyra-black:#000; --vyra-green:#00ff41; --vyra-white:#fff;
+    --vyra-grey:#8a8a8a; --vyra-dark:#1a1a1a; --vyra-steel:#2a2a2a;
+  }
+  body{background:var(--vyra-black);color:var(--vyra-white);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;overflow-x:hidden}
+  .container{max-width:1200px;margin:0 auto;padding:0 20px}
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--vyra-dark);z-index:9999}
+  .progress>div{height:100%;width:0;background:var(--vyra-green);transition:width .25s ease}
+
+  /* Header */
+  header{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--vyra-black),var(--vyra-dark));padding:76px 0 56px;text-align:center}
+  header::before{content:'';position:absolute;inset:0;opacity:.08;background:repeating-linear-gradient(90deg,transparent,transparent 98px,var(--vyra-green) 100px,var(--vyra-green) 101px)}
+  .badge{display:inline-block;background:var(--vyra-green);color:var(--vyra-black);padding:8px 18px;border-radius:999px;font-weight:800;font-size:.9rem}
+  .title{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin:16px 0 10px;background:linear-gradient(135deg,var(--vyra-white),var(--vyra-green));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .subtitle{color:var(--vyra-grey);font-size:1.1rem;max-width:860px;margin:0 auto}
+
+  /* Nav */
+  nav{position:sticky;top:0;background:var(--vyra-dark);border-bottom:1px solid var(--vyra-green);z-index:1000}
+  .nav-items{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 0}
+  .nav-items a{color:var(--vyra-grey);text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600;transition:all .2s ease;position:relative}
+  .nav-items a:hover,.nav-items a.active{color:var(--vyra-green);background:rgba(0,255,65,.1);transform:translateY(-1px)}
+  .nav-items a::after{content:'';position:absolute;left:50%;bottom:0;height:2px;width:0;background:var(--vyra-green);transition:width .2s ease;transform:translateX(-50%)}
+  .nav-items a:hover::after,.nav-items a.active::after{width:70%}
+
+  /* Sections */
+  section{padding:64px 0}
+  section.alt{background:var(--vyra-dark)}
+  .section-header{text-align:center;margin-bottom:36px}
+  .section-title{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;margin-bottom:10px}
+  .section-sub{color:var(--vyra-grey);max-width:760px;margin:0 auto}
+
+  /* Layout */
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.2);border-radius:12px;padding:20px;transition:all .25s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--vyra-green);box-shadow:0 18px 36px rgba(0,255,65,.08)}
+  .muted{color:var(--vyra-grey)}
+  .hi{color:var(--vyra-green);font-weight:800;margin-bottom:6px}
+
+  /* Buttons — BLACK with GREEN text */
+  .btn{display:inline-block;background:var(--vyra-black);color:var(--vyra-green);padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800;border:2px solid var(--vyra-green);cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,color .2s ease}
+  .btn:hover{background:var(--vyra-green);color:var(--vyra-black);box-shadow:0 10px 20px rgba(0,255,65,.18);transform:translateY(-2px)}
+  .btn-wide{padding:14px 26px;border-radius:12px}
+
+  /* Quiz */
+  .quiz-q{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.25);border-radius:12px;padding:18px}
+  .opt{display:flex;gap:10px;align-items:flex-start;background:var(--vyra-dark);border:1px solid rgba(0,255,65,.25);border-radius:10px;padding:12px;cursor:pointer}
+  .opt input{margin-top:3px}
+  .opt + .opt{margin-top:10px}
+  .result-box{background:var(--vyra-black);border:2px dashed var(--vyra-green);border-radius:14px;padding:18px}
+
+  /* Switcher */
+  .switch{display:flex;justify-content:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .chip{background:transparent;color:var(--vyra-green);border:2px solid var(--vyra-green);padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer;transition:all .2s ease}
+  .chip.active,.chip:hover{background:var(--vyra-green);color:var(--vyra-black)}
+  .panel{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.25);border-radius:12px;padding:18px}
+
+  /* Planner */
+  .planner{background:var(--vyra-steel);border:1px solid rgba(0,255,65,.25);border-radius:12px;padding:18px}
+  textarea{width:100%;min-height:140px;background:var(--vyra-black);color:var(--vyra-white);border:1px solid rgba(0,255,65,.25);border-radius:10px;padding:12px;font-family:inherit}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .pill{background:transparent;color:var(--vyra-green);border:2px solid var(--vyra-green);padding:6px 10px;border-radius:999px;font-weight:800;cursor:pointer}
+  .pill.active{background:var(--vyra-green);color:var(--vyra-black)}
+
+  /* CTA Block */
+  .cta{padding:64px 0;text-align:center;background:var(--vyra-black)}
+  .cta-box{background:linear-gradient(135deg,var(--vyra-green) 0%,#00d438 100%);color:var(--vyra-black);border-radius:20px;max-width:980px;margin:0 auto;padding:36px}
+  .cta-box h3{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;margin-bottom:8px}
+  .cta-box p{font-weight:700;margin-bottom:18px}
+
+  /* Animations */
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .in{animation:fadeInUp .6s ease forwards}
+  @media (max-width:980px){.grid-2{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><div id="progbar"></div></div>
+
+<header>
+  <div class="container">
+    <span class="badge">Built for Ghostwriters. By Ghostwriters.™</span>
+    <h1 class="title">Day 5 — The 10 v 10 Choice</h1>
+    <p class="subtitle">You’ve learned the psychology. You’ve seen strategic execution. Now choose the path that fits your life and turn it into a 90-day plan you can act on today.</p>
+    <div style="margin-top:18px">
+      <a class="btn btn-wide" target="_blank" rel="noopener"
+         href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de">
+         Unlock VyraHook™ — normally $97, today only $17 →
+      </a>
+      <p class="muted" style="margin-top:8px">Instant access. Auto-added to ACE early-access waitlist and founder-level perks.</p>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="container">
+    <div class="nav-items">
+      <a href="#quiz" class="active">Find Your Path</a>
+      <a href="#compare">Compare Plans</a>
+      <a href="#planner">90-Day Action Map</a>
+      <a href="#love">Why People Love Vyralab</a>
+      <a href="#cta">Lock It In</a>
+    </div>
+  </div>
+</nav>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Path Quiz — 4 questions to clarity</h2>
+      <p class="section-sub">Answer honestly. Your result toggles the plan recommendations across this page.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="quiz-q">
+        <div class="hi">Q1. What excites you right now?</div>
+        <label class="opt"><input type="radio" name="q1" value="agency"> <span>Building systems, hiring talent, selling retainers at scale</span></label>
+        <label class="opt"><input type="radio" name="q1" value="solo"> <span>Crafting elite content, running lean, premium clients only</span></label>
+      </div>
+
+      <div class="quiz-q">
+        <div class="hi">Q2. What constraint matters most?</div>
+        <label class="opt"><input type="radio" name="q2" value="agency"> <span>Revenue ceiling — I want bigger, faster</span></label>
+        <label class="opt"><input type="radio" name="q2" value="solo"> <span>Time control — I want fewer hours, higher leverage</span></label>
+      </div>
+
+      <div class="quiz-q">
+        <div class="hi">Q3. Which work feels natural?</div>
+        <label class="opt"><input type="radio" name="q3" value="agency"> <span>Sales, ops, strategy, and client leadership</span></label>
+        <label class="opt"><input type="radio" name="q3" value="solo"> <span>Writing, creative direction, deep client insight</span></label>
+      </div>
+
+      <div class="quiz-q">
+        <div class="hi">Q4. Risk appetite today?</div>
+        <label class="opt"><input type="radio" name="q4" value="agency"> <span>High — I’ll invest time to multiply cash flow</span></label>
+        <label class="opt"><input type="radio" name="q4" value="solo"> <span>Moderate — I’ll optimize and protect lifestyle</span></label>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn" id="scoreQuiz">Get my recommendation →</button>
+      <a class="btn" target="_blank" rel="noopener"
+         href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de">
+         Grab VyraHook™ — normally $97, today only $17
+      </a>
+    </div>
+
+    <div id="quizResult" class="result-box" style="margin-top:16px;display:none"></div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Compare the paths</h2>
+      <p class="section-sub">Toggle to view playbooks and OKRs for each route. Your quiz result preselects a tab.</p>
+    </div>
+
+    <div class="switch" role="tablist">
+      <button class="chip active" data-tab="agency" role="tab" aria-selected="true">10× Agency</button>
+      <button class="chip" data-tab="solo" role="tab" aria-selected="false">1/10 Time Solo</button>
+    </div>
+
+    <div id="panel-agency" class="panel" role="tabpanel">
+      <div class="grid-3">
+        <div class="card">
+          <div class="hi">Quarter OKR</div>
+          <p>Close 4 retainers at $3k–$6k/mo using Boost Rewrite + Proof Deck + VyraHook™.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Pipeline</div>
+          <p>Daily: 10 warm touches, 5 cold DMs, 1 Loom proof walkthrough. Weekly: 2 case study posts.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Team moves</div>
+          <p>Contract 2 ACE-trained writers, 1 VA. SOPs: hooks → threads → recap → renewals.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Systems</div>
+          <p>ACE Command Center, client dashboards, renewal tracker, offer ladder (core + add-ons).</p>
+        </div>
+        <div class="card">
+          <div class="hi">Money</div>
+          <p>Target $20k–$40k MRR by Week 12. Upsell Trust Thread™ libraries + monthly proof decks.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Risks</div>
+          <p>Scope creep, hiring lag, proof decay. Counter with tight briefs, weekly win packs, hard stops.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-solo" class="panel" role="tabpanel" style="display:none">
+      <div class="grid-3">
+        <div class="card">
+          <div class="hi">Quarter OKR</div>
+          <p>3 premium retainers at $3k–$5k/mo; 20 hours/week cap; NPS 9+ with monthly renewals.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Workflow</div>
+          <p>ACE single-pass: research → VyraHook™ → Trust Thread™ → CTA → recap. 30–45 mins per asset.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Automation</div>
+          <p>Slides + client updates auto-built. Proof ledger exported Fridays. Renewal prompts scheduled.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Lead flow</div>
+          <p>Two weekly “proof posts,” 1 Loom teardown, 10 DM replies split across LI/X.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Money</div>
+          <p>$9k–$15k MRR with strict scope. Optional VIP Day ($1.5k–$3k) per month.</p>
+        </div>
+        <div class="card">
+          <div class="hi">Risks</div>
+          <p>Single-client concentration. Offset with waitlist + 30-day trials + price floors.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANNER -->
+<section id="planner">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Build your 90-day action map</h2>
+      <p class="section-sub">Pick your path, select the building blocks, and generate a plan you can paste into Notes or Notion.</p>
+    </div>
+
+    <div class="planner">
+      <div class="row">
+        <span class="hi">Path:</span>
+        <button class="pill active" data-plan="agency">10× Agency</button>
+        <button class="pill" data-plan="solo">1/10 Time Solo</button>
+      </div>
+
+      <div class="row">
+        <span class="hi">Blocks:</span>
+        <button class="pill block" data-text="Daily: 10 warm touches + 5 cold DMs + 1 Loom proof">Pipeline cadence</button>
+        <button class="pill block" data-text="Weekly: 2 Proof Posts + 1 Case Study Thread">Publishing rhythm</button>
+        <button class="pill block" data-text="ACE single-pass: research → hooks → thread → CTA → recap">ACE single-pass</button>
+        <button class="pill block" data-text="Friday: export Win Pack + renewal prompt">Renewal ritual</button>
+        <button class="pill block" data-text="Offer ladder + price floors + VIP Day">Offer control</button>
+        <button class="pill block" data-text="Hire: 2 writers + 1 VA (agency) / 0–1 VA (solo)">Team setup</button>
+      </div>
+
+      <textarea id="planBox" placeholder="Your 90-day plan will generate here..."></textarea>
+      <div class="row">
+        <button class="btn" id="genPlan">Generate plan</button>
+        <button class="btn" id="copyPlan">Copy to clipboard</button>
+        <a class="btn" target="_blank" rel="noopener"
+           href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de">
+           Get VyraHook™ — normally $97, today only $17
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOVE WALL -->
+<section id="love" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why people love working with Vyralab</h2>
+      <p class="section-sub">Proof beats promises. See real writers turning systems into wins.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="hi">Real outcomes</div>
+        <p>From first $3k retainer to viral breakthroughs and stacked renewals. Systems create momentum you can measure.</p>
+      </div>
+      <div class="card">
+        <div class="hi">Operator community</div>
+        <p>Action-focused peers, specific critiques, and a culture of receipts. Progress becomes inevitable when proof compounds.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:18px">
+      <a class="btn btn-wide" target="_blank" rel="noopener" href="https://love.vyralab.com/yaYs20f">
+        Browse the love wall →
+      </a>
+      <p class="muted" style="margin-top:8px">Signals > slogans. Judge us by the results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" class="cta">
+  <div class="container">
+    <div class="cta-box">
+      <h3>The next step is leverage</h3>
+      <p>Grab the VyraHook™ 3-in-1 Vault Stack — **normally $97, today only $17** — and you’re automatically queued for ACE Studio™ early access, founder pricing, and launch-only perks. Hooks → threads → authority → inbound… on command.</p>
+      <a class="btn btn-wide" target="_blank" rel="noopener"
+         href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de">
+         Unlock VyraHook™ — $17 today (normally $97) →
+      </a>
+      <p style="margin-top:10px;font-weight:700">Want the deeper system? The 5-Day AI Ghostwriter Training™ Video Series is **$37** and includes ACE early-access perks.</p>
+      <p style="margin-top:10px;font-weight:700">7-Day Guarantee • Instant Access • Built for Ghostwriters. By Ghostwriters.™</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll',()=>{
+    const st=document.documentElement.scrollTop||document.body.scrollTop;
+    const sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    const pct=(st/(sh||1))*100; document.getElementById('progbar').style.width=pct+'%';
+  });
+
+  // Smooth nav + active state
+  const navLinks=[...document.querySelectorAll('.nav-items a')];
+  navLinks.forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  window.addEventListener('scroll',()=>{
+    let current=''; document.querySelectorAll('section').forEach(s=>{
+      const top=s.offsetTop-120; if(window.pageYOffset>=top) current=s.id;
+    });
+    navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href').substring(1)===current));
+  });
+
+  // Quiz scoring
+  const scoreBtn=document.getElementById('scoreQuiz');
+  const quizResult=document.getElementById('quizResult');
+  scoreBtn.addEventListener('click',()=>{
+    const qs=['q1','q2','q3','q4'];
+    let agency=0, solo=0, missing=false;
+    qs.forEach(q=>{
+      const picked=document.querySelector(`input[name="${q}"]:checked`);
+      if(!picked) missing=true; else (picked.value==='agency'?agency++:solo++);
+    });
+    if(missing){
+      quizResult.style.display='block';
+      quizResult.innerHTML='<div class="hi">Pick an option for each question.</div><p class="muted">All four answers needed for a solid recommendation.</p>';
+      return;
+    }
+    const path=agency>=solo?'agency':'solo';
+    const rec = path==='agency'
+      ? `<div class="hi">Recommended: 10× Agency</div>
+         <p>Focus on pipeline cadence, proof decks, and small team leverage. Target 4 retainers at $3k–$6k/mo inside 90 days. Use ACE to standardize delivery and renewals.</p>`
+      : `<div class="hi">Recommended: 1/10 Time Solo</div>
+         <p>Cap hours, tighten single-pass workflows, and raise floors. Target 3 retainers at $3k–$5k/mo with weekly “proof posts” and Friday win packs.</p>`;
+    quizResult.style.display='block';
+    quizResult.innerHTML = rec + `<p style="margin-top:8px"><a class="btn" href="#compare">Open the matching plan ↓</a></p>`;
+    // toggle compare tab to result
+    setTab(path);
+    setPlan(path);
+  });
+
+  // Compare toggles
+  const chips=[...document.querySelectorAll('.chip')];
+  function setTab(which){
+    chips.forEach(c=>{
+      const active=c.dataset.tab===which;
+      c.classList.toggle('active',active);
+      c.setAttribute('aria-selected',active?'true':'false');
+    });
+    document.getElementById('panel-agency').style.display = which==='agency'?'block':'none';
+    document.getElementById('panel-solo').style.display   = which==='solo'?'block':'none';
+  }
+  chips.forEach(c=>c.addEventListener('click',()=>setTab(c.dataset.tab)));
+
+  // Planner
+  const planPills=[...document.querySelectorAll('.pill[data-plan]')];
+  const blockPills=[...document.querySelectorAll('.pill.block')];
+  const planBox=document.getElementById('planBox');
+  const genBtn=document.getElementById('genPlan');
+  const copyBtn=document.getElementById('copyPlan');
+  let planChoice='agency';
+
+  function setPlan(which){
+    planChoice=which;
+    planPills.forEach(p=>p.classList.toggle('active',p.dataset.plan===which));
+  }
+  planPills.forEach(p=>p.addEventListener('click',()=>setPlan(p.dataset.plan)));
+
+  blockPills.forEach(b=>{
+    b.addEventListener('click',()=>b.classList.toggle('active'));
+  });
+
+  genBtn.addEventListener('click',()=>{
+    const blocks=blockPills.filter(b=>b.classList.contains('active')).map(b=>`- ${b.dataset.text}`);
+    const header= planChoice==='agency'
+      ? `90-Day Plan — 10× Agency\nOKR: Close 4 retainers at $3k–$6k/mo; $20k–$40k MRR target.\n`
+      : `90-Day Plan — 1/10 Time Solo\nOKR: 3 retainers at $3k–$5k/mo within 20 hours/week.\n`;
+    const weeks=`Weeks 1–2: Proof assets + offer floors + outreach rhythm\nWeeks 3–6: Single-pass production + weekly Win Packs\nWeeks 7–10: Case studies + renewals\nWeeks 11–12: Price review + waitlist push`;
+    planBox.value = `${header}\nBlocks:\n${blocks.join('\n')}\n\nCadence:\n${weeks}\n\nCommitment:\nI will publish proof weekly, run ACE single-pass workflows, and ask for renewals every 30 days.`;
+  });
+
+  copyBtn.addEventListener('click',async()=>{
+    try{
+      await navigator.clipboard.writeText(planBox.value||'');
+      copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy to clipboard',1200);
+    }catch(e){ copyBtn.textContent='Copy failed'; setTimeout(()=>copyBtn.textContent='Copy to clipboard',1200); }
+  });
+</script>
+</body>
+</html>

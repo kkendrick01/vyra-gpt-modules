@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The VyraCore Pyramid™ Masterclass — The Billion-View Formula</title>
+  <meta name="description" content="Master the 4-level VyraCore Pyramid™. See the Elon example, learn the psychology, take a quick quiz, and grab the one-pager." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --vyra-black: #000000;
+      --vyra-green: #00ff41;
+      --vyra-white: #ffffff;
+      --vyra-grey: #8a8a8a;
+      --vyra-dark-grey: #1a1a1a;
+      --vyra-steel: #2a2a2a;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--vyra-black);
+      color: var(--vyra-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Progress */
+    .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; background: var(--vyra-dark-grey); z-index: 9999; }
+    .progress-bar { height: 100%; background: var(--vyra-green); width: 0%; transition: width .25s ease; }
+
+    /* Header */
+    header.header {
+      background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+      padding: 72px 0 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header.header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 98px, var(--vyra-green) 100px, var(--vyra-green) 101px);
+      opacity: .08;
+    }
+    .badge {
+      display: inline-block; background: var(--vyra-green); color: var(--vyra-black);
+      padding: 8px 18px; border-radius: 999px; font-weight: 800; font-size: .9rem; position: relative; z-index: 2;
+    }
+    .title {
+      font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; margin: 16px 0 10px; position: relative; z-index: 2;
+      background: linear-gradient(135deg, var(--vyra-white), var(--vyra-green));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: var(--vyra-grey); font-size: 1.1rem; position: relative; z-index: 2; }
+
+    /* Nav */
+    .nav { background: var(--vyra-dark-grey); padding: 14px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--vyra-green); }
+    .nav-items { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+    .nav-item { color: var(--vyra-grey); text-decoration: none; padding: 10px 16px; border-radius: 8px; transition: all .25s ease; font-weight: 600; position: relative; }
+    .nav-item:focus-visible { outline: 2px solid var(--vyra-green); outline-offset: 2px; }
+    .nav-item:hover, .nav-item.active { color: var(--vyra-green); background: rgba(0,255,65,0.1); transform: translateY(-1px); }
+    .nav-item::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--vyra-green); transition: width .25s ease; transform: translateX(-50%); }
+    .nav-item:hover::after, .nav-item.active::after { width: 70%; }
+
+    /* Sections */
+    section.section { padding: 64px 0; position: relative; }
+    section.section.alt { background: var(--vyra-dark-grey); }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 12px; }
+    .section-subtitle { color: var(--vyra-grey); max-width: 760px; margin: 0 auto; }
+
+    /* Grid/Cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .card { background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 20px; transition: all .25s ease; }
+    .card:hover { transform: translateY(-3px); border-color: var(--vyra-green); box-shadow: 0 18px 36px rgba(0,255,65,0.08); }
+
+    /* Pyramid */
+    .pyramid { max-width: 960px; margin: 0 auto; display: grid; gap: 16px; }
+    .level { position: relative; background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 18px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .level:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(0,255,65,0.08); border-color: var(--vyra-green); }
+    .level h3 { color: var(--vyra-green); font-size: 1.05rem; margin-bottom: 6px; }
+    .level p { color: var(--vyra-white); opacity: .92; }
+    .level .tip { color: var(--vyra-grey); font-size: .9rem; margin-top: 6px; }
+    .level::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--vyra-green), transparent); transform: translateX(-100%); transition: transform .3s ease; }
+    .level:hover::before { transform: translateX(0); }
+
+    /* Proof */
+    .case-fig { background: var(--vyra-black); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 10px; }
+    .case-fig img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .stat { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--vyra-green); margin-top: 10px; }
+
+    /* Mini Pyramid inside proof card */
+    .mini-pyramid { display: grid; gap: 10px; margin: 10px 0 14px; }
+    .mini-level { position: relative; background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.25); border-radius: 10px; padding: 10px 12px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .mini-level:hover { transform: translateY(-2px); border-color: var(--vyra-green); box-shadow: 0 12px 24px rgba(0,255,65,0.08); }
+    .mini-level h4 { font-size: .95rem; color: var(--vyra-green); margin-bottom: 4px; }
+    .mini-level p { font-size: .95rem; color: var(--vyra-white); opacity: .92; }
+    .mini-level .hint { font-size: .85rem; color: var(--vyra-grey); margin-top: 4px; }
+
+    /* Quiz */
+    .quiz { max-width: 860px; margin: 0 auto; }
+    .q { background: var(--vyra-steel); border: 1px solid rgba(0,255,65,0.2); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .q h4 { margin-bottom: 8px; }
+    .opt { display: block; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-top: 8px; cursor: pointer; }
+    .opt input { margin-right: 8px; }
+    .opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.12); }
+    .opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.12); }
+    .quiz-result { text-align: center; margin-top: 14px; font-weight: 800; }
+
+    /* One-pager */
+    .onepager { background: var(--vyra-black); border: 1px solid rgba(0,255,65,0.25); border-radius: 14px; padding: 24px; }
+    .onepager h3 { color: var(--vyra-green); margin-bottom: 10px; }
+    .onepager ul { padding-left: 18px; }
+    .onepager li { margin: 6px 0; }
+    .onepager small { color: var(--vyra-grey); }
+
+    /* CTA Buttons — BLACK with GREEN text */
+    .btn {
+      display: inline-block;
+      background: var(--vyra-black);
+      color: var(--vyra-green);
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 2px solid var(--vyra-green);
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    }
+    .btn:hover {
+      background: var(--vyra-green);
+      color: var(--vyra-black);
+      box-shadow: 0 10px 20px rgba(0,255,65,0.18);
+      transform: translateY(-2px);
+    }
+
+    /* CTA Footer */
+    .footer-cta { text-align: center; padding: 64px 0; background: var(--vyra-black); }
+    .cta-box {
+      background: linear-gradient(135deg, var(--vyra-green) 0%, #00d438 100%);
+      border-radius: 20px; padding: 36px; color: var(--vyra-black);
+      max-width: 860px; margin: 0 auto;
+    }
+    .cta-box h3 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 900; margin-bottom: 8px; }
+    .cta-box p { font-weight: 700; margin-bottom: 18px; }
+
+    /* Responsive */
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* Print for one-pager */
+    @media print {
+      body { background: #fff; color: #000; }
+      .nav, .progress-container, .footer-cta, .btn { display: none !important; }
+      .onepager { border: none; }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+    .animate-in { animation: fadeInUp .6s ease forwards; }
+  </style>
+</head>
+<body>
+  <!-- Progress -->
+  <div class="progress-container" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <span class="badge">Built for Ghostwriters. By Ghostwriters.™</span>
+      <h1 class="title">The VyraCore Pyramid™ Masterclass</h1>
+      <p class="subtitle">The 4-level structure behind billion-view posts. Psychology first. Storytelling with intent. Results on repeat.</p>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Primary">
+    <div class="container">
+      <div class="nav-items">
+        <a href="#overview" class="nav-item active">Overview</a>
+        <a href="#pyramid" class="nav-item">The 4 Levels</a>
+        <a href="#proof" class="nav-item">Elon Example</a>
+        <a href="#quiz" class="nav-item">3-Question Quiz</a>
+        <a href="#onepager" class="nav-item">Download One-Pager</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Overview -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why this pyramid works</h2>
+        <p class="section-subtitle">Great posts follow a predictable sequence. Interrupt the pattern. Hook emotion. Deliver value. Invite engagement. When the order is right, attention compounds.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card animate-in" style="animation-delay:.05s">
+          <h3 style="color: var(--vyra-green)">Operating principle</h3>
+          <p>Readers move when the brain sees novelty, tension, and reward. The pyramid stacks those elements in a reliable path that turns curiosity into action.</p>
+        </div>
+        <div class="card animate-in" style="animation-delay:.12s">
+          <h3 style="color: var(--vyra-green)">Outcome you can expect</h3>
+          <p>Higher watch time. More shares. Cleaner CTAs. You teach, earn trust, and create inbound interest through structure and clarity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pyramid -->
+  <section id="pyramid" class="section alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The VyraCore Pyramid™</h2>
+        <p class="section-subtitle">Hover each level to reveal what to write and why it works.</p>
+      </div>
+
+      <div class="pyramid">
+        <div class="level animate-in" style="animation-delay:.05s">
+          <h3>Level 1 — Pattern Interrupt</h3>
+          <p>Create contrast with expectation. Present a fact or claim that forces a double-take. Keep it tight and verifiable.</p>
+          <p class="tip">Example shape: <em>“In [year], [notable founder] did [counter-intuitive move] with [competitor].”</em></p>
+        </div>
+        <div class="level animate-in" style="animation-delay:.10s">
+          <h3>Level 2 — Emotional Hook</h3>
+          <p>Surface the prevailing opinion or fear. Name the stakes people whisper about. The reader leans in when risk or payoff feels close.</p>
+          <p class="tip">Example shape: <em>“Everyone called it reckless.”</em></p>
+        </div>
+        <div class="level animate-in" style="animation-delay:.15s">
+          <h3>Level 3 — Value Delivery</h3>
+          <p>Reveal the mechanism or decision logic. Teach the hidden play. Use plain language and one clear causal chain.</p>
+          <p class="tip">Example shape: <em>“The ‘charity’ maneuver accelerated adoption and boxed rivals.”</em></p>
+        </div>
+        <div class="level animate-in" style="animation-delay:.20s">
+          <h3>Level 4 — Engagement Trigger</h3>
+          <p>Invite the next step with a reason to continue. Summon curiosity and participation with a breakdown, visual, or challenge.</p>
+          <p class="tip">Example shape: <em>“Here’s why the rival never saw it coming.”</em></p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <h3 style="color: var(--vyra-green)">How to apply it today</h3>
+        <p>Choose a counter-intuitive decision from your client’s domain. Write one sentence per level. Read it out loud. Remove filler. Publish when each line creates forward pull.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section id="proof" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Elon example — receipts included</h2>
+        <p class="section-subtitle">A client thread structured with the pyramid earned 15M+ views with an Elon reply/retweet. The pattern scales because the psychology scales.</p>
+      </div>
+
+      <div class="grid-2">
+        <figure class="case-fig animate-in" style="animation-delay:.05s">
+          <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_bmw.png" alt="Screenshot of Elon Musk reply/retweet on a client thread about Tesla and BMW" />
+          <figcaption class="stat">⬆︎ 15M+ views • Elon engagement</figcaption>
+        </figure>
+
+        <div class="card animate-in" style="animation-delay:.12s; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="color: var(--vyra-green)">Decoded with the Pyramid</h3>
+
+          <!-- Mini hoverable pyramid inside proof card -->
+          <div class="mini-pyramid" role="list" aria-label="Mini pyramid levels">
+            <div class="mini-level" role="listitem">
+              <h4>L1 — Pattern Interrupt</h4>
+              <p>Counter-intuitive opener reframed the Tesla/BMW dynamic.</p>
+              <div class="hint">Shape: “In 2014, Elon ‘gave away’ Tesla’s secrets to BMW.”</div>
+            </div>
+            <div class="mini-level" role="listitem">
+              <h4>L2 — Emotional Hook</h4>
+              <p>Social judgment line raised stakes around reputation and risk.</p>
+              <div class="hint">Shape: “Everyone thought it was reckless.”</div>
+            </div>
+            <div class="mini-level" role="listitem">
+              <h4>L3 — Value Delivery</h4>
+              <p>Mechanism revealed the competitive logic behind the move.</p>
+              <div class="hint">Shape: “The ‘charity’ maneuver accelerated adoption and boxed rivals.”</div>
+            </div>
+            <div class="mini-level" role="listitem">
+              <h4>L4 — Engagement Trigger</h4>
+              <p>“Here’s why…” + visual created momentum and share-ability.</p>
+              <div class="hint">Shape: “Here’s why BMW never saw it coming.”</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+              Get VyraHook™ — normally $97, today only $17 →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">3-Question Quiz</h2>
+        <p class="section-subtitle">Lock the sequence. You’ll use it on every platform.</p>
+      </div>
+
+      <div class="quiz" role="group" aria-labelledby="quiz-title">
+        <div class="q" data-answer="b">
+          <h4>1) What belongs in the Pattern Interrupt?</h4>
+          <label class="opt"><input type="radio" name="q1" value="a"> A. A conclusion with no setup</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> B. A verifiable, counter-expectation fact that forces attention</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> C. A product pitch</label>
+        </div>
+
+        <div class="q" data-answer="c">
+          <h4>2) Where does the detailed mechanism live?</h4>
+          <label class="opt"><input type="radio" name="q2" value="a"> A. Level 2 — Emotional Hook</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> B. Level 4 — Engagement Trigger</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> C. Level 3 — Value Delivery</label>
+        </div>
+
+        <div class="q" data-answer="a">
+          <h4>3) What strengthens the Engagement Trigger?</h4>
+          <label class="opt"><input type="radio" name="q3" value="a"> A. A visual or step-by-step breakdown that invites sharing</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> B. A vague moral</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> C. A long bio</label>
+        </div>
+
+        <div class="controls">
+          <button class="btn" id="gradeBtn" aria-label="Grade quiz">Grade Quiz</button>
+          <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- One-Pager -->
+  <section id="onepager" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Downloadable One-Pager</h2>
+        <p class="section-subtitle">Print to PDF or save a text copy. Keep it next to your editor.</p>
+      </div>
+      <div class="onepager" id="onepagerContent">
+        <h3>The VyraCore Pyramid™ — Field Guide</h3>
+        <h4 style="color: var(--vyra-white); margin: 10px 0 6px">Levels</h4>
+        <ul>
+          <li><strong>L1 — Pattern Interrupt:</strong> Counter-expectation fact. Short. Checkable.</li>
+          <li><strong>L2 — Emotional Hook:</strong> Social judgment, pride, fear, or ambition.</li>
+          <li><strong>L3 — Value Delivery:</strong> The mechanism. One clear causal chain.</li>
+          <li><strong>L4 — Engagement Trigger:</strong> Teed-up next step with a visual or thread.</li>
+        </ul>
+        <h4 style="color: var(--vyra-white); margin: 14px 0 6px">Prompts</h4>
+        <ul>
+          <li>What did the market misunderstand about this moment?</li>
+          <li>Which emotion drives attention here: fear, envy, hope?</li>
+          <li>What system or decision created the outcome?</li>
+          <li>What can the reader do or see next to embed the lesson?</li>
+        </ul>
+        <h4 style="color: var(--vyra-white); margin: 14px 0 6px">Checklist</h4>
+        <ul>
+          <li>L1 is concrete and creates a double-take.</li>
+          <li>L2 raises stakes with a human angle.</li>
+          <li>L3 teaches one mechanism without jargon.</li>
+          <li>L4 opens a path to share, save, or continue.</li>
+        </ul>
+        <small>Badge: Built for Ghostwriters. By Ghostwriters.™ • Vyralab</small>
+      </div>
+      <div class="controls" style="margin-top: 12px">
+        <button class="btn" id="printBtn" aria-label="Print one-pager (save to PDF)">Print / Save to PDF</button>
+        <button class="btn" id="downloadTxtBtn" aria-label="Download one-pager as text">Download as .txt</button>
+        <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Get VyraHook™ — normally $97, today only $17 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Footer -->
+  <section class="footer-cta">
+    <div class="container">
+      <div class="cta-box">
+        <h3>Write hooks that print clients and cash</h3>
+        <p>Inside the VyraHook™ 3-in-1 Vault Stack you get the private Hook Vault, the VyraPAST™ method, and the AI Rating + Refinement System. This is the same architecture used across 2B+ views and $100M+ in results. Build scroll-stoppers, score them fast, and publish with confidence.</p>
+        <p style="margin-top:6px">As a launch bonus you also get <strong>VyraLinked™ (Lite) Authority Builder GPT</strong> plus a quick-start masterclass — to turn hooks into authority and inbound.</p>
+        <a class="btn" href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" rel="noopener">
+          Unlock instant access — normally $97, today only $17 →
+        </a>
+        <p style="margin-top:10px; font-weight:700">7-Day Guarantee • Instant Access • Built for Ghostwriters. By Ghostwriters.™</p>
+      </div>
+   

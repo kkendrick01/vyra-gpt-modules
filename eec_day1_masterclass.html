@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass 1: The Psychology Behind Viral Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(45deg, #000000, #00ff00, #000000);
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 60px 0;
+            background: #1a1a1a;
+        }
+
+        .story-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .story-card {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,255,0,0.2);
+        }
+
+        .story-card.viral {
+            border-color: #00ff00;
+            background: linear-gradient(135deg, #2a2a2a, #003300);
+        }
+
+        .story-card.failed {
+            border-color: #666;
+            background: linear-gradient(135deg, #2a2a2a, #330000);
+        }
+
+        .story-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .failed .story-number {
+            color: #ff6666;
+        }
+
+        /* Psychology Triggers */
+        .triggers-section {
+            padding: 60px 0;
+            background: #000000;
+        }
+
+        .trigger-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .trigger-card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #00ff00;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trigger-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,0,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .trigger-card:hover::before {
+            left: 100%;
+        }
+
+        .trigger-card:hover {
+            transform: translateX(10px);
+            border-left-color: #00ff00;
+            box-shadow: -5px 0 20px rgba(0,255,0,0.3);
+        }
+
+        .trigger-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #00ff00;
+            color: #000;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Interactive Demo */
+        .demo-section {
+            padding: 60px 0;
+            background: #1a1a1a;
+        }
+
+        .hook-comparison {
+            background: #2a2a2a;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .hook-examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .hook-example {
+            padding: 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hook-example.weak {
+            background: linear-gradient(135deg, #330000, #1a1a1a);
+            border: 2px solid #666;
+        }
+
+        .hook-example.strong {
+            background: linear-gradient(135deg, #003300, #1a1a1a);
+            border: 2px solid #00ff00;
+        }
+
+        .hook-example:hover {
+            transform: scale(1.05);
+        }
+
+        .hook-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .hook-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .hook-analysis {
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hook-example:hover .hook-analysis {
+            opacity: 1;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            padding: 60px 0;
+            background: #000000;
+        }
+
+        .quiz-container {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            padding: 20px;
+            background: #2a2a2a;
+            border: 2px solid #666;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .quiz-option:hover {
+            border-color: #00ff00;
+            background: #003300;
+        }
+
+        .quiz-option.selected {
+            border-color: #00ff00;
+            background: #003300;
+        }
+
+        .quiz-option.correct {
+            border-color: #00ff00;
+            background: #004400;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ff6666;
+            background: #440000;
+        }
+
+        .quiz-feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #004400;
+            border: 2px solid #00ff00;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #440000;
+            border: 2px solid #ff6666;
+        }
+
+        /* Toolkit Section */
+        .toolkit-section {
+            padding: 60px 0;
+            background: #1a1a1a;
+        }
+
+        .hook-generator {
+            background: #2a2a2a;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 2px solid #00ff00;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .template-card {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: auto;
+        }
+
+        .template-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.2);
+        }
+
+        .template-card.selected {
+            border-color: #00ff00;
+            background: #003300;
+            transform: scale(1.02);
+            min-height: 500px;
+        }
+
+        .template-title {
+            font-weight: 600;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .template-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .template-example {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #00ff00;
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .psychology-breakdown {
+            font-size: 0.9rem;
+            background: #001100;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .template-card.selected .psychology-breakdown {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #00cc00, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,0,0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #666, #888);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #888, #666);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #00ff00;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #333;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .story-comparison,
+            .hook-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>The Psychology Behind Viral Content</h1>
+            <p style="color: #000000;">Master the 3 neurological triggers that make content impossible to scroll past</p>
+        </div>
+    </header>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">The 59 Likes vs 3.6 Million Views Mystery</h2>
+                <p class="section-subtitle">Two nearly identical posts. Same value. Same audience. Completely different results. Here's what made the difference...</p>
+            </div>
+
+            <div class="story-comparison">
+                <div class="story-card failed slide-in-left">
+                    <div class="story-number">59</div>
+                    <h3>The Flop</h3>
+                    <p><strong>Likes:</strong> 59 (including the author's own)</p>
+                    <p><strong>Topic:</strong> Similar content</p>
+                    <p><strong>Value:</strong> Same practical advice</p>
+                    <p><strong>Audience:</strong> Identical target market</p>
+                    <p><strong>Result:</strong> Buried by the algorithm</p>
+                </div>
+
+                <div class="story-card viral slide-in-right">
+                    <div class="story-number">3.6M</div>
+                    <h3>The Viral Hit</h3>
+                    <p><strong>Views:</strong> 3.6 Million</p>
+                    <p><strong>Topic:</strong> Similar content</p>
+                    <p><strong>Value:</strong> Same practical advice</p>
+                    <p><strong>Audience:</strong> Identical target market</p>
+                    <p><strong>Result:</strong> Exploded across the internet</p>
+                </div>
+            </div>
+
+            <div class="fade-in">
+                <p style="text-align: center; font-size: 1.2rem; margin-top: 40px; color: #00ff00;">The difference wasn't better writing. It was better understanding of human psychology.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Psychology Triggers -->
+    <section class="triggers-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">The 3 Neurological Triggers</h2>
+                <p class="section-subtitle">Your brain is wired to pay attention to these specific patterns. Most creators completely ignore them.</p>
+            </div>
+
+            <div class="trigger-grid">
+                <div class="trigger-card fade-in">
+                    <div class="trigger-number">1</div>
+                    <h3>Pattern Interrupts</h3>
+                    <p>Something unexpected that breaks the normal pattern and forces the brain to pay attention. Your scroll-stopping secret weapon.</p>
+                    <div style="margin-top: 15px; font-size: 0.9rem; color: #00ff00;">
+                        <strong>Example:</strong> Starting with a surprising statistic or counterintuitive statement
+                    </div>
+                </div>
+
+                <div class="trigger-card fade-in" style="animation-delay: 0.2s">
+                    <div class="trigger-number">2</div>
+                    <h3>Emotional Contrast</h3>
+                    <p>Content that creates tension between current state and desired state. This gap drives engagement and shares.</p>
+                    <div style="margin-top: 15px; font-size: 0.9rem; color: #00ff00;">
+                        <strong>Example:</strong> "While you're struggling with X, others are easily achieving Y"
+                    </div>
+                </div>
+
+                <div class="trigger-card fade-in" style="animation-delay: 0.4s">
+                    <div class="trigger-number">3</div>
+                    <h3>Instant Gratification Promises</h3>
+                    <p>Clear indication that value will be delivered immediately. The brain craves quick rewards and clear payoffs.</p>
+                    <div style="margin-top: 15px; font-size: 0.9rem; color: #00ff00;">
+                        <strong>Example:</strong> "In the next 60 seconds, you'll learn the exact framework..."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="demo-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">See The Triggers In Action</h2>
+                <p class="section-subtitle">Hover over each example to see why one works and the other doesn't</p>
+            </div>
+
+            <div class="hook-comparison">
+                <h3 style="text-align: center; margin-bottom: 30px; color: #00ff00;">Real Hook Comparison</h3>
+                
+                <div class="hook-examples">
+                    <div class="hook-example weak">
+                        <div class="hook-label">❌ WEAK HOOK</div>
+                        <div class="hook-text">"Uber doesn't own a single car."</div>
+                        <div class="hook-analysis">
+                            <strong>Why it fails:</strong><br>
+                            • No emotional contrast<br>
+                            • No immediate value promise<br>
+                            • Weak pattern interrupt<br>
+                            • No curiosity gap
+                        </div>
+                    </div>
+
+                    <div class="hook-example strong">
+                        <div class="hook-label">✅ STRONG HOOK</div>
+                        <div class="hook-text">"You're looking at one of the youngest self-made billionaires ever."</div>
+                        <div class="hook-analysis">
+                            <strong>Why it works:</strong><br>
+                            • Creates pattern interrupt (youngest billionaire?)<br>
+                            • Establishes emotional contrast (who is it?)<br>
+                            • Promises instant gratification (what can I learn?)<br>
+                            • Opens a curiosity gap
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Test Your Understanding</h2>
+                <p class="section-subtitle">Can you identify which psychological triggers make content viral?</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h3>Which hook uses the most psychological triggers?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <strong>A)</strong> "5 tips for better marketing"
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <strong>B)</strong> "This mistake is costing you thousands of followers (and I can prove it in 30 seconds)"
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <strong>C)</strong> "Marketing is important for business growth"
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="quizFeedback">
+                        <h4>Correct! 🎉</h4>
+                        <p><strong>Option B</strong> uses all three triggers:</p>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>Pattern Interrupt:</strong> "This mistake is costing you"</li>
+                            <li><strong>Emotional Contrast:</strong> Current loss vs potential gain</li>
+                            <li><strong>Instant Gratification:</strong> "I can prove it in 30 seconds"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toolkit Section -->
+    <section class="toolkit-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Your Viral Hook Toolkit</h2>
+                <p class="section-subtitle">6 proven templates you can use immediately to trigger viral responses</p>
+            </div>
+
+            <div class="hook-generator">
+                <h3 style="text-align: center; margin-bottom: 30px; color: #00ff00;">6 Viral Hook Templates</h3>
+                <div style="text-align: center; margin-bottom: 40px; padding: 20px; background: linear-gradient(45deg, #001100, #003300); border: 2px solid #00ff00; border-radius: 12px;">
+                    <p style="font-size: 1.4rem; font-weight: 700; color: #00ff00; margin-bottom: 10px;">👆 Click each template to see how it triggers psychology:</p>
+                    <p style="font-size: 1rem; opacity: 0.9; margin: 0;">See the actual viral posts + psychology breakdown for each hook</p>
+                </div>
+                
+                <div class="template-grid">
+                    <div class="template-card" data-template="1">
+                        <div class="template-title">The Power Play</div>
+                        <div class="template-text">[Public figure] just threatened [major company] with a [$X Billion] [action].<br><br>They were given 2 options: [option 1] or [consequence].<br><br>When they refused, [name] did what they had to.<br><br>Here's the [$X+] power play no one saw coming:</div>
+                        <div class="template-example">"Trump just threatened Apple with a $22 billion tariff.<br><br>He gave them 2 options: Bring production to America or pay the price.<br><br>When they refused, Trump did what he had to.<br><br>Here's the $600+ BILLION power play no one saw coming:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> Massive dollar amounts + ultimatums<br><br>
+                                • <strong>Emotional Contrast:</strong> David vs Goliath power dynamics<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's what happened next"
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/trump_tariff.png" alt="Trump Tariff Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="2">
+                        <div class="template-title">The Empire Gambler</div>
+                        <div class="template-text">After losing [huge fortune], [founder] was [on edge/days from collapse].<br><br>[Company] was losing [$X/month]. Everyone thought it was over.<br><br>Their response? Bet their last [$X] on [crazy move].<br><br>Here's how [the risk] turned into [legendary comeback]:</div>
+                        <div class="template-example">"After losing his $180 Million PayPal fortune... Elon was 3 weeks from bankruptcy.<br><br>Tesla was losing $10 Million/month. Everyone thought he was finished.<br><br>Then, he bet his last $6 Million on his cousin's dying startup.<br><br>Here's how a family meeting saved him:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> "Everyone thought it was over"<br><br>
+                                • <strong>Emotional Contrast:</strong> Rock bottom → legendary comeback<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's how" promises resolution
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_family.png" alt="Empire Gambler Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="3">
+                        <div class="template-title">The Genius Who Said No</div>
+                        <div class="template-text">In [year], [corporate giant] offered [$X Billion] for [seemingly worthless business].<br><br>[Founder] refused. Everyone called them insane.<br><br>Today, that same business makes [$X/year] with [tiny team].<br><br>Here's why they said "no" to a guaranteed fortune:</div>
+                        <div class="template-example">"In 2004, eBay offered to buy his 'ugly ads website' for $1 BILLION.<br><br>He refused.<br><br>Today? That site makes $1 Billion per YEAR with just 50 employees.<br><br>Here's why he said 'No' to a guaranteed fortune:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> Refusing billions sounds insane<br><br>
+                                • <strong>Emotional Contrast:</strong> "Insane" decision → genius vindication<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's why" reveals the logic
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_craigslist.png" alt="Genius Who Said No Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="4">
+                        <div class="template-title">The Rogue Underdog</div>
+                        <div class="template-text">This is [unexpectedly young person].<br><br>They just got [punished/fired] by [elite institution].<br><br>Not for [expected wrongdoing]... But for [exposing] [industry secret].<br><br>Here's how a [age]-year-old [provocative verb] their way into [$X/mo] "trolling" [powerful group]:</div>
+                        <div class="template-example">"This is Roy Lee.<br><br>He just got EXPELLED from Columbia.<br><br>Not for cheating on exams. But for EXPOSING Big Tech's hiring secrets.<br><br>Here's how a 21-year-old made $170K/month 'trolling' Silicon Valley:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> Young person vs elite institution<br><br>
+                                • <strong>Emotional Contrast:</strong> Punished → profitable revenge<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's how" reveals the method
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_roy.png" alt="Rogue Underdog Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="5">
+                        <div class="template-title">The Silent Exit</div>
+                        <div class="template-text">In [year], [young founders] sold [startup] for [$X Billion].<br><br>Then vanished—no interviews, no headlines, no second act.<br><br>Today? That startup is worth [$XX Billion].<br><br>Here's why they walked away from the most valuable site in history:</div>
+                        <div class="template-example">"These kids sold a video-sharing website for $1.65 billion in 2006.<br><br>Then vanished overnight.<br><br>Today, that site is worth over $455 BILLION dollars.<br><br>Here's why they walked away from the most valuable website in history:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> Vanishing after billions sounds crazy<br><br>
+                                • <strong>Emotional Contrast:</strong> $1.65B → $455B missed opportunity?<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's why" explains the mystery
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/baptiste_youtube.png" alt="Silent Exit Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="template-card" data-template="6">
+                        <div class="template-title">The Master Predictor</div>
+                        <div class="template-text">This man can predict the future.<br><br>In [month/year], he warned the world about [crisis].<br><br>Everyone ignored him. But by [month], [disaster] had wiped out [$X] in [damage].<br><br>Here's why [name]'s latest warning has [industry] listening:</div>
+                        <div class="template-example">"This man can predict the future.<br><br>In January 2020, he warned us the global economy would collapse.<br><br>Everyone ignored him. But by March, COVID-19 had wiped out $30 Trillion in global markets.<br><br>Here's why Ray Dalio's latest warning has Wall Street listening:"</div>
+                        <div class="psychology-breakdown">
+                            <div>
+                                <strong>🧠 Psychology Triggers:</strong><br><br>
+                                • <strong>Pattern Interrupt:</strong> "Can predict the future" bold claim<br><br>
+                                • <strong>Emotional Contrast:</strong> Ignored → proven devastatingly right<br><br>
+                                • <strong>Instant Gratification:</strong> "Here's why" reveals current relevance
+                            </div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <img src="https://kkendrick01.github.io/vyra-gpt-modules/gary_ray.png" alt="Master Predictor Post" style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; border: 1px solid #00ff00;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn" onclick="copyTemplates()">📋 Copy All Templates</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways -->
+    <section style="padding: 60px 0; background: #000000;">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Your Action Steps</h2>
+                <p class="section-subtitle">Apply these principles to your next post</p>
+            </div>
+
+            <div style="background: #1a1a1a; padding: 40px; border-radius: 15px; margin: 40px 0;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; color: #000; font-weight: 700;">1</div>
+                        <h4>Analyze Your Content</h4>
+                        <p>Review your last 10 posts. Which psychological triggers did you use?</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; color: #000; font-weight: 700;">2</div>
+                        <h4>Test the Templates</h4>
+                        <p>Use one template from this masterclass for your next 5 posts</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #00ff00; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; color: #000; font-weight: 700;">3</div>
+                        <h4>Track Results</h4>
+                        <p>Measure engagement before and after applying these triggers</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <p style="margin-bottom: 30px; font-size: 1.1rem;">Ready for tomorrow's masterclass?</p>
+                <p style="color: #00ff00; font-size: 1.2rem; font-weight: 600;">Next: Why Your "Authentic Voice" Might Be Killing Your Reach</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', function() {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Quiz functionality
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const selectedOption = this.dataset.option;
+                const allOptions = document.querySelectorAll('.quiz-option');
+                const feedback = document.getElementById('quizFeedback');
+                
+                // Remove previous selections
+                allOptions.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Mark selection
+                this.classList.add('selected');
+                
+                // Show results
+                if (selectedOption === 'b') {
+                    this.classList.add('correct');
+                    feedback.classList.add('show', 'correct');
+                    feedback.classList.remove('incorrect');
+                } else {
+                    this.classList.add('incorrect');
+                    // Show correct answer
+                    document.querySelector('[data-option="b"]').classList.add('correct');
+                    feedback.innerHTML = `
+                        <h4>Not quite! 🤔</h4>
+                        <p><strong>The correct answer is B.</strong> It uses all three psychological triggers:</p>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>Pattern Interrupt:</strong> "This mistake is costing you"</li>
+                            <li><strong>Emotional Contrast:</strong> Current loss vs potential gain</li>
+                            <li><strong>Instant Gratification:</strong> "I can prove it in 30 seconds"</li>
+                        </ul>
+                    `;
+                    feedback.classList.add('show', 'incorrect');
+                    feedback.classList.remove('correct');
+                }
+            });
+        });
+
+        // Template card interactions
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove previous selections
+                document.querySelectorAll('.template-card').forEach(c => c.classList.remove('selected'));
+                
+                // Select this card
+                this.classList.add('selected');
+                
+                // Add a subtle animation
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Copy templates function
+        function copyTemplates() {
+            const templates = `
+6 VIRAL HOOK TEMPLATES FROM VYRALAB:
+
+1. The Power Play
+[Public figure] just threatened [major company] with a [$X Billion] [action]. They were given 2 options: [option 1] or [consequence]. When they refused, [name] did what they had to. Here's the [$X+] power play no one saw coming:
+
+2. The Empire Gambler  
+After losing [huge fortune], [founder] was [on edge/days from collapse]. [Company] was losing [$X/month]. Everyone thought it was over. Their response? Bet their last [$X] on [crazy move]. Here's how [the risk] turned into [legendary comeback]:
+
+3. The Genius Who Said No
+In [year], [corporate giant] offered [$X Billion] for [seemingly worthless business]. [Founder] refused. Everyone called them insane. Today, that same business makes [$X/year] with [tiny team]. Here's why they said "no" to a guaranteed fortune:
+
+4. The Rogue Underdog
+This is [unexpectedly young person]. They just got [punished/fired] by [elite institution]. Not for [expected wrongdoing]... But for [exposing] [industry secret]. Here's how a [age]-year-old [provocative verb] their way into [$X/mo] "trolling" [powerful group]:
+
+5. The Silent Exit
+In [year], [young founders] sold [startup] for [$X Billion]. Then vanished—no interviews, no headlines, no second act. Today? That startup is worth [$XX Billion]. Here's why they walked away from the most valuable site in history:
+
+6. The Master Predictor
+This man can predict the future. In [month/year], he warned the world about [crisis]. Everyone ignored him. But by [month], [disaster] had wiped out [$X] in [damage]. Here's why [name]'s latest warning has [industry] listening:
+            `;
+            
+            navigator.clipboard.writeText(templates).then(function() {
+                alert('VyraLab Hook Templates copied to clipboard! 📋');
+            });
+        }
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
