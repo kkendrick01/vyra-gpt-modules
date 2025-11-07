@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The $10K AI Ghostwriter Masterclass | VyraLab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00FF41;
+            --vyra-white: #FFFFFF;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--vyra-white), var(--vyra-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--vyra-grey);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--vyra-green);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--vyra-grey);
+            margin-top: 10px;
+        }
+
+        .pain-points {
+            background: var(--vyra-dark-grey);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-radius: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--vyra-green);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pain-card {
+            background: var(--vyra-black);
+            border-left: 5px solid var(--vyra-green);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .pain-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--vyra-green);
+        }
+
+        .course-curriculum {
+            padding: 60px 0;
+        }
+
+        .day-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), var(--vyra-black));
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .day-card:hover::before {
+            left: 100%;
+        }
+
+        .day-card:hover {
+            border-color: var(--vyra-green);
+            transform: scale(1.02);
+        }
+
+        .day-number {
+            font-size: 1.2rem;
+            color: var(--vyra-green);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .day-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--vyra-white);
+        }
+
+        .day-description {
+            font-size: 1.1rem;
+            color: var(--vyra-grey);
+            line-height: 1.6;
+        }
+
+        .readiness-quiz {
+            background: var(--vyra-dark-grey);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-radius: 20px;
+        }
+
+        .quiz-question {
+            background: var(--vyra-black);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid var(--vyra-green);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quiz-option {
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-grey);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover, .quiz-option.selected {
+            border-color: var(--vyra-green);
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--vyra-green);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--vyra-black), var(--vyra-dark-grey));
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--vyra-green);
+        }
+
+        .cta-questions {
+            font-size: 1.3rem;
+            margin: 30px 0;
+            color: var(--vyra-white);
+            font-weight: 600;
+        }
+
+        .start-button {
+            background: linear-gradient(45deg, var(--vyra-green), #00CC33);
+            color: var(--vyra-black);
+            font-size: 1.4rem;
+            font-weight: 900;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 0;
+        }
+
+        .start-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.4);
+            background: linear-gradient(45deg, #00CC33, var(--vyra-green));
+        }
+
+        .founder-section {
+            background: var(--vyra-dark-grey);
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .founder-intro {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--vyra-dark-grey) 0%, var(--vyra-black) 100%);
+            margin: 60px 0;
+            border-radius: 20px;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .intro-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .kyle-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .kyle-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .kyle-credentials {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .kyle-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--vyra-white);
+            margin-bottom: 8px;
+        }
+
+        .kyle-title {
+            font-size: 0.85rem;
+            color: var(--vyra-grey);
+            font-weight: 500;
+        }
+
+        .intro-content {
+            text-align: left;
+        }
+
+        .intro-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--vyra-white);
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--vyra-green);
+            font-weight: 700;
+        }
+
+        .intro-callout {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 5px solid var(--vyra-green);
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--vyra-green);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .intro-content {
+                text-align: center;
+            }
+            
+            .kyle-photo {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .intro-title {
+                font-size: 2rem;
+            }
+        }
+
+        .founder-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--vyra-grey);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            padding: 30px;
+            border-left: 5px solid var(--vyra-green);
+            background: var(--vyra-black);
+            border-radius: 10px;
+        }
+
+        .founder-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vyra-green);
+        }
+
+        .founder-title {
+            color: var(--vyra-grey);
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--vyra-green);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pain-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+
+        .quiz-result {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">The $10K AI Ghostwriter</h1>
+            <p class="hero-subtitle">5 Days to go Viral, Get Clients, and Escape the Freelance Trap</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">2B+</span>
+                    <span class="stat-label">Total Views Generated</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">$100M+</span>
+                    <span class="stat-label">Client Revenue Created</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5 Days</span>
+                    <span class="stat-label">To Transform Your Content</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founder Introduction Section -->
+        <section class="founder-intro">
+            <div class="intro-grid">
+                <div class="intro-image">
+                    <img src="https://kkendrick01.github.io/vyra-gpt-modules/kyle_kendrick.png" alt="Kyle Kendrick" class="kyle-photo">
+                    <div class="kyle-credentials">
+                        <div class="kyle-name">Kyle Kendrick, M.A., PMP</div>
+                        <div class="kyle-title">Founder & CEO | Vyralab™ Ghostwriting Studio</div>
+                    </div>
+                </div>
+                <div class="intro-content">
+                    <h2 class="intro-title">Meet Your Guide</h2>
+                    <p class="intro-text">
+                        I'm <span class="highlight">Kyle Kendrick</span>, the founder of Vyralab Ghostwriting Studio.
+                    </p>
+                    <p class="intro-text">
+                        I started out just like you — writing late nights for clients who couldn't see the value yet, posting nonstop, wondering what it would take to finally break through.
+                    </p>
+                    <p class="intro-text">
+                        My background's in project management and organizational psychology, so I've always been obsessed with systems — what makes people move, buy, and trust.
+                    </p>
+                    <p class="intro-text">
+                        That obsession took me from freelance writer, to Creative Director, to VP of Customer Success, overseeing campaigns that generated over <span class="highlight">$100 million in client revenue</span> and more than <span class="highlight">2 billion views</span> across X and LinkedIn.
+                    </p>
+                    <p class="intro-text">
+                        But the part I'm most proud of isn't the numbers — it's the people. I've trained <span class="highlight">over 100 writers</span> who've gone on to run campaigns for founders, CEOs, and even politicians… writers who built agencies, scaled retainers, and turned skill into income.
+                    </p>
+                    <p class="intro-text">
+                        And that's why I built Vyralab. So you can grow, earn, and learn faster than I did — without the years of trial and chaos it took me to figure it all out.
+                    </p>
+                    <div class="intro-callout">
+                        This isn't theory. It's the system I wish someone handed me when I started.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pain Points Section -->
+        <section class="pain-points">
+            <h2 class="section-title">The Brutal Reality Every Content Creator Faces</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--vyra-grey); margin-bottom: 40px;">
+                You pour your heart into posts, share valuable knowledge, and watch random half-baked content get 100,000+ views while yours gets 3 likes (one's from your mom).
+            </p>
+            
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">😤</div>
+                    <h3>Insecurity</h3>
+                    <p>Watching inferior creators succeed as you scream into the void</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🤯</div>
+                    <h3>Confusion</h3>
+                    <p>Not knowing how to systematically create viral content</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">😵‍💫</div>
+                    <h3>Overwhelm</h3>
+                    <p>Dealing with hundreds of AI tools and their constant updates</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">💸</div>
+                    <h3>Freelancer Trap</h3>
+                    <p>Competing on price instead of value, racing to the bottom</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Readiness Quiz -->
+        <section class="readiness-quiz">
+            <h2 class="section-title">Readiness Assessment</h2>
+            <p style="text-align: center; font-size: 1.1rem; color: var(--vyra-grey); margin-bottom: 40px;">
+                Let's see how ready you are to break through to viral success
+            </p>
+
+            <div class="quiz-question">
+                <h3>How often does your content get significant engagement?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-points="1">Rarely - I'm lucky to get double-digit likes</div>
+                    <div class="quiz-option" data-points="2">Sometimes - Occasionally a post does well</div>
+                    <div class="quiz-option" data-points="3">Often - I have consistent engagement but want more</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>What's your biggest content creation frustration?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-points="3">Not knowing what will go viral</div>
+                    <div class="quiz-option" data-points="2">Lack of systematic approach</div>
+                    <div class="quiz-option" data-points="1">No time for content creation</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>How committed are you to transforming your content game?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-points="3">I'm ready to do whatever it takes</div>
+                    <div class="quiz-option" data-points="2">I'm willing to put in consistent effort</div>
+                    <div class="quiz-option" data-points="1">I'll try if it's not too difficult</div>
+                </div>
+            </div>
+
+            <div class="quiz-result" id="quizResult"></div>
+        </section>
+
+        <!-- Course Curriculum -->
+        <section class="course-curriculum">
+            <h2 class="section-title">Your 5-Day Transformation Journey</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--vyra-grey); margin-bottom: 50px;">
+                The exact system that took me from 1,000 views to 2 billion+ views
+            </p>
+
+            <div class="day-card">
+                <div class="day-number">DAY 1</div>
+                <h3 class="day-title">The Psychology Trigger</h3>
+                <p class="day-description">Why some content is literally impossible to scroll past while identical posts die in obscurity. You'll learn the neurological switches that force engagement.</p>
+            </div>
+
+            <div class="day-card">
+                <div class="day-number">DAY 2</div>
+                <h3 class="day-title">The Authenticity Paradox</h3>
+                <p class="day-description">How to be genuinely yourself while triggering viral mechanisms. The counterintuitive truth about authentic content that scales.</p>
+            </div>
+
+            <div class="day-card">
+                <div class="day-number">DAY 3</div>
+                <h3 class="day-title">The Billion-View Formula</h3>
+                <p class="day-description">The structural secrets hidden inside every viral post. The framework that makes content predictably shareable.</p>
+            </div>
+
+            <div class="day-card">
+                <div class="day-number">DAY 4</div>
+                <h3 class="day-title">The AI Viral Engine</h3>
+                <p class="day-description">10-minute AI prompt sequences that generate high-potential content ideas. Turn AI into your personal viral content factory.</p>
+            </div>
+
+            <div class="day-card">
+                <div class="day-number">DAY 5</div>
+                <h3 class="day-title">The Monetization Pipeline</h3>
+                <p class="day-description">The most important choice you'll make as a ghostwriter. How to transform viral content into a $10K/month client-attraction machine.</p>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <h2 class="cta-title">Ready to Stop Being Invisible?</h2>
+            
+            <div class="cta-questions">
+                <p>✅ Are you ready to crack the code that separates viral creators from everyone else?</p>
+                <p>✅ Are you ready to turn your content into a client-attraction machine?</p>
+                <p>✅ Are you ready to generate $10K months instead of vanity metrics?</p>
+            </div>
+
+            <button class="start-button" onclick="startJourney()">START MY TRANSFORMATION</button>
+            
+            <p style="color: var(--vyra-grey); margin-top: 30px;">
+                Tomorrow: The psychological trigger that makes content impossible to scroll past + your Viral Hook Command Sheet 2025
+            </p>
+        </section>
+
+        <!-- Founder Section -->
+        <section class="founder-section">
+            <div class="founder-quote">
+                "I know what you're thinking: 'Kyle, viral content is just luck and timing.' That's exactly what I thought too... until I reverse-engineered the patterns that created my billion-view breakthrough. What you'll discover over the next 5 days will completely change how you think about content creation."
+            </div>
+            <div class="founder-name">Kyle</div>
+            <div class="founder-title">Founder of VyraLab</div>
+        </section>
+    </div>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Quiz functionality
+        let quizScore = 0;
+        let questionsAnswered = 0;
+
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from siblings
+                this.parentNode.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Update score
+                const points = parseInt(this.dataset.points);
+                quizScore += points;
+                questionsAnswered++;
+                
+                // Check if all questions answered
+                if (questionsAnswered === 3) {
+                    showQuizResult();
+                }
+            });
+        });
+
+        function showQuizResult() {
+            const resultDiv = document.getElementById('quizResult');
+            let message = '';
+            
+            if (quizScore >= 8) {
+                message = '🔥 VIRAL READY: You have the mindset and commitment to dominate. This course will be the catalyst you need!';
+            } else if (quizScore >= 6) {
+                message = '⚡ BREAKTHROUGH POTENTIAL: You\'re close to a major breakthrough. This system will push you over the edge!';
+            } else {
+                message = '🌱 GROWTH MODE: Perfect timing! You\'re ready to learn the fundamentals that will transform your content game.';
+            }
+            
+            resultDiv.textContent = message;
+            resultDiv.style.display = 'block';
+        }
+
+        function startJourney() {
+            alert('🚀 Welcome to your transformation! Check your email for Day 1: The Psychology Trigger that makes content impossible to scroll past. Your Viral Hook Command Sheet 2025 is waiting for you!');
+        }
+
+        // Smooth hover animations
+        document.querySelectorAll('.day-card, .stat-card, .pain-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('day-card') ? 'scale(1.02)' : 
+                                    this.classList.contains('stat-card') ? 'translateY(-10px)' : 'translateX(10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
