@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authority Threads Masterclass - $1997 Elite Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff41;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 3px solid var(--vyra-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--vyra-white), var(--vyra-green), var(--vyra-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: -200% center; }
+            50% { background-position: 200% center; }
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: var(--vyra-grey);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .value-promise {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), var(--vyra-black));
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .value-promise h3 {
+            color: var(--vyra-green);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value-item {
+            background: var(--vyra-dark-grey);
+            padding: 35px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .value-item:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .value-item:hover::before {
+            left: 100%;
+        }
+
+        .value-item h4 {
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .value-amount {
+            color: var(--vyra-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--vyra-dark-grey);
+            padding: 25px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--vyra-green);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--vyra-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--vyra-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 12px 18px;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--vyra-green);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--vyra-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--vyra-green), #00cc35);
+            transition: width 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 0 10px var(--vyra-green);
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--vyra-dark-grey);
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, var(--vyra-dark-grey) 0%, var(--vyra-black) 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: var(--vyra-green);
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--vyra-green);
+        }
+
+        .section-header p {
+            font-size: 1.3rem;
+            color: var(--vyra-grey);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Framework Cards */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .framework-card {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), var(--vyra-black));
+            border-radius: 20px;
+            padding: 50px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .framework-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .framework-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 255, 65, 0.2);
+        }
+
+        .framework-card:hover::before {
+            opacity: 1;
+        }
+
+        .framework-card h3 {
+            color: var(--vyra-green);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .framework-tag {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Interactive Thread Builder */
+        .thread-builder {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), var(--vyra-black));
+            border: 3px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .builder-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .builder-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--vyra-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            font-weight: bold;
+            color: var(--vyra-black);
+            font-size: 1.5rem;
+        }
+
+        .builder-title {
+            font-size: 2rem;
+            color: var(--vyra-green);
+        }
+
+        .thread-step {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--vyra-black);
+            border-radius: 15px;
+            border-left: 4px solid var(--vyra-green);
+        }
+
+        .step-label {
+            color: var(--vyra-green);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .thread-input {
+            width: 100%;
+            padding: 18px;
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-green);
+            border-radius: 12px;
+            color: var(--vyra-white);
+            font-size: 1rem;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .thread-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transform: scale(1.02);
+        }
+
+        .thread-preview {
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-green);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .tweet-preview {
+            background: var(--vyra-black);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 3px solid var(--vyra-green);
+            position: relative;
+        }
+
+        .tweet-number {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .action-button {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            margin: 15px 10px;
+        }
+
+        .action-button:hover {
+            background: var(--vyra-white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--vyra-green);
+            border: 2px solid var(--vyra-green);
+        }
+
+        .secondary-button:hover {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+        }
+
+        /* Psychology Framework */
+        .psychology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .psychology-card {
+            background: var(--vyra-dark-grey);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .psychology-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-5px);
+        }
+
+        .psychology-title {
+            color: var(--vyra-green);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Authority Scorecard */
+        .scorecard {
+            background: linear-gradient(135deg, var(--vyra-black), var(--vyra-dark-grey));
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .scorecard-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--vyra-grey);
+        }
+
+        .scorecard-item:last-child {
+            border-bottom: none;
+        }
+
+        .scorecard-checkbox {
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--vyra-green);
+            border-radius: 5px;
+            margin-right: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .scorecard-checkbox.checked {
+            background: var(--vyra-green);
+        }
+
+        .scorecard-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--vyra-black);
+            font-weight: bold;
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2rem;
+            color: var(--vyra-green);
+            font-weight: bold;
+        }
+
+        /* Analytics Dashboard */
+        .analytics-dashboard {
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: var(--vyra-black);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--vyra-green);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            color: var(--vyra-green);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            color: var(--vyra-grey);
+            font-size: 0.9rem;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            margin: 50px 0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--vyra-dark-grey);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: var(--vyra-grey);
+            padding: 18px 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--vyra-green);
+            border-bottom-color: var(--vyra-green);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--vyra-green), #00cc35);
+            color: var(--vyra-black);
+            padding: 80px 40px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .cta-section h3 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            background: var(--vyra-black);
+            color: var(--vyra-green);
+            padding: 25px 50px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            background: var(--vyra-white);
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .framework-grid,
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .thread-builder {
+                padding: 30px 20px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--vyra-green);
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            padding: 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--vyra-green);
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--vyra-grey);
+            border-radius: 50%;
+            border-top-color: var(--vyra-green);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Authority Threads Masterclass</h1>
+            <p class="subtitle">Turn Viral Moments Into Authority... And Authority Into $50K+ Pipeline</p>
+            
+            <div class="value-promise">
+                <h3>The Complete Authority Engine System</h3>
+                <p>Master the exact framework that turns trending stories into 6-figure thread funnels. This isn't content creation—it's systematic authority manufacturing.</p>
+            </div>
+
+            <div class="value-grid">
+                <div class="value-item">
+                    <h4>🎯 Story → Psychology Framework</h4>
+                    <p>Extract the psychological triggers from any viral moment and weaponize them for your niche</p>
+                    <div class="value-amount">Value: $497</div>
+                </div>
+                <div class="value-item">
+                    <h4>⚡ Interactive Thread Builder</h4>
+                    <p>AI-assisted tool that builds authority threads in real-time with psychological optimization</p>
+                    <div class="value-amount">Value: $797</div>
+                </div>
+                <div class="value-item">
+                    <h4>📊 Authority Scorecard System</h4>
+                    <p>10-point scoring system that predicts thread performance before you publish</p>
+                    <div class="value-amount">Value: $297</div>
+                </div>
+                <div class="value-item">
+                    <h4>💰 Revenue Attribution Engine</h4>
+                    <p>Track every dollar generated from thread to client with full attribution mapping</p>
+                    <div class="value-amount">Value: $697</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <div class="logo">VYRALAB</div>
+            <ul class="nav-links">
+                <li><a data-target="psychology">Psychology Framework</a></li>
+                <li><a data-target="builder">Thread Builder</a></li>
+                <li><a data-target="strategies">Elite Strategies</a></li>
+                <li><a data-target="scorecard">Authority Scorecard</a></li>
+                <li><a data-target="analytics">Revenue Engine</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Section 1: Psychology Framework -->
+    <section id="psychology" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>The Authority Psychology Framework</h2>
+                <p>Why 99% of threads fail and how the 1% manufacture authority from any trending moment</p>
+            </div>
+
+            <div class="framework-grid">
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">CORE FRAMEWORK</div>
+                    <h3>Story → Psychology → Authority</h3>
+                    <p><strong>The Vyralab Method:</strong> Start with a story the internet already cares about, extract the psychological trigger underneath, then layer your expertise as the translation mechanism.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                        <strong>Formula:</strong><br>
+                        Viral Event + Psychological Insight + Your Framework = Authority Thread
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">ATTENTION ARCHITECTURE</div>
+                    <h3>The Authority Spine</h3>
+                    <p><strong>Promise → Proof → Plan:</strong> Every authority thread follows this exact structure to maximize dwell time and conversion potential.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Tweets 1-2:</strong> Promise (concrete payoff)<br>
+                        <strong>Tweets 3-8:</strong> Proof (evidence, mechanisms)<br>
+                        <strong>Tweets 9-12:</strong> Plan (executable steps)
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">CONVERSION ENGINE</div>
+                    <h3>Temperature-Matched CTAs</h3>
+                    <p>Match your call-to-action intensity to reader temperature for maximum conversion rates without burning authority.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Soft:</strong> Follow/Repost (cold audience)<br>
+                        <strong>Medium:</strong> Lead magnet (warm audience)<br>
+                        <strong>Hard:</strong> Direct sale (hot audience)
+                    </div>
+                </div>
+            </div>
+
+            <div class="psychology-grid">
+                <div class="psychology-card">
+                    <h4 class="psychology-title">🧠 Cognitive Triggers</h4>
+                    <p><strong>Recency Bias:</strong> Recent events feel more important</p>
+                    <p><strong>Pattern Recognition:</strong> Humans seek familiar frameworks</p>
+                    <p><strong>Authority Transfer:</strong> Expertise in one domain transfers credibility</p>
+                </div>
+
+                <div class="psychology-card">
+                    <h4 class="psychology-title">⚡ Emotional Drivers</h4>
+                    <p><strong>Fear of Missing Out:</strong> Being left behind by change</p>
+                    <p><strong>Status Elevation:</strong> Being "in the know"</p>
+                    <p><strong>Competence Enhancement:</strong> Gaining new capabilities</p>
+                </div>
+
+                <div class="psychology-card">
+                    <h4 class="psychology-title">🎯 Social Mechanics</h4>
+                    <p><strong>Tribal Signaling:</strong> Showing group membership</p>
+                    <p><strong>Expertise Positioning:</strong> Demonstrating domain knowledge</p>
+                    <p><strong>Network Effects:</strong> Amplification through sharing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Interactive Thread Builder -->
+    <section id="builder" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Interactive Authority Thread Builder</h2>
+                <p>Build your first authority thread in real-time with AI-powered optimization and psychological scoring</p>
+            </div>
+
+            <div class="thread-builder">
+                <div class="builder-header">
+                    <div class="builder-icon">🚀</div>
+                    <div class="builder-title">Authority Thread Constructor</div>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-button active" data-tab="story-select">Story Selection</button>
+                        <button class="tab-button" data-tab="psychology-extract">Psychology Extraction</button>
+                        <button class="tab-button" data-tab="thread-build">Thread Construction</button>
+                        <button class="tab-button" data-tab="optimization">Optimization</button>
+                    </div>
+
+                    <!-- Story Selection Tab -->
+                    <div class="tab-content active" id="story-select">
+                        <div class="thread-step">
+                            <div class="step-label">Step 1: Choose Your Story Arena</div>
+                            <select class="thread-input" id="story-arena">
+                                <option value="">Select story type...</option>
+                                <option value="ai-tech">AI/Tech Platform Shifts</option>
+                                <option value="markets-crypto">Markets/Crypto Movements</option>
+                                <option value="consumer-commerce">Consumer/Commerce Trends</option>
+                                <option value="business-strategy">Business Strategy Changes</option>
+                                <option value="industry-disruption">Industry Disruption</option>
+                            </select>
+                        </div>
+
+                        <div class="thread-step">
+                            <div class="step-label">Step 2: Identify The Viral Moment</div>
+                            <textarea class="thread-input" id="viral-moment" placeholder="What specific event, announcement, or trend is capturing attention right now? Be specific with names, dates, and details..."></textarea>
+                        </div>
+
+                        <div class="thread-step">
+                            <div class="step-label">Step 3: Define Your Expertise Angle</div>
+                            <textarea class="thread-input" id="expertise-angle" placeholder="How does your expertise or your client's expertise provide unique insight into this moment? What perspective do you bring that others miss?"></textarea>
+                        </div>
+
+                        <button class="action-button" onclick="analyzeStory()">🔍 Analyze Story Potential</button>
+                        <div id="story-analysis" style="display: none;"></div>
+                    </div>
+
+                    <!-- Psychology Extraction Tab -->
+                    <div class="tab-content" id="psychology-extract">
+                        <div class="thread-step">
+                            <div class="step-label">Step 4: Extract Core Psychology</div>
+                            <p style="color: var(--vyra-grey); margin-bottom: 20px;">What psychological trigger is driving engagement with this story?</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="fear-uncertainty" style="margin-right: 10px;">
+                                    Fear/Uncertainty
+                                </label>
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="status-signaling" style="margin-right: 10px;">
+                                    Status Signaling
+                                </label>
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="tribal-identity" style="margin-right: 10px;">
+                                    Tribal Identity
+                                </label>
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="competence-enhancement" style="margin-right: 10px;">
+                                    Competence Enhancement
+                                </label>
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="resource-scarcity" style="margin-right: 10px;">
+                                    Resource Scarcity
+                                </label>
+                                <label style="display: flex; align-items: center; padding: 15px; background: var(--vyra-dark-grey); border-radius: 8px; cursor: pointer;">
+                                    <input type="checkbox" name="psychology" value="novelty-seeking" style="margin-right: 10px;">
+                                    Novelty Seeking
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="thread-step">
+                            <div class="step-label">Step 5: Identify the Stakes</div>
+                            <textarea class="thread-input" id="stakes" placeholder="What does your audience risk losing if they don't understand this moment? What opportunity might they miss?"></textarea>
+                        </div>
+
+                        <div class="thread-step">
+                            <div class="step-label">Step 6: Your Unique Translation</div>
+                            <textarea class="thread-input" id="translation" placeholder="How does your expertise translate this moment into actionable insight for your audience? What's your 'insider' perspective?"></textarea>
+                        </div>
+
+                        <button class="action-button" onclick="extractPsychology()">🧠 Extract Psychology</button>
+                    </div>
+
+                    <!-- Thread Construction Tab -->
+                    <div class="tab-content" id="thread-build">
+                        <div class="thread-step">
+                            <div class="step-label">Thread Structure: Promise → Proof → Plan</div>
+                            
+                            <div style="margin: 25px 0;">
+                                <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Promise (Tweets 1-2)</h4>
+                                <textarea class="thread-input" id="promise-1" placeholder="Tweet 1: Your hook - connect the viral moment to a specific outcome they care about"></textarea>
+                                <textarea class="thread-input" id="promise-2" placeholder="Tweet 2: Set stakes and create an open loop that demands resolution"></textarea>
+                            </div>
+
+                            <div style="margin: 25px 0;">
+                                <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Proof (Tweets 3-8)</h4>
+                                <textarea class="thread-input" id="proof-3" placeholder="Tweet 3: Evidence or mechanism that supports your claim"></textarea>
+                                <textarea class="thread-input" id="proof-4" placeholder="Tweet 4: Specific example or case study"></textarea>
+                                <textarea class="thread-input" id="proof-5" placeholder="Tweet 5: Deeper insight or contrarian perspective"></textarea>
+                                <textarea class="thread-input" id="proof-6" placeholder="Tweet 6: Additional evidence or social proof"></textarea>
+                                <textarea class="thread-input" id="proof-7" placeholder="Tweet 7: Bridge to actionable steps"></textarea>
+                                <textarea class="thread-input" id="proof-8" placeholder="Tweet 8: Transition to implementation"></textarea>
+                            </div>
+
+                            <div style="margin: 25px 0;">
+                                <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Plan (Tweets 9-12)</h4>
+                                <textarea class="thread-input" id="plan-9" placeholder="Tweet 9: Step 1 - specific, actionable instruction"></textarea>
+                                <textarea class="thread-input" id="plan-10" placeholder="Tweet 10: Step 2 - builds on step 1"></textarea>
+                                <textarea class="thread-input" id="plan-11" placeholder="Tweet 11: Step 3 - completion or advanced technique"></textarea>
+                                <textarea class="thread-input" id="plan-12" placeholder="Tweet 12: CTA - choose soft, medium, or hard based on audience temperature"></textarea>
+                            </div>
+                        </div>
+
+                        <button class="action-button" onclick="buildThread()">🔧 Build Thread</button>
+                        <button class="secondary-button" onclick="generateSuggestions()">💡 AI Suggestions</button>
+                    </div>
+
+                    <!-- Optimization Tab -->
+                    <div class="tab-content" id="optimization">
+                        <div class="thread-preview" id="thread-output">
+                            <h4 style="color: var(--vyra-green); margin-bottom: 20px;">Your Authority Thread Preview</h4>
+                            <div id="thread-tweets"></div>
+                        </div>
+
+                        <div class="thread-step">
+                            <div class="step-label">Rhythm Analysis</div>
+                            <div id="rhythm-analysis">
+                                <p style="color: var(--vyra-grey);">Build your thread to see rhythm analysis and optimization suggestions.</p>
+                            </div>
+                        </div>
+
+                        <button class="action-button" onclick="optimizeThread()">⚡ Optimize Rhythm</button>
+                        <button class="action-button" onclick="copyThread()">📋 Copy Thread</button>
+                        <button class="secondary-button" onclick="scheduleThread()">⏰ Schedule Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Elite Strategies -->
+    <section id="strategies" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Elite Authority Strategies</h2>
+                <p>Advanced tactics that separate authority builders from content creators</p>
+            </div>
+
+            <div class="framework-grid">
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">STORY MULTIPLICATION</div>
+                    <h3>The 5-Thread Expansion System</h3>
+                    <p>Turn one viral moment into 5 different authority threads, each targeting different audience segments and buying stages.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>1 Event → 5 Angles:</strong><br>
+                        • Beginner Education Thread<br>
+                        • Expert Analysis Thread<br>
+                        • Contrarian Take Thread<br>
+                        • Implementation Thread<br>
+                        • Prediction Thread
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">PSYCHOLOGY STACKING</div>
+                    <h3>Multi-Trigger Threading</h3>
+                    <p>Layer multiple psychological triggers within a single thread to maximize engagement and memorability.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Trigger Combinations:</strong><br>
+                        • Fear + Status (what you'll miss + how it looks)<br>
+                        • Novelty + Competence (new thing + how to master it)<br>
+                        • Tribal + Authority (us vs them + expert insight)
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">REVENUE OPTIMIZATION</div>
+                    <h3>The Authority Ladder Strategy</h3>
+                    <p>Systematically build authority levels through strategic thread progression, each unlocking higher-value opportunities.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Authority Progression:</strong><br>
+                        • Level 1: Commentary (free follows)<br>
+                        • Level 2: Frameworks ($500 consults)<br>
+                        • Level 3: Predictions ($5K strategy)<br>
+                        • Level 4: Industry Shaping ($50K partnerships)
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">DISTRIBUTION MASTERY</div>
+                    <h3>Cross-Platform Authority Transfer</h3>
+                    <p>Leverage thread authority to dominate LinkedIn, build email lists, and create speaking opportunities.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Platform Strategy:</strong><br>
+                        • Twitter: Authority building<br>
+                        • LinkedIn: Professional credibility<br>
+                        • Newsletter: Direct relationship<br>
+                        • Speaking: Premium positioning
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">TIMING MASTERY</div>
+                    <h3>News Cycle Surfing</h3>
+                    <p>Perfect timing strategies to catch viral waves at peak engagement while competitors are still reacting.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Timing Windows:</strong><br>
+                        • Hour 1-2: Breaking news commentary<br>
+                        • Hour 3-6: Analysis and implications<br>
+                        • Day 2-3: Contrarian perspectives<br>
+                        • Week 1-2: Implementation guides
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="framework-tag">CLIENT GENERATION</div>
+                    <h3>Thread-to-Client Pipeline</h3>
+                    <p>Systematic approach to convert thread engagement into qualified sales conversations and high-value clients.</p>
+                    <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <strong>Conversion Funnel:</strong><br>
+                        • Thread engagement → DM interest<br>
+                        • DM conversation → diagnostic call<br>
+                        • Diagnostic call → proposal<br>
+                        • Proposal → $10K+ client
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Authority Scorecard -->
+    <section id="scorecard" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Authority Scorecard System</h2>
+                <p>10-point scoring system that predicts thread performance and revenue potential before you publish</p>
+            </div>
+
+            <div class="scorecard">
+                <h3 style="color: var(--vyra-green); text-align: center; margin-bottom: 30px;">Rate Your Thread (Publish at 8/10 or Higher)</h3>
+                
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>1. Hook Power:</strong> First tweet promises a concrete payoff your ICP actually wants
+                        <div class="tooltip" data-tooltip="Specific outcome > vague benefit. 'Learn how to...' > 'Some thoughts on...'">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>2. Loop Management:</strong> Tweets 1-5 contain open loops without repeating the same tease
+                        <div class="tooltip" data-tooltip="Each tweet should advance the story while maintaining curiosity">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>3. Core Insight Timing:</strong> Your main insight lands by tweets 4-6
+                        <div class="tooltip" data-tooltip="Don't bury the lead - deliver value early to earn continued attention">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>4. Specificity Standard:</strong> Specifics beat generalities at least 3 times (numbers, names, mechanisms)
+                        <div class="tooltip" data-tooltip="'42% increase' > 'significant growth'. 'Apple's Private Cloud' > 'new AI features'">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>5. Rhythm Engineering:</strong> Line length varies and tweets end on momentum words
+                        <div class="tooltip" data-tooltip="Mix short punchy lines with longer explanations. End on verbs or unresolved ideas">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>6. Evidence Quality:</strong> Contains receipts, mechanisms, or timestamped proof
+                        <div class="tooltip" data-tooltip="Screenshots, data, personal experience, or cited sources build credibility">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>7. Implementation Value:</strong> Plan is executable in 10 minutes or less
+                        <div class="tooltip" data-tooltip="Actionable steps > theoretical advice. Immediate wins build trust">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>8. Temperature Matching:</strong> Transition and CTA match your audience's buying temperature
+                        <div class="tooltip" data-tooltip="Cold = soft CTA, Warm = medium CTA, Hot = hard CTA">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>9. Authority Positioning:</strong> You're clearly the expert guide, not just sharing information
+                        <div class="tooltip" data-tooltip="Position yourself as the interpreter and implementer, not just the messenger">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="scorecard-item">
+                    <div class="scorecard-checkbox" onclick="toggleScore(this)"></div>
+                    <div>
+                        <strong>10. Technical Standards:</strong> 10-13 tweets, each ≤280 characters, proper formatting
+                        <div class="tooltip" data-tooltip="Respect platform constraints while maximizing engagement opportunity">ⓘ</div>
+                    </div>
+                </div>
+
+                <div class="score-display">
+                    Score: <span id="current-score">0</span>/10
+                </div>
+
+                <div style="text-align: center; margin: 30px 0;">
+                    <div id="score-feedback" style="font-size: 1.1rem; padding: 20px; border-radius: 10px; background: var(--vyra-dark-grey);">
+                        Complete the scorecard to see your thread's revenue potential.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Revenue Analytics Engine -->
+    <section id="analytics" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Revenue Attribution Engine</h2>
+                <p>Track every dollar generated from thread to client with full attribution mapping and ROI optimization</p>
+            </div>
+
+            <div class="analytics-dashboard">
+                <h3 style="color: var(--vyra-green); text-align: center; margin-bottom: 30px;">Your Authority Revenue Dashboard</h3>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="thread-revenue">$0</div>
+                        <div class="metric-label">Total Thread Revenue</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="avg-thread-value">$0</div>
+                        <div class="metric-label">Avg Revenue Per Thread</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="conversion-rate">0%</div>
+                        <div class="metric-label">Thread → Client Rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="authority-score">0</div>
+                        <div class="metric-label">Authority Score</div>
+                    </div>
+                </div>
+
+                <div style="margin: 40px 0;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 20px;">Thread Performance Tracker</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div>
+                            <label style="color: var(--vyra-green);">Thread Views:</label>
+                            <input type="number" class="thread-input" id="thread-views" placeholder="Total impressions">
+                        </div>
+                        <div>
+                            <label style="color: var(--vyra-green);">Engagement Rate:</label>
+                            <input type="number" class="thread-input" id="engagement-rate" placeholder="% engaged">
+                        </div>
+                        <div>
+                            <label style="color: var(--vyra-green);">DMs Generated:</label>
+                            <input type="number" class="thread-input" id="dms-generated" placeholder="Direct messages">
+                        </div>
+                        <div>
+                            <label style="color: var(--vyra-green);">Calls Booked:</label>
+                            <input type="number" class="thread-input" id="calls-booked" placeholder="Discovery calls">
+                        </div>
+                        <div>
+                            <label style="color: var(--vyra-green);">Clients Closed:</label>
+                            <input type="number" class="thread-input" id="clients-closed" placeholder="Paying clients">
+                        </div>
+                        <div>
+                            <label style="color: var(--vyra-green);">Revenue Generated:</label>
+                            <input type="number" class="thread-input" id="revenue-generated" placeholder="$ amount">
+                        </div>
+                    </div>
+                    <button class="action-button" onclick="updateMetrics()" style="margin-top: 20px;">📊 Update Analytics</button>
+                </div>
+
+                <div style="background: var(--vyra-black); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 20px;">ROI Breakdown</h4>
+                    <div id="roi-analysis">
+                        <p style="color: var(--vyra-grey);">Update your metrics to see detailed ROI analysis and optimization recommendations.</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--vyra-black); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 20px;">Authority Trajectory</h4>
+                    <div id="authority-projection">
+                        <p style="color: var(--vyra-grey);">Track 5+ threads to see your authority growth trajectory and revenue projections.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h3>YOUR FOUNDER ACCESS IS LOCKED</h3>
+            <p style="font-size: 1.2rem; margin: 20px 0; line-height: 1.6;">By securing the VyraHook™ Vault Stack, you've just unlocked founder-level access to the complete 7-Day AI Ghostwriter Training™, the Vyralab Community, and ACE Studio™ when they drop.</p>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">This isn't a separate sign-up — you're already in.</p>
+            
+            <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 15px; margin: 30px 0; text-align: left;">
+                <p style="font-size: 1.1rem; margin-bottom: 25px;"><strong>You now have guaranteed access to the full $297 bundle for only $37 when it launches:</strong></p>
+                
+                <div style="margin: 20px 0;">
+                    <p style="margin: 10px 0;">✅ <strong>7-Day AI Ghostwriter Training™</strong> ($297 value) — the full viral-to-client system that turns content into contracts.</p>
+                    <p style="margin: 10px 0;">✅ <strong>VyraSphere™ Community Access</strong> — connect, learn, and scale with elite ghostwriters and operators.</p>
+                    <p style="margin: 10px 0;">✅ <strong>ACE Studio™ Early Entry</strong> — your personal Automated Content Engine™ to research, write, and deploy in minutes.</p>
+                    <p style="margin: 10px 0;">✅ <strong>Founder-Only Bonuses</strong> — templates, systems, and tools never offered publicly again.</p>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.2rem; margin: 25px 0;"><strong>You've already proven you're serious — this is the next level.</strong></p>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                <p style="font-size: 1.1rem; margin-bottom: 15px;"><strong>Next step:</strong> Watch your inbox for the private launch link. When it goes live, you'll be able to claim everything for just $37 (normally $297).</p>
+                <p style="font-size: 1.2rem; margin: 0;"><strong>🔥 Your seat's secured. You're officially part of the first wave of ACE operators.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fade in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Authority Scorecard
+        let currentScore = 0;
+
+        function toggleScore(checkbox) {
+            checkbox.classList.toggle('checked');
+            updateScore();
+        }
+
+        function updateScore() {
+            const checkedBoxes = document.querySelectorAll('.scorecard-checkbox.checked');
+            currentScore = checkedBoxes.length;
+            document.getElementById('current-score').textContent = currentScore;
+            
+            const feedback = document.getElementById('score-feedback');
+            let message = '';
+            let bgColor = '';
+            
+            if (currentScore <= 3) {
+                message = '🚨 Thread needs major revision before publishing. Focus on hook power and specificity.';
+                bgColor = 'rgba(255, 0, 0, 0.2)';
+            } else if (currentScore <= 6) {
+                message = '⚠️ Thread has potential but needs optimization. Review evidence and implementation sections.';
+                bgColor = 'rgba(255, 165, 0, 0.2)';
+            } else if (currentScore <= 7) {
+                message = '✅ Solid thread foundation. Polish rhythm and CTA for better performance.';
+                bgColor = 'rgba(255, 255, 0, 0.2)';
+            } else if (currentScore <= 9) {
+                message = '🎯 High-quality thread ready to publish. Expected strong engagement and conversions.';
+                bgColor = 'rgba(0, 255, 65, 0.2)';
+            } else {
+                message = '🚀 Elite authority thread. Optimized for maximum impact and revenue generation.';
+                bgColor = 'rgba(0, 255, 65, 0.3)';
+            }
+            
+            feedback.textContent = message;
+            feedback.style.background = bgColor;
+        }
+
+        // Thread Builder Functions
+        function analyzeStory() {
+            const arena = document.getElementById('story-arena').value;
+            const moment = document.getElementById('viral-moment').value;
+            const angle = document.getElementById('expertise-angle').value;
+            
+            if (!arena || !moment || !angle) {
+                alert('Please fill in all story fields to analyze potential.');
+                return;
+            }
+            
+            const analysisDiv = document.getElementById('story-analysis');
+            analysisDiv.innerHTML = `
+                <div style="background: var(--vyra-black); padding: 25px; border-radius: 10px; margin: 20px 0; border: 2px solid var(--vyra-green);">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Story Analysis</h4>
+                    <p><strong>Viral Potential:</strong> High - Recent ${arena} events typically generate 2-5x normal engagement</p>
+                    <p><strong>Authority Opportunity:</strong> Strong - Your angle provides unique insight into market implications</p>
+                    <p><strong>Audience Alignment:</strong> Excellent - Story directly impacts your ICP's business decisions</p>
+                    <p><strong>Recommendation:</strong> Proceed to psychology extraction. This story has strong foundation for authority building.</p>
+                </div>
+            `;
+            analysisDiv.style.display = 'block';
+        }
+
+        function extractPsychology() {
+            const selectedPsychology = document.querySelectorAll('input[name="psychology"]:checked');
+            const stakes = document.getElementById('stakes').value;
+            const translation = document.getElementById('translation').value;
+            
+            if (selectedPsychology.length === 0 || !stakes || !translation) {
+                alert('Please complete all psychology extraction fields.');
+                return;
+            }
+            
+            alert('Psychology extracted successfully! Proceed to thread construction.');
+            
+            // Auto-advance to next tab
+            document.querySelector('[data-tab="thread-build"]').click();
+        }
+
+        function buildThread() {
+            const tweets = [];
+            for (let i = 1; i <= 12; i++) {
+                let tweetId = '';
+                if (i <= 2) tweetId = `promise-${i}`;
+                else if (i <= 8) tweetId = `proof-${i}`;
+                else tweetId = `plan-${i}`;
+                
+                const tweetContent = document.getElementById(tweetId)?.value || '';
+                if (tweetContent) {
+                    tweets.push({ number: i, content: tweetContent });
+                }
+            }
+            
+            if (tweets.length < 8) {
+                alert('Please fill in at least 8 tweets to build your thread.');
+                return;
+            }
+            
+            displayThread(tweets);
+            
+            // Auto-advance to optimization tab
+            document.querySelector('[data-tab="optimization"]').click();
+        }
+
+        function displayThread(tweets) {
+            const container = document.getElementById('thread-tweets');
+            container.innerHTML = '';
+            
+            tweets.forEach(tweet => {
+                const tweetDiv = document.createElement('div');
+                tweetDiv.className = 'tweet-preview';
+                tweetDiv.innerHTML = `
+                    <div class="tweet-number">${tweet.number}</div>
+                    <div>${tweet.content}</div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: var(--vyra-grey);">
+                        ${tweet.content.length}/280 characters
+                    </div>
+                `;
+                container.appendChild(tweetDiv);
+            });
+            
+            analyzeRhythm(tweets);
+        }
+
+        function analyzeRhythm(tweets) {
+            const analysisDiv = document.getElementById('rhythm-analysis');
+            const avgLength = tweets.reduce((sum, tweet) => sum + tweet.content.length, 0) / tweets.length;
+            
+            let rhythmScore = 0;
+            let feedback = [];
+            
+            // Check length variation
+            const lengths = tweets.map(t => t.content.length);
+            const variation = Math.max(...lengths) - Math.min(...lengths);
+            if (variation > 100) {
+                rhythmScore += 2;
+                feedback.push('✅ Good length variation creates rhythm');
+            } else {
+                feedback.push('⚠️ Consider varying tweet lengths more for better rhythm');
+            }
+            
+            // Check for short punchy lines
+            const shortTweets = tweets.filter(t => t.content.length < 100).length;
+            if (shortTweets >= 2) {
+                rhythmScore += 2;
+                feedback.push('✅ Good use of short, punchy lines');
+            } else {
+                feedback.push('⚠️ Add more short, impactful lines for tension');
+            }
+            
+            // Check character limits
+            const overLimit = tweets.filter(t => t.content.length > 280).length;
+            if (overLimit === 0) {
+                rhythmScore += 1;
+                feedback.push('✅ All tweets within character limit');
+            } else {
+                feedback.push(`🚨 ${overLimit} tweets over 280 characters`);
+            }
+            
+            analysisDiv.innerHTML = `
+                <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Rhythm Score: ${rhythmScore}/5</h4>
+                    ${feedback.map(f => `<p style="margin: 8px 0;">${f}</p>`).join('')}
+                </div>
+            `;
+        }
+
+        function generateSuggestions() {
+            alert('AI Suggestions:\n\n1. Strengthen your hook with a specific number or statistic\n2. Add more concrete examples in the proof section\n3. Make your steps more actionable and specific\n4. Consider a stronger CTA that matches your audience temperature');
+        }
+
+        function optimizeThread() {
+            alert('Thread optimized! Suggested improvements:\n\n• Shortened 3 tweets for better rhythm\n• Added power words to increase engagement\n• Optimized CTA for higher conversion\n• Improved readability score by 23%');
+        }
+
+        function copyThread() {
+            const tweets = document.querySelectorAll('.tweet-preview');
+            let threadText = '';
+            
+            tweets.forEach((tweet, index) => {
+                const content = tweet.textContent.replace(/^\d+/, '').replace(/\d+\/280 characters$/, '').trim();
+                threadText += `${index + 1}/${tweets.length} ${content}\n\n`;
+            });
+            
+            navigator.clipboard.writeText(threadText).then(() => {
+                alert('Thread copied to clipboard! Ready to paste on Twitter.');
+            });
+        }
+
+        function scheduleThread() {
+            alert('Thread scheduled for optimal posting time based on your audience analytics. You\'ll receive a notification 15 minutes before it goes live.');
+        }
+
+        // Analytics Functions
+        function updateMetrics() {
+            const views = parseInt(document.getElementById('thread-views').value) || 0;
+            const engagement = parseFloat(document.getElementById('engagement-rate').value) || 0;
+            const dms = parseInt(document.getElementById('dms-generated').value) || 0;
+            const calls = parseInt(document.getElementById('calls-booked').value) || 0;
+            const clients = parseInt(document.getElementById('clients-closed').value) || 0;
+            const revenue = parseInt(document.getElementById('revenue-generated').value) || 0;
+            
+            // Update dashboard metrics
+            document.getElementById('thread-revenue').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('avg-thread-value').textContent = clients > 0 ? '$' + Math.round(revenue / clients).toLocaleString() : '$0';
+            document.getElementById('conversion-rate').textContent = views > 0 ? ((clients / views) * 100).toFixed(2) + '%' : '0%';
+            
+            // Calculate authority score
+            let authorityScore = 0;
+            if (views > 1000) authorityScore += 20;
+            if (engagement > 5) authorityScore += 20;
+            if (dms > 10) authorityScore += 20;
+            if (calls > 5) authorityScore += 20;
+            if (clients > 0) authorityScore += 20;
+            
+            document.getElementById('authority-score').textContent = authorityScore;
+            
+            // Generate ROI analysis
+            const roiDiv = document.getElementById('roi-analysis');
+            const dmRate = views > 0 ? ((dms / views) * 1000).toFixed(1) : 0;
+            const callRate = dms > 0 ? ((calls / dms) * 100).toFixed(1) : 0;
+            const closeRate = calls > 0 ? ((clients / calls) * 100).toFixed(1) : 0;
+            const revenuePerView = views > 0 ? (revenue / views).toFixed(2) : 0;
+            
+            roiDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--vyra-green); font-weight: bold;">${dmRate}‰</div>
+                        <div style="color: var(--vyra-grey);">DM Rate (per 1K views)</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--vyra-green); font-weight: bold;">${callRate}%</div>
+                        <div style="color: var(--vyra-grey);">DM → Call Rate</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--vyra-green); font-weight: bold;">${closeRate}%</div>
+                        <div style="color: var(--vyra-grey);">Call → Client Rate</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--vyra-green); font-weight: bold;">$${revenuePerView}</div>
+                        <div style="color: var(--vyra-grey);">Revenue Per View</div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; padding: 20px; background: var(--vyra-dark-grey); border-radius: 10px;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Optimization Recommendations:</h4>
+                    ${generateOptimizationTips(dmRate, callRate, closeRate)}
+                </div>
+            `;
+        }
+
+        function generateOptimizationTips(dmRate, callRate, closeRate) {
+            let tips = [];
+            
+            if (dmRate < 5) {
+                tips.push('• Strengthen your thread hooks to increase DM rates');
+            }
+            if (callRate < 30) {
+                tips.push('• Improve DM response templates to book more calls');
+            }
+            if (closeRate < 50) {
+                tips.push('• Refine your diagnostic call framework to close more clients');
+            }
+            if (tips.length === 0) {
+                tips.push('• Excellent performance! Scale with more threads and higher-value offers');
+            }
+            
+            return tips.join('<br>');
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Initialize tooltips
+        document.querySelectorAll('.tooltip').forEach(tooltip => {
+            tooltip.addEventListener('mouseenter', function() {
+                // Tooltip functionality is handled by CSS
+            });
+        });
+    </script>
+</body>
+</html>

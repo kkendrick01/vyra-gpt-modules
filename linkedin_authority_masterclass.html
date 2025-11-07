@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Authority Masterclass - $997 Elite Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff41;
+            --vyra-white: #ffffff;
+            --vyra-grey: #808080;
+            --vyra-dark-grey: #1a1a1a;
+            --vyra-light-grey: #f5f5f5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--vyra-black) 0%, var(--vyra-dark-grey) 100%);
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--vyra-green);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--vyra-white), var(--vyra-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px var(--vyra-green)); }
+            to { filter: drop-shadow(0 0 30px var(--vyra-green)); }
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: var(--vyra-grey);
+            margin-bottom: 30px;
+        }
+
+        .value-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .value-item {
+            background: var(--vyra-dark-grey);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--vyra-green);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .value-item h3 {
+            color: var(--vyra-green);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--vyra-dark-grey);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--vyra-green);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--vyra-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--vyra-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--vyra-green);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--vyra-dark-grey);
+        }
+
+        .section:nth-child(even) {
+            background: var(--vyra-dark-grey);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--vyra-green);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--vyra-grey);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--vyra-dark-grey);
+            border-radius: 15px;
+            padding: 40px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .card h3 {
+            color: var(--vyra-green);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card .tag {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Interactive Elements */
+        .interactive-exercise {
+            background: linear-gradient(135deg, var(--vyra-dark-grey), var(--vyra-black));
+            border: 2px solid var(--vyra-green);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .exercise-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--vyra-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+            color: var(--vyra-black);
+        }
+
+        .exercise-title {
+            font-size: 1.5rem;
+            color: var(--vyra-green);
+        }
+
+        .exercise-input {
+            width: 100%;
+            padding: 15px;
+            background: var(--vyra-black);
+            border: 2px solid var(--vyra-green);
+            border-radius: 10px;
+            color: var(--vyra-white);
+            font-size: 1rem;
+            margin: 15px 0;
+        }
+
+        .exercise-button {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-button:hover {
+            background: var(--vyra-white);
+            transform: translateY(-2px);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            margin: 40px 0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--vyra-dark-grey);
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: var(--vyra-grey);
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--vyra-green);
+            border-bottom-color: var(--vyra-green);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+
+        /* CTA Sections */
+        .cta-section {
+            background: linear-gradient(135deg, var(--vyra-green), #00cc35);
+            color: var(--vyra-black);
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta-section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            background: var(--vyra-black);
+            color: var(--vyra-green);
+            padding: 20px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 10px;
+        }
+
+        .cta-button:hover {
+            background: var(--vyra-white);
+            transform: scale(1.05);
+        }
+
+        /* Results Tracker */
+        .results-tracker {
+            background: var(--vyra-dark-grey);
+            border: 2px solid var(--vyra-green);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--vyra-grey);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-value {
+            color: var(--vyra-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .value-stack {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--vyra-green);
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            padding: 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--vyra-green);
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>LinkedIn Authority Masterclass</h1>
+            <p class="subtitle">Transform Your Professional Presence Into a $10K+/Month Client Magnet</p>
+            
+
+
+            <div class="value-stack">
+                <div class="value-item">
+                    <h3>🎯 8 Authority Openers</h3>
+                    <p>Proven frameworks that stop the scroll and command attention from your ideal buyers</p>
+                </div>
+                <div class="value-item">
+                    <h3>💰 CTA Conversion Engine</h3>
+                    <p>Soft/Medium/Hard closer system that turns views into bookings and revenue</p>
+                </div>
+                <div class="value-item">
+                    <h3>⚡ Live Implementation</h3>
+                    <p>Build, test, and ship your first $10K post during the workshop</p>
+                </div>
+                <div class="value-item">
+                    <h3>📈 Algorithm Mastery</h3>
+                    <p>LinkedIn's dwell-time secrets that 99% of creators don't understand</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <div class="logo">VYRALAB</div>
+            <ul class="nav-links">
+                <li><a href="#foundations">Foundations</a></li>
+                <li><a href="#openers">8 Openers</a></li>
+                <li><a href="#cta-engine">CTA Engine</a></li>
+                <li><a href="#workshop">Live Workshop</a></li>
+                <li><a href="#results">Results System</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Section 1: Feed Foundations -->
+    <section id="foundations" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>The LinkedIn Algorithm Reality</h2>
+                <p>Why 99% of content creators are optimizing for the wrong metrics and how the 1% who understand dwell-time are capturing all the high-value attention</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <div class="tag">ALGORITHM INSIGHT</div>
+                    <h3>Dwell Time > Engagement Rate</h3>
+                    <p>LinkedIn's engineering team confirmed they track how long users stay on your post. More dwell time = more distribution. Yet 99% of creators still chase vanity metrics like "likes per hour."</p>
+                    <div class="tooltip" data-tooltip="LinkedIn's official engineering blog confirmed this in 2023">📊 Source: LinkedIn Engineering</div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="tag">BUYER PSYCHOLOGY</div>
+                    <h3>The 7-Second Rule</h3>
+                    <p>Your ideal client is scanning between meetings, on mobile, with 47 other notifications competing for attention. Your opener has exactly 7 seconds to earn the next 7 seconds.</p>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="tag">COMPETITION REALITY</div>
+                    <h3>Who You're Really Competing Against</h3>
+                    <p>Not other coaches or consultants. You're competing with breaking news, family updates, and dopamine-engineered content from billion-dollar media companies.</p>
+                </div>
+            </div>
+
+            <div class="interactive-exercise">
+                <div class="exercise-header">
+                    <div class="exercise-icon">1</div>
+                    <div class="exercise-title">Quick Reality Check Exercise</div>
+                </div>
+                <p>Think of the last LinkedIn post that made you stop scrolling and actually read to the end. What was the first line?</p>
+                <textarea class="exercise-input" placeholder="Write that opening line here..."></textarea>
+                <p>Now analyze: Did it promise status, novelty, or immediate utility? Did it create an open loop that demanded resolution?</p>
+                <textarea class="exercise-input" placeholder="Your analysis..."></textarea>
+                <button class="exercise-button" onclick="saveExercise(1)">Save Analysis</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: The 8 Authority Openers -->
+    <section id="openers" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>The 8 Authority Opener Arsenal</h2>
+                <p>Each opener is battle-tested across 6-figure LinkedIn campaigns. Choose your weapon based on market conditions and buyer temperature.</p>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-button active" data-tab="opener-1">Lightning News</button>
+                    <button class="tab-button" data-tab="opener-2">Money Moves</button>
+                    <button class="tab-button" data-tab="opener-3">Wrong Way</button>
+                    <button class="tab-button" data-tab="opener-4">Post-Mortem</button>
+                    <button class="tab-button" data-tab="opener-5">Operator Playbook</button>
+                    <button class="tab-button" data-tab="opener-6">Before/After</button>
+                    <button class="tab-button" data-tab="opener-7">Meaning Moment</button>
+                    <button class="tab-button" data-tab="opener-8">Counter-Intuition</button>
+                </div>
+
+                <!-- Opener 1: Lightning News Hook -->
+                <div class="tab-content active" id="opener-1">
+                    <div class="card">
+                        <div class="tag">HIGH VELOCITY</div>
+                        <h3>The Lightning News Hook</h3>
+                        <p><strong>When to Deploy:</strong> When a platform, regulation, or market shift just changed the game for your audience.</p>
+                        <p><strong>Psychology:</strong> Leverages recency bias and fear of missing critical information. Your audience needs to know they're informed about changes that affect their business.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "[RECENT EVENT] just changed how [CORE PROCESS] works."<br>
+                            <strong>Example:</strong> "Apple's Private Cloud Compute just rewired how enterprise AI handles data privacy. Here's what this means for any SaaS founder selling to regulated industries..."
+                        </div>
+
+                        <div class="interactive-exercise">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">⚡</div>
+                                <div class="exercise-title">Build Your Lightning News Hook</div>
+                            </div>
+                            <p>Step 1: What major news story from the last 30 days affects your ideal client's business?</p>
+                            <input type="text" class="exercise-input" placeholder="News event..." id="news-event">
+                            
+                            <p>Step 2: What core business process does this change?</p>
+                            <input type="text" class="exercise-input" placeholder="Process affected..." id="process-affected">
+                            
+                            <p>Step 3: Your complete opener (aim for 12-18 words):</p>
+                            <textarea class="exercise-input" placeholder="Your lightning news hook..." id="news-hook-result"></textarea>
+                            
+                            <button class="exercise-button" onclick="generateNewsHook()">Generate Hook</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opener 2: Money Moves Hook -->
+                <div class="tab-content" id="opener-2">
+                    <div class="card">
+                        <div class="tag">ROI FOCUSED</div>
+                        <h3>The Money Moves Hook</h3>
+                        <p><strong>When to Deploy:</strong> When you can point to a specific tactic, strategy, or tool that generated measurable revenue at scale.</p>
+                        <p><strong>Psychology:</strong> Operators care about one thing above all: what works. This hook signals proven ROI without the usual guru fluff.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "The [SPECIFIC TACTIC] behind $[AMOUNT] in [TIMEFRAME]."<br>
+                            <strong>Example:</strong> "The 3-line email template that generated $2.3M in pipeline for B2B founders in Q4. (No tricks, no hacks, just psychology.)"
+                        </div>
+
+                        <div class="interactive-exercise">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">💰</div>
+                                <div class="exercise-title">Build Your Money Moves Hook</div>
+                            </div>
+                            <p>What's a specific result you've achieved or observed that would make your ideal client stop scrolling?</p>
+                            <textarea class="exercise-input" placeholder="Describe the result and method..." id="money-moves-input"></textarea>
+                            <button class="exercise-button" onclick="generateMoneyHook()">Generate Hook</button>
+                            <textarea class="exercise-input" placeholder="Your money moves hook will appear here..." id="money-hook-result" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opener 3: Wrong Way Hook -->
+                <div class="tab-content" id="opener-3">
+                    <div class="card">
+                        <div class="tag">CONTRARIAN</div>
+                        <h3>The "Everyone's Doing It Wrong" Hook</h3>
+                        <p><strong>When to Deploy:</strong> When you see widespread behavior in your industry that's actually counterproductive.</p>
+                        <p><strong>Psychology:</strong> Creates in-group status ("I'm one of the smart ones who knows better") while positioning you as the guide who understands the real game.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "[GROUP] keep chasing [OBVIOUS THING]; [WINNERS] capture [REAL THING]."<br>
+                            <strong>Example:</strong> "Consultants keep chasing followers on LinkedIn. Elite operators capture dwell time and convert it into $50K deals."
+                        </div>
+
+                        <div class="interactive-exercise">
+                            <div class="exercise-header">
+                                <div class="exercise-icon">🎯</div>
+                                <div class="exercise-title">Build Your Wrong Way Hook</div>
+                            </div>
+                            <p>What do most people in your industry obsess over that actually doesn't drive results?</p>
+                            <input type="text" class="exercise-input" placeholder="What they chase..." id="wrong-thing">
+                            
+                            <p>What should they focus on instead that actually drives results?</p>
+                            <input type="text" class="exercise-input" placeholder="What winners do..." id="right-thing">
+                            
+                            <textarea class="exercise-input" placeholder="Your contrarian hook..." id="wrong-hook-result" readonly></textarea>
+                            <button class="exercise-button" onclick="generateWrongHook()">Generate Hook</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continue with remaining openers... -->
+                <div class="tab-content" id="opener-4">
+                    <div class="card">
+                        <div class="tag">CASE STUDY</div>
+                        <h3>The Post-Mortem Hook</h3>
+                        <p><strong>When to Deploy:</strong> When a public failure, mistake, or misstep reveals important lessons about your domain.</p>
+                        <p><strong>Psychology:</strong> People are naturally drawn to "what went wrong" stories, especially when they can learn from others' mistakes without paying the price themselves.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "Inside the [FAILURE TYPE] everyone watched [TIMEFRAME]."<br>
+                            <strong>Example:</strong> "Inside the product launch everyone watched crash last week. 47 seconds killed $2M in pre-orders. Here's the one line that would have saved everything."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="opener-5">
+                    <div class="card">
+                        <div class="tag">SYSTEM BLUEPRINT</div>
+                        <h3>The Operator Playbook Hook</h3>
+                        <p><strong>When to Deploy:</strong> When you can break down a complex process into a simple, repeatable system.</p>
+                        <p><strong>Psychology:</strong> Busy executives love systems they can implement immediately. The more specific and actionable, the higher the perceived value.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "A [NUMBER]-step system that [SPECIFIC OUTCOME]."<br>
+                            <strong>Example:</strong> "A 4-step LinkedIn audit that finds exactly why your content isn't converting. Takes 12 minutes, costs nothing, works every time."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="opener-6">
+                    <div class="card">
+                        <div class="tag">PROOF DRIVEN</div>
+                        <h3>The Before/After Proof Hook</h3>
+                        <p><strong>When to Deploy:</strong> When you have documented, verifiable transformation that's relevant to your audience's goals.</p>
+                        <p><strong>Psychology:</strong> Social proof combined with concrete outcomes. The more specific the transformation, the more credible it feels.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "From [STARTING POINT] to [END POINT] in [TIMEFRAME]."<br>
+                            <strong>Example:</strong> "From 12 LinkedIn views per post to 15,000+ views and 3 booked calls per week in 21 days. Same founder, same offer. Only the opening strategy changed."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="opener-7">
+                    <div class="card">
+                        <div class="tag">TREND TRANSLATION</div>
+                        <h3>The "Meaning of the Moment" Hook</h3>
+                        <p><strong>When to Deploy:</strong> When a cultural, technological, or economic shift needs interpretation for your specific audience.</p>
+                        <p><strong>Psychology:</strong> Positions you as the trusted translator who can make sense of complex changes and their practical implications.</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "What [BIG CHANGE] really means for [SPECIFIC AUDIENCE]."<br>
+                            <strong>Example:</strong> "What the TikTok ruling actually means for every business that depends on social traffic. (Spoiler: it's not what the headlines say.)"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="opener-8">
+                    <div class="card">
+                        <div class="tag">WISDOM BOMB</div>
+                        <h3>The Counter-Intuition Hook</h3>
+                        <p><strong>When to Deploy:</strong> When your best advice contradicts conventional wisdom or popular strategies.</p>
+                        <p><strong>Psychology:</strong> Creates cognitive dissonance that demands resolution. Your audience needs to know why smart people do the opposite of what "everyone knows."</p>
+                        
+                        <div style="background: var(--vyra-black); padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid var(--vyra-green);">
+                            <strong>Formula:</strong> "Everyone teaches [COMMON ADVICE]. The winners execute [OPPOSITE APPROACH]."<br>
+                            <strong>Example:</strong> "Everyone teaches 'post daily.' The $1M+ consultants post weekly but engineer every word for maximum dwell time and DM conversion."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: CTA Conversion Engine -->
+    <section id="cta-engine" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>The CTA Conversion Engine</h2>
+                <p>Temperature-matched closers that turn attention into action. Choose soft for awareness, medium for consideration, hard for conversion.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card fade-in">
+                    <div class="tag">SOFT CTA</div>
+                    <h3>Status & Signal</h3>
+                    <p><strong>When:</strong> Top-of-funnel content, building audience, thought leadership</p>
+                    <p><strong>Temperature:</strong> Cold prospects who don't know you yet</p>
+                    <div style="background: var(--vyra-black); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Template:</strong><br>
+                        "Repost if this resonates.<br>
+                        Follow for breakdowns that turn expertise into income."
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="tag">MEDIUM CTA</div>
+                    <h3>Strategic & Urgent</h3>
+                    <p><strong>When:</strong> You've provided value, audience is engaged, ready for next step</p>
+                    <p><strong>Temperature:</strong> Warm prospects considering their options</p>
+                    <div style="background: var(--vyra-black); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Template:</strong><br>
+                        "Want the complete blueprint?<br>
+                        Get it free + book your strategy session: [link]"
+                    </div>
+                </div>
+
+                <div class="card fade-in">
+                    <div class="tag">HARD CTA</div>
+                    <h3>Direct Response</h3>
+                    <p><strong>When:</strong> You've shown proof, built trust, and they're ready to buy</p>
+                    <p><strong>Temperature:</strong> Hot prospects ready to take action</p>
+                    <div style="background: var(--vyra-black); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Template:</strong><br>
+                        "We build LinkedIn content that books $50K+ deals.<br>
+                        If you want this done-for-you: [link]"
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-exercise">
+                <div class="exercise-header">
+                    <div class="exercise-icon">🎯</div>
+                    <div class="exercise-title">CTA Temperature Matcher</div>
+                </div>
+                <p>Select your content type and ideal outcome:</p>
+                <select class="exercise-input" id="content-type">
+                    <option value="">Select content type...</option>
+                    <option value="educational">Educational/How-to</option>
+                    <option value="case-study">Case study/Proof</option>
+                    <option value="industry-insight">Industry insight/Analysis</option>
+                    <option value="personal-story">Personal story/Journey</option>
+                </select>
+                
+                <select class="exercise-input" id="desired-outcome">
+                    <option value="">Select desired outcome...</option>
+                    <option value="followers">More followers</option>
+                    <option value="engagement">Higher engagement</option>
+                    <option value="leads">Generate leads</option>
+                    <option value="sales">Direct sales</option>
+                </select>
+                
+                <button class="exercise-button" onclick="generateCTA()">Generate Matching CTA</button>
+                <div id="cta-result" style="margin-top: 20px; padding: 20px; background: var(--vyra-black); border-radius: 10px; display: none;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Live Workshop -->
+    <section id="workshop" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Live Implementation Workshop</h2>
+                <p>Stop learning. Start earning. We'll build your first high-converting LinkedIn post together, live on this page.</p>
+            </div>
+
+            <div class="interactive-exercise">
+                <div class="exercise-header">
+                    <div class="exercise-icon">🚀</div>
+                    <div class="exercise-title">Post Builder Workshop</div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                    <div>
+                        <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Step 1: Choose Your Hook</h4>
+                        <select class="exercise-input" id="hook-choice">
+                            <option value="">Select opener type...</option>
+                            <option value="lightning">Lightning News Hook</option>
+                            <option value="money">Money Moves Hook</option>
+                            <option value="wrong">Everyone's Wrong Hook</option>
+                            <option value="postmortem">Post-Mortem Hook</option>
+                        </select>
+                        
+                        <h4 style="color: var(--vyra-green); margin: 20px 0 15px;">Step 2: Your Topic/Angle</h4>
+                        <textarea class="exercise-input" placeholder="What's your topic or angle?" id="post-topic"></textarea>
+                        
+                        <h4 style="color: var(--vyra-green); margin: 20px 0 15px;">Step 3: Value Promise</h4>
+                        <textarea class="exercise-input" placeholder="What will they learn/gain?" id="value-promise"></textarea>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Step 4: Choose CTA Intensity</h4>
+                        <select class="exercise-input" id="cta-intensity">
+                            <option value="">Select CTA type...</option>
+                            <option value="soft">Soft (Follow/Repost)</option>
+                            <option value="medium">Medium (Lead Magnet)</option>
+                            <option value="hard">Hard (Direct Sale)</option>
+                        </select>
+                        
+                        <h4 style="color: var(--vyra-green); margin: 20px 0 15px;">Step 5: Your Offer/Next Step</h4>
+                        <textarea class="exercise-input" placeholder="What's your call to action?" id="cta-offer"></textarea>
+                        
+                        <button class="exercise-button" onclick="buildPost()" style="width: 100%; margin-top: 20px;">🚀 Build My Post</button>
+                    </div>
+                </div>
+                
+                <div id="generated-post" style="display: none; margin-top: 30px;">
+                    <h4 style="color: var(--vyra-green); margin-bottom: 15px;">Your Generated Post:</h4>
+                    <div style="background: var(--vyra-black); padding: 25px; border-radius: 10px; border: 2px solid var(--vyra-green); white-space: pre-line; font-size: 1.1rem;" id="post-output"></div>
+                    <div style="margin-top: 20px;">
+                        <button class="exercise-button" onclick="copyPost()">📋 Copy Post</button>
+                        <button class="exercise-button" onclick="analyzePost()">📊 Analyze Performance Potential</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Results Tracking System -->
+    <section id="results" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Your Results Tracking Dashboard</h2>
+                <p>What gets measured gets managed. Track the metrics that actually predict revenue, not vanity numbers.</p>
+            </div>
+
+            <div class="results-tracker">
+                <div class="metric">
+                    <span>Dwell Time (Average Seconds on Post)</span>
+                    <span class="metric-value" id="dwell-time">0s</span>
+                </div>
+                <div class="metric">
+                    <span>DM Conversion Rate (DMs per 1000 views)</span>
+                    <span class="metric-value" id="dm-rate">0%</span>
+                </div>
+                <div class="metric">
+                    <span>Call Booking Rate (Calls per 100 DMs)</span>
+                    <span class="metric-value" id="booking-rate">0%</span>
+                </div>
+                <div class="metric">
+                    <span>Revenue Per Post (30-day attribution)</span>
+                    <span class="metric-value" id="revenue-per-post">$0</span>
+                </div>
+            </div>
+
+            <div class="interactive-exercise">
+                <div class="exercise-header">
+                    <div class="exercise-icon">📊</div>
+                    <div class="exercise-title">Update Your Metrics</div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <label style="color: var(--vyra-green);">Post Views:</label>
+                        <input type="number" class="exercise-input" id="post-views" placeholder="Total views">
+                    </div>
+                    <div>
+                        <label style="color: var(--vyra-green);">DMs Received:</label>
+                        <input type="number" class="exercise-input" id="dms-received" placeholder="DMs from post">
+                    </div>
+                    <div>
+                        <label style="color: var(--vyra-green);">Calls Booked:</label>
+                        <input type="number" class="exercise-input" id="calls-booked" placeholder="Calls booked">
+                    </div>
+                    <div>
+                        <label style="color: var(--vyra-green);">Revenue Generated:</label>
+                        <input type="number" class="exercise-input" id="revenue-generated" placeholder="$ from post">
+                    </div>
+                </div>
+                <button class="exercise-button" onclick="updateMetrics()">Update Dashboard</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h3>YOUR FOUNDER ACCESS IS LOCKED</h3>
+            <p style="font-size: 1.2rem; margin: 20px 0; line-height: 1.6;">By securing the VyraHook™ Vault Stack, you've just unlocked founder-level access to the complete 7-Day AI Ghostwriter Training™, the Vyralab Community, and ACE Studio™ when they drop.</p>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">This isn't a separate sign-up — you're already in.</p>
+            
+            <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 15px; margin: 30px 0; text-align: left;">
+                <p style="font-size: 1.1rem; margin-bottom: 25px;"><strong>You now have guaranteed access to the full $297 bundle for only $37 when it launches:</strong></p>
+                
+                <div style="margin: 20px 0;">
+                    <p style="margin: 10px 0;">✅ <strong>7-Day AI Ghostwriter Training™</strong> ($297 value) — the full viral-to-client system that turns content into contracts.</p>
+                    <p style="margin: 10px 0;">✅ <strong>VyraSphere™ Community Access</strong> — connect, learn, and scale with elite ghostwriters and operators.</p>
+                    <p style="margin: 10px 0;">✅ <strong>ACE Studio™ Early Entry</strong> — your personal Automated Content Engine™ to research, write, and deploy in minutes.</p>
+                    <p style="margin: 10px 0;">✅ <strong>Founder-Only Bonuses</strong> — templates, systems, and tools never offered publicly again.</p>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.2rem; margin: 25px 0;"><strong>You've already proven you're serious — this is the next level.</strong></p>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin: 25px 0;">
+                <p style="font-size: 1.1rem; margin-bottom: 15px;"><strong>Next step:</strong> Watch your inbox for the private launch link. When it goes live, you'll be able to claim everything for just $37 (normally $297).</p>
+                <p style="font-size: 1.2rem; margin: 0;"><strong>🔥 Your seat's secured. You're officially part of the first wave of ACE operators.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fade in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+
+        // Interactive functions
+        function generateNewsHook() {
+            const event = document.getElementById('news-event').value;
+            const process = document.getElementById('process-affected').value;
+            
+            if (event && process) {
+                const hook = `${event} just changed how ${process} works.\nHere's what this means for [your audience]...\n...and how to [specific action] before this becomes table stakes.`;
+                document.getElementById('news-hook-result').value = hook;
+            }
+        }
+
+        function generateMoneyHook() {
+            const input = document.getElementById('money-moves-input').value;
+            if (input) {
+                const hook = `The strategy behind [specific result from your input].\n\nNo tricks. No hacks. Just psychology.\n\nHere's exactly how it works:`;
+                document.getElementById('money-hook-result').value = hook;
+            }
+        }
+
+        function generateWrongHook() {
+            const wrongThing = document.getElementById('wrong-thing').value;
+            const rightThing = document.getElementById('right-thing').value;
+            
+            if (wrongThing && rightThing) {
+                const hook = `Everyone keeps chasing ${wrongThing}.\n\nThe winners focus on ${rightThing}.\n\nHere's the difference:`;
+                document.getElementById('wrong-hook-result').value = hook;
+            }
+        }
+
+        function generateCTA() {
+            const contentType = document.getElementById('content-type').value;
+            const outcome = document.getElementById('desired-outcome').value;
+            
+            const ctaMap = {
+                'educational-followers': { type: 'Soft CTA', text: 'Repost if this was helpful.\nFollow for more frameworks that actually work.' },
+                'educational-engagement': { type: 'Soft CTA', text: 'What would you add to this list?\nDrop your thoughts below.' },
+                'educational-leads': { type: 'Medium CTA', text: 'Want the complete step-by-step guide?\nGet it free: [link]' },
+                'case-study-leads': { type: 'Medium CTA', text: 'Want to see the full breakdown?\nGet the case study + implementation guide: [link]' },
+                'case-study-sales': { type: 'Hard CTA', text: 'We get these results for clients every month.\nIf you want this done-for-you: [link]' },
+                'industry-insight-followers': { type: 'Soft CTA', text: 'Repost if you see this trend too.\nFollow for analysis that matters.' },
+                'personal-story-engagement': { type: 'Soft CTA', text: 'What\'s been your biggest lesson this year?\nShare it below.' }
+            };
+            
+            const key = `${contentType}-${outcome}`;
+            const result = ctaMap[key];
+            
+            if (result) {
+                const resultDiv = document.getElementById('cta-result');
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--vyra-green); margin-bottom: 10px;">${result.type} Recommendation:</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">${result.text.replace(/\n/g, '<br>')}</p>
+                `;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function buildPost() {
+            const hook = document.getElementById('hook-choice').value;
+            const topic = document.getElementById('post-topic').value;
+            const value = document.getElementById('value-promise').value;
+            const ctaType = document.getElementById('cta-intensity').value;
+            const offer = document.getElementById('cta-offer').value;
+            
+            if (!hook || !topic || !value || !ctaType) {
+                alert('Please fill in all fields to generate your post.');
+                return;
+            }
+            
+            const hookTemplates = {
+                'lightning': `${topic} just changed how [core process] works.\n\nHere's what this means for [your audience]:\n\n`,
+                'money': `The strategy behind ${topic}.\n\n(Real results, not theory.)\n\n`,
+                'wrong': `Everyone keeps [doing the wrong thing].\n\nThe winners focus on ${topic}.\n\n`,
+                'postmortem': `Inside the ${topic} everyone watched.\n\n[Specific failure] killed [specific outcome].\n\n`
+            };
+            
+            const ctaTemplates = {
+                'soft': `\n\nRepost if this hit different.\nFollow for breakdowns that turn expertise into income.`,
+                'medium': `\n\nWant the complete blueprint?\n${offer}`,
+                'hard': `\n\nWe help [your audience] ${offer}.\n\nIf you want this done-for-you: [your link]`
+            };
+            
+            const post = hookTemplates[hook] + value + ctaTemplates[ctaType];
+            
+            document.getElementById('post-output').textContent = post;
+            document.getElementById('generated-post').style.display = 'block';
+        }
+
+        function copyPost() {
+            const postText = document.getElementById('post-output').textContent;
+            navigator.clipboard.writeText(postText).then(() => {
+                alert('Post copied to clipboard!');
+            });
+        }
+
+        function analyzePost() {
+            alert('Post Analysis:\n\n✅ Clear hook that stops the scroll\n✅ Value promise in first 3 lines\n✅ Temperature-matched CTA\n\nPredicted Performance: High engagement, strong DM conversion potential.\n\nNext step: Post it and track your results!');
+        }
+
+        function updateMetrics() {
+            const views = parseInt(document.getElementById('post-views').value) || 0;
+            const dms = parseInt(document.getElementById('dms-received').value) || 0;
+            const calls = parseInt(document.getElementById('calls-booked').value) || 0;
+            const revenue = parseInt(document.getElementById('revenue-generated').value) || 0;
+            
+            // Calculate metrics
+            const dmRate = views > 0 ? ((dms / views) * 1000).toFixed(1) : 0;
+            const bookingRate = dms > 0 ? ((calls / dms) * 100).toFixed(1) : 0;
+            const estimatedDwellTime = views > 0 ? Math.min(45, Math.max(8, (dms / views) * 1000 * 5)).toFixed(0) : 0;
+            
+            // Update display
+            document.getElementById('dm-rate').textContent = dmRate + '‰';
+            document.getElementById('booking-rate').textContent = bookingRate + '%';
+            document.getElementById('revenue-per-post').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('dwell-time').textContent = estimatedDwellTime + 's';
+        }
+
+        function saveExercise(exerciseNum) {
+            // In a real implementation, this would save to localStorage or send to a server
+            alert(`Exercise ${exerciseNum} saved! Keep building your LinkedIn authority.`);
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
