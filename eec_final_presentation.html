@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraVault™ - Your Next Step. Your First Win.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff41;
+            --vyra-white: #ffffff;
+            --vyra-steel: #6b7280;
+            --vyra-dark-steel: #374151;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, #111111 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--vyra-white) 0%, var(--vyra-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 255, 65, 0.3)); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--vyra-steel);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+        
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 1.5rem 3rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.4);
+            background: #00ff41ee;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--vyra-white) 0%, var(--vyra-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Momentum Section */
+        .momentum {
+            background: linear-gradient(135deg, #111111 0%, var(--vyra-black) 100%);
+        }
+        
+        .momentum-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 4rem;
+            justify-content: center;
+        }
+        
+        .momentum-card {
+            flex: 1 1 280px;
+            max-width: 350px;
+            min-height: 200px;
+        }
+        
+        .momentum-card {
+            flex: 1 1 280px;
+            max-width: 350px;
+            min-height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .momentum-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--vyra-green);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.1);
+        }
+        
+        .momentum-card h3 {
+            font-size: 1.5rem;
+            color: var(--vyra-green);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        /* Product Showcase */
+        .product-showcase {
+            background: var(--vyra-black);
+            text-align: center;
+        }
+        
+        .product-hero {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, transparent 100%);
+            border-radius: 20px;
+            padding: 4rem;
+            margin: 3rem 0;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+        }
+        
+        .product-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .product-subtitle {
+            font-size: 1.25rem;
+            color: var(--vyra-steel);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .price-old {
+            font-size: 2rem;
+            color: var(--vyra-steel);
+            text-decoration: line-through;
+            font-weight: 300;
+        }
+        
+        .price-new {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+        
+        .urgency {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-weight: 600;
+            animation: pulse-red 2s infinite;
+        }
+        
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+        
+        /* Features Grid */
+        .features {
+            background: #111111;
+        }
+        
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+        
+        .feature-card {
+            flex: 1 1 300px;
+            max-width: 380px;
+        }
+        
+        .feature-card {
+            flex: 1 1 300px;
+            max-width: 380px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--vyra-green);
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 255, 65, 0.15);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--vyra-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--vyra-black);
+            font-weight: 900;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--vyra-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: var(--vyra-steel);
+            line-height: 1.6;
+        }
+        
+        /* Bonuses Section */
+        .bonuses {
+            background: linear-gradient(135deg, var(--vyra-black) 0%, #1a1a1a 100%);
+        }
+        
+        .bonus-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .bonus-item {
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid rgba(0, 255, 65, 0.25);
+            border-radius: 10px;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.6s ease;
+        }
+        
+        .bonus-item:hover {
+            transform: translateX(10px);
+            border-color: var(--vyra-green);
+            background: rgba(0, 255, 65, 0.12);
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .bonus-emoji {
+            font-size: 3rem;
+            min-width: 60px;
+        }
+        
+        .bonus-content h3 {
+            font-size: 1.3rem;
+            color: var(--vyra-green);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .bonus-value {
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-left: 1rem;
+        }
+        
+        /* Training Preview */
+        .training {
+            background: var(--vyra-black);
+        }
+        
+        .training-preview {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, transparent 100%);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+        }
+        
+        .day-schedule {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .day-item {
+            flex: 1 1 280px;
+            max-width: 350px;
+            min-height: 140px;
+        }
+        
+        .day-item {
+            flex: 1 1 280px;
+            max-width: 350px;
+            min-height: 140px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--vyra-green);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .day-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .day-number {
+            color: var(--vyra-green);
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #1a1a1a 0%, var(--vyra-black) 100%);
+            text-align: center;
+            padding: 6rem 0;
+        }
+        
+        .cta-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--vyra-green);
+            border-radius: 20px;
+            padding: 4rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ecosystem-badge {
+            display: inline-block;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .section { padding: 4rem 0; }
+            .features-grid, .momentum-grid, .day-schedule { 
+                flex-direction: column; 
+                align-items: center;
+            }
+            .feature-card, .momentum-card, .day-item {
+                max-width: 100%;
+                flex: none;
+            }
+            .pricing { flex-direction: column; gap: 1rem; }
+            .bonus-item { flex-direction: column; text-align: center; }
+        }
+        
+        /* Interactive Elements */
+        .pulse-on-scroll {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.6), 0 0 30px rgba(0, 255, 65, 0.4); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Next Step.<br>Your First Win.</h1>
+                <p class="hero-subtitle">The moment everything you've learned turns into action.</p>
+                <a href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" class="cta-primary">
+                    ⚡ Claim Your VyraVault Now
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span style="color: var(--vyra-green); font-size: 2rem;">↓</span>
+        </div>
+    </section>
+
+    <!-- Momentum Section -->
+    <section class="section momentum" id="momentum">
+        <div class="container">
+            <h2 class="section-title">This Is It.</h2>
+            <div class="momentum-grid">
+                <div class="momentum-card floating">
+                    <h3>✅ You've Got Clarity</h3>
+                    <p>You understand the game. You see the opportunity. The path is clear.</p>
+                </div>
+                <div class="momentum-card floating" style="animation-delay: 0.2s;">
+                    <h3>✅ You've Got Proof</h3>
+                    <p>You've seen the results. You know it works. The evidence is undeniable.</p>
+                </div>
+                <div class="momentum-card floating" style="animation-delay: 0.4s;">
+                    <h3>⚡ Now Turn It Into Income</h3>
+                    <p>From this point forward, it's not about ideas — it's about results.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 4rem; font-size: 1.25rem; color: var(--vyra-steel);">
+                <p><strong>Clarity alone doesn't create momentum.</strong></p>
+                <p style="color: var(--vyra-green); font-size: 1.5rem; font-weight: 700;">Execution does.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="section product-showcase" id="product">
+        <div class="container">
+            <div class="product-hero pulse-on-scroll">
+                <h2 class="product-title">VyraVault™</h2>
+                <p class="product-subtitle">5-in-1 Creator Income Stack</p>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">It's not a course. It's not a PDF. <strong>It's a system.</strong></p>
+                
+                <div class="pricing">
+                    <span class="price-old">$97</span>
+                    <span class="price-new">$17</span>
+                </div>
+                
+                <div class="urgency">
+                    🚨 Only 1,000 copies at this price. Then it's gone for good.
+                </div>
+                
+                <a href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" class="cta-primary">
+                    ⚡ Get VyraVault for $17
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+        <div class="container">
+            <h2 class="section-title">Your Complete Arsenal</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">VyraHook™ Vault</h3>
+                    <p class="feature-description">20+ proven hook templates across 40+ pages. Built on emotional psychology and pattern disruption.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3 class="feature-title">VyraPAST Cheat Sheet</h3>
+                    <p class="feature-description">The 4-step conversion flow we use to drive action and leads from every post.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">AI Hook Rating System</h3>
+                    <p class="feature-description">Instantly scores your hooks for clarity, tension, and curiosity — then shows you how to fix them.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3 class="feature-title">AI VyraLinked™ Builder</h3>
+                    <p class="feature-description">Turns ideas into LinkedIn authority content in seconds — with tone-matching and niche calibration.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👑</div>
+                    <h3 class="feature-title">LinkedIn Authority Masterclass</h3>
+                    <p class="feature-description">30+ minutes of pure execution. Open strong, build trust, close with CTAs that bring in clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonuses -->
+    <section class="section bonuses" id="bonuses">
+        <div class="container">
+            <h2 class="section-title">But Wait, There's More</h2>
+            <p style="text-align: center; font-size: 1.25rem; color: var(--vyra-steel); margin-bottom: 3rem;">
+                You also unlock every single launch add-on we created for early users:
+            </p>
+            
+            <div class="bonus-stack">
+                <div class="bonus-item">
+                    <div class="bonus-emoji">🧵</div>
+                    <div class="bonus-content">
+                        <h3>Authority Threads Masterclass <span class="bonus-value">$97 Value</span></h3>
+                        <p>20+ minutes on how to turn insights into viral thread systems.</p>
+                    </div>
+                </div>
+                
+                <div class="bonus-item" style="animation-delay: 0.1s;">
+                    <div class="bonus-emoji">🎟️</div>
+                    <div class="bonus-content">
+                        <h3>ACE Studio™ Founder Waitlist + Lifetime Pricing <span class="bonus-value">$197 Value</span></h3>
+                        <p>Get in before public release. You'll never pay what everyone else does.</p>
+                    </div>
+                </div>
+                
+                <div class="bonus-item" style="animation-delay: 0.2s;">
+                    <div class="bonus-emoji">👑</div>
+                    <div class="bonus-content">
+                        <h3>VIP Entry to Vyralab Ecosystem <span class="bonus-value">Priceless</span></h3>
+                        <p>Ghostwriting. Branding. Content delivery. We built the engine. You plug in.</p>
+                    </div>
+                </div>
+                
+                <div class="bonus-item" style="animation-delay: 0.25s;">
+                    <div class="bonus-emoji">🎓</div>
+                    <div class="bonus-content">
+                        <h3>Vyralab Masterclass Vault <span class="bonus-value">$197 Value</span></h3>
+                        <p>Hours of elite-level breakdowns. Leadership tools. Communication systems. Brand voice analyzers. Client strategy libraries. And so much more.</p>
+                    </div>
+                </div>
+                
+                <div class="bonus-item" style="animation-delay: 0.3s;">
+                    <div class="bonus-emoji">🚀</div>
+                    <div class="bonus-content">
+                        <h3>7-Day AI Ghostwriter Training™ Founder Rate <span class="bonus-value">$297 Value</span></h3>
+                        <p>Plus lifetime ACE Studio™ updates. VyraVault buyers get in for just $37 (normally $297).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem; text-align: center; padding: 3rem; background: rgba(0, 255, 65, 0.1); border: 2px solid var(--vyra-green); border-radius: 15px;">
+                <h3 style="font-size: 2rem; color: var(--vyra-white); margin-bottom: 1rem; font-weight: 800;">Total Value:</h3>
+                <div style="font-size: 3rem; color: var(--vyra-steel); text-decoration: line-through; margin-bottom: 1rem; font-weight: 300;">$788+</div>
+                <h3 style="font-size: 2.5rem; color: var(--vyra-green); margin-bottom: 1rem; font-weight: 900;">You Get It ALL For Just $17</h3>
+                <p style="font-size: 1.25rem; color: var(--vyra-steel); margin-bottom: 2rem;">That's 97% OFF the total value. Basically the price of lunch.</p>
+                <a href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" class="cta-primary" style="font-size: 1.25rem; padding: 1.5rem 3rem;">
+                    ⚡ CLAIM YOUR $788+ VALUE STACK FOR $17
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Preview -->
+    <section class="section training" id="training">
+        <div class="container">
+            <h2 class="section-title">The 7-Day AI Ghostwriter Training™</h2>
+            
+            <div class="training-preview">
+                <p style="font-size: 1.25rem; margin-bottom: 2rem; text-align: center;">
+                    This is our flagship course. Priced at $297.<br>
+                    <strong style="color: var(--vyra-green);">But VyraVault buyers today will get in for just $37 when it drops.</strong>
+                </p>
+                
+                <div class="day-schedule">
+                    <div class="day-item">
+                        <div class="day-number">Day 1:</div>
+                        <p>Build a research engine that never runs dry — using VyraSearch CIA™</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 2:</div>
+                        <p>Write elite-level hooks using VyraPAST™, EmotionStack™, and our AI hook rating system</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 3:</div>
+                        <p>Structure full trust-building threads that convert attention into opportunity</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 4:</div>
+                        <p>Craft copywriting and CTA endings that drive action — powered by VyraTAG AI system</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 5:</div>
+                        <p>Find scroll-stopping media in minutes using VyraMage™ AI media finder</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 6:</div>
+                        <p>Rewrite real client posts using the full Vyralab system — and pitch with proof</p>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-number">Day 7:</div>
+                        <p>Use VyraProof™ AI client acquisition engine for show-don't-tell outreach</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <div class="ecosystem-badge">Welcome to the Vyralab Ecosystem</div>
+                    <h2 style="font-size: 3rem; margin-bottom: 2rem; color: var(--vyra-green);">This Is The Real Deal</h2>
+                    <p style="font-size: 1.5rem; margin-bottom: 3rem; color: var(--vyra-steel);">
+                        No fluff. No hype. Just a clear, powerful next step for creators ready to build a future with their words.
+                    </p>
+                    
+                    <div style="margin: 3rem 0;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔥 The Vyrasphere™ Community</div>
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔥 The Masterclass Vault</div>
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔥 Early ACE Studio™ Access</div>
+                    </div>
+                    
+                    <a href="https://login.vyralab.com/courses/offers/04ff468c-1668-48c6-9c97-8a0d97f267de" target="_blank" class="cta-primary" style="font-size: 1.5rem; padding: 2rem 4rem;">
+                        ⚡ GRAB VYRAVAULT FOR $17 NOW
+                    </a>
+                    
+                    <p style="margin-top: 2rem; font-style: italic; color: var(--vyra-steel); text-align: center; line-height: 1.4;">
+                        <span style="display: block; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">The only system</span>
+                        <span style="display: block; font-size: 2rem; font-weight: 700; color: var(--vyra-white);">Built for Ghostwriters. By Ghostwriters.</span>
+                    </p>
+                    
+                    <p style="margin-top: 3rem; font-size: 2rem; color: var(--vyra-green); font-weight: 700; text-align: center;">
+                        I'll see you inside the lab! 🚀
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .bonus-item, .day-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add hover effects for feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+
+        // Add click tracking for CTAs
+        document.querySelectorAll('.cta-primary').forEach(cta => {
+            cta.addEventListener('click', function(e) {
+                // Add your analytics tracking here
+                console.log('CTA Clicked:', this.textContent);
+                // Example: gtag('event', 'click', { 'event_category': 'CTA', 'event_label': this.textContent });
+            });
+        });
+    </script>
+</body>
+</html>
