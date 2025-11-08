@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Authority Engine - Video 2: From Post to Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-green: #00ff41;
+            --black: #000000;
+            --white: #ffffff;
+            --steel-grey: #8b9095;
+            --dark-grey: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: clamp(2rem, 4vw, 4rem);
+            background: var(--black);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        /* Header */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(1.5rem, 3vw, 3rem);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--electric-green);
+            letter-spacing: -0.02em;
+        }
+
+        .slide-number {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            color: var(--steel-grey);
+            font-weight: 500;
+        }
+
+        /* Content Areas */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-label {
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            color: var(--electric-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .slide-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            letter-spacing: -0.03em;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--steel-grey);
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        /* Typography */
+        .text-green {
+            color: var(--electric-green);
+        }
+
+        .text-grey {
+            color: var(--steel-grey);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--electric-green);
+        }
+
+        p {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.6;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .lead-text {
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+            line-height: 1.5;
+            color: var(--steel-grey);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            color: var(--white);
+        }
+
+        /* Grids & Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 968px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-card,
+        .proof-card,
+        .comparison-box,
+        .temp-card {
+            background: var(--dark-grey);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .metric-value {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--electric-green);
+            margin-bottom: 0.4rem;
+        }
+
+        .metric-label {
+            font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+            color: var(--steel-grey);
+        }
+
+        .comparison-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkpoint {
+            background: var(--dark-grey);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid var(--electric-green);
+        }
+
+        .checkpoint-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background: var(--electric-green);
+            color: var(--black);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.8rem;
+        }
+
+        .example-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .example-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--steel-grey);
+            margin-bottom: 0.5rem;
+        }
+
+        .example-text {
+            font-size: clamp(0.95rem, 1.7vw, 1.15rem);
+            color: var(--white);
+            margin-bottom: 0.4rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            margin: 2rem 0;
+        }
+
+        .formula-display {
+            background: var(--black);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .formula-text {
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            color: var(--electric-green);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .quote-large {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--white);
+            font-style: italic;
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 4px solid var(--electric-green);
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: var(--dark-grey);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            color: var(--electric-green);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .nav-button:hover {
+            background: var(--electric-green);
+            color: var(--black);
+            transform: scale(1.1);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-button:disabled:hover {
+            background: var(--dark-grey);
+            color: var(--electric-green);
+            transform: none;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--dark-grey);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--electric-green);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="presentation-container" id="presentation">
+
+        <!-- SLIDE 1: TITLE -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 1 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Video 2 of 2</div>
+                <h1 class="slide-title">From Post To Pipeline</h1>
+                <p class="slide-subtitle">Live build. Algorithm alignment. DM to closed deals.</p>
+
+                <div class="grid-2" style="margin-top: 3rem;">
+                    <div class="metric-card">
+                        <div class="metric-value">1</div>
+                        <div class="metric-label">Complete Revenue System</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Critical Conversion Metrics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: RECAP -->
+        <div class="slide" data-slide="2">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 2 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Quick Recap</div>
+                <h2>What You Already Have From Video 1</h2>
+
+                <ul>
+                    <li>Your LinkedIn thesis: who you help and what result you drive.</li>
+                    <li>Two opener formats you commit to mastering.</li>
+                    <li>Three CTAs mapped to cold, warm, and hot audiences.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p class="lead-text">
+                        Video 2 upgrades this into a working system:
+                        a live example, DM flow, diagnostic call, proposal, metrics, and a repeatable revenue engine.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: AGENDA -->
+        <div class="slide" data-slide="3">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 3 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Today’s Roadmap</div>
+                <h2>From Post To Client In One Clean Path</h2>
+
+                <div class="grid-2">
+                    <div class="proof-card">
+                        <h3>1. Live Build</h3>
+                        <p>Draft a full authority post: hook, body, bridge, CTA.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>2. Algorithm & Metrics</h3>
+                        <p>Lock the four numbers that matter for revenue.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>3. DM → Call → Proposal</h3>
+                        <p>Use a simple DM sequence and 20-minute diagnostic call.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>4. Flywheel & Dark Social</h3>
+                        <p>Turn consistent posting into predictable pipeline.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: PROOF - BAPTISTE EXAMPLES -->
+        <div class="slide" data-slide="4">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 4 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Real-World Authority</div>
+                <h2>When Strategy Meets Execution</h2>
+                <p class="lead-text">These campaigns for Baptiste show what focused authority content can do.</p>
+
+                <div class="grid-3">
+                    <div class="proof-card">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap_google_altman.png"
+                             alt="Baptiste LinkedIn post - Google & Altman"
+                             style="width:100%; border-radius:8px; margin-bottom:0.8rem;">
+                        <p class="metric-label">Strategic narrative around Google and Altman.</p>
+                    </div>
+                    <div class="proof-card">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap_altman_elon.png"
+                             alt="Baptiste LinkedIn post - Altman & Elon"
+                             style="width:100%; border-radius:8px; margin-bottom:0.8rem;">
+                        <p class="metric-label">High-signal commentary in a noisy feed.</p>
+                    </div>
+                    <div class="proof-card">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap_jobs_gates.png"
+                             alt="Baptiste LinkedIn post - Jobs & Gates"
+                             style="width:100%; border-radius:8px; margin-bottom:0.8rem;">
+                        <p class="metric-label">Authority built on timeless operator lessons.</p>
+                    </div>
+                </div>
+
+                <p class="lead-text" style="margin-top:2rem;">
+                    Same mechanics you are building in this video: thesis clarity, sharp hooks, concrete proof,
+                    and a clear path into conversations.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: LIVE BUILD - SETUP -->
+        <div class="slide" data-slide="5">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 5 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Live Build</div>
+                <h2>Step 1: Lock Your Scenario</h2>
+
+                <p class="lead-text">
+                    Example: LinkedIn consultant for Series A B2B SaaS founders who want pipeline growth without hiring more SDRs.
+                </p>
+
+                <ul>
+                    <li>WHO: Series A B2B SaaS founders.</li>
+                    <li>PAIN: Burn cash on headcount that does not convert.</li>
+                    <li>OUTCOME: More pipeline with lean teams and precise systems.</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Checkpoint</div>
+                    <h3>Define Your Context</h3>
+                    <p>Write your own: industry, buyer, core pain, and promised outcome.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: LIVE BUILD - HOOK -->
+        <div class="slide" data-slide="6">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 6 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Live Build</div>
+                <h2>Step 2: Write The Hook</h2>
+
+                <p class="lead-text">Example hook for this scenario:</p>
+
+                <div class="example-box">
+                    <div class="example-label">Draft Hook</div>
+                    <p class="example-text">
+                        "Series A founders keep hiring more SDRs. Elite operators engineer pipeline with lean teams and precise offers."
+                    </p>
+                    <p class="example-text">
+                        "Here is the framework that protects budgets and drives consistent revenue."
+                    </p>
+                </div>
+
+                <ul>
+                    <li>Call out the problem in concrete language.</li>
+                    <li>Signal a higher-leverage alternative.</li>
+                    <li>Set an expectation of a real framework.</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>Write one hook for your ICP that exposes a real cost and points to a structured solution.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: LIVE BUILD - BODY -->
+        <div class="slide" data-slide="7">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 7 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Live Build</div>
+                <h2>Step 3: Build The Body</h2>
+
+                <p class="lead-text">Each line earns the next line. Each point delivers one clear win.</p>
+
+                <ul>
+                    <li>Point 1: Call out the broken assumption your ICP holds.</li>
+                    <li>Point 2: Show the cost with numbers or a specific scenario.</li>
+                    <li>Point 3: Introduce the alternative system you use.</li>
+                    <li>Point 4: Add one proof element: client example, metric, or process snapshot.</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>List 3–4 implementation points your ICP can act on today. Turn each point into one sharp paragraph.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: LIVE BUILD - CTA -->
+        <div class="slide" data-slide="8">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 8 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Live Build</div>
+                <h2>Step 4: Bridge And CTA</h2>
+
+                <p class="lead-text">
+                    The bridge connects realization to next step. The CTA matches audience temperature.
+                </p>
+
+                <div class="example-box">
+                    <div class="example-label">Medium-Temperature Example</div>
+                    <p class="example-text">
+                        "If this exposed gaps in your pipeline plan, send me 'PIPELINE' and I will share the diagnostic framework I use with founders to find bottlenecks in 20 minutes."
+                    </p>
+                </div>
+
+                <ul>
+                    <li>Acknowledge what they just realized.</li>
+                    <li>Show that others face the same issue.</li>
+                    <li>Signal experience with a clear frame.</li>
+                    <li>Give one specific next step.</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>Write your bridge and CTA. Use one word to DM. Make the next step obvious.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: FULL POST VIEW -->
+        <div class="slide" data-slide="9">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 9 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Live Build</div>
+                <h2>Step 5: The Complete Post</h2>
+
+                <p class="lead-text">Assemble your assets.</p>
+
+                <div class="example-box">
+                    <div class="example-label">Structure</div>
+                    <p class="example-text"><strong>Hook:</strong> Call out the costly mistake.</p>
+                    <p class="example-text"><strong>Line 2–3:</strong> Quantify the damage and set tension.</p>
+                    <p class="example-text"><strong>Body:</strong> 3–4 points with specific fixes.</p>
+                    <p class="example-text"><strong>Bridge + CTA:</strong> One clear action for qualified readers.</p>
+                </div>
+
+                <p class="lead-text">
+                    This is your authority post template. You reuse this structure across offers and verticals.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: SECTION - METRICS -->
+        <div class="slide" data-slide="10">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 10 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 3</div>
+                <h2>The Only Metrics That Matter</h2>
+
+                <div class="grid-2">
+                    <div class="metric-card">
+                        <div class="metric-value">1</div>
+                        <div class="metric-label">DM Rate</div>
+                        <p>DMs ÷ Views. Target: 0.5–2% depending on offer.</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">2</div>
+                        <div class="metric-label">Call Rate</div>
+                        <p>Calls ÷ DMs. Target: 20–40% for qualified inbound.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:2rem;">
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Close Rate</div>
+                        <p>Clients ÷ Calls. Target: 25–50% based on price point.</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Revenue / Post</div>
+                        <p>Revenue ÷ Posts. Track the trend to see ROI.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p class="lead-text">
+                        Ignore vanity data. Focus on DMs, calls, clients, and revenue per post.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: TRACKING SHEET -->
+        <div class="slide" data-slide="11">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 11 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Systemization</div>
+                <h2>Your Weekly Tracking Sheet</h2>
+
+                <div class="example-box">
+                    <div class="example-label">Columns</div>
+                    <p class="example-text">Post Date | Opener Format | CTA Type | Views | DMs | Calls | Closed | Revenue</p>
+                </div>
+
+                <p class="lead-text">
+                    Update once per week. Spot which hooks, CTAs, and topics lead to qualified DMs and closed deals.
+                </p>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>Create your sheet before publishing your next post.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: REVENUE FLYWHEEL INTRO -->
+        <div class="slide" data-slide="12">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 12 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 4</div>
+                <h2>The Revenue Flywheel</h2>
+
+                <div class="formula-display">
+                    <div class="formula-text">
+                        Post → DM → Diagnostic Call → Proposal → Client → Proof → Stronger Posts → More DMs
+                    </div>
+                </div>
+
+                <p class="lead-text">
+                    Every authority post feeds this loop. Consistency compounds reach, trust, and revenue.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: DM FUNNEL -->
+        <div class="slide" data-slide="13">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 13 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">DM Funnel</div>
+                <h2>The 3-Message DM Sequence</h2>
+
+                <ol>
+                    <li><strong>Message 1:</strong> Acknowledge, anchor to their context, ask one qualifying question.</li>
+                    <li><strong>Message 2:</strong> Dig deeper on the problem. One or two sharp questions.</li>
+                    <li><strong>Message 3:</strong> Invite to a quick call with a clear purpose and time window.</li>
+                </ol>
+
+                <p class="lead-text">
+                    The goal is movement to a call with clarity, not endless chat.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: DIAGNOSTIC CALL -->
+        <div class="slide" data-slide="14">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 14 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Diagnostic Call</div>
+                <h2>The 20-Minute Framework</h2>
+
+                <ul>
+                    <li><strong>Minutes 0–3:</strong> Context and goals. Confirm why they booked.</li>
+                    <li><strong>Minutes 3–10:</strong> Problem excavation. Timeline, attempts, impact, cost of inaction.</li>
+                    <li><strong>Minutes 10–17:</strong> Mirror back. Outline 2–3 key steps you would use.</li>
+                    <li><strong>Minutes 17–20:</strong> Confirm fit and propose next steps.</li>
+                </ul>
+
+                <p class="lead-text">
+                    You listen more than you talk. You lead with clarity, not pressure.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: PROPOSAL STRUCTURE -->
+        <div class="slide" data-slide="15">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 15 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Proposal</div>
+                <h2>Simple, Clear, Closed</h2>
+
+                <ol>
+                    <li><strong>Situation:</strong> 2–3 sentences summarizing their current state.</li>
+                    <li><strong>Solution:</strong> Bullets with deliverables and timeline.</li>
+                    <li><strong>Investment:</strong> Price and terms.</li>
+                    <li><strong>Next Steps:</strong> Exact action to start.</li>
+                </ol>
+
+                <p class="lead-text">
+                    A strong diagnostic call makes this a confirmation step.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: AUTHORITY LADDER -->
+        <div class="slide" data-slide="16">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 16 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 5</div>
+                <h2>The Authority Ladder</h2>
+
+                <ul>
+                    <li>Week 1–2: Thesis, profile, one core authority post per week.</li>
+                    <li>Week 3–4: Add case studies and screenshots of results.</li>
+                    <li>Week 5–8: Share frameworks, named methods, and deeper breakdowns.</li>
+                    <li>Week 9+: Layer in industry insights and narrative leadership.</li>
+                </ul>
+
+                <p class="lead-text">
+                    Each level earns more trust and pricing power.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: CONTENT MULTIPLICATION -->
+        <div class="slide" data-slide="17">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 17 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Leverage</div>
+                <h2>Content Multiplication</h2>
+
+                <ul>
+                    <li>Turn one authority post into a thread, a carousel, an email, and a short video.</li>
+                    <li>Keep the same thesis, proof, and CTA across formats.</li>
+                    <li>Use strong performers as evergreen assets in outbound and DMs.</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>Choose one post and map 3 extra formats you can publish this week.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: DARK SOCIAL -->
+        <div class="slide" data-slide="18">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 18 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Dark Social</div>
+                <h2>Off-Platform Is Where Deals Land</h2>
+
+                <div class="formula-display">
+                    <div class="formula-text">
+                        LinkedIn → DM → Email → Call → Contract
+                    </div>
+                </div>
+
+                <ul>
+                    <li>Use LinkedIn to start conversations.</li>
+                    <li>Move qualified leads to email for depth.</li>
+                    <li>Move aligned leads to Zoom or phone.</li>
+                </ul>
+
+                <p class="lead-text">
+                    Design each post and CTA to open a path into private conversation.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: DARK SOCIAL EXAMPLE -->
+        <div class="slide" data-slide="19">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 19 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Applied</div>
+                <h2>Sample 8-Day Journey</h2>
+
+                <ol>
+                    <li>Day 1: Authority post → targeted DM response.</li>
+                    <li>Day 1: DM sequence → move to email.</li>
+                    <li>Day 3: Email depth → book diagnostic call.</li>
+                    <li>Day 6: Diagnostic call → send proposal.</li>
+                    <li>Day 8: Proposal accepted → client onboarded.</li>
+                </ol>
+
+                <p class="lead-text">
+                    Map this path for your own offer so you know exactly what to trigger next.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 20: TROUBLESHOOTING - NO DMS -->
+        <div class="slide" data-slide="20">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 20 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Troubleshooting</div>
+                <h2>Problem 1: No DMs</h2>
+
+                <ul>
+                    <li>Check: Is your thesis specific enough?</li>
+                    <li>Check: Are your posts talking to buyers or to peers?</li>
+                    <li>Check: Is your CTA clear and direct?</li>
+                </ul>
+
+                <p class="lead-text">
+                    Adjust thesis, sharpen hook, and use a concrete CTA that invites response.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 21: TROUBLESHOOTING - DMS, NO CALLS -->
+        <div class="slide" data-slide="21">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 21 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Troubleshooting</div>
+                <h2>Problem 2: DMs, No Calls</h2>
+
+                <ul>
+                    <li>Tighten the 3-message sequence.</li>
+                    <li>Ask one strong qualifying question early.</li>
+                    <li>Offer a clear, low-friction call invite with a defined outcome.</li>
+                </ul>
+
+                <p class="lead-text">
+                    If the path is vague, conversations stall. Give a specific path.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: TROUBLESHOOTING - CALLS, NO SALES -->
+        <div class="slide" data-slide="22">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 22 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Troubleshooting</div>
+                <h2>Problem 3: Calls, No Clients</h2>
+
+                <ul>
+                    <li>Audit: Did you diagnose more than you pitched?</li>
+                    <li>Audit: Did you quantify the cost of the problem?</li>
+                    <li>Audit: Does price align with perceived result?</li>
+                    <li>Audit: Are these your real ICP or random followers?</li>
+                </ul>
+
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Exercise</div>
+                    <p>Record and review three calls. Fix the weakest link you hear.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23: 90-DAY PLAN -->
+        <div class="slide" data-slide="23">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 23 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Execution Window</div>
+                <h2>The 90-Day LinkedIn Authority Sprint</h2>
+
+                <ul>
+                    <li>Month 1: One authority post per week. Daily targeted comments. DM responders.</li>
+                    <li>Month 2: Add case studies, deeper frameworks, and consistent CTAs.</li>
+                    <li>Month 3: Refine based on metrics. Aim for 2–4 DMs/week, 1–2 new clients/month.</li>
+                </ul>
+
+                <p class="lead-text">
+                    Consistent behavior over 90 days creates a market presence that compounds.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: SUMMARY -->
+        <div class="slide" data-slide="24">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 24 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">You Now Have</div>
+                <h2>The Complete LinkedIn Authority System</h2>
+
+                <ul>
+                    <li>Video 1: Hooks, psychology, and CTA architecture.</li>
+                    <li>Video 2: Live build, metrics, DM funnel, and closing system.</li>
+                    <li>A flywheel that turns posts into pipeline.</li>
+                </ul>
+
+                <div class="quote-large">
+                    You own a framework that serious buyers respect. Execution turns it into revenue.
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 25: CALL TO ACTION -->
+        <div class="slide" data-slide="25">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 25 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Next Steps</div>
+                <h2>Deploy This In The Next 24 Hours</h2>
+
+                <ol>
+                    <li>Publish one authority post built with this structure.</li>
+                    <li>Run a focused 60-minute engagement block after posting.</li>
+                    <li>Use the 3-message DM sequence for every qualified reply.</li>
+                    <li>Track DMs, calls, closes, and revenue on your sheet.</li>
+                </ol>
+
+                <p class="lead-text">
+                    Repetition creates authority. Authority attracts serious inbound.
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: OUTRO / OFFERS -->
+        <div class="slide" data-slide="26">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 26 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Support Pathways</div>
+                <h2>Keep Scaling With The System</h2>
+
+                <div class="grid-3">
+                    <div class="proof-card">
+                        <h3>LinkedIn Authority Toolkit</h3>
+                        <p>All templates, DM scripts, call frameworks, and trackers from this masterclass.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>90-Day Implementation</h3>
+                        <p>Hands-on guidance to install, refine, and optimize your LinkedIn pipeline.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>Done-For-You Authority</h3>
+                        <p>Full-service content, DM, and pipeline management for qualified partners.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p class="lead-text">
+                        Choose a path that matches your stage and urgency. The system is clear. The next move is on you.
+                    </p>
+                    <p class="lead-text">
+                        Publish your first post, run the play, and measure the outcome.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn">←</button>
+        <button class="nav-button" id="nextBtn">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 26;
+        const slides = document.querySelectorAll('.slide');
+        const progressFill = document.getElementById('progressFill');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateSlide() {
+            slides.forEach(s => {
+                s.classList.remove('active', 'prev');
+            });
+
+            const current = slides[currentSlide - 1];
+            current.classList.add('active');
+
+            for (let i = 0; i < currentSlide - 1; i++) {
+                slides[i].classList.add('prev');
+            }
+
+            const progress = (currentSlide / totalSlides) * 100;
+            progressFill.style.width = progress + '%';
+
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>
