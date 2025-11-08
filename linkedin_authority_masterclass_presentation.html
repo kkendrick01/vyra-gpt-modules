@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Authority Engine - Masterclass Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-green: #00ff41;
+            --black: #000000;
+            --white: #ffffff;
+            --steel-grey: #8b9095;
+            --dark-grey: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: clamp(2rem, 4vw, 4rem);
+            background: var(--black);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        /* Header */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(1.5rem, 3vw, 3rem);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .logo {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--electric-green);
+            letter-spacing: -0.02em;
+        }
+
+        .slide-number {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            color: var(--steel-grey);
+            font-weight: 500;
+        }
+
+        /* Content Areas */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-label {
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            color: var(--electric-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .slide-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            letter-spacing: -0.03em;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--steel-grey);
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        /* Typography */
+        .text-green {
+            color: var(--electric-green);
+        }
+
+        .text-grey {
+            color: var(--steel-grey);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--electric-green);
+        }
+
+        p {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.6;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .lead-text {
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+            line-height: 1.5;
+            color: var(--steel-grey);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            color: var(--white);
+        }
+
+        /* Cards & Boxes */
+        .proof-card {
+            background: var(--dark-grey);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .proof-card:hover {
+            border-color: var(--electric-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 255, 65, 0.15);
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--dark-grey) 0%, #0a0a0a 100%);
+            border-left: 3px solid var(--electric-green);
+            padding: clamp(1.2rem, 2.5vw, 2rem);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            color: var(--electric-green);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: var(--steel-grey);
+            font-weight: 500;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(1.5rem, 3vw, 2.5rem);
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1.2rem, 2.5vw, 2rem);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 968px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Comparison Boxes */
+        .comparison-box {
+            background: var(--dark-grey);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--electric-green);
+        }
+
+        .comparison-box.bad::before {
+            background: #ff4141;
+        }
+
+        .comparison-label {
+            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-box.good .comparison-label {
+            color: var(--electric-green);
+        }
+
+        .comparison-box.bad .comparison-label {
+            color: #ff4141;
+        }
+
+        /* Hook Format Cards */
+        .hook-card {
+            background: var(--dark-grey);
+            border: 1px solid rgba(0, 255, 65, 0.15);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 2.5vw, 2rem);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .hook-card:hover {
+            border-color: var(--electric-green);
+            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.2);
+        }
+
+        .hook-number {
+            display: inline-block;
+            background: var(--electric-green);
+            color: var(--black);
+            font-weight: 800;
+            font-size: clamp(0.8rem, 1.3vw, 1rem);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .hook-title {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .hook-when {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: var(--steel-grey);
+            margin-bottom: 0.8rem;
+        }
+
+        .hook-psychology {
+            font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+            color: var(--white);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--electric-green);
+        }
+
+        .hook-formula {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: var(--electric-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Example Boxes */
+        .example-box {
+            background: #0a0a0a;
+            border-left: 3px solid var(--electric-green);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-label {
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            color: var(--electric-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.8rem;
+        }
+
+        .example-text {
+            font-size: clamp(1rem, 1.7vw, 1.25rem);
+            line-height: 1.6;
+            color: var(--white);
+        }
+
+        /* Checkpoint Sections */
+        .checkpoint {
+            background: linear-gradient(135deg, var(--dark-grey) 0%, #0f0f0f 100%);
+            border: 2px solid var(--electric-green);
+            border-radius: 16px;
+            padding: clamp(2rem, 4vw, 3rem);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .checkpoint-badge {
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            background: var(--electric-green);
+            color: var(--black);
+            font-weight: 800;
+            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .checkpoint h3 {
+            margin-top: 1rem;
+        }
+
+        /* CTA Temperature Spectrum */
+        .temperature-spectrum {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .temperature-spectrum::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #4169E1, #FFD700, #FF4500);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .temp-card {
+            flex: 1;
+            background: var(--dark-grey);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .temp-card:hover {
+            border-color: var(--electric-green);
+            transform: translateY(-4px);
+        }
+
+        .temp-card.soft {
+            border-top-color: #4169E1;
+        }
+
+        .temp-card.medium {
+            border-top-color: #FFD700;
+        }
+
+        .temp-card.hard {
+            border-top-color: #FF4500;
+        }
+
+        .temp-label {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .temp-card.soft .temp-label {
+            color: #4169E1;
+        }
+
+        .temp-card.medium .temp-label {
+            color: #FFD700;
+        }
+
+        .temp-card.hard .temp-label {
+            color: #FF4500;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: var(--dark-grey);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            color: var(--electric-green);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .nav-button:hover {
+            background: var(--electric-green);
+            color: var(--black);
+            transform: scale(1.1);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-button:disabled:hover {
+            background: var(--dark-grey);
+            color: var(--electric-green);
+            transform: scale(1);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--dark-grey);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--electric-green);
+            transition: width 0.3s ease;
+        }
+
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            margin: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Quote Style */
+        .quote-large {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--white);
+            font-style: italic;
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 4px solid var(--electric-green);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--electric-green);
+            border-radius: 4px;
+        }
+
+        /* Formula Display */
+        .formula-display {
+            background: var(--black);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .formula-text {
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            color: var(--electric-green);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 968px) {
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="presentation-container" id="presentation">
+        <!-- SLIDE 1: TITLE / INTRO -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 1 of 25</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Video 1 of 2</div>
+                <h1 class="slide-title">LinkedIn Authority Engine</h1>
+                <p class="slide-subtitle">Hooks, Psychology, and CTAs</p>
+                
+                <div class="grid-2" style="margin-top: 3rem;">
+                    <div class="metric-card">
+                        <div class="metric-value">8</div>
+                        <div class="metric-label">Battle-Tested Opener Formats</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">CTA Temperature Systems</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: COLD OPEN HOOK -->
+        <div class="slide" data-slide="2">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 2 of 25</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Cold Open</div>
+                <h2>Stop me if this sounds familiar:</h2>
+                
+                <div class="highlight-box">
+                    <p class="lead-text">You post on LinkedIn, get a few pity likes from colleagues, maybe a generic comment or two... and <span class="text-green">zero clients</span>.</p>
+                    <p class="lead-text">Meanwhile, you're watching other consultants book <span class="text-green">$50K deals from a single post</span>, and you're wondering what the hell they know that you don't.</p>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Here's what they know:</h3>
+                <ul>
+                    <li>Your <strong>opener</strong> decides if a buyer stays or scrolls</li>
+                    <li>LinkedIn watches how long they <strong>linger</strong> on your content—not how loud you beg for likes</li>
+                    <li>When you write that first line the right way, <span class="text-green">the algorithm becomes your sales team</span></li>
+                </ul>
+
+                <p style="margin-top: 2rem; font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 600;">This isn't theory. This is the playbook.</p>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 3: CREDIBILITY -->
+        <div class="slide" data-slide="3">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 3 of 25</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Introduction & Credibility</div>
+                <h2>Let me show you something before we start</h2>
+                
+                <p class="lead-text" style="margin-bottom: 2rem;">This is Baptiste. Watch what happened when he implemented this system:</p>
+
+                <div class="grid-3">
+                    <div class="proof-card" style="padding: 1rem;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap1_42k.png" alt="Baptiste post - 42K views" style="width: 100%; border-radius: 8px; margin-bottom: 0.8rem;">
+                        <p style="text-align: center; color: var(--electric-green); font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.4rem);">Post 1: 42K Views</p>
+                    </div>
+                    <div class="proof-card" style="padding: 1rem;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap2_1M.png" alt="Baptiste post - 1M views" style="width: 100%; border-radius: 8px; margin-bottom: 0.8rem;">
+                        <p style="text-align: center; color: var(--electric-green); font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.4rem);">Post 2: 1M+ Views</p>
+                    </div>
+                    <div class="proof-card" style="padding: 1rem;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap3_42k_likes.png" alt="Baptiste post - 4.4M views, 20K likes" style="width: 100%; border-radius: 8px; margin-bottom: 0.8rem;">
+                        <p style="text-align: center; color: var(--electric-green); font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.4rem);">Post 3: 4.4M Views, 20K Likes</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1.2rem, 2.2vw, 1.6rem); text-align: center;">Same person. Same system. <span class="text-green">Systematic progression.</span></p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 4: REAL RESULTS -->
+        <div class="slide" data-slide="4">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 4 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>What happens when you go viral:</h2>
+                
+                <div class="grid-2">
+                    <div class="proof-card" style="padding: 1.5rem;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap_datadog.png" alt="Datadog CEO reaching out" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+                        <h3 style="color: var(--electric-green);">200+ People from Datadog</h3>
+                        <p>Including the <strong>CEO</strong> who came and spoke at Baptiste's conference</p>
+                    </div>
+                    <div class="proof-card" style="padding: 1.5rem;">
+                        <img src="https://kkendrick01.github.io/vyra-gpt-modules/bap_ankur.png" alt="Ankur Jain reaching out" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+                        <h3 style="color: var(--electric-green);">Ankur Jain Reached Out</h3>
+                        <p>They had coffee together in New York</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); text-align: center; font-weight: 600;">This isn't about likes and comments.</p>
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); text-align: center; font-weight: 600; color: var(--electric-green);">This is about access, relationships, and revenue.</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 5: WHAT YOU'RE GETTING -->
+        <div class="slide" data-slide="5">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 5 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>What you're getting in <span class="text-green">Video 1:</span></h2>
+                
+                <div class="grid-2">
+                    <div class="proof-card">
+                        <h3>1. The LinkedIn Algorithm Reality</h3>
+                        <p>What 99% of users don't understand</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>2. 8 Battle-Tested Opener Formats</h3>
+                        <p>With line-by-line breakdowns</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>3. Temperature-Matched CTA System</h3>
+                        <p>With hard conversion data</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3>4. Hands-On Exercises</h3>
+                        <p>Build your opener arsenal</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p class="lead-text"><strong>What I need from you:</strong> Don't just watch. Build with me. I'll give you <span class="text-green">three creation checkpoints</span> throughout this video. Do them.</p>
+                    <p class="lead-text">The difference between the people who get results and the people who don't isn't talent—<span class="text-green">it's execution</span>.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 6: SECTION 1 - ALGORITHM REALITY -->
+        <div class="slide" data-slide="6">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 6 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 1: LinkedIn Algorithm Reality</div>
+                <h1 class="slide-title">The Feed Reality</h1>
+                
+                <p class="lead-text">Your content isn't competing with other consultants or coaches. You're competing with <span class="text-green">breaking news, family photos, and billion-dollar media companies</span> with teams of psychologists designing content to hijack attention.</p>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600;">Your ideal client is scanning LinkedIn between meetings, on mobile, with 47 other notifications competing for their focus.</p>
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--electric-green);">You have exactly 7 seconds to earn the next 7 seconds.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 7: DWELL TIME -->
+        <div class="slide" data-slide="7">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 7 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>What most people get wrong:</h2>
+                
+                <p class="lead-text">They optimize for <span class="text-grey">vanity metrics</span>. Likes, comments, shares.</p>
+                <p class="lead-text">But LinkedIn's own engineering team has confirmed they track something else entirely:</p>
+
+                <div class="formula-display">
+                    <div class="formula-text">DWELL TIME = DISTRIBUTION</div>
+                </div>
+
+                <p class="lead-text" style="margin-top: 2rem;">How long someone stays on your post.</p>
+                <p class="lead-text">More dwell time = more distribution. <span class="text-green">It's that simple.</span></p>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1.2rem, 2.2vw, 1.6rem);">LinkedIn passed <span class="text-green">1 billion registered members</span>. The feed is more competitive than ever.</p>
+                    <p style="font-size: clamp(1.2rem, 2.2vw, 1.6rem);">But here's the opportunity: 99% of people are still playing the old game—chasing engagement bait and generic inspiration posts.</p>
+                    <p style="font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: var(--electric-green); font-weight: 600;">The 1% who understand dwell time are capturing all the high-value attention.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 8: THE TWO RULES -->
+        <div class="slide" data-slide="8">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 8 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>The Two Rules We Operate By</h2>
+                
+                <div class="grid-2">
+                    <div class="proof-card">
+                        <h3 style="color: var(--electric-green);">Rule 1: Lead with meaning</h3>
+                        <p>Your first line must contain status, novelty, or immediate utility.</p>
+                        <p style="margin-top: 1rem;">If someone can scroll past your opener without feeling like they're missing something important, <strong>you've already lost</strong>.</p>
+                    </div>
+                    <div class="proof-card">
+                        <h3 style="color: var(--electric-green);">Rule 2: Earn the scroll</h3>
+                        <p>Every line buys you the next line.</p>
+                        <p style="margin-top: 1rem;">We use open loops and precision, not clever phrasing. Your goal isn't to sound smart—<strong>it's to keep them reading</strong>.</p>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 9: GOOD VS BAD COMPARISON -->
+        <div class="slide" data-slide="9">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 9 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>Good vs Bad Openers</h2>
+                
+                <div class="two-column">
+                    <div class="comparison-box bad">
+                        <div class="comparison-label">❌ BAD</div>
+                        <p class="example-text">"I've been thinking about success lately..."</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey); font-size: 1rem;">Vague. No hook. No reason to keep reading.</p>
+                    </div>
+                    <div class="comparison-box good">
+                        <div class="comparison-label">✓ GOOD</div>
+                        <p class="example-text">"The 3-line email that generated $2.3M in pipeline for B2B founders in Q4."</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey); font-size: 1rem;">Specific. Outcome-driven. Immediate utility.</p>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem; font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 600; text-align: center;">See the difference?</p>
+            </div>
+                <div class="notes-content">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: CHECKPOINT 1 -->
+        <div class="slide" data-slide="10">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 10 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Checkpoint 1</div>
+                    <h2>Your LinkedIn Thesis</h2>
+                    
+                    <p class="lead-text" style="margin-top: 1.5rem;"><strong>Stop the video right now and write this down:</strong></p>
+
+                    <div class="formula-display" style="margin-top: 2rem;">
+                        <div class="formula-text">"I help [WHO] achieve [WHAT RESULT]."</div>
+                    </div>
+
+                    <p class="lead-text" style="margin-top: 2rem;">One line. That's it. This becomes your North Star for every post, every hook, every CTA.</p>
+
+                    <div class="example-box" style="margin-top: 2rem;">
+                        <div class="example-label">Examples:</div>
+                        <p class="example-text">"I help B2B SaaS founders at Series A build repeatable pipeline without hiring more SDRs."</p>
+                        <p class="example-text">"I help fractional CMOs at 15-50M ARR companies land $15K/month retainers in 30 days."</p>
+                    </div>
+
+                    <p style="margin-top: 2rem; font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 600; color: var(--electric-green);">Write yours now. Everything we build flows from this single line.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 10: SECTION 2 INTRO -->
+        <div class="slide" data-slide="10">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 11 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 2: The 8 Authority Opener Arsenal</div>
+                <h1 class="slide-title">Your Battle-Tested Arsenals</h1>
+                
+                <p class="lead-text">These 8 opener formats are battle-tested across <span class="text-green">millions of dollars</span> in LinkedIn-generated revenue.</p>
+                <p class="lead-text">Each one is designed for specific market conditions and buyer temperature.</p>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1.2rem, 2.2vw, 1.6rem);">I'm going to give you:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li style="font-size: clamp(1.1rem, 2vw, 1.4rem);">The psychology</li>
+                        <li style="font-size: clamp(1.1rem, 2vw, 1.4rem);">The formula</li>
+                        <li style="font-size: clamp(1.1rem, 2vw, 1.4rem);">A real breakdown showing exactly how it works</li>
+                        <li style="font-size: clamp(1.1rem, 2vw, 1.4rem);">Then you'll write your own</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 2rem; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--electric-green); text-align: center;">Let's go.</p>
+            </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 11: OPENER 1 - LIGHTNING NEWS -->
+        <div class="slide" data-slide="11">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 12 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #1</span>
+                    <h2 class="hook-title">The Lightning News Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When a platform, regulation, or market shift just changed the game for your audience.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Leverages recency bias and fear of missing critical information. Your audience needs to know they're informed about changes that affect their business.</p>
+                    
+                    <div class="hook-formula">[RECENT EVENT] just changed how [CORE PROCESS] works.</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "Apple's Private Cloud Compute just rewired how enterprise AI handles data privacy."</p>
+                        <p class="example-text"><strong>Line 2 (tension):</strong> "If you're a SaaS founder selling to regulated industries, this changes your entire security narrative."</p>
+                        <p class="example-text"><strong>Line 3 (open loop):</strong> "Here's what most founders are missing—and what the winners are doing instead:"</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: Three specific implications, each one sentence, each building urgency.</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What major news story from the last 30 days directly affects how your ideal client does business?</p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 12: OPENER 2 - MONEY MOVES -->
+        <div class="slide" data-slide="12">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 13 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #2</span>
+                    <h2 class="hook-title">The Money Moves Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you can point to a specific tactic that generated measurable revenue at scale.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Operators care about one thing above all—what actually works. This signals proven ROI without the usual guru fluff.</p>
+                    
+                    <div class="hook-formula">The [SPECIFIC TACTIC] behind $[AMOUNT] in [TIMEFRAME].</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "The 3-line email template that generated $2.3M in pipeline for B2B founders in Q4."</p>
+                        <p class="example-text"><strong>Line 2:</strong> "No tricks, no hacks. Just psychology."</p>
+                        <p class="example-text"><strong>Line 3 (payoff setup):</strong> "Here's the structure:"</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: The actual template, formatted clearly, with inline commentary on why each line works.</p>
+                    </div>
+
+                    <div class="grid-3" style="margin-top: 1.5rem;">
+                        <div class="metric-card">
+                            <div class="metric-value">42K</div>
+                            <div class="metric-label">Views</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">19</div>
+                            <div class="metric-label">Saves</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">$24K</div>
+                            <div class="metric-label">Closed Revenue (21 days)</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: Write your own Money Moves hook for one result you've delivered.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 13: OPENER 3 - EVERYONE'S DOING IT WRONG -->
+        <div class="slide" data-slide="13">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 14 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #3</span>
+                    <h2 class="hook-title">The "Everyone's Doing It Wrong" Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you see widespread behavior in your industry that's actually counterproductive.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Creates in-group status—"I'm one of the smart ones who knows better"—while positioning you as the guide who understands the real game.</p>
+                    
+                    <div class="hook-formula">[GROUP] keep chasing [OBVIOUS THING]; [WINNERS] capture [REAL THING].</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "Consultants keep chasing followers on LinkedIn. Elite operators capture dwell time and convert it into $50K deals."</p>
+                        <p class="example-text"><strong>Line 2 (reframe):</strong> "Followers are vanity. Attention is currency."</p>
+                        <p class="example-text"><strong>Line 3 (proof point):</strong> "I have 2,400 connections. Last month: 9 discovery calls, 4 closed clients, $67K revenue."</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: The dwell-time playbook in 4 moves.</p>
+                    </div>
+
+                    <div class="two-column" style="margin-top: 1.5rem;">
+                        <div class="metric-card">
+                            <div class="metric-label">Generic inspiration post:</div>
+                            <div class="metric-value" style="font-size: clamp(1.5rem, 3vw, 2.5rem);">18K views</div>
+                            <div class="metric-label">240 likes, 0 DMs</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: var(--electric-green);">
+                            <div class="metric-label">"Doing it wrong" post:</div>
+                            <div class="metric-value" style="font-size: clamp(1.5rem, 3vw, 2.5rem);">27K views</div>
+                            <div class="metric-label">11 DMs, 4 calls booked</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What is your industry chasing that doesn't actually drive results?</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 14: OPENER 4 - POST-MORTEM -->
+        <div class="slide" data-slide="14">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 15 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #4</span>
+                    <h2 class="hook-title">The Post-Mortem Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you've seen a clear mistake pattern or analyzed a public failure.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> People learn more from failures than successes. This positions you as the forensic expert who can diagnose and prevent disaster.</p>
+                    
+                    <div class="hook-formula">[COMPANY/PERSON] lost [AMOUNT/OUTCOME] because of [MISTAKE]. Here's how it happens.</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "This Series B SaaS company burned $400K on a rebrand that tanked their conversion rate by 34%."</p>
+                        <p class="example-text"><strong>Line 2:</strong> "I audited what went wrong. It's a case study in how not to position for growth."</p>
+                        <p class="example-text"><strong>Line 3:</strong> "The 3 fatal assumptions:"</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: The breakdown of what failed, why it failed, what they should have done instead.</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What recent failure in your space can you dissect with expertise?</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 15: OPENER 5 - CONTRARIAN TAKE -->
+        <div class="slide" data-slide="15">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 16 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #5</span>
+                    <h2 class="hook-title">The Contrarian Take Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When conventional wisdom in your industry is actually hurting results.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Smart operators are drawn to contrarian insight. It signals you've done the work to think differently.</p>
+                    
+                    <div class="hook-formula">Everyone tells you to [COMMON ADVICE]. That's backwards. Here's why.</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "Everyone tells B2B founders to 'find product-market fit first, then scale sales.' That's backwards. Here's why."</p>
+                        <p class="example-text"><strong>Line 2:</strong> "The companies that scale fastest build their sales motion while they're building the product."</p>
+                        <p class="example-text"><strong>Line 3:</strong> "Here's the playbook:"</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: The contrarian approach, with reasoning and proof points.</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What widely accepted advice in your field do you disagree with? Why?</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 16: OPENER 6 - TRANSFORMATION STORY -->
+        <div class="slide" data-slide="16">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 17 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #6</span>
+                    <h2 class="hook-title">The Transformation Story Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you have documented, verifiable transformation.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Social proof combined with concrete outcomes. The more specific the transformation, the more credible it feels.</p>
+                    
+                    <div class="hook-formula">From [STARTING POINT] to [END POINT] in [TIMEFRAME].</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Breakdown:</div>
+                        <p class="example-text"><strong>Hook:</strong> "From 12 LinkedIn views per post to 15,000+ views and 3 booked calls per week in 21 days."</p>
+                        <p class="example-text"><strong>Line 2:</strong> "Same founder, same offer. Only the opening strategy changed."</p>
+                        <p class="example-text"><strong>Line 3:</strong> "Here's what we fixed:"</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey);">Body: The 3 changes made, each specific, each replicable.</p>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 1.5rem;">
+                        <p><strong>Critical:</strong> The transformation must be believable and relevant to your audience's goals. Don't inflate numbers. <span class="text-green">Credibility is everything.</span></p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: Write one transformation you've delivered using the formula.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 17: OPENER 7 - MEANING OF MOMENT -->
+        <div class="slide" data-slide="17">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 18 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #7</span>
+                    <h2 class="hook-title">The Meaning of Moment Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you can reframe an obvious trend into a strategic insight.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Your audience wants to feel like they understand where things are heading, not just what's happening now.</p>
+                    
+                    <div class="hook-formula">[OBVIOUS TREND] isn't about [SURFACE THING]. It's about [DEEPER SHIFT].</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Example:</div>
+                        <p class="example-text"><strong>Hook:</strong> "The rise of AI tools in marketing isn't about automation. It's about who owns customer attention in a world where content is infinite."</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What obvious trend in your space has a deeper meaning that most people miss? Write it.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 18: OPENER 8 - PATTERN RECOGNITION -->
+        <div class="slide" data-slide="18">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 19 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <span class="hook-number">Opener #8</span>
+                    <h2 class="hook-title">The Pattern Recognition Hook</h2>
+                    
+                    <p class="hook-when"><strong>When to use:</strong> When you notice a repeating mistake or winning behavior across your client base.</p>
+                    
+                    <p class="hook-psychology"><strong>Psychology:</strong> Demonstrates deep domain expertise—you've seen this movie before, you know how it ends.</p>
+                    
+                    <div class="hook-formula">After [EXPERIENCE], I keep seeing [PATTERN]. Here's what it means.</div>
+
+                    <div class="example-box">
+                        <div class="example-label">Real Example:</div>
+                        <p class="example-text"><strong>Hook:</strong> "After auditing 200+ LinkedIn profiles for consultants, I keep seeing the same fatal mistake in the headline. Costs them $30K+ per year in invisible lost deals."</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--electric-green); font-weight: 600;">Your prompt: What pattern do you keep seeing across your client work? Write it.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 19: CHECKPOINT 2 -->
+        <div class="slide" data-slide="19">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 20 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Checkpoint 2</div>
+                    <h2>Choose Your Arsenal</h2>
+                    
+                    <p class="lead-text" style="margin-top: 1.5rem;"><strong>Stop the video.</strong> You just learned 8 opener formats.</p>
+
+                    <p class="lead-text">Write down the TWO you will use in the next 7 days:</p>
+
+                    <div class="grid-2" style="margin-top: 2rem;">
+                        <div class="proof-card">
+                            <h3>Format 1:</h3>
+                            <p style="color: var(--steel-grey);">[Write which opener you'll use]</p>
+                        </div>
+                        <div class="proof-card">
+                            <h3>Format 2:</h3>
+                            <p style="color: var(--steel-grey);">[Write which opener you'll use]</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 2rem; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--white);">Don't overthink it. Pick two, commit to using them.</p>
+                    <p style="font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--electric-green); font-weight: 600;">You'll get better with practice.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 20: SECTION 3 - CTA SYSTEM -->
+        <div class="slide" data-slide="20">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 21 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="section-label">Section 3: The CTA System</div>
+                <h1 class="slide-title">Convert Attention Into Action</h1>
+                
+                <div class="highlight-box">
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); line-height: 1.4;">Your opener gets them to read.</p>
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); line-height: 1.4;">Your body keeps them reading.</p>
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); line-height: 1.4; color: var(--electric-green); font-weight: 600;">Your CTA converts attention into action.</p>
+                </div>
+
+                <p class="lead-text" style="margin-top: 2rem;">Most people either don't include a CTA or they use the <span class="text-green">wrong temperature</span> for their audience.</p>
+                
+                <p class="lead-text">I'm about to show you the exact system that determines which CTA to use when.</p>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 21: CTA TEMPERATURES -->
+        <div class="slide" data-slide="21">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 22 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>Understanding CTA Temperatures</h2>
+                
+                <p class="lead-text">Every CTA lives on a temperature spectrum:</p>
+
+                <div class="temperature-spectrum">
+                    <div class="temp-card soft">
+                        <div class="temp-label">SOFT CTA</div>
+                        <p>Low commitment</p>
+                        <p>High response rate</p>
+                    </div>
+                    <div class="temp-card medium">
+                        <div class="temp-label">MEDIUM CTA</div>
+                        <p>Moderate commitment</p>
+                        <p>Qualified responses</p>
+                    </div>
+                    <div class="temp-card hard">
+                        <div class="temp-label">HARD CTA</div>
+                        <p>High commitment</p>
+                        <p>Buyer-ready only</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p class="lead-text"><strong>The mistake:</strong> Using a hard CTA with a cold audience, or a soft CTA with a warm audience ready to buy.</p>
+                    <p class="lead-text" style="color: var(--electric-green); font-weight: 600;"><strong>The system:</strong> Match CTA temperature to audience temperature.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 22: THE THREE CTA TYPES -->
+        <div class="slide" data-slide="22">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 23 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>The Three CTA Types</h2>
+                
+                <div class="hook-card">
+                    <h3 style="color: #4169E1;">Soft CTA (Cold/Warm Audience)</h3>
+                    <p><strong>Purpose:</strong> Start conversation, no commitment</p>
+                    <p><strong>Psychology:</strong> Removes friction, opens dialog</p>
+                    
+                    <div class="example-box">
+                        <div class="example-label">Examples:</div>
+                        <p class="example-text">"What's your take on this? Drop a comment."</p>
+                        <p class="example-text">"If you want the full framework, DM me 'SYSTEM' and I'll send it over."</p>
+                    </div>
+
+                    <p><strong>When to use:</strong> First 5-10 posts, building new audience, testing content angles</p>
+
+                    <div class="grid-3" style="margin-top: 1rem;">
+                        <div class="metric-card" style="border-left-color: #4169E1;">
+                            <div class="metric-value" style="color: #4169E1; font-size: clamp(1.5rem, 3vw, 2.5rem);">42K</div>
+                            <div class="metric-label">Views</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #4169E1;">
+                            <div class="metric-value" style="color: #4169E1; font-size: clamp(1.5rem, 3vw, 2.5rem);">19</div>
+                            <div class="metric-label">Saves</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #4169E1;">
+                            <div class="metric-value" style="color: #4169E1; font-size: clamp(1.5rem, 3vw, 2.5rem);">3</div>
+                            <div class="metric-label">Inbound DMs</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; color: var(--steel-grey);"><strong>Why it works:</strong> Zero barrier to engagement, builds rapport first</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+        <!-- SLIDE 23: MEDIUM & HARD CTAs -->
+        <div class="slide" data-slide="23">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 24 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="hook-card">
+                    <h3 style="color: #FFD700;">Medium CTA (Warm Audience)</h3>
+                    <p><strong>Purpose:</strong> Move to private conversation with some qualification</p>
+                    <p><strong>Psychology:</strong> Creates slight barrier—only people with the problem act</p>
+                    
+                    <div class="example-box">
+                        <div class="example-label">Examples:</div>
+                        <p class="example-text">"If you're stuck on [specific problem], DM me and I'll send you the diagnostic framework I use with clients."</p>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 1rem;">
+                        <div class="metric-card" style="border-left-color: #FFD700;">
+                            <div class="metric-value" style="color: #FFD700; font-size: clamp(1.5rem, 3vw, 2.5rem);">27K views</div>
+                            <div class="metric-label">11 DMs, 4 calls booked</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #FFD700;">
+                            <div class="metric-label">Why it works:</div>
+                            <p style="color: var(--white);">Pre-qualifies by problem awareness</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hook-card" style="margin-top: 2rem;">
+                    <h3 style="color: #FF4500;">Hard CTA (Hot Audience)</h3>
+                    <p><strong>Purpose:</strong> Direct call to action for buyer-ready prospects</p>
+                    <p><strong>Psychology:</strong> For people who already trust you and know your offer</p>
+                    
+                    <div class="example-box">
+                        <div class="example-label">Examples:</div>
+                        <p class="example-text">"I have 2 spots open in Q1 for LinkedIn strategy clients. $5K per month, 90-day minimum. DM me if you're interested."</p>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 1rem;">
+                        <div class="metric-card" style="border-left-color: #FF4500;">
+                            <div class="metric-value" style="color: #FF4500; font-size: clamp(1.5rem, 3vw, 2.5rem);">8K views</div>
+                            <div class="metric-label">2 calls booked, both closed at $5K+</div>
+                        </div>
+                        <div class="metric-card" style="border-left-color: #FF4500;">
+                            <div class="metric-label">Why it works:</div>
+                            <p style="color: var(--white);">Lower volume, higher intent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="notes-content">
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: THE BRIDGE -->
+        <div class="slide" data-slide="24">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 25 of 26</div>
+            </div>
+            <div class="slide-content">
+                <h2>The Transition Bridge</h2>
+                
+                <p class="lead-text">The secret to CTAs isn't just temperature—it's the <span class="text-green">bridge</span> between your content and your call to action.</p>
+
+                <div class="two-column" style="margin-top: 2rem;">
+                    <div class="comparison-box bad">
+                        <div class="comparison-label">❌ BAD BRIDGE</div>
+                        <p class="example-text">"Thanks for reading. DM me if you want help."</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey); font-size: 1rem;">Generic. No connection to content. No qualification.</p>
+                    </div>
+                    <div class="comparison-box good">
+                        <div class="comparison-label">✓ GOOD BRIDGE</div>
+                        <p class="example-text">"If you just read this and realized your LinkedIn strategy has the same fatal flaw, you're not alone. I've fixed this for 40+ consultants in the last year. DM me 'AUDIT' and I'll send you the diagnostic framework I use."</p>
+                        <p style="margin-top: 1rem; color: var(--steel-grey); font-size: 1rem;">Acknowledges realization. Normalizes. Proves expertise. Clear next step.</p>
+                    </div>
+                </div>
+
+                <div class="formula-display" style="margin-top: 2rem;">
+                    <div class="formula-text">[Acknowledge what they just realized] + [Normalize the problem] + [Prove you've solved it] + [One clear next step]</div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 25: CHECKPOINT 3 & CLOSE -->
+        <div class="slide" data-slide="25">
+            <div class="slide-header">
+                <div class="logo">VYRALAB</div>
+                <div class="slide-number">Slide 26 of 26</div>
+            </div>
+            <div class="slide-content">
+                <div class="checkpoint">
+                    <div class="checkpoint-badge">Checkpoint 3</div>
+                    <h2>Build Your CTAs</h2>
+                    
+                    <p class="lead-text" style="margin-top: 1.5rem;">Final exercise for Video 1. Write three CTAs for the same offer:</p>
+
+                    <div class="grid-3" style="margin-top: 2rem;">
+                        <div class="proof-card">
+                            <h3 style="color: #4169E1;">Soft CTA:</h3>
+                            <p style="color: var(--steel-grey);">[Write yours]</p>
+                        </div>
+                        <div class="proof-card">
+                            <h3 style="color: #FFD700;">Medium CTA:</h3>
+                            <p style="color: var(--steel-grey);">[Write yours]</p>
+                        </div>
+                        <div class="proof-card">
+                            <h3 style="color: #FF4500;">Hard CTA:</h3>
+                            <p style="color: var(--steel-grey);">[Write yours]</p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 2rem; font-size: clamp(1.1rem, 2vw, 1.5rem);">Use the bridge formula. Be specific. Make the next step crystal clear.</p>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <h2 style="margin-bottom: 1rem;">You Just Learned:</h2>
+                    <ul>
+                        <li>The algorithm reality that determines who sees your content</li>
+                        <li>8 opener formats with line-by-line breakdowns</li>
+                        <li>The CTA temperature system with hard conversion data</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: var(--electric-green); font-weight: 600;">In Video 2: We build a post together, live. We map the algorithm game. We wire the revenue flywheel.</p>
+                    <p style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 700; margin-top: 1rem;">This is where components become a machine.</p>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn">←</button>
+        <button class="nav-button" id="nextBtn">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 26;
+        const slides = document.querySelectorAll('.slide');
+        const progressFill = document.getElementById('progressFill');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateSlide() {
+            // Remove all classes
+            slides.forEach(s => {
+                s.classList.remove('active', 'prev');
+            });
+
+            // Set current slide
+            const current = slides[currentSlide - 1];
+            current.classList.add('active');
+
+            // Set previous slides
+            for (let i = 0; i < currentSlide - 1; i++) {
+                slides[i].classList.add('prev');
+            }
+
+            // Update progress
+            const progress = (currentSlide / totalSlides) * 100;
+            progressFill.style.width = progress + '%';
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
