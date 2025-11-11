@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Minute Flow System Blueprint™ | Vyralab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --black: #000000;
+            --electric-green: #00FF41;
+            --white: #FFFFFF;
+            --steel-grey: #8B8B8B;
+            --dark-grey: #1a1a1a;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-grey) 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--electric-green);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--electric-green);
+            opacity: 0.03;
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.03; }
+            50% { transform: scale(1.1); opacity: 0.05; }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--steel-grey);
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--electric-green);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .science-badge {
+            display: inline-block;
+            background: var(--electric-green);
+            color: var(--black);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 30px;
+            letter-spacing: 0.03em;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .flow-conditions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .condition-card {
+            background: var(--dark-grey);
+            border: 2px solid transparent;
+            padding: 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .condition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--electric-green);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .condition-card:hover {
+            border-color: var(--electric-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.1);
+        }
+        
+        .condition-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .condition-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--electric-green);
+            color: var(--black);
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 1.2rem;
+            line-height: 40px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .condition-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+        
+        .condition-desc {
+            color: var(--steel-grey);
+            font-size: 0.95rem;
+        }
+        
+        .phase-tracker {
+            background: var(--dark-grey);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .phase-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .phase-header h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .phase-header p {
+            color: var(--steel-grey);
+            font-size: 1.1rem;
+        }
+        
+        .phases {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .phases::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: var(--steel-grey);
+            z-index: 0;
+        }
+        
+        .phase-item {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .phase-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--black);
+            border: 3px solid var(--steel-grey);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .phase-item.active .phase-circle {
+            background: var(--electric-green);
+            border-color: var(--electric-green);
+            color: var(--black);
+            transform: scale(1.1);
+        }
+        
+        .phase-item:hover .phase-circle {
+            border-color: var(--electric-green);
+        }
+        
+        .phase-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--steel-grey);
+            transition: color 0.3s ease;
+        }
+        
+        .phase-item.active .phase-label {
+            color: var(--electric-green);
+        }
+        
+        .phase-time {
+            font-size: 0.8rem;
+            color: var(--steel-grey);
+            margin-top: 5px;
+        }
+        
+        .phase-content {
+            background: var(--black);
+            padding: 40px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .phase-section {
+            display: none;
+        }
+        
+        .phase-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .checklist li {
+            padding: 15px 20px;
+            background: var(--dark-grey);
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--electric-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .checklist li::before {
+            content: '□';
+            position: absolute;
+            left: 20px;
+            font-size: 1.3rem;
+            color: var(--electric-green);
+            transition: all 0.3s ease;
+        }
+        
+        .checklist li:hover {
+            background: var(--dark-grey);
+            transform: translateX(5px);
+        }
+        
+        .checklist li.checked::before {
+            content: '✓';
+            font-weight: 900;
+        }
+        
+        .checklist li.checked {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .timer-widget {
+            background: linear-gradient(135deg, var(--dark-grey) 0%, var(--black) 100%);
+            border: 2px solid var(--electric-green);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--electric-green);
+            margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            background: var(--electric-green);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--electric-green);
+            color: var(--electric-green);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--electric-green);
+            color: var(--black);
+        }
+        
+        .scoring-tool {
+            background: var(--dark-grey);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+        
+        .scoring-tool h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--electric-green);
+        }
+        
+        .score-item {
+            margin: 30px 0;
+        }
+        
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .score-value {
+            color: var(--electric-green);
+            font-size: 1.2rem;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--black);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--electric-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px var(--electric-green);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--electric-green);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .score-feedback {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--black);
+            border-radius: 8px;
+            border-left: 4px solid var(--electric-green);
+        }
+        
+        .avg-score {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--black);
+            border-radius: 8px;
+            border: 2px solid var(--electric-green);
+        }
+        
+        .avg-score-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--electric-green);
+        }
+        
+        .prompt-box {
+            background: var(--black);
+            border: 1px solid var(--steel-grey);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--electric-green);
+            position: relative;
+        }
+        
+        .prompt-box::before {
+            content: 'AI PROMPT';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--black);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--steel-grey);
+            letter-spacing: 0.1em;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 60px 0 30px;
+            color: var(--electric-green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .tip-box {
+            background: var(--dark-grey);
+            border-left: 4px solid var(--electric-green);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        .tip-box strong {
+            color: var(--electric-green);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .download-section {
+            text-align: center;
+            margin: 80px 0;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, var(--dark-grey) 0%, var(--black) 100%);
+            border-radius: 12px;
+            border: 2px solid var(--electric-green);
+        }
+        
+        .download-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .download-section p {
+            color: var(--steel-grey);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.2rem; }
+            .phases { flex-direction: column; gap: 30px; }
+            .phases::before { display: none; }
+            .timer-display { font-size: 3rem; }
+            .flow-conditions { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>90-Minute Flow System Blueprint™</h1>
+        <p class="subtitle">Build flow on command. Use your brain for decisions, not chaos.</p>
+        <p class="tagline">Science-Based • Battle-Tested • Repeatable</p>
+        <span class="science-badge">Grounded in Csíkszentmihályi + Cognitive Load Theory</span>
+    </div>
+
+    <div class="container">
+        <div class="section-title">Flow Is Not Luck. Flow Is Architecture.</div>
+        <p style="font-size: 1.2rem; color: var(--steel-grey); margin-bottom: 40px;">
+            Every flow state requires four non-negotiable conditions. Remove one, you break the system. Lock all four in, you build flow on command.
+        </p>
+
+        <div class="flow-conditions">
+            <div class="condition-card">
+                <div class="condition-number">1</div>
+                <div class="condition-title">Clear Goal</div>
+                <div class="condition-desc">You know exactly what you're doing in this block. No ambiguity. No wandering.</div>
+            </div>
+            <div class="condition-card">
+                <div class="condition-number">2</div>
+                <div class="condition-title">Immediate Feedback</div>
+                <div class="condition-desc">You see quickly whether the work is strong or weak. Hook scores. Clarity checks. Pattern recognition.</div>
+            </div>
+            <div class="condition-card">
+                <div class="condition-number">3</div>
+                <div class="condition-title">Skill/Challenge Match</div>
+                <div class="condition-desc">The work is slightly hard, inside your ability to solve. Not overwhelming. Not boring.</div>
+            </div>
+            <div class="condition-card">
+                <div class="condition-number">4</div>
+                <div class="condition-title">Zero Distractions</div>
+                <div class="condition-desc">No notifications. No hunting for files. No endless tab flipping. Clean environment. Clear mind.</div>
+            </div>
+        </div>
+
+        <div class="phase-tracker">
+            <div class="phase-header">
+                <h2>The 90-Minute Flow Block</h2>
+                <p>Click each phase to explore the exact structure</p>
+            </div>
+
+            <div class="phases">
+                <div class="phase-item active" data-phase="1">
+                    <div class="phase-circle">A</div>
+                    <div class="phase-label">Pre-Flow</div>
+                    <div class="phase-time">10-15 min</div>
+                </div>
+                <div class="phase-item" data-phase="2">
+                    <div class="phase-circle">B</div>
+                    <div class="phase-label">Deep Work</div>
+                    <div class="phase-time">65-70 min</div>
+                </div>
+                <div class="phase-item" data-phase="3">
+                    <div class="phase-circle">C</div>
+                    <div class="phase-label">Exit Ritual</div>
+                    <div class="phase-time">5-15 min</div>
+                </div>
+            </div>
+
+            <div class="phase-content">
+                <div class="phase-section active" id="phase-1">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--electric-green);">Phase A: Pre-Flow</h3>
+                    <p style="font-size: 1.1rem; color: var(--steel-grey); margin-bottom: 30px;">
+                        <strong style="color: var(--white);">Objective:</strong> Remove every extraneous decision before the block starts.
+                    </p>
+                    
+                    <ul class="checklist">
+                        <li><strong>One Block. One Objective.</strong><br>Write it at the top: "In the next 90 minutes I will: ____________________"</li>
+                        <li><strong>Load Inputs.</strong><br>Open the exact doc. Load source material, research, prior notes, examples, frameworks.</li>
+                        <li><strong>Environment Reset.</strong><br>Close Slack, email, DMs, feeds. Phone in another room or airplane mode. Only essential tabs open.</li>
+                        <li><strong>Micro Ritual.</strong><br>3 slow breaths. Say the rule out loud: "For the next 90 minutes, my only job is [objective]."</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>Why This Works:</strong>
+                        This pre-block deletes extraneous cognitive load. Your brain walks in clear. No decisions needed. Only execution.
+                    </div>
+                </div>
+
+                <div class="phase-section" id="phase-2">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--electric-green);">Phase B: Deep Work</h3>
+                    <p style="font-size: 1.1rem; color: var(--steel-grey); margin-bottom: 30px;">
+                        <strong style="color: var(--white);">Objective:</strong> Stay inside flow conditions from minute 1 to minute 70.
+                    </p>
+                    
+                    <div style="margin: 30px 0;">
+                        <h4 style="color: var(--electric-green); margin-bottom: 15px;">Minute 0-5: Get Moving</h4>
+                        <p style="color: var(--steel-grey);">Start ugly. No polishing. Put down a quick outline or bullet skeleton.</p>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        <h4 style="color: var(--electric-green); margin-bottom: 15px;">Minute 5-30: First Pass</h4>
+                        <p style="color: var(--steel-grey); margin-bottom: 15px;">Fill the outline. Use AI to assist, not decide.</p>
+                        <div class="prompt-box">"Score this hook 1-10 for curiosity and clarity."</div>
+                        <div class="prompt-box">"Highlight any lines that feel generic."</div>
+                        <div class="prompt-box">"Propose 3 stronger variations of this CTA that feel human."</div>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        <h4 style="color: var(--electric-green); margin-bottom: 15px;">Minute 30-45: Feedback Loop</h4>
+                        <p style="color: var(--steel-grey);">Run hooks and CTAs through defined checks. Mark weak spots. Only edit pieces that change outcomes.</p>
+                    </div>
+
+                    <div style="margin: 30px 0;">
+                        <h4 style="color: var(--electric-green); margin-bottom: 15px;">Minute 45-65: Refine for Outcome</h4>
+                        <p style="color: var(--steel-grey);">Ask one question: "Does this piece move a real person closer to a real action?" Tighten structure. Clarify story. Sharpen proof.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>If You Stall:</strong>
+                        Stand up 30 seconds. One sip of water. Re-read the objective. Begin again from the next line. Do not wander.
+                    </div>
+                </div>
+
+                <div class="phase-section" id="phase-3">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--electric-green);">Phase C: Exit Ritual</h3>
+                    <p style="font-size: 1.1rem; color: var(--steel-grey); margin-bottom: 30px;">
+                        <strong style="color: var(--white);">Objective:</strong> Close the loop. Preserve momentum. Protect trust in the system.
+                    </p>
+                    
+                    <ul class="checklist">
+                        <li><strong>Decide:</strong><br>Ship it. Queue it. Or save as "V1 Complete" with scheduled review time.</li>
+                        <li><strong>Tag and Store:</strong><br>Save in one labeled place: "Client / Date / Asset Type." No desktop clutter. No mystery files.</li>
+                        <li><strong>Score the Block:</strong><br>Rate focus, output quality, and emotional feel (1-5 each). Anything under 3 signals a system issue.</li>
+                        <li><strong>One Line Reflection:</strong><br>"Next block will be easier if I: _____________"</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>Why This Works:</strong>
+                        This closes cognitive loops. Your brain learns that starting a block leads to completion. That's how flow becomes repeatable, not rare.
+                    </div>
+
+                    <div class="scoring-tool">
+                        <h3>Score Your Flow Block</h3>
+                        
+                        <div class="score-item">
+                            <div class="score-label">
+                                <span>Focus Quality</span>
+                                <span class="score-value" id="focus-value">3</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="slider" id="focus-slider">
+                        </div>
+
+                        <div class="score-item">
+                            <div class="score-label">
+                                <span>Output Quality</span>
+                                <span class="score-value" id="output-value">3</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="slider" id="output-slider">
+                        </div>
+
+                        <div class="score-item">
+                            <div class="score-label">
+                                <span>Emotional Feel</span>
+                                <span class="score-value" id="emotional-value">3</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="slider" id="emotional-slider">
+                        </div>
+
+                        <div class="avg-score">
+                            <div style="color: var(--steel-grey); margin-bottom: 10px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Average Score</div>
+                            <div class="avg-score-number" id="avg-score">3.0</div>
+                            <div id="score-feedback" style="margin-top: 20px; color: var(--steel-grey);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timer-widget">
+            <h2 style="margin-bottom: 10px;">90-Minute Flow Timer</h2>
+            <p style="color: var(--steel-grey); margin-bottom: 20px;">Lock in. The clock doesn't lie.</p>
+            <div class="timer-display" id="timer">90:00</div>
+            <div style="color: var(--steel-grey); margin-bottom: 20px;" id="phase-label">Ready to Start</div>
+            <div class="timer-controls">
+                <button class="btn" id="start-btn">Start Flow Block</button>
+                <button class="btn btn-secondary" id="reset-btn">Reset</button>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2>Take This System With You</h2>
+            <p>This blueprint is yours. Use it. Refine it. Dominate with it.</p>
+            <button class="btn" onclick="window.print()">Download Blueprint</button>
+        </div>
+    </div>
+
+    <script>
+        // Phase Navigation
+        const phaseItems = document.querySelectorAll('.phase-item');
+        const phaseSections = document.querySelectorAll('.phase-section');
+        
+        phaseItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const phaseNum = item.getAttribute('data-phase');
+                
+                phaseItems.forEach(p => p.classList.remove('active'));
+                phaseSections.forEach(s => s.classList.remove('active'));
+                
+                item.classList.add('active');
+                document.getElementById(`phase-${phaseNum}`).classList.add('active');
+            });
+        });
+
+        // Checklist Interaction
+        const checklistItems = document.querySelectorAll('.checklist li');
+        checklistItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('checked');
+            });
+        });
+
+        // Timer Functionality
+        let timerInterval;
+        let timeRemaining = 90 * 60; // 90 minutes in seconds
+        let isRunning = false;
+
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('start-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const phaseLabel = document.getElementById('phase-label');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update phase label
+            if (timeRemaining > 75 * 60) {
+                phaseLabel.textContent = 'Phase A: Pre-Flow Setup';
+            } else if (timeRemaining > 15 * 60) {
+                phaseLabel.textContent = 'Phase B: Deep Work Zone';
+            } else if (timeRemaining > 0) {
+                phaseLabel.textContent = 'Phase C: Exit Ritual';
+            } else {
+                phaseLabel.textContent = 'Flow Block Complete!';
+            }
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.textContent = 'Pause';
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        startBtn.textContent = 'Start Flow Block';
+                    }
+                }, 1000);
+            } else {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startBtn.textContent = 'Resume';
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeRemaining = 90 * 60;
+            startBtn.textContent = 'Start Flow Block';
+            phaseLabel.textContent = 'Ready to Start';
+            updateDisplay();
+        }
+
+        startBtn.addEventListener('click', startTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Scoring System
+        const focusSlider = document.getElementById('focus-slider');
+        const outputSlider = document.getElementById('output-slider');
+        const emotionalSlider = document.getElementById('emotional-slider');
+        
+        const focusValue = document.getElementById('focus-value');
+        const outputValue = document.getElementById('output-value');
+        const emotionalValue = document.getElementById('emotional-value');
+        
+        const avgScore = document.getElementById('avg-score');
+        const scoreFeedback = document.getElementById('score-feedback');
+
+        function updateScores() {
+            focusValue.textContent = focusSlider.value;
+            outputValue.textContent = outputSlider.value;
+            emotionalValue.textContent = emotionalSlider.value;
+            
+            const avg = ((parseInt(focusSlider.value) + parseInt(outputSlider.value) + parseInt(emotionalSlider.value)) / 3).toFixed(1);
+            avgScore.textContent = avg;
+            
+            if (avg >= 4) {
+                scoreFeedback.textContent = 'Elite performance. This is the system working.';
+                scoreFeedback.style.color = 'var(--electric-green)';
+            } else if (avg >= 3) {
+                scoreFeedback.textContent = 'Solid block. Identify what distracted you and eliminate it next time.';
+                scoreFeedback.style.color = 'var(--white)';
+            } else {
+                scoreFeedback.textContent = 'System issue detected. Review your pre-flow setup and environment.';
+                scoreFeedback.style.color = '#ff4444';
+            }
+        }
+
+        focusSlider.addEventListener('input', updateScores);
+        outputSlider.addEventListener('input', updateScores);
+        emotionalSlider.addEventListener('input', updateScores);
+    </script>
+</body>
+</html>
