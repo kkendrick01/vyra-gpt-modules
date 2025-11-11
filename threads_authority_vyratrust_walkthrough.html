@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyraTrust™ (Lite) Live Walkthrough - Vyralab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --vyra-black: #000000;
+            --vyra-green: #00ff41;
+            --vyra-white: #ffffff;
+            --vyra-steel: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--vyra-black);
+            color: var(--vyra-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--vyra-green);
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--vyra-black) 0%, #111111 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--vyra-white) 0%, var(--vyra-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 255, 65, 0.3)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--vyra-steel);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .system-badge {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--vyra-green);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            color: var(--vyra-green);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--vyra-white) 0%, var(--vyra-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--vyra-steel);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        /* Learning Objectives Grid */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .objective-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.2);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .objective-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .objective-card h4 {
+            color: var(--vyra-green);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Content Block */
+        .content-block {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .content-block h3 {
+            font-size: 1.8rem;
+            color: var(--vyra-green);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Five Step System */
+        .five-step-map {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
+            border: 2px solid var(--vyra-green);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .five-step-map h3 {
+            color: var(--vyra-green);
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            font-weight: 800;
+        }
+
+        .step-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .step-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--vyra-green);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--vyra-green);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-box:hover {
+            transform: scale(1.05);
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+        }
+
+        .step-arrow {
+            color: var(--vyra-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Interactive Step Cards */
+        .step-system {
+            margin: 4rem 0;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--vyra-green);
+        }
+
+        .step-header {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15) 0%, rgba(0, 255, 65, 0.05) 100%);
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .step-header:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 65, 0.1) 100%);
+        }
+
+        .step-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .step-number-badge {
+            width: 50px;
+            height: 50px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4rem;
+        }
+
+        .step-title-group h4 {
+            color: var(--vyra-green);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-subtitle {
+            color: var(--vyra-steel);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .step-expand-icon {
+            color: var(--vyra-green);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card.active .step-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .step-card.active .step-content {
+            max-height: 2000px;
+        }
+
+        .step-inner {
+            padding: 2.5rem;
+            border-top: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .principle-box {
+            background: rgba(0, 255, 65, 0.08);
+            border-left: 4px solid var(--vyra-green);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .principle-box strong {
+            color: var(--vyra-green);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .trigger-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .trigger-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .trigger-item:hover {
+            border-color: var(--vyra-green);
+            transform: translateX(5px);
+        }
+
+        .trigger-item strong {
+            color: var(--vyra-green);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Interface Mockup */
+        .interface-mockup {
+            background: #0a0a0a;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mockup-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(107, 114, 128, 0.2);
+        }
+
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--vyra-steel);
+        }
+
+        .mockup-dot:first-child { background: #ff5f56; }
+        .mockup-dot:nth-child(2) { background: #ffbd2e; }
+        .mockup-dot:nth-child(3) { background: #27c93f; }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--vyra-white);
+            font-family: 'Inter', sans-serif;
+            margin: 1rem 0;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--vyra-green);
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+        }
+
+        .input-label {
+            color: var(--vyra-green);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            border-left: 4px solid var(--vyra-green);
+            padding: 2rem 2.5rem;
+            margin: 2.5rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--vyra-white);
+        }
+
+        /* Voice Profile Cards */
+        .voice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .voice-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .voice-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .voice-card h4 {
+            color: var(--vyra-green);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .voice-card p {
+            color: var(--vyra-steel);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Structure */
+        .cta-framework {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+            border: 1px solid var(--vyra-green);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .cta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .cta-table th {
+            background: rgba(0, 255, 65, 0.2);
+            color: var(--vyra-green);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .cta-table td {
+            padding: 1rem;
+            border: 1px solid rgba(107, 114, 128, 0.2);
+            color: var(--vyra-white);
+        }
+
+        .cta-table tr:hover {
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        /* Media Integration Cards */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .media-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .media-card:hover {
+            border-color: var(--vyra-green);
+            transform: translateY(-5px);
+        }
+
+        .media-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .media-card h4 {
+            color: var(--vyra-green);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        /* Challenge Box */
+        .challenge-box {
+            background: linear-gradient(135deg, var(--vyra-green) 0%, #00cc33 100%);
+            color: var(--vyra-black);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .challenge-box h3 {
+            color: var(--vyra-black);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        .challenge-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .challenge-step {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .challenge-step strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Display */
+        .stats-display {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--vyra-green);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--vyra-steel);
+            font-size: 1rem;
+        }
+
+        /* Navigation Button */
+        .nav-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--vyra-green);
+            color: var(--vyra-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 1000;
+        }
+
+        .nav-button:hover {
+            background: var(--vyra-white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section { padding: 4rem 0; }
+            .content-block { padding: 2rem; }
+            .step-flow { flex-direction: column; }
+            .step-arrow { transform: rotate(90deg); }
+            .objectives-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="system-badge">LIVE SYSTEM WALKTHROUGH</div>
+                <h1>VYRATRUST™ (LITE)<br>AUTHORITY ENGINE</h1>
+                <p class="hero-subtitle">From Theory to Execution: The Complete Step-by-Step System for Manufacturing Authority Threads That Convert</p>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span style="color: var(--vyra-green); font-size: 2rem;">↓</span>
+        </div>
+    </section>
+
+    <!-- Section 1: Context & Learning Objectives -->
+    <section class="section" style="background: linear-gradient(135deg, #111111 0%, var(--vyra-black) 100%);">
+        <div class="container">
+            <h2 class="section-title">From Understanding to Execution</h2>
+            
+            <div class="content-block">
+                <p>Up to this point, we've talked about the psychology of Authority Threads — how attention becomes trust, and trust becomes inbound demand.</p>
+                <p style="font-size: 1.3rem; font-weight: 700; color: var(--vyra-green); margin-top: 2rem;">But understanding it isn't enough. Execution is where authority compounds.</p>
+            </div>
+
+            <div class="quote-block">
+                In this lesson, I'll show you exactly how to build an Authority Thread from scratch using VyraTrust (Lite). This is our internal writing engine that guides you through structure, clarity, and proof — so every thread you publish earns credibility and drives business outcomes.
+            </div>
+
+            <h3 style="color: var(--vyra-green); font-size: 2rem; margin: 3rem 0 2rem 0; font-weight: 800;">By the End of This Walkthrough:</h3>
+
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <div class="objective-number">1</div>
+                    <h4>Master the 5-Step Input System</h4>
+                    <p>Use VyraTrust's structured framework to generate threads that position you as an expert.</p>
+                </div>
+
+                <div class="objective-card">
+                    <div class="objective-number">2</div>
+                    <h4>Attach Professional CTAs</h4>
+                    <p>Convert attention into action with conversion-optimized call-to-action structures.</p>
+                </div>
+
+                <div class="objective-card">
+                    <div class="objective-number">3</div>
+                    <h4>Reinforce with Proof Media</h4>
+                    <p>Use VyraMage (Lite) to add scroll-stopping, credibility-building visual elements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: System Introduction -->
+    <section class="section" style="background: var(--vyra-black);">
+        <div class="container">
+            <h2 class="section-title">The VyraTrust™ Environment</h2>
+            <p class="section-subtitle">A controlled writing environment designed for precision. Single purpose: generating high-credibility, high-conversion Authority Threads.</p>
+
+            <div class="content-block">
+                <h3>Why Constraints Improve Performance</h3>
+                <p>If you type anything outside the system's scope, it refuses. That's not a glitch — that's discipline by design.</p>
+                <p>Behavioral science shows that constraint improves performance. When creators remove decision fatigue and work inside fixed rules, they produce faster and more consistently.</p>
+                <p style="margin-top: 2rem; font-size: 1.2rem; color: var(--vyra-green); font-weight: 700;">That's what this system does. It's guided automation: the human provides insight; VyraTrust provides structure.</p>
+            </div>
+
+            <div class="five-step-map">
+                <h3>THE 5-STEP AUTHORITY SPINE</h3>
+                <div class="step-flow">
+                    <div class="step-box">HOOK</div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-box">RESEARCH</div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-box">AUDIENCE</div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-box">OUTCOME</div>
+                    <div class="step-arrow">→</div>
+                    <div class="step-box">VOICE</div>
+                </div>
+                <p style="margin-top: 2rem; color: var(--vyra-steel); font-style: italic;">Every run follows these five steps — rooted in cognitive psychology and proven advertising frameworks.</p>
+            </div>
+
+            <div class="quote-block">
+                These steps front-load intention, proof, and audience awareness — the same structure top advertising agencies use before writing campaigns. This is systematic content creation, not random inspiration.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The 5-Step Input System -->
+    <section class="section" style="background: linear-gradient(135deg, #111111 0%, var(--vyra-black) 100%);">
+        <div class="container">
+            <h2 class="section-title">The 5-Step Input System</h2>
+            <p class="section-subtitle">Each stage includes rationale, behavioral principle, and live execution guidance. Click each step to expand.</p>
+
+            <div class="step-system">
+                <!-- Step 1: Hook -->
+                <div class="step-card" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-header-left">
+                            <div class="step-number-badge">1</div>
+                            <div class="step-title-group">
+                                <h4>HOOK (Attention Engineering)</h4>
+                                <div class="step-subtitle">Interrupt the scroll with engineered tension</div>
+                            </div>
+                        </div>
+                        <div class="step-expand-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-inner">
+                            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Every Authority Thread starts with a hook — a one-line micro-story engineered to interrupt the scroll.</p>
+
+                            <div class="principle-box">
+                                <strong>Behavioral Principle: Selective Attention Theory</strong>
+                                Our brains tune out 99% of stimuli, except what feels novel, emotionally charged, or identity-relevant. Your hook must trigger one of these recognition patterns.
+                            </div>
+
+                            <h4 style="color: var(--vyra-green); margin: 2rem 0 1rem 0;">Use One of Three Emotional Triggers:</h4>
+
+                            <div class="trigger-list">
+                                <div class="trigger-item">
+                                    <strong>Awe</strong>
+                                    <p>Surprise or revelation that defies expectation</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Fear</strong>
+                                    <p>Risk of missing out or being left behind</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Envy</strong>
+                                    <p>Desire to gain competitive advantage</p>
+                                </div>
+                            </div>
+
+                            <div class="interface-mockup">
+                                <div class="mockup-header">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <label class="input-label">→ Insert your opening line here</label>
+                                <input type="text" class="input-field" placeholder="Type your hook that creates tension, not completion..." readonly>
+                            </div>
+
+                            <p style="margin-top: 2rem; font-style: italic; color: var(--vyra-steel);">Your goal is tension, not completion. We can refine it later. Write something that stops the scroll.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Research -->
+                <div class="step-card" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-header-left">
+                            <div class="step-number-badge">2</div>
+                            <div class="step-title-group">
+                                <h4>RESEARCH / PROOF (Credibility Encoding)</h4>
+                                <div class="step-subtitle">Authority is demonstrated, not claimed</div>
+                            </div>
+                        </div>
+                        <div class="step-expand-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-inner">
+                            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Next, VyraTrust asks for proof. Why? Because authority isn't claimed — it's demonstrated.</p>
+
+                            <div class="principle-box">
+                                <strong>Behavioral Principle: Elaboration Likelihood Model</strong>
+                                People only internalize ideas they can verify. Without proof, your thread is just opinion. With proof, it becomes expertise.
+                            </div>
+
+                            <h4 style="color: var(--vyra-green); margin: 2rem 0 1rem 0;">What Counts as Research/Proof:</h4>
+
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 1rem; background: rgba(255, 255, 255, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">📊 Metrics or data points</li>
+                                <li style="padding: 1rem; background: rgba(255, 255, 255, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">💬 Direct quotes from key figures</li>
+                                <li style="padding: 1rem; background: rgba(255, 255, 255, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">📅 Timeline of events</li>
+                                <li style="padding: 1rem; background: rgba(255, 255, 255, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">💼 Case summaries or client results</li>
+                            </ul>
+
+                            <div class="interface-mockup">
+                                <div class="mockup-header">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <label class="input-label">→ Upload document, paste notes, or write key data</label>
+                                <textarea class="input-field" style="min-height: 100px;" placeholder="Keep it brief. You're supplying factual anchors the system will weave into narrative form..." readonly></textarea>
+                            </div>
+
+                            <div class="quote-block">
+                                This is what separates opinion threads from expertise threads. Commentators explain what happened. Experts demonstrate why it matters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Audience -->
+                <div class="step-card" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-header-left">
+                            <div class="step-number-badge">3</div>
+                            <div class="step-title-group">
+                                <h4>AUDIENCE (Cognitive Framing)</h4>
+                                <div class="step-subtitle">Who you're speaking to determines how they hear you</div>
+                            </div>
+                        </div>
+                        <div class="step-expand-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-inner">
+                            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Select your audience. This determines how VyraTrust frames your proof.</p>
+
+                            <div class="principle-box">
+                                <strong>Behavioral Principle: Frame Theory</strong>
+                                Different audiences process the same message differently. Founders look for systems. Creators look for relatability. CMOs look for ROI.
+                            </div>
+
+                            <h4 style="color: var(--vyra-green); margin: 2rem 0 1rem 0;">Common Audience Segments:</h4>
+
+                            <div class="trigger-list">
+                                <div class="trigger-item">
+                                    <strong>Founders / CEOs</strong>
+                                    <p>Focus: Systems, scalability, strategic leverage</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Content Creators</strong>
+                                    <p>Focus: Relatability, authenticity, tactical execution</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Marketing Executives</strong>
+                                    <p>Focus: ROI, metrics, competitive positioning</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Consultants / Coaches</strong>
+                                    <p>Focus: Client results, frameworks, implementation</p>
+                                </div>
+                            </div>
+
+                            <div class="interface-mockup">
+                                <div class="mockup-header">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <label class="input-label">→ Select your target audience</label>
+                                <select class="input-field" disabled>
+                                    <option>Choose the lens of meaning...</option>
+                                    <option>Founders / CEOs</option>
+                                    <option>Content Creators</option>
+                                    <option>Marketing Executives</option>
+                                    <option>Consultants / Coaches</option>
+                                </select>
+                            </div>
+
+                            <p style="margin-top: 2rem; font-style: italic; color: var(--vyra-steel);">When you pick your segment, you're telling the engine which lens of meaning to write through. Choose your reader as if you're choosing your client.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Outcome -->
+                <div class="step-card" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-header-left">
+                            <div class="step-number-badge">4</div>
+                            <div class="step-title-group">
+                                <h4>OUTCOME (Conversion Targeting)</h4>
+                                <div class="step-subtitle">Your desired outcome defines the CTA direction</div>
+                            </div>
+                        </div>
+                        <div class="step-expand-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-inner">
+                            <p style="font-size: 1.1rem; margin-bottom: 2rem;">This one's critical. Your desired outcome defines the CTA direction.</p>
+
+                            <div class="principle-box">
+                                <strong>Behavioral Principle: Goal Gradient Effect</strong>
+                                Every Authority Thread should serve one specific goal. If your thread tries to do everything, it ends up doing nothing.
+                            </div>
+
+                            <h4 style="color: var(--vyra-green); margin: 2rem 0 1rem 0;">Choose Your Thread's Primary Goal:</h4>
+
+                            <div class="trigger-list">
+                                <div class="trigger-item">
+                                    <strong>Build Credibility</strong>
+                                    <p>Establish expertise, earn trust, increase authority</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Attract Leads</strong>
+                                    <p>Generate opt-ins, newsletter signups, follower growth</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Book Calls</strong>
+                                    <p>Drive direct consultations, discovery sessions</p>
+                                </div>
+                                <div class="trigger-item">
+                                    <strong>Drive Inbound</strong>
+                                    <p>Create warm DM opportunities, partnership inquiries</p>
+                                </div>
+                            </div>
+
+                            <div class="interface-mockup">
+                                <div class="mockup-header">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <label class="input-label">→ Select your desired outcome</label>
+                                <select class="input-field" disabled>
+                                    <option>What should this thread accomplish?</option>
+                                    <option>Build Credibility</option>
+                                    <option>Attract Leads</option>
+                                    <option>Book Consultation Calls</option>
+                                    <option>Drive Inbound Opportunities</option>
+                                </select>
+                            </div>
+
+                            <div class="quote-block">
+                                Remember: clarity before creation. A thread with a clear outcome converts. A thread with multiple outcomes confuses.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Voice -->
+                <div class="step-card" onclick="toggleStep(this)">
+                    <div class="step-header">
+                        <div class="step-header-left">
+                            <div class="step-number-badge">5</div>
+                            <div class="step-title-group">
+                                <h4>VOICE / STYLE (Identity Encoding)</h4>
+                                <div class="step-subtitle">Your tone determines perceived authority</div>
+                            </div>
+                        </div>
+                        <div class="step-expand-icon">▼</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-inner">
+                            <p style="font-size: 1.1rem; margin-bottom: 2rem;">The final input defines tone. VyraTrust offers four voice profiles — each built on behavioral mimicry of elite communicators.</p>
+
+                            <div class="principle-box">
+                                <strong>Behavioral Principle: Voice Congruence</strong>
+                                Your tone determines perceived authority. Mismatch your voice and your message loses credibility. Match it perfectly and your authority compounds.
+                            </div>
+
+                            <h4 style="color: var(--vyra-green); margin: 2rem 0 1rem 0;">Choose Your Voice Profile:</h4>
+
+                            <div class="voice-grid">
+                                <div class="voice-card">
+                                    <h4>Draper Elite</h4>
+                                    <p>Confident, strategic, high-status tone. Modeled on Mad Men–era clarity. Commands attention through certainty.</p>
+                                </div>
+
+                                <div class="voice-card">
+                                    <h4>Hormozi Direct</h4>
+                                    <p>Results-driven and transparent. Focused on logic and action. No fluff, only frameworks.</p>
+                                </div>
+
+                                <div class="voice-card">
+                                    <h4>Sugarman Storytelling</h4>
+                                    <p>Emotional, curiosity-based. Uses narrative persuasion to lead readers through discovery.</p>
+                                </div>
+
+                                <div class="voice-card">
+                                    <h4>Casual Founders</h4>
+                                    <p>Relatable, conversational, modern authenticity. Accessible without sacrificing expertise.</p>
+                                </div>
+                            </div>
+
+                            <div class="interface-mockup">
+                                <div class="mockup-header">
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                    <div class="mockup-dot"></div>
+                                </div>
+                                <label class="input-label">→ Select your voice profile</label>
+                                <select class="input-field" disabled>
+                                    <option>Choose the tone that fits your brand...</option>
+                                    <option>Draper Elite — Commanding Authority</option>
+                                    <option>Hormozi Direct — Transparent Results</option>
+                                    <option>Sugarman Storytelling — Emotional Narrative</option>
+                                    <option>Casual Founders — Relatable Expertise</option>
+                                </select>
+                            </div>
+
+                            <p style="margin-top: 2rem; font-style: italic; color: var(--vyra-steel);">Pick the one that fits your personal brand or your client's. Authenticity isn't randomness — it's strategic voice selection.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block" style="margin-top: 4rem;">
+                <h3>Pre-Flight Confirmation</h3>
+                <p>Once all five inputs are entered, the confirmation screen appears.</p>
+                <p style="margin-top: 1rem; font-size: 1.2rem; color: var(--vyra-green); font-weight: 700;">Review your inputs like a pre-flight checklist. Clarity before creation.</p>
+                <p style="margin-top: 1rem;">If it's right, hit confirm — and watch the system write.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Thread Generation -->
+    <section class="section" style="background: var(--vyra-black);">
+        <div class="container">
+            <h2 class="section-title">Thread Generation & Structure</h2>
+            <p class="section-subtitle">VyraTrust runs through its internal templates — modeled on hundreds of high-performing threads and proprietary psychology checklists.</p>
+
+            <div class="content-block">
+                <h3>What Happens During Generation</h3>
+                <p>As the system generates, it applies systematic structure through three psychological layers:</p>
+
+                <div style="margin: 2rem 0;">
+                    <div class="principle-box">
+                        <strong>First Tweet: Pattern Interrupt</strong>
+                        Captures tension and stakes. This is your attention hook that stops the scroll.
+                    </div>
+
+                    <div class="principle-box">
+                        <strong>Middle Section: Narrative Transportation</strong>
+                        Builds proof and story momentum. Mirrors narrative transportation theory — readers who visualize the story retain 50–70% more information.
+                    </div>
+
+                    <div class="principle-box">
+                        <strong>Final Tweets: Insight & Reframe</strong>
+                        Delivers insight and reframes the reader's perspective. This is where desire and trust combine.
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-block">
+                Every tweet stays under 280 characters to match rhythm and cognitive scanning speed. Each open loop keeps the dopamine curve active. This is engineered storytelling — not just writing.
+            </div>
+
+            <div class="content-block">
+                <h3>The Goal of Structure</h3>
+                <p>Make your reader feel the proof before they process it.</p>
+                <p style="margin-top: 1.5rem; font-size: 1.2rem; color: var(--vyra-green); font-weight: 700;">This is your Authority Thread skeleton. Structured, consistent, and ready for amplification.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: CTA Integration -->
+    <section class="section" style="background: linear-gradient(135deg, #111111 0%, var(--vyra-black) 100%);">
+        <div class="container">
+            <h2 class="section-title">Adding a CTA with VyraTAG Closer</h2>
+            <p class="section-subtitle">Attention without action is wasted effort. VyraTAG applies Cialdini's principles of influence to transition readers from inspiration to decision.</p>
+
+            <div class="content-block">
+                <p style="font-size: 1.1rem;">This feature applies three core psychological principles:</p>
+                
+                <ul style="list-style: none; padding: 0; margin: 2rem 0;">
+                    <li style="padding: 1rem; background: rgba(0, 255, 65, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">
+                        <strong style="color: var(--vyra-green);">Commitment:</strong> Creates a sense of forward momentum
+                    </li>
+                    <li style="padding: 1rem; background: rgba(0, 255, 65, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">
+                        <strong style="color: var(--vyra-green);">Consistency:</strong> Aligns action with the value they just received
+                    </li>
+                    <li style="padding: 1rem; background: rgba(0, 255, 65, 0.05); margin: 0.5rem 0; border-left: 3px solid var(--vyra-green);">
+                        <strong style="color: var(--vyra-green);">Scarcity:</strong> Introduces time or access constraints
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cta-framework">
+                <h3 style="color: var(--vyra-green); margin-bottom: 2rem;">The Psychological Function of Each Input</h3>
+                
+                <table class="cta-table">
+                    <thead>
+                        <tr>
+                            <th>CTA Input</th>
+                            <th>Psychological Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Offer Type</strong></td>
+                            <td>Anchors context ("Is this free value or paid opportunity?")</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Promise</strong></td>
+                            <td>Triggers outcome visualization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Avatar</strong></td>
+                            <td>Creates self-identification ("This is for someone like me")</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Action</strong></td>
+                            <td>Converts clarity into motion</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Urgency</strong></td>
+                            <td>Introduces time constraint (scarcity principle)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="quote-block">
+                When the system generates your CTA, it gives you two key elements: a narrative transition to bridge emotion and logic, and the final CTA copy — a direct but natural invitation. You never sell abruptly. You close by extending the story.
+            </div>
+
+            <div class="content-block">
+                <h3>The CTA Flow Structure</h3>
+                <p style="margin-bottom: 1.5rem;">Every effective CTA follows this progression:</p>
+                
+                <div style="background: rgba(0, 255, 65, 0.1); padding: 2rem; border-radius: 8px; border: 1px solid var(--vyra-green);">
+                    <p style="font-size: 1.2rem; text-align: center; line-height: 2;">
+                        <strong style="color: var(--vyra-green);">Reflection</strong> → 
+                        <strong style="color: var(--vyra-green);">Lesson</strong> → 
+                        <strong style="color: var(--vyra-green);">Invitation</strong> → 
+                        <strong style="color: var(--vyra-green);">Offer</strong> → 
+                        <strong style="color: var(--vyra-green);">Next Step</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Media Integration -->
+    <section class="section" style="background: var(--vyra-black);">
+        <div class="container">
+            <h2 class="section-title">Integrating Media with VyraMage (Lite)</h2>
+            <p class="section-subtitle">Humans process visuals 60,000x faster than text. If your thread is powerful in words, media makes it unforgettable.</p>
+
+            <div class="quote-block">
+                Research from Nielsen Norman Group shows that visual priming increases time-on-post by 38%. Always choose visuals that prove — not decorate.
+            </div>
+
+            <h3 style="color: var(--vyra-green); margin: 3rem 0 2rem 0; font-size: 2rem;">VyraMage Modes</h3>
+
+            <div class="media-grid">
+                <div class="media-card">
+                    <div class="media-icon">🎯</div>
+                    <h4>Hook Mode</h4>
+                    <p>Find one attention-grabbing image or clip that visually represents your first line. Prime emotional response before reading begins.</p>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-icon">🎨</div>
+                    <h4>Full Thread Mode</h4>
+                    <p>Select cohesive visual motifs that match your tone. Color, contrast, and emotion must remain consistent throughout.</p>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-icon">📊</div>
+                    <h4>Specific Tweet Mode</h4>
+                    <p>Add proof visuals — screenshots, short clips, quotes, graphs. Reinforce credibility at key momentum points.</p>
+                </div>
+
+                <div class="media-card">
+                    <div class="media-icon">🎬</div>
+                    <h4>YouTube Script Analyzer</h4>
+                    <p>Upload a transcript; VyraMage identifies precise clips aligned to your chosen tweet. Perfect for short-form repurposing.</p>
+                </div>
+            </div>
+
+            <div class="content-block" style="margin-top: 3rem;">
+                <h3>Visual Credibility Principles</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 1rem 0; border-bottom: 1px solid rgba(107, 114, 128, 0.2);">
+                        <strong style="color: var(--vyra-green);">Consistency:</strong> All visuals should share a unified aesthetic
+                    </li>
+                    <li style="padding: 1rem 0; border-bottom: 1px solid rgba(107, 114, 128, 0.2);">
+                        <strong style="color: var(--vyra-green);">Contrast:</strong> High contrast increases processing speed
+                    </li>
+                    <li style="padding: 1rem 0; border-bottom: 1px solid rgba(107, 114, 128, 0.2);">
+                        <strong style="color: var(--vyra-green);">Proof-Forward:</strong> Every image should reinforce a claim
+                    </li>
+                    <li style="padding: 1rem 0;">
+                        <strong style="color: var(--vyra-green);">Emotional Alignment:</strong> Visual tone must match voice profile
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Review & Assembly -->
+    <section class="section" style="background: linear-gradient(135deg, #111111 0%, var(--vyra-black) 100%);">
+        <div class="container">
+            <h2 class="section-title">Review and Assembly</h2>
+            <p class="section-subtitle">Your completed Authority Thread package — a professional, deployable authority asset.</p>
+
+            <div class="content-block">
+                <h3>The Complete Package</h3>
+                <p style="margin-bottom: 2rem;">Each layer plays a role — structure, psychology, conversion, and proof.</p>
+
+                <div style="display: grid; gap: 1rem;">
+                    <div style="background: rgba(0, 255, 65, 0.05); padding: 1.5rem; border-left: 4px solid var(--vyra-green); border-radius: 8px;">
+                        <strong style="color: var(--vyra-green); font-size: 1.1rem;">1. Hook Tweet</strong>
+                        <p style="margin-top: 0.5rem;">Your pattern interrupt that stops the scroll</p>
+                    </div>
+                    
+                    <div style="background: rgba(0, 255, 65, 0.05); padding: 1.5rem; border-left: 4px solid var(--vyra-green); border-radius: 8px;">
+                        <strong style="color: var(--vyra-green); font-size: 1.1rem;">2. Full VyraTrust Thread</strong>
+                        <p style="margin-top: 0.5rem;">Structured narrative with proof and momentum</p>
+                    </div>
+                    
+                    <div style="background: rgba(0, 255, 65, 0.05); padding: 1.5rem; border-left: 4px solid var(--vyra-green); border-radius: 8px;">
+                        <strong style="color: var(--vyra-green); font-size: 1.1rem;">3. CTA Transition + Closer</strong>
+                        <p style="margin-top: 0.5rem;">Natural bridge from insight to action</p>
+                    </div>
+                    
+                    <div style="background: rgba(0, 255, 65, 0.05); padding: 1.5rem; border-left: 4px solid var(--vyra-green); border-radius: 8px;">
+                        <strong style="color: var(--vyra-green); font-size: 1.1rem;">4. Media Plan via VyraMage</strong>
+                        <p style="margin-top: 0.5rem;">Visual proof that amplifies credibility</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-block">
+                This process replaces random posting with a repeatable system for influence. What you've built is a monetized Authority Thread — engineered for attention, trust, and conversion.
+            </div>
+
+            <div class="stats-display">
+                <div class="stat-item">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label">Systematic Steps</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Repeatable Process</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">Authority Threads</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Implementation Challenge -->
+    <section class="section" style="background: var(--vyra-black);">
+        <div class="container">
+            <h2 class="section-title">Implementation Challenge</h2>
+            <p class="section-subtitle">Learning retention increases 300% when you apply new knowledge within 24 hours. That's why we don't stop at theory.</p>
+
+            <div class="challenge-box">
+                <h3>Your Challenge: Apply the System Now</h3>
+                
+                <div class="challenge-steps">
+                    <div class="challenge-step">
+                        <strong>STEP 1</strong>
+                        Open VyraTrust
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 2</strong>
+                        Choose one real story
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 3</strong>
+                        Run the 5-step input flow
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 4</strong>
+                        Generate the thread
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 5</strong>
+                        Add a CTA that aligns
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 6</strong>
+                        Use VyraMage for visuals
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 7</strong>
+                        Post it. Screenshot it.
+                    </div>
+                    <div class="challenge-step">
+                        <strong>STEP 8</strong>
+                        Share in Vyrasphere
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem; font-size: 1.2rem; font-weight: 700;">Three threads. One week. By the end, you'll not only know how to use VyraTrust — you'll think like a strategist, not a poster.</p>
+            </div>
+
+            <div class="content-block" style="margin-top: 4rem; border-color: var(--vyra-green);">
+                <h3 style="text-align: center;">The Science of Skill Acquisition</h3>
+                <p style="text-align: center; font-size: 1.1rem;">Research on skill acquisition shows that immediate application cements learning. Knowledge without execution is expensive entertainment.</p>
+                <p style="text-align: center; font-size: 1.3rem; color: var(--vyra-green); font-weight: 700; margin-top: 2rem;">You learn by building. Start building now.</p>
+            </div>
+
+            <div style="margin-top: 4rem; padding: 3rem; background: rgba(0, 255, 65, 0.1); border: 2px solid var(--vyra-green); border-radius: 12px; text-align: center;">
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--vyra-green); margin-bottom: 1.5rem;">
+                    Authority isn't random.
+                </p>
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--vyra-white); margin-bottom: 1.5rem;">
+                    It's systematic.
+                </p>
+                <p style="font-size: 2rem; font-weight: 900; color: var(--vyra-green);">
+                    Write. Deliver. Dominate.™
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <button class="nav-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Top</button>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Toggle step cards
+        function toggleStep(element) {
+            element.classList.toggle('active');
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-block, .objective-card, .step-card, .media-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (e.key === 'End') {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
