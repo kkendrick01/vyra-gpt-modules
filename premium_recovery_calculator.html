@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Recovery Calculator · Insurance Audit</title>
+  <meta name="description" content="Estimate potential insurance premium overpayment, audit risk, and recovery opportunity. Download a comprehensive PDF report instantly."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root{
+      --bg:#0b0c0e;
+      --panel:#16181c;
+      --muted:#8a8f98;
+      --text:#f3f5f7;
+      --accent:#00ff41;
+      --border:#23262b;
+      --ok:#38d073;
+      --warn:#ff8a00;
+      --danger:#ff3b30;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(0,255,65,.08), transparent 60%), 
+                  radial-gradient(900px 600px at -10% 10%, rgba(70,212,255,.05), transparent 50%), var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:32px 20px 60px}
+    header.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    @media (max-width:980px){header.hero{grid-template-columns:1fr}}
+    .hero h1{font-size:clamp(28px,4.5vw,40px);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+    .hero p.sub{color:var(--muted);margin:0 0 18px;font-size:clamp(14px,2.2vw,16px)}
+    .badge-row{display:flex;gap:10px;flex-wrap:wrap;opacity:.9;margin-top:10px}
+    .badge{border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));padding:8px 12px;border-radius:999px;font-size:12px;color:#cbd2da}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.15));border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .grid{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+    .label{display:block;color:#c9ced6;font-size:12px;margin:4px 0}
+    .input, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:#0c0e11;color:var(--text);outline:none}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .progress{height:10px;border-radius:999px;background:#0e1116;border:1px solid var(--border);overflow:hidden;margin:10px 0 6px}
+    .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#8cffb2);transition:width .35s ease}
+    .small{font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    button,.btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;color:#051308;background:linear-gradient(90deg,var(--accent),#9affc3);font-weight:700;box-shadow:0 6px 18px rgba(0,255,65,.18)}
+    button.secondary,.btn.secondary{background:#161a20;color:#dfe6ee;border:1px solid var(--border);box-shadow:none}
+    .results{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:980px){.results{grid-template-columns:1fr}}
+    .metric{padding:16px;border-radius:14px;border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.2))}
+    .metric h3{margin:0 0 6px;font-size:13px;color:#c9ced6;text-transform:uppercase;letter-spacing:.08em}
+    .metric .value{font-size:28px;font-weight:800;letter-spacing:-.02em}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#cbd2da;font-size:12px}
+    .pill.ok{border-color:var(--ok);color:#c9ffd8}
+    .pill.warn{border-color:var(--warn);color:#ffd9b2}
+    .pill.danger{border-color:var(--danger);color:#ffc7c2}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:18px 0}
+    .footer{margin-top:36px;color:#a9b0ba;font-size:12px;text-align:center;opacity:.8}
+    .sticky-cta{position:sticky;bottom:10px;z-index:50;display:flex;justify-content:flex-end;margin-top:12px}
+    .card-title{font-size:16px;font-weight:700;margin:0 0 6px}
+    .tagline{color:#c9ced6;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div>
+        <h1>How much are you overpaying in premiums. Get instant answers</h1>
+        <p class="sub">Estimate overpayment, benchmark audit risk, and download a comprehensive recovery plan as a PDF. No email required.</p>
+        <div class="badge-row">
+          <span class="badge">Local PDF export</span>
+          <span class="badge">Radar risk visual</span>
+          <span class="badge">Mobile-first</span>
+          <span class="badge">Transparent assumptions</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="card-title">Quick Start Assumptions</div>
+        <p class="small">Outputs use visible assumptions you can change. These are not legal or financial advice.</p>
+        <div class="row">
+          <div>
+            <label class="label">Benchmark Overpay Rate (%)</label>
+            <input id="assump_overpay" class="input" type="number" value="12" min="0" max="50" step="0.5">
+          </div>
+          <div>
+            <label class="label">Expected Recovery Factor (%)</label>
+            <input id="assump_recovery" class="input" type="number" value="60" min="0" max="100" step="1">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label class="label">Risk Threshold High (&gt;=)</label>
+            <input id="assump_risk_high" class="input" type="number" value="70" min="0" max="100">
+          </div>
+          <div>
+            <label class="label">Risk Threshold Low (&lt;=)</label>
+            <input id="assump_risk_low" class="input" type="number" value="35" min="0" max="100">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="card-title">Step 1 of 2 · Enter your numbers</div>
+        <div class="progress"><div id="prog" class="bar"></div></div>
+        <div class="row">
+          <div>
+            <label class="label">Annual Revenue ($)</label>
+            <input id="revenue" class="input" type="number" placeholder="e.g., 2500000" min="0">
+          </div>
+          <div>
+            <label class="label">Total Payroll ($)</label>
+            <input id="payroll" class="input" type="number" placeholder="e.g., 1200000" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label class="label">Employees (count)</label>
+            <input id="employees" class="input" type="number" placeholder="e.g., 35" min="0">
+          </div>
+          <div>
+            <label class="label">Subcontractor Spend ($ or 0)</label>
+            <input id="subs" class="input" type="number" placeholder="e.g., 300000" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label class="label">Locations (count)</label>
+            <input id="locations" class="input" type="number" placeholder="e.g., 3" min="1" value="1">
+          </div>
+          <div>
+            <label class="label">Current Annual Premium ($)</label>
+            <input id="premium" class="input" type="number" placeholder="e.g., 185000" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label class="label">Past Audit Issues</label>
+            <select id="past_issues" class="input">
+              <option value="none">None</option>
+              <option value="minor">Minor adjustments</option>
+              <option value="major">Major adjustments billed</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Overtime / Bonuses Included correctly</label>
+            <select id="ot_bonus" class="input">
+              <option value="unknown">Not sure</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label class="label">Subcontractor Documentation Quality</label>
+            <select id="sub_docs" class="input">
+              <option value="unknown">Unknown / mixed</option>
+              <option value="high">High (COIs, AI, WOS, hold harmless)</option>
+              <option value="low">Low (gaps likely)</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Classification Confidence</label>
+            <select id="class_conf" class="input">
+              <option value="unknown">Unknown</option>
+              <option value="confident">Confident (verified codes)</option>
+              <option value="concern">Concerned (possible misclass)</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="calcBtn">Calculate</button>
+          <button class="secondary" id="resetBtn">Reset</button>
+          <span class="small">You are <span id="progressText">0%</span> complete</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="card-title">Results</div>
+        <div class="results">
+          <div class="metric">
+            <h3>Estimated overpayment opportunity</h3>
+            <div class="value">$<span id="overpayAnim">0</span></div>
+            <div class="small">Based on visible assumptions and your inputs.</div>
+          </div>
+          <div class="metric">
+            <h3>Audit error risk score</h3>
+            <div class="value"><span id="riskAnim">0</span>%</div>
+            <div class="legend">
+              <span class="pill ok">Low</span>
+              <span class="pill warn">Moderate</span>
+              <span class="pill danger">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid" style="margin-top:12px">
+          <div class="metric">
+            <h3>3-year recovery potential</h3>
+            <div class="value">$<span id="roiAnim">0</span></div>
+            <div class="small">Assumes steady operations and current recovery factor.</div>
+          </div>
+          <div class="metric">
+            <h3>Benchmark variance hint</h3>
+            <div class="small">Explore classification, subs, and payroll inclusions if paying above peer median.</div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:12px">
+          <div class="card-title">Risk radar</div>
+          <canvas id="radar" height="180"></canvas>
+          <p class="small">Radar shows relative exposure across five factors: payroll accuracy, sub risk, classification risk, locations complexity, and past audit friction.</p>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <button id="pdfBtn">Download full PDF report</button>
+          <button class="secondary" id="jsonBtn">Download JSON summary</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="sticky-cta">
+      <a class="btn" href="#pdf">Download PDF</a>
+    </div>
+
+    <p class="footer">This tool provides estimates based on your inputs and visible assumptions.</p>
+  </div>
+
+<script>
+  // Formatting
+  const fmt = (n) => (Number(n)||0).toLocaleString(undefined,{maximumFractionDigits:0});
+
+  // Progress
+  const fields=['revenue','payroll','employees','subs','locations','premium','past_issues','ot_bonus','sub_docs','class_conf'];
+  function computeProgress(){
+    let filled=0;
+    fields.forEach(id=>{const el=document.getElementById(id); if(el && el.value!=='') filled++;});
+    const pct=Math.round((filled/fields.length)*100);
+    document.getElementById('prog').style.width=pct+'%';
+    document.getElementById('progressText').textContent=pct+'%';
+  }
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener('input',computeProgress);
+    el.addEventListener('change',computeProgress);
+  });
+  computeProgress();
+
+  // Core calculation
+  let lastCalc=null;
+  function calc(){
+    const revenue=Number(document.getElementById('revenue').value)||0;
+    const payroll=Number(document.getElementById('payroll').value)||0;
+    const employees=Number(document.getElementById('employees').value)||0;
+    const subs=Number(document.getElementById('subs').value)||0;
+    const locations=Math.max(1, Number(document.getElementById('locations').value)||1);
+    const premium=Number(document.getElementById('premium').value)||0;
+    const past=document.getElementById('past_issues').value;
+    const otb=document.getElementById('ot_bonus').value;
+    const subDocs=document.getElementById('sub_docs').value;
+    const classConf=document.getElementById('class_conf').value;
+
+    const benchOver=(Number(document.getElementById('assump_overpay').value)||12)/100;
+    const recoveryFactor=(Number(document.getElementById('assump_recovery').value)||60)/100;
+    const riskHigh=Number(document.getElementById('assump_risk_high').value)||70;
+    const riskLow=Number(document.getElementById('assump_risk_low').value)||35;
+
+    const premiumBased=premium*benchOver;
+    const sanityCap=Math.max(0, premium*0.5);
+    const overpay=Math.min(premiumBased, sanityCap);
+
+    const rf_payroll=(otb==='no')?80:((otb==='unknown')?60:25);
+    const rf_subs=(subs<=0)?15:(subDocs==='high'?35:(subDocs==='low'?85:60));
+    const rf_class=(classConf==='confident')?25:((classConf==='concern')?85:60);
+    const rf_locs=Math.min(90, 10 + (locations-1)*12);
+    const rf_past=(past==='none')?20:((past==='minor')?55:80);
+
+    const weights={ payroll:.26, subs:.22, class:.28, locs:.12, past:.12 };
+    const riskScore=Math.round(
+      rf_payroll*weights.payroll +
+      rf_subs*weights.subs +
+      rf_class*weights.class +
+      rf_locs*weights.locs +
+      rf_past*weights.past
+    );
+    const roi3=Math.round(overpay * recoveryFactor * 3);
+
+    animateValue('overpayAnim', overpay, 800);
+    animateValue('riskAnim', riskScore, 800);
+    animateValue('roiAnim', roi3, 900);
+
+    updateRadar([rf_payroll, rf_subs, rf_class, rf_locs, rf_past]);
+
+    // Recommendations based on risk
+    const recs = [];
+    if(rf_class>=60) recs.push('Verify GL and WC classification codes against current operations. Request agent documentation for each code.');
+    if(rf_subs>=60) recs.push('Tighten subcontractor file. Require COIs with Additional Insured and Waiver of Subrogation. Add hold harmless to sub agreements.');
+    if(rf_payroll>=60) recs.push('Audit payroll inclusions. Confirm OT and bonuses are treated correctly per policy and state rules.');
+    if(rf_locs>=60) recs.push('Confirm accurate state and location coding. Separate payroll by state when applicable.');
+    if(rf_past>=55) recs.push('Request prior audit workpapers and reconcile variances. Set quarterly reviews to avoid surprises.');
+    if(recs.length===0) recs.push('Your profile shows controlled audit exposure. Maintain quarterly reviews and keep sub documentation current.');
+
+    lastCalc = {
+      timestamp:new Date().toISOString(),
+      inputs:{revenue,payroll,employees,subs,locations,premium,past,otb,subDocs,classConf},
+      assumptions:{benchOver,recoveryFactor,riskHigh,riskLow},
+      results:{overpay,riskScore,roi3, factors:{rf_payroll,rf_subs,rf_class,rf_locs,rf_past}},
+      recommendations:recs
+    };
+    return lastCalc;
+  }
+
+  function animateValue(id, end, duration){
+    const el=document.getElementById(id);
+    const start=0; const startTime=performance.now();
+    function step(now){
+      const t=Math.min(1,(now-startTime)/duration);
+      const eased=t<.5?2*t*t:-1+(4-2*t)*t;
+      const val=Math.round(start+(end-start)*eased);
+      el.textContent=fmt(val);
+      if(t<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Radar
+  let radarChart=null;
+  function updateRadar(data){
+    const ctx=document.getElementById('radar').getContext('2d');
+    const labels=['Payroll Accuracy','Sub Risk','Classification','Locations','Past Audit'];
+    if(radarChart){radarChart.destroy();}
+    radarChart = new Chart(ctx, {
+      type:'radar',
+      data:{
+        labels,
+        datasets:[{
+          label:'Risk (higher = more risk)',
+          data,
+          fill:true,
+          borderColor:'rgba(0,255,65,.9)',
+          backgroundColor:'rgba(0,255,65,.12)',
+          pointBackgroundColor:'rgba(0,255,65,1)',
+          pointBorderColor:'#fff'
+        }]
+      },
+      options:{
+        responsive:true,
+        scales:{
+          r:{
+            angleLines:{color:'rgba(255,255,255,.08)'},
+            grid:{color:'rgba(255,255,255,.08)'},
+            suggestedMin:0,suggestedMax:100,
+            pointLabels:{color:'#cbd2da',font:{size:12}},
+            ticks:{display:false}
+          }
+        },
+        plugins:{legend:{display:false}}
+      }
+    });
+  }
+  updateRadar([0,0,0,0,0]);
+
+  // JSON summary
+  function downloadJSON(){
+    const res = lastCalc || calc();
+    const blob = new Blob([JSON.stringify(res,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href=url; a.download='premium_recovery_report.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // PDF generation (multi-page, with radar image)
+  async function downloadPDF(){
+    const res = lastCalc || calc();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({unit:'pt', format:'a4'});
+    const lineH = 18;
+    const margin = 48;
+    const pageW = doc.internal.pageSize.getWidth();
+    const usableW = pageW - margin*2;
+
+    function addHeader(title){
+      doc.setFont('helvetica','bold'); doc.setFontSize(16);
+      doc.text(title, margin, margin);
+      doc.setDrawColor(220); doc.line(margin, margin+6, pageW-margin, margin+6);
+      doc.setFont('helvetica','normal');
+    }
+    function addKvp(k, v, y){
+      doc.setFont('helvetica','bold'); doc.text(k+':', margin, y);
+      doc.setFont('helvetica','normal'); doc.text(String(v), margin+180, y);
+    }
+    function addParagraph(text, yStart){
+      doc.setFont('helvetica','normal');
+      const lines = doc.splitTextToSize(text, usableW);
+      doc.text(lines, margin, yStart);
+      return yStart + lines.length*lineH;
+    }
+
+    // Page 1: Summary
+    addHeader('Premium Recovery Report');
+    let y = margin + 28;
+    doc.setFontSize(12);
+    y = addParagraph('Summary. Estimates are based on your inputs and the visible assumptions shown below. This report highlights potential overpayment, audit risk, a three-year recovery projection, and prioritized actions.', y);
+
+    y += 8;
+    doc.setFont('helvetica','bold'); doc.text('Key Results', margin, y); doc.setFont('helvetica','normal');
+    y += lineH;
+    addKvp('Estimated Overpayment', '$'+fmt(res.results.overpay), y); y += lineH;
+    addKvp('Audit Error Risk Score', fmt(res.results.riskScore)+'%', y); y += lineH;
+    addKvp('3-year Recovery Potential', '$'+fmt(res.results.roi3), y); y += lineH;
+
+    y += 10;
+    doc.setFont('helvetica','bold'); doc.text('Inputs', margin, y); doc.setFont('helvetica','normal');
+    y += lineH;
+    const inp = res.inputs;
+    const inputPairs = [
+      ['Revenue', '$'+fmt(inp.revenue)], ['Payroll', '$'+fmt(inp.payroll)],
+      ['Employees', fmt(inp.employees)], ['Subs', '$'+fmt(inp.subs)],
+      ['Locations', fmt(inp.locations)], ['Current Premium', '$'+fmt(inp.premium)],
+      ['Past Audit Issues', inp.past], ['OT/Bonuses Included', inp.otb],
+      ['Sub Docs', inp.subDocs], ['Classification Confidence', inp.classConf]
+    ];
+    inputPairs.forEach(pair=>{ addKvp(pair[0], pair[1], y); y+=lineH; if(y>760){doc.addPage(); y=margin+20;} });
+
+    // Page 2: Assumptions + Radar
+    doc.addPage();
+    addHeader('Assumptions and Visual Risk');
+    y = margin + 28;
+    const a = res.assumptions;
+    doc.setFont('helvetica','bold'); doc.text('Assumptions', margin, y); doc.setFont('helvetica','normal');
+    y += lineH;
+    addKvp('Benchmark Overpay Rate', Math.round(a.benchOver*100)+'%', y); y+=lineH;
+    addKvp('Expected Recovery Factor', Math.round(a.recoveryFactor*100)+'%', y); y+=lineH;
+    addKvp('Risk Threshold High', a.riskHigh+'%', y); y+=lineH;
+    addKvp('Risk Threshold Low', a.riskLow+'%', y); y+=lineH;
+
+    // Radar image
+    const canvas = document.getElementById('radar');
+    const dataUrl = canvas.toDataURL('image/png', 1.0);
+    y += 10;
+    const imgW = usableW; const imgH = imgW * 0.55;
+    doc.addImage(dataUrl, 'PNG', margin, y, imgW, imgH);
+    y += imgH + 12;
+    y = addParagraph('Interpretation. Higher values indicate higher audit exposure in that category. Focus first on items above your high-risk threshold.', y);
+
+    // Page 3: Recommendations and Checklist
+    doc.addPage();
+    addHeader('Recommendations and Action Checklist');
+    y = margin + 28;
+    doc.setFont('helvetica','bold'); doc.text('Prioritized Recommendations', margin, y); doc.setFont('helvetica','normal');
+    y += lineH;
+    res.recommendations.forEach((r,i)=>{
+      const txt = (i+1)+'. '+r;
+      y = addParagraph(txt, y);
+      y += 6;
+      if(y>770){ doc.addPage(); y=margin+20; }
+    });
+
+    y += 8;
+    doc.setFont('helvetica','bold'); doc.text('Quarterly Checklist', margin, y); doc.setFont('helvetica','normal');
+    y += lineH;
+    const checklist = [
+      'Run monthly revenue and payroll trackers. Update projections.',
+      'Verify overtime and bonuses are treated correctly per policy/state.',
+      'Collect and file COIs with Additional Insured and Waiver of Subrogation for all subs.',
+      'Review GL and WC class codes with your agent. Document any changes in operations.',
+      'Separate payroll by state/location when relevant.',
+      'Request prior audit workpapers. Reconcile any variances.',
+      'Schedule a mid-term review to adjust estimates and avoid a large audit bill.'
+    ];
+    checklist.forEach((c,i)=>{
+      const txt = '• '+c;
+      y = addParagraph(txt, y);
+      y += 4;
+      if(y>770){ doc.addPage(); y=margin+20; }
+    });
+
+    // Footer
+    doc.setFontSize(9);
+    doc.setTextColor(120);
+    const footer = 'Disclaimer. This report is informational. It provides estimates based on your inputs and visible assumptions.';
+    doc.text(footer, margin, 820);
+
+    doc.save('Premium_Recovery_Report.pdf');
+  }
+
+  // Events
+  document.getElementById('calcBtn').addEventListener('click', calc);
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    document.querySelectorAll('input').forEach(i=>{ if(i.type in {number:1,text:1}) i.value=''; });
+    document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);
+    computeProgress(); updateRadar([0,0,0,0,0]);
+    animateValue('overpayAnim',0,300); animateValue('riskAnim',0,300); animateValue('roiAnim',0,300);
+    lastCalc=null;
+  });
+  document.getElementById('jsonBtn').addEventListener('click', downloadJSON);
+  document.getElementById('pdfBtn').addEventListener('click', downloadPDF);
+</script>
+</body>
+</html>
