@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Business Readiness Quiz | Apex Creative Management</title>
+  <style>
+    :root {
+      --bg-main: #F2E9D8;
+      --card-bg: #FFFFFF;
+      --accent: #C2533D;
+      --accent-soft: #F4D3C9;
+      --text-main: #1A1A1A;
+      --text-muted: #3B2F2F;
+      --border-subtle: #E0D2BF;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: var(--bg-main);
+      color: var(--text-main);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(242, 233, 216, 0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #D3A23A, #C2533D);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .brand-text {
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .header-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    main {
+      flex: 1;
+      padding: 32px 20px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      main {
+        padding: 24px 16px 32px;
+      }
+
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero {
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(194, 83, 61, 0.35);
+      background: rgba(244, 211, 201, 0.6);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: 0.01em;
+      margin: 0 0 10px;
+      color: var(--text-main);
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0;
+    }
+
+    .hero-subtitle strong {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-muted);
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 22px 20px 22px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 600px) {
+      .quiz-card {
+        padding: 18px 16px 20px;
+      }
+    }
+
+    .quiz-header {
+      margin-bottom: 14px;
+    }
+
+    .quiz-title {
+      font-size: 18px;
+      margin: 0 0 6px;
+      color: var(--text-main);
+    }
+
+    .quiz-intro {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    form {
+      margin-top: 14px;
+    }
+
+    .field-group {
+      margin-bottom: 14px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .field-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 11px;
+      border: 1px solid var(--border-subtle);
+      padding: 9px 11px;
+      font-size: 13px;
+      font-family: var(--font-main);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(194, 83, 61, 0.7);
+      box-shadow: 0 0 0 1px rgba(194, 83, 61, 0.3);
+      background: #FFF;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .option-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 9px;
+      border-radius: 11px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .option-pill input {
+      margin: 0;
+    }
+
+    .option-pill span {
+      flex: 1;
+    }
+
+    .option-pill:hover {
+      border-color: rgba(194, 83, 61, 0.6);
+      background: #FFF;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .submit-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    button[type="submit"] {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(135deg, #C2533D, #D3A23A);
+      color: #FFF;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.22);
+      filter: brightness(1.02);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .button-subtext {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--text-muted);
+      min-height: 18px;
+    }
+
+    .status.error {
+      color: #A12B2B;
+    }
+
+    .status.success {
+      color: #216E3A;
+    }
+
+    .side-panel {
+      background: rgba(59, 47, 47, 0.98);
+      color: #F9F4EC;
+      border-radius: 20px;
+      padding: 22px 22px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.26);
+    }
+
+    .side-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 20% 0%, rgba(211, 162, 58, 0.35), transparent 60%),
+                  radial-gradient(circle at 110% 20%, rgba(194, 83, 61, 0.28), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .side-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(242, 233, 216, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .side-title {
+      font-size: 20px;
+      line-height: 1.4;
+      margin: 0 0 10px;
+    }
+
+    .side-title span {
+      color: #F0C774;
+    }
+
+    .side-copy {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(249, 244, 236, 0.9);
+      margin: 0 0 14px;
+    }
+
+    .side-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+      font-size: 12px;
+      color: rgba(249, 244, 236, 0.95);
+    }
+
+    .side-list li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .side-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 7px;
+      background: #F0C774;
+      flex-shrink: 0;
+    }
+
+    .side-note {
+      font-size: 11px;
+      color: rgba(249, 244, 236, 0.8);
+    }
+
+    footer {
+      padding: 10px 20px 22px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand-mark">
+        <div class="brand-icon"></div>
+        <div class="brand-text">Apex Creative Management</div>
+      </div>
+      <div class="header-tagline">For creators ready to operate like a business, not an algorithm.</div>
+    </header>
+
+    <main>
+      <div class="layout">
+        <section>
+          <div class="hero">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span>Creator Business Readiness Quiz</span>
+            </div>
+            <h1 class="hero-title">
+              Is your creator brand <span class="hero-highlight">ready to operate like a business</span>?
+            </h1>
+            <p class="hero-subtitle">
+              In under three minutes, you will see where your systems, positioning, and deal flow are holding you back. Then you will get a personalized 5 day email course from Victoria Chen on how to step into your role as a <strong>professional creator with leverage</strong>.
+            </p>
+            <div class="pill-row">
+              <div class="pill">For creators earning 1k to 15k per month</div>
+              <div class="pill">Built from real brand deal negotiations</div>
+              <div class="pill">You keep full creative control</div>
+            </div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <h2 class="quiz-title">Step 1. Tell Victoria where you are right now.</h2>
+              <p class="quiz-intro">
+                Your answers help tailor the Creator Growth Blueprint insights so they speak to your real deal flow, not a generic advice thread.
+              </p>
+            </div>
+
+            <form id="quiz-form" novalidate>
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="first_name">First name *</label>
+                  <input type="text" id="first_name" name="first_name" autocomplete="given-name" required>
+                </div>
+                <div class="field-group">
+                  <label for="email">Best email for your course *</label>
+                  <input type="email" id="email" name="email" autocomplete="email" required>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>Q1. Where is your creator income right now from all sources combined?</label>
+                <p class="hint">Choose the range that reflects your average month.</p>
+                <div class="options-grid">
+                  <label class="option-pill">
+                    <input type="radio" name="q1" value="Under 1k per month">
+                    <span>Under 1k per month</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q1" value="1k to 5k per month">
+                    <span>1k to 5k per month</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q1" value="5k to 15k per month">
+                    <span>5k to 15k per month</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q1" value="15k plus per month">
+                    <span>15k plus per month</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>Q2. How consistent is your income from brand deals month to month?</label>
+                <p class="hint">Think about your peaks versus your quiet months.</p>
+                <select id="q2" name="q2">
+                  <option value="">Select one</option>
+                  <option value="Very inconsistent. some months are zero, some are big.">Very inconsistent. some months are zero, some are big.</option>
+                  <option value="Somewhat consistent. at least a few paid campaigns per month.">Somewhat consistent. at least a few paid campaigns per month.</option>
+                  <option value="Consistent. I can reliably predict my brand deal income.">Consistent. I can reliably predict my brand deal income.</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label>Q3. Which description feels closest to your current brand positioning?</label>
+                <div class="options-grid">
+                  <label class="option-pill">
+                    <input type="radio" name="q3" value="Brands see me as a fun influencer, not a strategic partner.">
+                    <span>Brands see me as a fun influencer, not a strategic partner.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q3" value="I have a clear niche but my positioning feels underdeveloped.">
+                    <span>I have a clear niche but my positioning feels underdeveloped.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q3" value="My positioning is strong but I have not fully translated it into deals yet.">
+                    <span>My positioning is strong but I have not fully translated it into deals yet.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q3" value="My brand is dialed in and brands reference my positioning back to me.">
+                    <span>My brand is dialed in and brands reference my positioning back to me.</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label>Q4. How organized are your back end systems for deals and operations?</label>
+                <p class="hint">Think about tracking inquiries, pitches, contracts, deadlines, and payments.</p>
+                <select id="q4" name="q4">
+                  <option value="">Select one</option>
+                  <option value="Very ad hoc. mostly DMs, email threads, and mental notes.">Very ad hoc. mostly DMs, email threads, and mental notes.</option>
+                  <option value="Somewhat organized. I have basic trackers but do not always keep them updated.">Somewhat organized. I have basic trackers but do not always keep them updated.</option>
+                  <option value="Organized. I have a clear system and rarely drop details.">Organized. I have a clear system and rarely drop details.</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label>Q5. How confident are you in your negotiation skills when a brand reaches out?</label>
+                <div class="options-grid">
+                  <label class="option-pill">
+                    <input type="radio" name="q5" value="Not confident. I mostly accept what is offered.">
+                    <span>Not confident. I mostly accept what is offered.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q5" value="Somewhat confident. I ask for more but do not know if I am underpricing.">
+                    <span>Somewhat confident. I ask for more but do not know if I am underpricing.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q5" value="Very confident. I have a clear rate structure and negotiation process.">
+                    <span>Very confident. I have a clear rate structure and negotiation process.</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="q6">Q6. If your creator business was running exactly how you want it to, what would a perfect month look and feel like?</label>
+                <p class="hint">Be specific. include income, types of deals, schedule, and how you feel day to day.</p>
+                <textarea id="q6" name="q6" placeholder="For example. 3 to 4 high quality brand partnerships, clear schedule, no chasing payments, more time for creative work..."></textarea>
+              </div>
+
+              <div class="field-group">
+                <label>Q7. Where do you feel you need the most support right now?</label>
+                <div class="options-grid">
+                  <label class="option-pill">
+                    <input type="radio" name="q7" value="Clarifying my brand and positioning so the right brands find me.">
+                    <span>Clarifying my brand and positioning so the right brands find me.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q7" value="Building systems and structure so my business feels stable.">
+                    <span>Building systems and structure so my business feels stable.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q7" value="Negotiation support so I stop leaving money on the table.">
+                    <span>Negotiation support so I stop leaving money on the table.</span>
+                  </label>
+                  <label class="option-pill">
+                    <input type="radio" name="q7" value="All of the above. I want a professionalized creator business.">
+                    <span>All of the above. I want a professionalized creator business.</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="submit-row">
+                <button type="submit" id="submit-btn">
+                  <span>Get my personalized 5 day course</span>
+                </button>
+                <div class="status" id="status"></div>
+              </div>
+              <div class="button-subtext">You will receive Day 0 from Victoria within a few minutes once your answers are processed.</div>
+            </form>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <div class="side-inner">
+            <div class="side-kicker">What happens next</div>
+            <h2 class="side-title">A 5 day creator systems course, written for <span>your</span> business stage.</h2>
+            <p class="side-copy">
+              This is not a generic creator checklist. Victoria has managed campaigns for brands like Nike, Sephora, and Google. The course you receive is built from what actually closes deals and protects creators in negotiations.
+            </p>
+            <ul class="side-list">
+              <li>
+                <div class="side-bullet"></div>
+                <div>
+                  Day 0 arrives within minutes with a clear snapshot of how ready your creator business is plus the number one shift to make first.
+                </div>
+              </li>
+              <li>
+                <div class="side-bullet"></div>
+                <div>
+                  Days 1 to 3 walk you through the biggest mistakes creators make with positioning, systems, and negotiation that quietly limit their ceiling.
+                </div>
+              </li>
+              <li>
+                <div class="side-bullet"></div>
+                <div>
+                  Days 4 and 5 show you how to step into the identity of a professional creator, then introduce the Creator Growth Blueprint if you want deeper support.
+                </div>
+              </li>
+            </ul>
+            <p class="side-note">
+              You can unsubscribe from future emails at any time. The goal is simple. help you move from chaos to a structured creator business that brands take seriously.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      © Apex Creative Management. For serious creators building long term brands.
+    </footer>
+  </div>
+
+  <script>
+    const clientConfig = {
+      name: "Victoria Chen",
+      brand: "Apex Creative Management",
+      niche: "Strategic talent management and brand partnerships for online creators earning 1k to 15k per month",
+      offer_name: "Creator Growth Blueprint",
+      offer_description: "A flagship engagement that audits your brand, installs structure, and builds a monetization roadmap so your creator presence operates like a professional business with predictable revenue.",
+      tone: "Elegant, authoritative, strategic, industry savvy",
+      from_name: "Victoria at Apex Creative Management",
+      primary_color: "#1A1A1A",
+      secondary_color: "#C2533D",
+      accent_color: "#D3A23A",
+      course_webhook_url: "https://script.google.com/macros/s/AKfycbw2fAbjoFSlctJxDDgp36mU8dftbReAXXcl-D8ndHgXRkWO-O-l-UQf01kBityy3D1E7A/exec"
+    };
+
+    const form = document.getElementById("quiz-form");
+    const statusEl = document.getElementById("status");
+    const submitBtn = document.getElementById("submit-btn");
+
+    function getRadioValue(name) {
+      const nodeList = document.querySelectorAll(`input[name="${name}"]`);
+      for (const node of nodeList) {
+        if (node.checked) return node.value;
+      }
+      return "";
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      statusEl.textContent = "";
+      statusEl.classList.remove("error", "success");
+
+      const firstNameInput = document.getElementById("first_name");
+      const emailInput = document.getElementById("email");
+
+      const first_name = firstNameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      const q1 = getRadioValue("q1");
+      const q2 = document.getElementById("q2").value;
+      const q3 = getRadioValue("q3");
+      const q4 = document.getElementById("q4").value;
+      const q5 = getRadioValue("q5");
+      const q6 = document.getElementById("q6").value.trim();
+      const q7 = getRadioValue("q7");
+
+      if (!first_name || !email) {
+        statusEl.textContent = "Please add your name and email so your course can be delivered.";
+        statusEl.classList.add("error");
+        return;
+      }
+
+      if (!q1 || !q2 || !q3 || !q4 || !q5 || !q7) {
+        statusEl.textContent = "Please answer all required quiz questions so Victoria can tailor your course.";
+        statusEl.classList.add("error");
+        return;
+      }
+
+      const answers = {
+        q1,
+        q2,
+        q3,
+        q4,
+        q5,
+        q6,
+        q7
+      };
+
+      const payload = {
+        mode: "runtime_eec",
+        client: clientConfig,
+        prospect: {
+          first_name,
+          email,
+          answers
+        }
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.75";
+      statusEl.textContent = "Creating your personalized 5 day course. this usually takes a few seconds.";
+      statusEl.classList.remove("error", "success");
+
+      try {
+        const response = await fetch("https://cold-wave-02c3.kyle-dd2.workers.dev", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        statusEl.textContent = "You are in. check your inbox for Day 0 from Victoria in the next few minutes.";
+        statusEl.classList.add("success");
+        form.reset();
+      } catch (error) {
+        console.error(error);
+        statusEl.textContent = "Something went wrong sending your answers. please try again in a moment.";
+        statusEl.classList.add("error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+      }
+    });
+  </script>
+</body>
+</html>
