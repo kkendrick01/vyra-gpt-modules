@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Executive Strength Readiness Quiz | Dominguez Performance Labs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-main: #101110;
+      --bg-card: #D9483B;
+      --accent: #A3A3A3;
+      --accent-soft: rgba(163, 163, 163, 0.16);
+      --text-main: #E5E1DA;
+      --text-muted: #c7c2b9;
+      --border-subtle: rgba(229, 225, 218, 0.18);
+      --bg-soft: #202020;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #202020 0%, #101110 45%, #050505 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .page-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 16px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .trust-pill {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trust-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .hero-panel {
+      padding: 24px 24px 26px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(217, 72, 59, 0.18), rgba(5, 5, 5, 0.9));
+      border: 1px solid rgba(217, 72, 59, 0.35);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    .offer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(5, 5, 5, 0.6);
+      border: 1px solid rgba(229, 225, 218, 0.18);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .offer-pill span {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .offer-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      box-shadow: 0 0 0 4px rgba(217, 72, 59, 0.2);
+    }
+
+    .hero-title {
+      font-size: 30px;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-bottom: 18px;
+    }
+
+    .hero-metas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-meta-pill {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(5, 5, 5, 0.65);
+      border: 1px solid rgba(229, 225, 218, 0.18);
+    }
+
+    .hero-list {
+      list-style: none;
+      margin: 0;
+      padding: 12px 0 2px;
+      border-top: 1px solid rgba(229, 225, 218, 0.22);
+      display: grid;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .hero-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .bullet-icon {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: var(--accent);
+    }
+
+    .hero-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-note strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .quiz-card {
+      background: linear-gradient(145deg, #202020, #101110);
+      border-radius: 24px;
+      padding: 20px 18px 22px;
+      border: 1px solid rgba(229, 225, 218, 0.18);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.6);
+    }
+
+    .quiz-header {
+      margin-bottom: 14px;
+    }
+
+    .quiz-tagline {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .quiz-title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .quiz-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .quiz-duration {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .quiz-intro {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    form {
+      margin-top: 14px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .label-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .required {
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(229, 225, 218, 0.22);
+      background: rgba(5, 5, 5, 0.85);
+      padding: 9px 10px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      resize: vertical;
+      min-height: 38px;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background-color: rgba(5, 5, 5, 0.95);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .pill-option {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(229, 225, 218, 0.22);
+      background: rgba(5, 5, 5, 0.88);
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .pill-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pill-option[data-checked="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--text-main);
+      box-shadow: 0 0 0 1px rgba(163, 163, 163, 0.4);
+    }
+
+    .helper-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .submit-row {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .submit-button {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #f9735b, #D9483B);
+      color: #080808;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease, opacity 0.12s ease;
+    }
+
+    .submit-button span.icon {
+      font-size: 11px;
+      transform: translateY(0.5px);
+    }
+
+    .submit-button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .submit-button:active:not(:disabled) {
+      transform: translateY(1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.7);
+    }
+
+    .submit-button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .submit-caption {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-message {
+      font-size: 12px;
+      min-height: 18px;
+    }
+
+    .status-message.success {
+      color: #bbf7d0;
+    }
+
+    .status-message.error {
+      color: #fecaca;
+    }
+
+    .status-message.neutral {
+      color: var(--text-muted);
+    }
+
+    .after-panel {
+      margin-top: 18px;
+      padding: 14px 12px;
+      border-radius: 18px;
+      background: rgba(5, 5, 5, 0.8);
+      border: 1px dashed rgba(229, 225, 218, 0.24);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .after-panel strong {
+      color: var(--text-main);
+    }
+
+    .after-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .after-block {
+      background: rgba(32, 32, 32, 0.9);
+      border-radius: 12px;
+      padding: 8px 9px 8px;
+      border: 1px solid rgba(229, 225, 218, 0.18);
+    }
+
+    .after-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .after-title {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .after-body {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-row {
+      margin-top: 26px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-row span {
+      opacity: 0.8;
+    }
+
+    .footer-highlight {
+      color: var(--accent);
+    }
+
+    @media (max-width: 920px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-panel {
+        order: -1;
+      }
+
+      .quiz-card {
+        padding: 18px 16px 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        padding: 22px 16px 32px;
+      }
+
+      .logo-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-panel {
+        padding: 20px 18px 22px;
+        border-radius: 20px;
+      }
+
+      .hero-title {
+        font-size: 24px;
+      }
+
+      .after-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="logo-row">
+      <div class="brand-lockup">
+        <div class="brand-mark">D</div>
+        <div class="brand-text">
+          <div class="brand-name">DOMINGUEZ PERFORMANCE LABS</div>
+          <div class="brand-tagline">Executive strength and metabolic resilience</div>
+        </div>
+      </div>
+      <div class="trust-pill">
+        <span class="trust-dot"></span>
+        <span>Built for executives and founders</span>
+      </div>
+    </header>
+
+    <main class="grid" aria-label="Executive Strength Readiness Quiz">
+      <section class="hero-panel" aria-labelledby="hero-title">
+        <div class="offer-pill">
+          <span class="offer-dot"></span>
+          <span>Executive Strength Protocol · 12 week system</span>
+        </div>
+        <h1 id="hero-title" class="hero-title">
+          Build the <span>athletic engine</span> behind your career.
+        </h1>
+        <p class="hero-subtitle">
+          A short diagnostic to see how close your current training, recovery, and metabolism are to supporting a high output executive schedule.
+        </p>
+        <div class="hero-metas">
+          <div class="hero-meta-pill">Takes about 2 minutes</div>
+          <div class="hero-meta-pill">For men and women 35 to 55</div>
+          <div class="hero-meta-pill">No fluff, no aesthetic trends</div>
+        </div>
+        <ul class="hero-list">
+          <li>
+            <span class="bullet-icon"></span>
+            <span>See where your current plan is quietly leaking strength, energy, and progress.</span>
+          </li>
+          <li>
+            <span class="bullet-icon"></span>
+            <span>Get a 5 day email course that walks you through the core mistakes executives make in the gym.</span>
+          </li>
+          <li>
+            <span class="bullet-icon"></span>
+            <span>Learn the training structure Rafael uses to help busy operators lose fat, add strength, and avoid burnout.</span>
+          </li>
+        </ul>
+        <p class="hero-note">
+          <strong>What you get.</strong> A personalized 5 day breakdown of your strength and conditioning blind spots plus a clear framework you can apply immediately, even with a full calendar.
+        </p>
+      </section>
+
+      <section class="quiz-card" aria-label="Quiz form">
+        <div class="quiz-header">
+          <div class="quiz-tagline">Readiness diagnostic</div>
+          <div class="quiz-title-row">
+            <h2 class="quiz-title">Executive Strength Readiness Quiz</h2>
+            <div class="quiz-duration">6 quick questions</div>
+          </div>
+          <p class="quiz-intro">
+            Answer honestly based on the last 30 to 60 days. This is not about perfection, it is about a clear picture of your current operating baseline.
+          </p>
+        </div>
+
+        <form id="quiz-form" novalidate>
+          <div class="field-group">
+            <label for="first_name" class="field-label">
+              <span>First name</span>
+              <span class="required">Required</span>
+            </label>
+            <input type="text" id="first_name" name="first_name" autocomplete="given-name" placeholder="Rafael" />
+          </div>
+
+          <div class="field-group">
+            <label for="email" class="field-label">
+              <span>Work email</span>
+              <span class="required">Required</span>
+            </label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="you@company.com" />
+            <p class="helper-text">Used only to send your 5 day course and results. No list dumping or daily blasts.</p>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              <span>How many structured strength sessions do you complete in a typical week?</span>
+              <span class="label-pill">Training volume</span>
+            </div>
+            <div class="pill-row" role="radiogroup" aria-label="Weekly strength sessions">
+              <label class="pill-option" data-group="q1">
+                <input type="radio" name="q1" value="0 to 1 sessions" />
+                0 to 1
+              </label>
+              <label class="pill-option" data-group="q1">
+                <input type="radio" name="q1" value="2 to 3 sessions" />
+                2 to 3
+              </label>
+              <label class="pill-option" data-group="q1">
+                <input type="radio" name="q1" value="4 to 5 sessions" />
+                4 to 5
+              </label>
+              <label class="pill-option" data-group="q1">
+                <input type="radio" name="q1" value="6 plus sessions" />
+                6 plus
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              <span>How would you rate your average energy across a full workday?</span>
+              <span class="label-pill">Energy stability</span>
+            </div>
+            <div class="pill-row" role="radiogroup" aria-label="Average daily energy">
+              <label class="pill-option" data-group="q2">
+                <input type="radio" name="q2" value="Crash by early afternoon" />
+                Crash by early afternoon
+              </label>
+              <label class="pill-option" data-group="q2">
+                <input type="radio" name="q2" value="Manageable but inconsistent" />
+                Manageable but inconsistent
+              </label>
+              <label class="pill-option" data-group="q2">
+                <input type="radio" name="q2" value="Strong and stable most days" />
+                Strong and stable most days
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              <span>What best describes your current approach to programming?</span>
+              <span class="label-pill">Program design</span>
+            </div>
+            <div class="pill-row" role="radiogroup" aria-label="Programming approach">
+              <label class="pill-option" data-group="q3">
+                <input type="radio" name="q3" value="Random workouts from apps or social media" />
+                Random workouts from apps or social
+              </label>
+              <label class="pill-option" data-group="q3">
+                <input type="radio" name="q3" value="Basic template with some structure" />
+                Basic template with some structure
+              </label>
+              <label class="pill-option" data-group="q3">
+                <input type="radio" name="q3" value="Fully planned progression built around my schedule" />
+                Planned progression around my schedule
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              <span>How consistently do you track load, recovery, or key metrics?</span>
+              <span class="label-pill">Data and feedback</span>
+            </div>
+            <div class="pill-row" role="radiogroup" aria-label="Tracking consistency">
+              <label class="pill-option" data-group="q4">
+                <input type="radio" name="q4" value="Rarely track, mostly training by feel" />
+                Rarely track, mostly by feel
+              </label>
+              <label class="pill-option" data-group="q4">
+                <input type="radio" name="q4" value="Track occasionally, not in a system" />
+                Track occasionally, not in a system
+              </label>
+              <label class="pill-option" data-group="q4">
+                <input type="radio" name="q4" value="Track key metrics weekly in a clear system" />
+                Track key metrics weekly in a system
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="q5" class="field-label">
+              <span>Right now, what feels like the biggest constraint on your progress?</span>
+              <span class="label-pill">Primary bottleneck</span>
+            </label>
+            <textarea id="q5" name="q5" placeholder="Examples. Time, joint pain, inconsistent routine, travel, stress, unclear plan."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label for="q6" class="field-label">
+              <span>If we were talking 12 weeks from now, what specific changes would tell you this was a clear win?</span>
+              <span class="label-pill">Definition of success</span>
+            </label>
+            <textarea id="q6" name="q6" placeholder="Give numbers and specifics if you can. Strength, weight, energy, schedule, anything that matters most."></textarea>
+          </div>
+
+          <div class="submit-row">
+            <button type="submit" class="submit-button" id="submit-button">
+              <span>Create my 5 day course</span>
+              <span class="icon">➜</span>
+            </button>
+            <p class="submit-caption">
+              You will get Day 0 in the next few minutes, with Days 1 to 5 focused on the exact mistakes holding back executives at your current readiness level.
+            </p>
+            <p id="status-message" class="status-message neutral" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <div class="after-panel">
+          <strong>What happens after you submit.</strong>
+          <div class="after-grid">
+            <div class="after-block">
+              <div class="after-label">Day 0</div>
+              <div class="after-title">Your current operating baseline</div>
+              <div class="after-body">
+                A short breakdown of what your answers suggest about your training, recovery, and metabolic resilience plus one adjustment to make this week.
+              </div>
+            </div>
+            <div class="after-block">
+              <div class="after-label">Days 1 to 5</div>
+              <div class="after-title">The core mistakes executives make</div>
+              <div class="after-body">
+                Each day covers one mistake that quietly kills strength and energy plus a simple protocol you can apply in the time you already have.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-row">
+      <span>Designed and delivered by <span class="footer-highlight">Rafael Dominguez</span>, CSCS.</span>
+      <span>Evidence based, sustainable training built for long careers.</span>
+    </footer>
+  </div>
+
+  <script>
+    const clientConfig = {
+      name: "Rafael Dominguez",
+      brand: "Dominguez Performance Labs",
+      niche: "Executives and entrepreneurs 35 to 55 who want elite strength and metabolic resilience",
+      offer_name: "Executive Strength Protocol",
+      offer_description: "A 12 week data driven strength and metabolic resilience system for busy executives and entrepreneurs.",
+      tone: "Direct, scientific, grounded, authoritative, strong, steady, principle based.",
+      from_name: "Rafael from Dominguez Performance Labs",
+      primary_color: "#101110",
+      secondary_color: "#D9483B",
+      accent_color: "#A3A3A3"
+    };
+
+    clientConfig.course_webhook_url = "https://script.google.com/macros/s/AKfycbw2fAbjoFSlctJxDDgp36mU8dftbReAXXcl-D8ndHgXRkWO-O-l-UQf01kBityy3D1E7A/exec";
+
+    function setPillState(groupName, targetLabel) {
+      const all = document.querySelectorAll('.pill-option[data-group="' + groupName + '"]');
+      all.forEach(label => {
+        if (label === targetLabel) {
+          label.setAttribute("data-checked", "true");
+        } else {
+          label.setAttribute("data-checked", "false");
+        }
+      });
+    }
+
+    document.querySelectorAll(".pill-option").forEach(label => {
+      const input = label.querySelector("input[type='radio']");
+      if (!input) return;
+      label.addEventListener("click", function (event) {
+        event.preventDefault();
+        input.checked = true;
+        const groupName = input.name;
+        setPillState(groupName, label);
+      });
+    });
+
+    const form = document.getElementById("quiz-form");
+    const submitButton = document.getElementById("submit-button");
+    const statusMessage = document.getElementById("status-message");
+
+    function setStatus(type, text) {
+      statusMessage.textContent = text;
+      statusMessage.classList.remove("success", "error", "neutral");
+      statusMessage.classList.add(type);
+    }
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const firstNameInput = document.getElementById("first_name");
+      const emailInput = document.getElementById("email");
+
+      const first_name = firstNameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      if (!first_name || !email) {
+        setStatus("error", "Please add your first name and email to receive the course.");
+        return;
+      }
+
+      const q1Checked = document.querySelector('input[name="q1"]:checked');
+      const q2Checked = document.querySelector('input[name="q2"]:checked');
+      const q3Checked = document.querySelector('input[name="q3"]:checked');
+      const q4Checked = document.querySelector('input[name="q4"]:checked');
+
+      const q5 = document.getElementById("q5").value.trim();
+      const q6 = document.getElementById("q6").value.trim();
+
+      if (!q1Checked || !q2Checked || !q3Checked || !q4Checked || !q5 || !q6) {
+        setStatus("error", "Answer all six questions so the breakdown reflects your actual situation.");
+        return;
+      }
+
+      const answers = {
+        q1: q1Checked.value,
+        q2: q2Checked.value,
+        q3: q3Checked.value,
+        q4: q4Checked.value,
+        q5: q5,
+        q6: q6
+      };
+
+      const payload = {
+        mode: "runtime_eec",
+        client: clientConfig,
+        prospect: {
+          first_name,
+          email,
+          answers
+        }
+      };
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<span>Creating your 5 day course</span><span class="icon">…</span>';
+      setStatus("neutral", "Creating your personalized 5 day course. This usually takes a few seconds.");
+
+      try {
+        const response = await fetch("https://cold-wave-02c3.kyle-dd2.workers.dev", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        setStatus("success", "You are in. Check your inbox for Day 0 in the next few minutes.");
+        submitButton.innerHTML = '<span>Course is on the way</span><span class="icon">✓</span>';
+      } catch (error) {
+        console.error(error);
+        setStatus("error", "Something went wrong on send. Try again in a moment or use a different email address.");
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span>Create my 5 day course</span><span class="icon">➜</span>';
+      }
+    });
+  </script>
+</body>
+</html>
