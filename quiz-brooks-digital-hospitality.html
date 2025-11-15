@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Boutique Guest Experience Diagnostic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #B45E49;
+      --bg-card: #E2CBB5;
+      --accent: #A48C39;
+      --accent-soft: rgba(164, 140, 57, 0.12);
+      --text-main: #3D2E2A;
+      --text-muted: #6b574f;
+      --border-subtle: #c6af99;
+      --bg-soft: #F5F2EC;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.12);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 150ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px 48px;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #F5F2EC 0, #E2CBB5 38%, #B45E49 100%);
+      color: var(--text-main);
+    }
+
+    .page-shell {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(245, 242, 236, 0.85);
+      border: 1px solid rgba(198, 175, 153, 0.7);
+      backdrop-filter: blur(10px);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .brand-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero {
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      margin: 18px 0 10px;
+      font-family: "Playfair Display", "Georgia", serif;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 1.18;
+      letter-spacing: 0.01em;
+      color: #251714;
+    }
+
+    .hero-subtitle {
+      max-width: 640px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .hero-bullets {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 16px;
+      max-width: 640px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .hero-bullets-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(164, 140, 57, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      background: rgba(245, 242, 236, 0.9);
+    }
+
+    .layout-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(245, 242, 236, 0.98);
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      padding: 22px 20px 22px;
+      border: 1px solid rgba(198, 175, 153, 0.75);
+      backdrop-filter: blur(18px);
+    }
+
+    .card-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2b1b17;
+    }
+
+    .card-kicker {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    form {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #3a2620;
+    }
+
+    .field-label span {
+      color: #a34c3c;
+      margin-left: 4px;
+    }
+
+    .field-help {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .input,
+    .textarea {
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 11px;
+      font-size: 14px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform 80ms ease-out;
+    }
+
+    .textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(164, 140, 57, 0.4), 0 12px 28px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .pill-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .pill-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pill-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      border: 1px solid rgba(198, 175, 153, 0.9);
+      background: rgba(245, 242, 236, 0.98);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), transform 80ms ease-out;
+      white-space: nowrap;
+    }
+
+    .pill-option input:focus-visible + .pill-chip {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .pill-option input:checked + .pill-chip {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fffdf5;
+      box-shadow: 0 10px 24px rgba(164, 140, 57, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .pill-chip:hover {
+      border-color: var(--accent);
+      background: rgba(164, 140, 57, 0.12);
+    }
+
+    .submit-area {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .button-primary {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 11px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(120deg, #A48C39, #B45E49);
+      color: #fffaf4;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 80ms ease-out, box-shadow var(--transition-fast), filter var(--transition-fast), background-position 180ms ease-out;
+      background-size: 140% 140%;
+      background-position: 0% 50%;
+    }
+
+    .button-primary span.icon {
+      font-size: 15px;
+      transform: translateY(1px);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.34);
+      background-position: 100% 50%;
+      filter: brightness(1.02);
+    }
+
+    .button-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+    }
+
+    .button-primary:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .status-text.error {
+      color: #a0342b;
+    }
+
+    .status-text.success {
+      color: #3b5b33;
+    }
+
+    .trust-strip {
+      margin-top: 18px;
+      padding: 18px 18px 16px;
+      border-radius: 16px;
+      border: 1px dashed rgba(198, 175, 153, 0.95);
+      background: rgba(245, 242, 236, 0.96);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .trust-heading {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .trust-text {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .trust-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .trust-metric-chip {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(164, 140, 57, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trust-metric-chip span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    @media (min-width: 720px) {
+      body {
+        padding-top: 48px;
+      }
+
+      .hero {
+        margin-bottom: 36px;
+      }
+
+      .hero-title {
+        font-size: 38px;
+      }
+
+      .card {
+        padding: 24px 24px 24px;
+      }
+
+      .layout-column {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell" aria-labelledby="page-title">
+    <section class="hero">
+      <div class="brand-pill">
+        <span class="brand-pill-dot"></span>
+        <span>Brooks Digital Hospitality · Signature Experience Blueprint</span>
+      </div>
+      <h1 id="page-title" class="hero-title">
+        Measure the real strength of your guest experience in minutes.
+      </h1>
+      <p class="hero-subtitle">
+        This short diagnostic is designed for boutique hotels and elevated short stay properties that want to move from inconsistent reviews to a signature, memorable stay. At the end, you will unlock a personalized 5 day email course built from Brooks Digital Hospitality principles, tailored to your answers.
+      </p>
+      <ul class="hero-bullets">
+        <li>
+          <span class="hero-bullets-icon">◎</span>
+          <span>See where your current guest journey creates friction, confusion, or missed emotional beats.</span>
+        </li>
+        <li>
+          <span class="hero-bullets-icon">◎</span>
+          <span>Spot the quiet sensory details that are holding back five star reviews and premium nightly rates.</span>
+        </li>
+        <li>
+          <span class="hero-bullets-icon">◎</span>
+          <span>Walk away with a clear, experience led focus for your next 90 days of property improvements.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="layout-column" aria-label="Guest experience diagnostic quiz">
+      <div class="card" role="form">
+        <div class="card-heading">
+          <div class="card-kicker">Boutique guest experience diagnostic</div>
+          <div class="card-title">Answer a few focused questions and receive your tailored 5 day plan.</div>
+          <p class="card-description">
+            Your responses help Naomi read your property the way a guest does. You will receive a short email sequence that translates your answers into specific, experience driven upgrades.
+          </p>
+        </div>
+
+        <form id="quiz-form" novalidate>
+          <div class="field-group">
+            <label class="field-label" for="first_name">First name<span>*</span></label>
+            <input id="first_name" name="first_name" type="text" class="input" autocomplete="given-name" required />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="email">Best email for your guest reports<span>*</span></label>
+            <p class="field-help">This is where your personalized 5 day course will arrive.</p>
+            <input id="email" name="email" type="email" class="input" autocomplete="email" required />
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">How consistent are your guest reviews over the last 3 months<span>*</span></div>
+            <p class="field-help">Choose the option that feels closest to your current reality across platforms.</p>
+            <div class="pill-options">
+              <label class="pill-option">
+                <input type="radio" name="q1" value="All over the place. some fives and some twos" />
+                <span class="pill-chip">All over the place</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q1" value="Mostly positive. with a few recurring themes" />
+                <span class="pill-chip">Mostly positive. recurring issues</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q1" value="Strong and steady. mostly five star with minor notes" />
+                <span class="pill-chip">Strong and steady</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">When a guest arrives, how intentional does your arrival and check in sequence feel<span>*</span></div>
+            <p class="field-help">Think signage, first impressions, messaging, and how clear everything feels.</p>
+            <div class="pill-options">
+              <label class="pill-option">
+                <input type="radio" name="q2" value="Guests figure it out. but it is not curated" />
+                <span class="pill-chip">Guests figure it out</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q2" value="Mostly clear. some details feel improvised" />
+                <span class="pill-chip">Mostly clear. some gaps</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q2" value="Deliberate and welcoming. clearly curated from arrival to first night" />
+                <span class="pill-chip">Deliberate and welcoming</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Which part of your property do guests comment on the most in reviews<span>*</span></div>
+            <div class="pill-options">
+              <label class="pill-option">
+                <input type="radio" name="q3" value="Rooms and layout" />
+                <span class="pill-chip">Rooms and layout</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q3" value="Common areas and shared spaces" />
+                <span class="pill-chip">Common areas</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q3" value="Service and staff interactions" />
+                <span class="pill-chip">Service and staff</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q3" value="Details like lighting, scent, sound, and small touches" />
+                <span class="pill-chip">Lighting, scent, sound</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">How often do you walk your property as if you were a first time guest<span>*</span></div>
+            <div class="pill-options">
+              <label class="pill-option">
+                <input type="radio" name="q4" value="Rarely. only when there is a problem" />
+                <span class="pill-chip">Rarely</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q4" value="A few times a year. usually before busy seasons" />
+                <span class="pill-chip">A few times a year</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q4" value="Monthly or more. we treat it like a ritual" />
+                <span class="pill-chip">Monthly or more</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Which element of your guest experience feels weakest right now<span>*</span></div>
+            <div class="pill-options">
+              <label class="pill-option">
+                <input type="radio" name="q5" value="Lighting and ambience" />
+                <span class="pill-chip">Lighting and ambience</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q5" value="Layout, flow, and wayfinding" />
+                <span class="pill-chip">Layout and flow</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q5" value="Scent, sound, and sensory details" />
+                <span class="pill-chip">Scent and sound</span>
+              </label>
+              <label class="pill-option">
+                <input type="radio" name="q5" value="Housekeeping standards and resets" />
+                <span class="pill-chip">Housekeeping standards</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="q6_text">What is your current average rating across platforms</label>
+            <p class="field-help">If you know it, share your rough average or a range. for example. 4.3 on Airbnb and 4.6 on Booking.</p>
+            <input id="q6_text" name="q6_text" class="input" type="text" placeholder="For example. 4.2 to 4.5 across channels" />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="q7_text">If you could change one thing about your guest experience in the next 90 days, what would it be</label>
+            <textarea id="q7_text" name="q7_text" class="textarea" placeholder="Describe the feeling, reviews, or guest reactions you would love to see."></textarea>
+          </div>
+
+          <div class="submit-area">
+            <button type="submit" class="button-primary" id="submit-button">
+              <span>Send me my 5 day guest experience plan</span>
+              <span class="icon">↗</span>
+            </button>
+            <div id="status-message" class="status-text">
+              You will receive a 5 day email course tailored to your answers, starting in the next few minutes. No spam. just focused, experience led guidance.
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="trust-strip" aria-label="Why this diagnostic exists">
+        <div class="trust-heading">Built for boutique hospitality</div>
+        <p class="trust-text">
+          Naomi has spent more than a decade inside boutique hotels and premium short stay properties, helping owners move from uneven stays to intentional, high performing guest experiences. This diagnostic gives her a quick read on how your property feels from the guest side, so your follow up plan is grounded in both design and operations.
+        </p>
+        <div class="trust-metrics">
+          <div class="trust-metric-chip">
+            <span class="dot"></span>
+            <span>Average ratings lifted from 3.9 to 4.7 for dozens of properties</span>
+          </div>
+          <div class="trust-metric-chip">
+            <span class="dot"></span>
+            <span>Occupancy increases of 18 to 32 percent within a single season</span>
+          </div>
+          <div class="trust-metric-chip">
+            <span class="dot"></span>
+            <span>Focused on cohesive, sensory led guest journeys. not quick decor fixes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const clientConfig = {
+      name: "Naomi Brooks",
+      brand: "Brooks Digital Hospitality",
+      niche: "Boutique hotel owners, luxury short stay and Airbnb style operators who want elevated guest experience design",
+      offer_name: "Signature Experience Blueprint",
+      offer_description: "A full property audit, guest flow map, sensory experience guide, and operational recommendations that turn uneven stays into highly rated, memorable experiences.",
+      tone: "Warm, polished, detail oriented, strategic, calm, and experience driven.",
+      from_name: "Naomi from Brooks Digital Hospitality",
+      primary_color: "#B45E49",
+      secondary_color: "#E2CBB5",
+      accent_color: "#A48C39",
+      course_webhook_url: "https://script.google.com/macros/s/AKfycbwfSwp9j2_f_Todd_jEIVNQVJHX3z4SdQY7-8nNvwI2m4IFJixgFeMN8SnDCMhlOKyrjw/exec"
+    };
+
+    const form = document.getElementById("quiz-form");
+    const statusEl = document.getElementById("status-message");
+    const submitButton = document.getElementById("submit-button");
+
+    function setStatus(message, type) {
+      statusEl.textContent = message;
+      statusEl.classList.remove("error", "success");
+      if (type) {
+        statusEl.classList.add(type);
+      }
+    }
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = "<span>Creating your personalized 5 day course...</span>";
+      } else {
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span>Send me my 5 day guest experience plan</span><span class="icon">↗</span>';
+      }
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const first_name = (formData.get("first_name") || "").toString().trim();
+      const email = (formData.get("email") || "").toString().trim();
+
+      if (!first_name || !email) {
+        setStatus("Please add your first name and email so Naomi can send your plan.", "error");
+        return;
+      }
+
+      const requiredRadios = ["q1", "q2", "q3", "q4", "q5"];
+      for (const name of requiredRadios) {
+        if (!formData.get(name)) {
+          setStatus("Please answer all required questions marked with asterisk so your plan can be accurate.", "error");
+          return;
+        }
+      }
+
+      const answers = {
+        q1: formData.get("q1") || "",
+        q2: formData.get("q2") || "",
+        q3: formData.get("q3") || "",
+        q4: formData.get("q4") || "",
+        q5: formData.get("q5") || "",
+        q6: (formData.get("q6_text") || "").toString().trim(),
+        q7: (formData.get("q7_text") || "").toString().trim()
+      };
+
+      const payload = {
+        mode: "runtime_eec",
+        client: clientConfig,
+        prospect: {
+          first_name: first_name,
+          email: email,
+          answers: answers
+        }
+      };
+
+      setLoading(true);
+      setStatus("Creating your personalized 5 day guest experience course. this usually takes a moment.", null);
+
+      fetch("https://cold-wave-02c3.kyle-dd2.workers.dev", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json().catch(function () {
+            return {};
+          });
+        })
+        .then(function () {
+          setLoading(false);
+          setStatus("You are all set. Check your inbox for Day 0 in the next few minutes. If it is not there, look in promotions or spam and drag it into primary.", "success");
+          form.reset();
+        })
+        .catch(function () {
+          setLoading(false);
+          setStatus("Something went wrong sending your answers. Please check your connection and try again in a moment.", "error");
+        });
+    });
+  </script>
+</body>
+</html>
