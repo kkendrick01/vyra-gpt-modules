@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vyralab EEC Engine Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --card: #111111;
+      --border: #2a2a2a;
+      --accent: #3b82f6;
+      --accent-soft: #1d4ed8;
+      --text-main: #f5f5f5;
+      --text-muted: #9ca3af;
+      --error: #f97373;
+      --success: #22c55e;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      color: var(--text-main);
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 12px;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* LOGIN SCREEN */
+
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    #login-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 16px;
+      border: 1px solid #1f2937;
+      padding: 28px 24px 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    #login-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    #login-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    #login-debug {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      word-break: break-all;
+    }
+
+    #login-error {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--error);
+    }
+
+    /* APP CONTAINER */
+
+    #app-container {
+      display: none;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    #app-inner {
+      max-width: 1080px;
+      margin: 0 auto 60px;
+      background: rgba(17, 24, 39, 0.96);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 20px 22px 24px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    #user-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .app-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 14px;
+    }
+
+    .app-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .app-tag {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text-main);
+      padding: 10px 11px;
+      resize: vertical;
+      font-size: 0.9rem;
+      font-family: var(--mono);
+      min-height: 120px;
+    }
+
+    textarea:focus {
+      outline: 1px solid var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 16px;
+      background: linear-gradient(to right, var(--accent), var(--accent-soft));
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .btn-primary[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    #status {
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    #status.error {
+      color: var(--error);
+    }
+
+    #status.success {
+      color: var(--success);
+    }
+
+    #quiz-html {
+      min-height: 200px;
+    }
+
+    @media (max-width: 640px) {
+      #app-inner {
+        padding: 18px 14px 20px;
+      }
+
+      #login-card {
+        padding: 22px 18px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen">
+    <div id="login-card">
+      <div id="login-title">Vyralab EEC Engine</div>
+      <div id="login-subtitle">
+        Sign in with your Google account to unlock the quiz plus 5 day course builder.
+      </div>
+
+      <!-- Google sign in config -->
+      <div
+        id="g_id_onload"
+        data-client_id="694738377447-8js51t749cii0p520h7580utqdjk1k2f.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="false">
+      </div>
+
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="continue_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+      </div>
+
+      <div id="login-error"></div>
+      <div id="login-debug"></div>
+    </div>
+  </div>
+
+  <!-- APP UI . SHOWN AFTER LOGIN -->
+  <div id="app-container">
+    <div id="app-inner">
+      <div id="user-info"></div>
+
+      <div class="app-header">
+        <div class="app-title">EEC Engine . Quiz Builder</div>
+        <div class="app-tag">Vyralab Internal</div>
+      </div>
+
+      <p style="font-size:0.92rem; color:var(--text-muted); max-width:640px;">
+        Paste a full client onboarding form.  
+        The builder sends it to the Soft Bread Worker, which returns a complete quiz funnel HTML file that you can download.
+      </p>
+
+      <!-- INPUT -->
+      <div class="section">
+        <div class="section-label">Client Onboarding Form</div>
+        <textarea id="onboarding-input" placeholder="Paste the finished onboarding form here"></textarea>
+
+        <div class="button-row">
+          <button id="build-btn" class="btn-primary">
+            Generate Quiz Funnel HTML
+          </button>
+          <button id="download-btn" class="btn-secondary" disabled>
+            Download quiz.html
+          </button>
+        </div>
+
+        <div id="status"></div>
+      </div>
+
+      <!-- OUTPUT -->
+      <div class="section">
+        <div class="section-label">Quiz Funnel HTML</div>
+        <textarea id="quiz-html" placeholder="Generated HTML will appear here" readonly></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOOGLE LOGIN HANDLER -->
+  <script>
+    function parseJwt(token) {
+      const parts = token.split(".");
+      if (parts.length !== 3) return null;
+      const payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+      try {
+        return JSON.parse(atob(payload));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function handleCredentialResponse(response) {
+      const loginError = document.getElementById("login-error");
+      const loginDebug = document.getElementById("login-debug");
+      loginError.textContent = "";
+      loginDebug.textContent = "";
+
+      const payload = parseJwt(response.credential);
+      if (!payload || !payload.email) {
+        loginError.textContent = "Could not read Google login. Try again.";
+        return;
+      }
+
+      const email = payload.email;
+      const name = payload.name || payload.given_name || "";
+
+      // Optional email allowlist. Uncomment and edit if you want.
+      /*
+      const allowedEmails = [
+        "youremail@gmail.com",
+        "secondemail@yourdomain.com"
+      ];
+      if (!allowedEmails.includes(email)) {
+        loginError.textContent = "This tool is restricted to approved Google accounts.";
+        loginDebug.textContent = "Signed in as " + email + " which is not on the allowlist.";
+        return;
+      }
+      */
+
+      const loginScreen = document.getElementById("login-screen");
+      const appContainer = document.getElementById("app-container");
+      const userInfo = document.getElementById("user-info");
+
+      if (userInfo) {
+        userInfo.textContent =
+          "Signed in as " + (name || email) + ". Google verified.";
+      }
+
+      if (loginScreen) loginScreen.style.display = "none";
+      if (appContainer) appContainer.style.display = "block";
+
+      loginDebug.textContent = "";
+    }
+
+    window.handleCredentialResponse = handleCredentialResponse;
+  </script>
+
+  <!-- BUILDER LOGIC -->
+  <script>
+    const WORKER_URL = "https://soft-bread-325e.kyle-dd2.workers.dev";
+
+    const onboardingInput = document.getElementById("onboarding-input");
+    const buildBtn = document.getElementById("build-btn");
+    const downloadBtn = document.getElementById("download-btn");
+    const statusEl = document.getElementById("status");
+    const quizHtmlEl = document.getElementById("quiz-html");
+
+    let currentDownloadUrl = null;
+
+    function setStatus(message, mode) {
+      statusEl.textContent = message || "";
+      statusEl.className = "";
+      if (mode === "error") statusEl.classList.add("error");
+      if (mode === "success") statusEl.classList.add("success");
+    }
+
+    function setLoading(isLoading) {
+      if (!buildBtn) return;
+      buildBtn.disabled = isLoading;
+      buildBtn.textContent = isLoading ? "Generating..." : "Generate Quiz Funnel HTML";
+    }
+
+    async function callWorker(onboarding) {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ onboarding })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(
+          "Worker error " +
+          res.status +
+          ": " +
+          JSON.stringify(data)
+        );
+      }
+      return data;
+    }
+
+    async function handleBuildClick() {
+      const onboarding = onboardingInput.value.trim();
+      if (!onboarding) {
+        setStatus("Paste a full client onboarding form first.", "error");
+        return;
+      }
+
+      setStatus("Sending to Soft Bread Worker...", "");
+      setLoading(true);
+      downloadBtn.disabled = true;
+
+      if (currentDownloadUrl) {
+        URL.revokeObjectURL(currentDownloadUrl);
+        currentDownloadUrl = null;
+      }
+
+      try {
+        const data = await callWorker(onboarding);
+        const content =
+          data &&
+          data.choices &&
+          data.choices[0] &&
+          data.choices[0].message &&
+          data.choices[0].message.content
+            ? data.choices[0].message.content
+            : "";
+
+        if (!content) {
+          throw new Error("Worker responded, but no content field was present.");
+        }
+
+        quizHtmlEl.value = content;
+
+        const blob = new Blob([content], { type: "text/html" });
+        currentDownloadUrl = URL.createObjectURL(blob);
+        downloadBtn.disabled = false;
+
+        setStatus("Quiz HTML generated. You can review it or download quiz.html.", "success");
+      } catch (err) {
+        console.error(err);
+        setStatus("Error generating quiz. " + String(err.message || err), "error");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function handleDownloadClick() {
+      if (!currentDownloadUrl) return;
+      const a = document.createElement("a");
+      a.href = currentDownloadUrl;
+      a.download = "quiz.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    if (buildBtn) {
+      buildBtn.addEventListener("click", handleBuildClick);
+    }
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", handleDownloadClick);
+    }
+  </script>
+</body>
+</html>
