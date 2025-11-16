@@ -1,7 +1,7 @@
 RUNTIME EEC WORKER CONTRACT
 
 Every quiz page must POST JSON to:
-https://cold-wave-02c3.kyle-dd2.workers.dev
+soft-bread-325e.kyle-dd2.workers.dev
 
 Body:
 {
@@ -31,3 +31,4 @@ Rules:
 - mode must always be "runtime_eec".
 - All quiz pages use this exact structure.
 - Email content is generated downstream based on client + prospect.
+
