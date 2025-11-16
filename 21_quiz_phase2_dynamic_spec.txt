@@ -198,7 +198,7 @@ const payload = {
 
 Then:
 
-fetch("https://cold-wave-02c3.kyle-dd2.workers.dev", {
+fetch("soft-bread-325e.kyle-dd2.workers.dev", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(payload)
@@ -232,3 +232,4 @@ SUMMARY
 - You ALWAYS wire the form to the Worker with mode: "runtime_eec".
 - You NEVER expose client_model or any internal JSON to the user.
 - You ONLY output the final quiz HTML to the file creation system. never in chat.
+
