@@ -1,0 +1,190 @@
+# **30_EEC_EXPERT_MISTAKES_FRAMEWORK.TXT**
+
+## **Purpose**
+
+This file upgrades every Day 1–Day 5 email into a **high-authority, research-backed, niche-specific mini-masterclass**.
+
+The output must:
+
+* Be 400–500 words.
+* Feel like it was written by a **top expert in the client’s industry**.
+* Deliver **non-obvious, deeply insightful, tangible** value.
+* Use **real frameworks**, **scientific principles**, and **industry best practices**.
+* Be customized to the prospect’s quiz answers.
+* Make the client (the “author”) look like a **genius operator**, not a generic coach.
+
+## **Global Email Structure**
+
+Every email must follow this structure:
+
+1. **Subject Line**
+   Use a high-authority, niche-specific subject derived from the mistake.
+
+2. **Greeting**
+   `{{ first_name }}`
+
+3. **Opening Insight (3–5 sentences)**
+
+   * Identify the precise mistake the prospect is making.
+   * Tie it directly to their quiz answers.
+   * Establish why this mistake is a *keystone failure* in this niche.
+
+4. **The Real Cost (4–6 sentences)**
+   Explain the second-order consequences.
+   Use niche-specific data, psychology, physiology, economics, or systems thinking.
+   NOT generic fluff.
+
+5. **Why This Happens (3–5 sentences)**
+   Diagnose the underlying mechanism using **first-principles** or **industry frameworks** (e.g., cognitive load theory, metabolic adaptation, deal mechanics, operational bottlenecks, leadership dysfunction, hormonal pathways, demand curves, negotiation dynamics).
+
+6. **Expert Framework: “The Fix” (4–7 sentences)**
+   Provide a **research-backed**, **operational**, **step-by-step solution** that a real consultant/doctor/strategist would use.
+   Avoid vague advice (“communicate better”).
+   Use precise actions:
+
+   * Systems
+   * Protocols
+   * Benchmarks
+   * Feedback loops
+   * Templates
+   * Tools
+
+7. **Concrete Example (2–4 sentences)**
+   Give a very specific example that proves the insight.
+   Make it industry-specific.
+
+8. **Identity Upgrade (2–4 sentences)**
+   Position the reader as becoming someone with superior habits, thinking, or systems.
+
+9. **Tomorrow Preview (1–2 sentences)**
+   Create anticipation for the next day’s topic.
+
+10. **Signature Block**
+    Use the client model’s name + brand.
+
+---
+
+## **Day-by-Day Logic**
+
+### **Day 0 — Orientation**
+
+* Explain what the next 5 days will deliver.
+* Mirror back the prospect’s quiz answers to show personalization.
+* Establish credibility using niche logic + onboarding tone.
+* Set expectations: this is a high-level, research-driven email course.
+
+### **Day 1 — The Keystone Mistake**
+
+* Identify the **single mistake** causing the greatest downstream damage.
+* Must be:
+
+  * precise
+  * niche-specific
+  * diagnostic
+  * analytical
+* Deliver the deepest, most actionable insight of the whole course.
+
+### **Day 2 — Secondary Systems Failure**
+
+* Expose a flaw in:
+
+  * the prospect’s habits
+  * workflow
+  * physiology
+  * business operations
+  * leadership
+  * strategy
+* Introduce a framework or model from the niche.
+
+### **Day 3 — Root Cause Breakdown**
+
+* Identify the “invisible driver” behind the visible problems.
+* Examples:
+
+  * insulin resistance
+  * cognitive overload
+  * system bottlenecks
+  * fear-based decision loops
+  * poor deal qualification
+  * weak positioning
+  * lack of a client filter
+
+### **Day 4 — Acceleration / Optimization**
+
+* Show them how high performers actually operate.
+* Give elite-level tactics.
+
+### **Day 5 — Integration + Path Forward**
+
+* Show them the full system the client uses (without pitching).
+* Show how all 5 days connect into one transformation system.
+* Show what long-term success actually looks like in this niche.
+
+---
+
+## **Writing Style Requirements**
+
+* Tone must match the client’s voice (from onboarding).
+* No fluff. No filler. No clichés.
+* Every paragraph must contain:
+
+  * a concept
+  * a mechanism
+  * a tangible outcome
+  * a next step
+* Use short, punchy sentences.
+* Mix rhythm: long → short → medium.
+* Use high-authority verbs: “diagnose,” “quantify,” “systematize,” “stabilize,” “operationalize,” “reverse,” “optimize.”
+
+---
+
+## **Content Depth Rules**
+
+You MUST use:
+
+* Scientific reasoning (if health/wellness).
+* Leadership models (if executive coaching).
+* Negotiation psychology (if creators/business).
+* Deal mechanics (if real estate).
+* Market dynamics (if finance).
+* Behavioral economics.
+* Operational consulting logic.
+* Real frameworks and systems.
+
+You NEVER use:
+
+* generic advice
+* surface-level tips
+* cliches
+* motivational filler
+* corporate platitudes
+
+---
+
+## **Personalization Rules**
+
+Always use:
+
+* Their quiz answers
+* Their frustrations
+* Their goals
+* Their desired outcomes
+* Their emotional drivers
+
+This must feel **deeply custom**, not templated.
+
+---
+
+## **Length**
+
+Every email must be:
+
+* **400–500 words**
+* 6–10 paragraphs
+* Structured, dense, elite-level
+
+---
+
+## **End of Spec File**
+
+---

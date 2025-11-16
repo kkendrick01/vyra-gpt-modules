@@ -1,0 +1,42 @@
+QUIZ FRAMEWORKS . MINIMAL
+
+Goal:
+Given a client, design a quiz that feels natural for their ICP and offer.
+The quiz must set up a personalized 5 day educational email course.
+
+Core quiz patterns you can use:
+1. Biggest Mistakes quiz
+   Angle: diagnose common mistakes that block the main outcome.
+   Works for: performance, marketing, business, fitness, money.
+
+2. Archetype quiz
+   Angle: show them "what type" they are in this context.
+   Works for: identity heavy offers, leadership, creator, style.
+
+3. Readiness or Score quiz
+   Angle: show how ready their system is and where the gaps are.
+   Works for: agencies, SaaS, funnels, systems, operations.
+
+Selection rule:
+- If the offer fixes obvious recurring errors. use Biggest Mistakes.
+- If the offer helps shift identity or role. use Archetype.
+- If the offer improves a system or process. use Score / Readiness.
+
+Question rules:
+- Use 5 to 8 questions.
+- Mix frequency, confidence, and behavior questions.
+- Each answer should reveal something about pain, behavior, or desire.
+- Limit options to 3 or 4 per question when using multiple choice.
+- Avoid generic questions like “How do you feel about X”. always anchor in real behavior.
+
+Answer patterns:
+- Frequency scale. Rarely . Sometimes . Often.
+- Quality scale. Poor . OK . Strong.
+- Confidence scale. Not confident . Somewhat confident . Very confident.
+- Clear text inputs when nuance matters.
+
+End goal:
+The answers should give enough signal to personalize:
+- which mistake to emphasize,
+- which story to tell,
+- which promise to highlight in the 5 day course.

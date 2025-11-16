@@ -1,0 +1,42 @@
+HTML EMAIL SCAFFOLD
+
+Use this structure for all EEC emails.
+
+<!-- Subject: [insert subject here] -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>[Repeat subject or short title]</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #222;">
+
+  <p>Hi {{ first_name }},</p>
+
+  <!-- Opening story or setup -->
+  <p>[Short story, scene, or direct setup tied to their situation]</p>
+
+  <!-- Main insight or mistake -->
+  <h2 style="margin-top: 24px;">[Core idea or mistake name]</h2>
+  <p>[Explain what this is and why it hurts them]</p>
+
+  <!-- Supporting explanation or psychology -->
+  <p>[Explain how this plays out in their world. 1–2 paragraphs]</p>
+
+  <!-- Simple protocol or steps -->
+  <h3 style="margin-top: 24px;">A simple protocol for today</h3>
+  <ul>
+    <li><strong>Step 1.</strong> [Action]</li>
+    <li><strong>Step 2.</strong> [Action]</li>
+    <li><strong>Step 3.</strong> [Action]</li>
+  </ul>
+
+  <!-- Soft offer tie in -->
+  <p>[One paragraph that connects this to the client’s method or offer without hard selling]</p>
+
+  <!-- Signature -->
+  <p>Talk soon,<br>
+  [Client signature block]</p>
+
+</body>
+</html>
