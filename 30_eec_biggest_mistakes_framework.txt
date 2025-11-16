@@ -6,7 +6,7 @@ This file upgrades every Day 1–Day 5 email into a **high-authority, research-b
 
 The output must:
 
-* Be 400–500 words.
+* Be 600–700 words.
 * Feel like it was written by a **top expert in the client’s industry**.
 * Deliver **non-obvious, deeply insightful, tangible** value.
 * Use **real frameworks**, **scientific principles**, and **industry best practices**.
@@ -179,7 +179,7 @@ This must feel **deeply custom**, not templated.
 
 Every email must be:
 
-* **400–500 words**
+* **600–700 words**
 * 6–10 paragraphs
 * Structured, dense, elite-level
 
@@ -188,3 +188,4 @@ Every email must be:
 ## **End of Spec File**
 
 ---
+
