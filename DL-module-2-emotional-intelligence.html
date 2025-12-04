@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2 | Emotional Intelligence for AM Leadership | DL Leadership Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0a1628;
+      --navy-mid: #132744;
+      --navy-light: #1e3a5f;
+      --navy-lighter: #2a4a7a;
+      --gold-primary: #c9a227;
+      --gold-light: #e8c547;
+      --gold-glow: rgba(201, 162, 39, 0.3);
+      --gold-subtle: rgba(201, 162, 39, 0.15);
+      --white: #ffffff;
+      --white-soft: rgba(255, 255, 255, 0.9);
+      --white-muted: rgba(255, 255, 255, 0.7);
+      --white-subtle: rgba(255, 255, 255, 0.4);
+      --white-faint: rgba(255, 255, 255, 0.08);
+      --success: #4ade80;
+      --warning: #fbbf24;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--navy-deep); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 0; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--gold-primary), var(--gold-light)); z-index: 1000; transition: width 0.1s ease; }
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--white-faint); z-index: 100; }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold-primary); }
+    .nav-module { font-size: 0.85rem; color: var(--white-muted); }
+    .nav-module span { color: var(--gold-light); }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 40px 80px; position: relative; background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-light) 100%); }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 80%, var(--gold-glow) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(30, 58, 95, 0.5) 0%, transparent 40%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .module-badge { display: inline-block; padding: 10px 25px; background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 30px; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 30px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.2s; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.4s; }
+    .hero-subtitle { font-size: 1.2rem; color: var(--white-muted); font-weight: 300; max-width: 700px; margin: 0 auto 40px; line-height: 1.8; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.6s; }
+    .hero-divider { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 40px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.8s; }
+    .learning-objectives { text-align: left; background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 35px 40px; max-width: 700px; margin: 0 auto; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 1s; }
+    .learning-objectives h3 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-primary); margin-bottom: 20px; font-weight: 600; }
+    .learning-objectives ul { list-style: none; }
+    .learning-objectives li { padding: 8px 0; padding-left: 25px; position: relative; color: var(--white-soft); font-size: 0.95rem; }
+    .learning-objectives li::before { content: '✓'; position: absolute; left: 0; color: var(--gold-primary); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    section { position: relative; z-index: 1; padding: 100px 40px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-wide { max-width: 1100px; }
+    .section-label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 25px; }
+    .section-intro { font-size: 1.1rem; color: var(--white-muted); margin-bottom: 40px; line-height: 1.8; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .components { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .components-grid { display: grid; gap: 20px; }
+    .component-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 30px; display: grid; grid-template-columns: 70px 1fr; gap: 25px; align-items: start; transition: all 0.3s ease; }
+    .component-card:hover { border-color: rgba(201, 162, 39, 0.3); transform: translateY(-2px); }
+    .component-number { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy-deep); font-weight: 600; }
+    .component-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .component-content p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin: 0; }
+    .why-ei { background: var(--navy-deep); }
+    .outcomes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+    .outcome-card { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 30px; position: relative; overflow: hidden; }
+    .outcome-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-primary), var(--gold-light)); }
+    .outcome-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 15px; }
+    .outcome-card ul { list-style: none; }
+    .outcome-card li { padding: 6px 0; padding-left: 20px; position: relative; color: var(--white-muted); font-size: 0.9rem; line-height: 1.6; }
+    .outcome-card li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    .application { background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%); }
+    .workflow-block { margin-bottom: 50px; }
+    .workflow-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--white-faint); }
+    .workflow-icon { width: 50px; height: 50px; border-radius: 10px; background: var(--gold-subtle); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .workflow-header h3 { font-family: 'Source Sans 3', sans-serif; font-size: 1.2rem; font-weight: 600; color: var(--white); }
+    .workflow-content { display: grid; gap: 20px; }
+    .workflow-item { background: var(--white-faint); border-radius: 10px; padding: 25px; border-left: 3px solid var(--gold-primary); }
+    .workflow-item h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 12px; letter-spacing: 0.05em; }
+    .workflow-item p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .workflow-item p:last-child { margin-bottom: 0; }
+    .example-phrase { background: rgba(201, 162, 39, 0.1); border: 1px solid rgba(201, 162, 39, 0.2); border-radius: 6px; padding: 12px 15px; font-style: italic; color: var(--white-soft); font-size: 0.9rem; }
+    .techniques { background: var(--navy-mid); }
+    .techniques-grid { display: grid; gap: 25px; }
+    .technique-card { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-light) 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .technique-header { background: var(--gold-subtle); padding: 20px 25px; display: flex; align-items: center; gap: 15px; }
+    .technique-number { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold-primary); }
+    .technique-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+    .technique-body { padding: 25px; }
+    .technique-body p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .technique-body p:last-child { margin-bottom: 0; }
+    .technique-steps { background: var(--white-faint); border-radius: 8px; padding: 20px; margin-top: 15px; }
+    .technique-steps h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; }
+    .technique-steps ol { list-style: none; counter-reset: step; }
+    .technique-steps li { counter-increment: step; padding: 8px 0; padding-left: 30px; position: relative; color: var(--white-soft); font-size: 0.9rem; }
+    .technique-steps li::before { content: counter(step); position: absolute; left: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-subtle); color: var(--gold-primary); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    .scenarios { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .scenario-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+    .scenario-header { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); padding: 25px 30px; display: flex; align-items: center; gap: 15px; }
+    .scenario-number { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold-primary); opacity: 0.7; }
+    .scenario-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+    .scenario-situation { padding: 25px 30px; border-bottom: 1px solid var(--white-faint); }
+    .scenario-situation h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; }
+    .scenario-situation p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.7; }
+    .scenario-exercise { padding: 25px 30px; background: rgba(0, 0, 0, 0.15); }
+    .scenario-exercise h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .scenario-prompts { display: grid; gap: 15px; margin-bottom: 20px; }
+    .scenario-prompt { display: flex; align-items: flex-start; gap: 12px; }
+    .prompt-number { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: var(--gold-subtle); color: var(--gold-primary); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-top: 2px; }
+    .scenario-prompt p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.5; }
+    .scenario-response { margin-top: 20px; }
+    .scenario-response label { display: block; font-size: 0.8rem; color: var(--white-muted); margin-bottom: 10px; }
+    .scenario-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 15px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; resize: vertical; min-height: 120px; line-height: 1.6; }
+    .scenario-textarea:focus { outline: none; border-color: var(--gold-primary); }
+    .scenario-textarea::placeholder { color: var(--white-subtle); }
+    .scenario-model { margin-top: 20px; }
+    .model-toggle { background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 6px; padding: 12px 20px; color: var(--gold-light); font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+    .model-toggle:hover { background: rgba(201, 162, 39, 0.25); }
+    .model-toggle .arrow { transition: transform 0.2s ease; }
+    .model-toggle.open .arrow { transform: rotate(180deg); }
+    .model-content { display: none; margin-top: 15px; padding: 20px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.15); border-radius: 8px; }
+    .model-content.visible { display: block; }
+    .model-content h6 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--success); margin-bottom: 12px; font-weight: 600; }
+    .model-content p { font-size: 0.9rem; color: var(--white-soft); line-height: 1.7; margin-bottom: 10px; }
+    .model-content p:last-child { margin-bottom: 0; }
+    .assessment { background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%); }
+    .assessment-form { display: flex; flex-direction: column; gap: 30px; margin-bottom: 50px; }
+    .assessment-item { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .assessment-title-bar { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); padding: 20px 30px; display: flex; align-items: center; gap: 15px; }
+    .assessment-number { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold-primary); opacity: 0.7; }
+    .assessment-title-bar h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--white); margin: 0; }
+    .assessment-explanation { padding: 30px; border-bottom: 1px solid var(--white-faint); }
+    .explanation-block { margin-bottom: 25px; }
+    .explanation-block:last-of-type { margin-bottom: 0; }
+    .explanation-block h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold-primary); margin-bottom: 10px; font-weight: 600; }
+    .explanation-block p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.7; margin: 0; }
+    .explanation-block p strong { color: var(--gold-light); }
+    .score-examples { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; }
+    .score-example { padding: 20px; border-radius: 8px; }
+    .score-example.low { background: rgba(255, 100, 100, 0.08); border: 1px solid rgba(255, 100, 100, 0.15); }
+    .score-example.high { background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.15); }
+    .score-example h6 { font-family: 'Source Sans 3', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 600; }
+    .score-example.low h6 { color: #ff9999; }
+    .score-example.high h6 { color: var(--success); }
+    .score-example ul { list-style: none; margin: 0; padding: 0; }
+    .score-example li { padding: 5px 0; padding-left: 18px; position: relative; color: var(--white-muted); font-size: 0.85rem; line-height: 1.5; }
+    .score-example li::before { content: '•'; position: absolute; left: 0; }
+    .score-example.low li::before { color: #ff9999; }
+    .score-example.high li::before { color: var(--success); }
+    .assessment-inputs { padding: 25px 30px; display: flex; flex-direction: column; gap: 20px; background: rgba(0, 0, 0, 0.15); border-bottom: 1px solid var(--white-faint); }
+    .input-group { width: 100%; }
+    .input-group label { display: block; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--white-muted); margin-bottom: 10px; font-weight: 500; }
+    .assessment-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 12px 14px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; resize: vertical; min-height: 80px; line-height: 1.6; }
+    .assessment-textarea:focus { outline: none; border-color: var(--gold-primary); }
+    .assessment-textarea::placeholder { color: var(--white-subtle); }
+    .assessment-score-section { padding: 25px 30px; background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%); }
+    .score-prompt { margin-bottom: 20px; }
+    .score-prompt p { font-size: 0.95rem; color: var(--white-soft); margin: 0; font-weight: 500; }
+    .score-input { display: flex; gap: 12px; flex-wrap: wrap; }
+    .score-btn { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.03); color: var(--white-muted); font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+    .score-btn:hover { border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(201, 162, 39, 0.1); }
+    .score-btn.active { background: var(--gold-primary); border-color: var(--gold-primary); color: var(--navy-deep); }
+    .score-summary { background: var(--white-faint); border: 2px solid rgba(201, 162, 39, 0.3); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+    .summary-header { padding: 30px; text-align: center; background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%); }
+    .summary-header h3 { font-size: 1.3rem; color: var(--gold-primary); margin-bottom: 10px; }
+    .summary-header p { font-size: 0.95rem; color: var(--white-muted); margin: 0; }
+    .summary-content { padding: 30px; }
+    .summary-content.hidden { display: none; }
+    .summary-grid { display: grid; grid-template-columns: 200px 1fr; gap: 40px; margin-bottom: 30px; }
+    .summary-total { text-align: center; padding: 30px; background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .total-score { font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--gold-primary); line-height: 1; margin-bottom: 5px; }
+    .total-label { font-size: 0.9rem; color: var(--white-muted); margin-bottom: 15px; }
+    .total-average { font-size: 1rem; color: var(--white-soft); padding-top: 15px; border-top: 1px solid var(--white-faint); }
+    .total-average span { color: var(--gold-light); font-weight: 600; }
+    .summary-breakdown h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .breakdown-list { display: flex; flex-direction: column; gap: 10px; }
+    .breakdown-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(255, 255, 255, 0.03); border-radius: 6px; border-left: 3px solid var(--white-faint); transition: all 0.3s ease; }
+    .breakdown-item.scored { border-left-color: var(--gold-primary); }
+    .breakdown-item.low-score { border-left-color: #ff9999; background: rgba(255, 100, 100, 0.05); }
+    .breakdown-label { font-size: 0.9rem; color: var(--white-soft); }
+    .breakdown-score { font-size: 1.1rem; font-weight: 600; color: var(--gold-primary); min-width: 30px; text-align: center; }
+    .summary-interpretation { padding: 25px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; margin-bottom: 25px; }
+    .summary-interpretation h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; }
+    .summary-interpretation p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.7; margin: 0; }
+    .summary-focus { padding: 25px; background: rgba(255, 100, 100, 0.05); border: 1px solid rgba(255, 100, 100, 0.15); border-radius: 8px; }
+    .summary-focus h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: #ff9999; margin-bottom: 12px; font-weight: 600; }
+    .summary-focus p, .summary-focus li { font-size: 0.95rem; color: var(--white-soft); line-height: 1.6; }
+    .summary-focus ul { list-style: none; margin: 0; padding: 0; }
+    .summary-focus li { padding: 8px 0; padding-left: 20px; position: relative; }
+    .summary-focus li::before { content: '→'; position: absolute; left: 0; color: #ff9999; }
+    .habits { background: var(--navy-deep); }
+    .habits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .habit-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 20px 25px; display: flex; align-items: flex-start; gap: 15px; cursor: pointer; transition: all 0.2s ease; }
+    .habit-card:hover { border-color: rgba(201, 162, 39, 0.3); }
+    .habit-card.checked { border-color: var(--success); background: rgba(74, 222, 128, 0.05); }
+    .habit-checkbox { width: 24px; height: 24px; min-width: 24px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; margin-top: 2px; }
+    .habit-card.checked .habit-checkbox { background: var(--success); border-color: var(--success); }
+    .habit-checkbox::after { content: '✓'; color: var(--navy-deep); font-weight: 600; font-size: 0.9rem; opacity: 0; transition: opacity 0.2s ease; }
+    .habit-card.checked .habit-checkbox::after { opacity: 1; }
+    .habit-content h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+    .habit-content p { font-size: 0.85rem; color: var(--white-muted); line-height: 1.5; margin: 0; }
+    .habit-frequency { display: inline-block; padding: 3px 10px; background: var(--gold-subtle); border-radius: 20px; font-size: 0.7rem; color: var(--gold-light); margin-top: 8px; letter-spacing: 0.05em; }
+    .commitment { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .commitment-card { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); border: 2px solid rgba(201, 162, 39, 0.3); border-radius: 12px; padding: 40px; text-align: center; }
+    .commitment-card h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--white); }
+    .commitment-card > p { font-size: 1rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .commitment-form { max-width: 500px; margin: 0 auto; }
+    .commitment-form label { display: block; font-size: 0.85rem; color: var(--white-muted); margin-bottom: 10px; text-align: left; }
+    .commitment-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 15px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 1rem; margin-bottom: 20px; }
+    .commitment-input:focus { outline: none; border-color: var(--gold-primary); }
+    .commitment-input::placeholder { color: var(--white-subtle); }
+    .commitment-btn { background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); border: none; border-radius: 8px; padding: 15px 40px; color: var(--navy-deep); font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .commitment-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px var(--gold-glow); }
+    .commitment-confirmed { display: none; padding: 20px; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 8px; margin-top: 20px; }
+    .commitment-confirmed.visible { display: block; }
+    .commitment-confirmed p { color: var(--success); margin: 0; font-size: 0.95rem; }
+    .references { background: var(--navy-deep); border-top: 1px solid var(--white-faint); }
+    .references-grid { display: grid; gap: 30px; }
+    .reference-category { padding-bottom: 25px; border-bottom: 1px solid var(--white-faint); }
+    .reference-category:last-child { border-bottom: none; padding-bottom: 0; }
+    .reference-category h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .reference-list { display: grid; gap: 10px; }
+    .reference-item { font-size: 0.85rem; color: var(--white-muted); line-height: 1.6; padding-left: 20px; position: relative; }
+    .reference-item::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold-subtle); }
+    .reference-item a { color: var(--gold-light); text-decoration: none; }
+    .reference-item a:hover { text-decoration: underline; }
+    .next-steps { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%); text-align: center; }
+    .next-module { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 40px; display: inline-block; }
+    .next-module p { font-size: 0.9rem; color: var(--white-muted); margin-bottom: 15px; }
+    .next-module h3 { font-size: 1.5rem; color: var(--white); margin-bottom: 20px; }
+    .next-btn { display: inline-block; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); color: var(--navy-deep); padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+    .next-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px var(--gold-glow); }
+    @media (max-width: 1024px) { .outcomes-grid, .habits-grid { grid-template-columns: 1fr; } .score-examples { grid-template-columns: 1fr; } .summary-grid { grid-template-columns: 1fr; gap: 30px; } .summary-total { max-width: 300px; margin: 0 auto; } }
+    @media (max-width: 768px) { section { padding: 60px 25px; } .top-nav { padding: 15px 20px; } .hero { padding: 100px 25px 60px; } .component-card { grid-template-columns: 1fr; text-align: center; } .component-number { margin: 0 auto; } .assessment-title-bar, .assessment-explanation, .assessment-inputs, .assessment-score-section { padding: 20px; } .score-input { justify-content: center; } .score-btn { width: 45px; height: 45px; font-size: 1rem; } }
+    @media print { .top-nav, .progress-bar { display: none; } body { background: white; color: black; } section { page-break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <nav class="top-nav">
+    <div class="nav-brand">DIGITAL LEVERAGE</div>
+    <div class="nav-module"><span>Module 2</span> / Emotional Intelligence</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="module-badge">MODULE 2</div>
+      <h1>Emotional Intelligence for Account Manager Leadership</h1>
+      <p class="hero-subtitle">EI is not a personality trait. It is a set of trainable skills that strengthen client relationships, improve team collaboration, and build leadership influence.</p>
+      <div class="hero-divider"></div>
+      <div class="learning-objectives">
+        <h3>LEARNING OBJECTIVES</h3>
+        <ul>
+          <li>Understand the five scientifically recognized components of Emotional Intelligence</li>
+          <li>Apply EI to real client situations with clarity and control</li>
+          <li>Strengthen communication quality and presence during calls and briefings</li>
+          <li>Handle internal and external tension without escalation</li>
+          <li>Lead creative teams with empathy and precision</li>
+          <li>Build habits that improve performance over time</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="components" id="components">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE FRAMEWORK</span>
+      <h2 class="section-title fade-in">The Five Components of Emotional Intelligence</h2>
+      <p class="section-intro fade-in">Emotional Intelligence is the ability to identify, understand, regulate, and use emotions to guide communication and decision making. These are the established components from Goleman's research:</p>
+      <div class="components-grid">
+        <div class="component-card fade-in"><div class="component-number">1</div><div class="component-content"><h4>Self Awareness</h4><p>Understanding your own emotions, triggers, strengths, limits, and patterns. Self awareness improves presence during calls and reduces reactive communication.</p></div></div>
+        <div class="component-card fade-in"><div class="component-number">2</div><div class="component-content"><h4>Self Regulation</h4><p>Managing your emotional state under pressure. It supports calm decision making when clients shift direction or when internal friction appears.</p></div></div>
+        <div class="component-card fade-in"><div class="component-number">3</div><div class="component-content"><h4>Motivation</h4><p>Maintaining internal drive and commitment without relying entirely on external validation. It supports consistency, reliability, and long-term performance.</p></div></div>
+        <div class="component-card fade-in"><div class="component-number">4</div><div class="component-content"><h4>Empathy</h4><p>Accurately understanding others' emotional states and perspectives. It strengthens trust with clients and improves collaboration with writers and editors.</p></div></div>
+        <div class="component-card fade-in"><div class="component-number">5</div><div class="component-content"><h4>Social Skills</h4><p>Communicating clearly, resolving conflict, influencing others, and leading conversations. It supports effective calls, strategic alignment, and leadership growth.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-ei" id="why-ei">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">WHY IT MATTERS</span>
+      <h2 class="section-title fade-in">EI in the Account Manager Role</h2>
+      <p class="section-intro fade-in">Every major leadership and customer success study identifies EI as a predictor of performance, trust, and influence. Here is how it applies to your work:</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card fade-in"><h4>Client Success Outcomes</h4><ul><li>Clients renew when communication feels clear, stable, and trusted</li><li>Clients escalate when conversations feel rushed or misunderstood</li><li>EI helps AMs interpret client tone, adjust questions, and keep calls productive</li></ul></div>
+        <div class="outcome-card fade-in"><h4>Creative Team Outcomes</h4><ul><li>Writers and editors perform better when receiving emotionally respectful, clear direction</li><li>EI helps AMs express expectations without tension</li><li>Feedback delivered with EI reduces burnout and improves output quality</li></ul></div>
+        <div class="outcome-card fade-in"><h4>Leadership and Culture Outcomes</h4><ul><li>EI is linked to stronger team relationships and reduced conflict</li><li>EI supports psychological safety, which improves creative output</li><li>High-EI individuals are more likely to be promoted to leadership roles</li></ul></div>
+        <div class="outcome-card fade-in"><h4>Retention and Performance Outcomes</h4><ul><li>High EI reduces churn risk through proactive, thoughtful communication</li><li>EI improves recovery after mistakes through transparent repair</li><li>Clients trust high-EI AMs with more responsibility and larger scopes</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="application" id="application">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">PRACTICAL APPLICATION</span>
+      <h2 class="section-title fade-in">EI in Real DL Workflows</h2>
+      <p class="section-intro fade-in">This section converts EI from abstract to concrete. These are real workflows where EI improves outcomes.</p>
+      <div class="workflow-block fade-in">
+        <div class="workflow-header"><div class="workflow-icon">📞</div><h3>EI in Client Calls</h3></div>
+        <div class="workflow-content">
+          <div class="workflow-item"><h5>Self Awareness</h5><p>Before each call, check your emotional state. Are you fatigued, irritated, stressed, confident, calm?</p><div class="example-phrase">"What emotional state am I in right now? Is this the state I want to bring into the call?"</div></div>
+          <div class="workflow-item"><h5>Self Regulation</h5><p>If a client shifts tone or pushes aggressively, slow the pace. Take one breath. Pause for one second before responding. Answer with clarity, not defensiveness.</p></div>
+          <div class="workflow-item"><h5>Empathy</h5><p>Listen for emotional cues: hesitation, frustration, excitement. Mirror back what you hear.</p><div class="example-phrase">"It sounds like the last campaign felt off for you. Help me understand what felt misaligned."</div></div>
+          <div class="workflow-item"><h5>Social Skills</h5><p>Use structured questions to extract insights. Use summaries to confirm understanding. Stay concise. Guide toward a decision.</p></div>
+        </div>
+      </div>
+      <div class="workflow-block fade-in">
+        <div class="workflow-header"><div class="workflow-icon">✍️</div><h3>EI in Creative Team Collaboration</h3></div>
+        <div class="workflow-content">
+          <div class="workflow-item"><h5>Empathy</h5><p>Understand the writer's perspective before assigning tasks. A writer juggling multiple clients who receives a vague brief experiences stress and delays.</p></div>
+          <div class="workflow-item"><h5>Social Skills</h5><p>Deliver clear, specific expectations.</p><div class="example-phrase">"Here are the three ideas, the target audience, the emotional angle, and the examples the client liked."</div></div>
+          <div class="workflow-item"><h5>Self Regulation</h5><p>If a writer pushes back or asks for clarity, stay calm. Respond with structure, not frustration.</p></div>
+        </div>
+      </div>
+      <div class="workflow-block fade-in">
+        <div class="workflow-header"><div class="workflow-icon">⚡</div><h3>EI in Conflict Situations</h3></div>
+        <div class="workflow-content">
+          <div class="workflow-item"><h5>When a Client is Unhappy</h5><p>Slow down. Clarify the concern. Acknowledge the disruption. Summarize the issue. Provide a plan.</p></div>
+          <div class="workflow-item"><h5>When Internal Team Tension Arises</h5><p>Separate facts from emotion. Ask questions before offering solutions. Share context without blame. End with next steps.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="techniques" id="techniques">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">TECHNIQUES & TOOLS</span>
+      <h2 class="section-title fade-in">EI Techniques for Account Managers</h2>
+      <p class="section-intro fade-in">These are practical exercises that create real skill development.</p>
+      <div class="techniques-grid">
+        <div class="technique-card fade-in"><div class="technique-header"><span class="technique-number">01</span><h4>The Pause Technique</h4></div><div class="technique-body"><p>Before responding to anything emotional, pause one second. This creates self regulation and reduces reactive communication.</p><p>One second is enough to shift from reaction to response. Use it when you feel defensive, frustrated, or caught off guard.</p></div></div>
+        <div class="technique-card fade-in"><div class="technique-header"><span class="technique-number">02</span><h4>Labeling Emotions</h4></div><div class="technique-body"><p>Identify your own emotions before calls. Identify client emotions during calls. Labeling improves clarity.</p><div class="technique-steps"><h5>EXAMPLES</h5><ol><li>"I am feeling rushed."</li><li>"The client sounds uncertain."</li><li>"The writer is stressed."</li></ol></div></div></div>
+        <div class="technique-card fade-in"><div class="technique-header"><span class="technique-number">03</span><h4>The 3R Method: Reflect, Reframe, Respond</h4></div><div class="technique-body"><div class="technique-steps"><h5>THE PROCESS</h5><ol><li><strong>Reflect:</strong> What emotion do I detect?</li><li><strong>Reframe:</strong> What does this suggest about their mindset?</li><li><strong>Respond:</strong> Give a clear, neutral, structured reply.</li></ol></div></div></div>
+        <div class="technique-card fade-in"><div class="technique-header"><span class="technique-number">04</span><h4>The Empathy Loop</h4></div><div class="technique-body"><p>A communication structure for difficult conversations:</p><div class="technique-steps"><h5>THE STRUCTURE</h5><ol><li>Hear the message</li><li>Reflect it back</li><li>Ask for confirmation</li><li>Offer a plan</li></ol></div><p style="margin-top:15px;"><em>"It sounds like last week's content was not aligned. Did I understand that correctly? Let's clarify exactly what needs adjustment."</em></p></div></div>
+        <div class="technique-card fade-in"><div class="technique-header"><span class="technique-number">05</span><h4>The Summary Signal</h4></div><div class="technique-body"><p>After a discussion, use a summary to validate alignment.</p><p><em>"Here are the three points we agreed on and the next step we will take."</em></p><p>This prevents misinterpretation, reduces revision cycles, and increases trust.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scenarios" id="scenarios">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">PRACTICE SCENARIOS</span>
+      <h2 class="section-title fade-in">Apply What You Learned</h2>
+      <p class="section-intro fade-in">These scenarios reflect common AM situations. Write your response, then compare it to the model response.</p>
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">01</span><h4>The Anxious Client</h4></div>
+        <div class="scenario-situation"><h5>THE SITUATION</h5><p>A client joins the call irritated. Engagement has dropped over the past two weeks. They feel the content is not working and are questioning the strategy. Their tone is tense.</p></div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Identify the emotion the client is experiencing</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Reflect it back to them</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Ask clarifying questions to understand the real concern</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Guide toward a solution</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write what you would actually say to this client. Be specific."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Identify:</strong> The client is anxious and frustrated. They feel out of control because results are not matching expectations.</p>
+              <p><strong>Reflect:</strong> "I can hear that the drop in engagement is frustrating. It sounds like you are questioning whether the current direction is working."</p>
+              <p><strong>Clarify:</strong> "Help me understand what specifically feels off. Is it the topics, the format, the posting times, or something else?"</p>
+              <p><strong>Guide:</strong> "Let's look at the data together. I'll pull the last 30 days and we can identify exactly where the drop happened and test two adjustments this week."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">02</span><h4>The Overloaded Writer</h4></div>
+        <div class="scenario-situation"><h5>THE SITUATION</h5><p>A writer has asked for deadline extensions twice this week. They seem stressed. You have a new brief that needs to go out, but you are concerned about adding more to their plate.</p></div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Identify the emotional cues</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Assess the workload objectively</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Clarify priority</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Communicate expectations respectfully</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write what you would say to this writer. Be specific."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Identify:</strong> The writer is showing signs of overwhelm. Two extension requests in one week is a signal, not an excuse.</p>
+              <p><strong>Assess:</strong> "Before I send this new brief, I want to check in. What does your current queue look like? Are there bottlenecks I should know about?"</p>
+              <p><strong>Clarify:</strong> "This new brief is priority 2. If something needs to shift, let me know and we can adjust together."</p>
+              <p><strong>Communicate:</strong> "I need transparency on capacity so I can plan better. If this week is too tight, tell me now and we will figure it out."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">03</span><h4>Internal Miscommunication</h4></div>
+        <div class="scenario-situation"><h5>THE SITUATION</h5><p>A piece of content went out with errors because handoff details were incomplete. The client noticed. You need to address this with the team member who handled the handoff.</p></div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Identify your own emotional response first</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Clarify what information was missing</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Provide a solution without blame</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Document a process improvement</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write how you would address this with the team member. Be specific."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Self-check:</strong> "I feel frustrated because this reflects on me with the client. I need to separate that feeling from the conversation."</p>
+              <p><strong>Clarify:</strong> "Let's look at what happened. The handoff was missing the updated client notes. What was your understanding of what was needed?"</p>
+              <p><strong>Solution:</strong> "I'll send the correction to the client now. For future handoffs, let's use the checklist template so nothing gets missed."</p>
+              <p><strong>Process:</strong> "I'm going to add a handoff confirmation step to our workflow. Before content goes live, both of us sign off."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="assessment" id="assessment">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">SELF-ASSESSMENT</span>
+      <h2 class="section-title fade-in">EI Baseline Audit</h2>
+      <p class="section-intro fade-in">For each area, read the full description, reflect on your recent behavior, then score yourself honestly. Your cumulative score will help you identify focus areas for growth.</p>
+      <div class="assessment-form fade-in">
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">01</span><h4>Self Awareness</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Self awareness</strong> is the ability to recognize your own emotional state in real time. It means knowing when you are stressed, frustrated, confident, or distracted before those emotions affect your behavior.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>If you do not know you are stressed, you will bring that stress into a client call and it will show. Self aware AMs can adjust their state before it affects performance.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>You send messages when irritated and regret them later</li><li>Others notice your mood before you do</li><li>You are caught off guard by your own reactions</li><li>You do not know what triggers your stress</li><li>You push through fatigue without adjusting</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>You check your emotional state before calls</li><li>You know your triggers and plan around them</li><li>You delay responses when not in the right headspace</li><li>You recognize when fatigue affects your judgment</li><li>You can name what you are feeling in the moment</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a time you were aware (or unaware) of your emotional state and how it affected your work."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific action will you take to improve your self awareness?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="awareness"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">02</span><h4>Self Regulation</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Self regulation</strong> is the ability to manage your emotional response under pressure. It means staying calm when a client pushes back, when a deadline shifts, or when internal friction appears.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>Clients and teammates mirror the emotional tone you set. If you escalate, they escalate. If you stay calm, the situation stays manageable.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>You respond immediately when frustrated</li><li>Your tone changes when stressed</li><li>You say things you later regret</li><li>You let one bad interaction affect the next</li><li>You get defensive when challenged</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>You pause before responding to emotional situations</li><li>You maintain consistent tone under pressure</li><li>You separate the emotion from the issue</li><li>You can de-escalate tense conversations</li><li>You recover quickly from setbacks</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a time you managed (or failed to manage) your emotional response under pressure."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific technique will you practice to improve your self regulation?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="regulation"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">03</span><h4>Empathy</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Empathy</strong> is the ability to accurately understand what someone else is feeling and why. It is not about agreeing with them or fixing their problem. It is about seeing the situation from their perspective before you respond.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>People feel understood before they feel helped. If a client feels dismissed, they will not hear your solution. If a writer feels judged, they will not receive your feedback.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>You jump to solutions before understanding</li><li>You dismiss emotions as overreactions</li><li>You miss emotional cues in conversations</li><li>You assume you know what someone is feeling</li><li>You struggle to see issues from other perspectives</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>You ask questions to understand before responding</li><li>You acknowledge emotions before offering solutions</li><li>You can accurately read tone in communication</li><li>You consider how your actions affect others</li><li>People feel heard when they talk to you</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a time you demonstrated empathy (or failed to) and how it affected the outcome."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific empathy habit will you practice?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="empathy"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">04</span><h4>Listening and Communication</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Listening</strong> means fully attending to what someone is saying without planning your response. <strong>Communication</strong> means expressing yourself clearly and in a way that others can act on.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>Most miscommunications happen because someone was not listening or was not clear. Strong listening catches problems early. Clear communication prevents revision cycles.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>You interrupt or think ahead while others speak</li><li>Your messages require follow-up questions</li><li>You miss key details in conversations</li><li>Others misinterpret your instructions</li><li>You do not confirm understanding</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>You let people finish before responding</li><li>You summarize what you heard to confirm</li><li>Your messages are specific and actionable</li><li>You ask clarifying questions</li><li>You adjust your communication style to the audience</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a time your listening or communication helped (or caused problems)."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific communication habit will you practice?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="communication"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">05</span><h4>Conflict Handling</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Conflict handling</strong> is the ability to address disagreements, tension, and problems without making them worse. It includes knowing when to address issues directly and when to de-escalate.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>Conflict is inevitable in client work. The question is whether you make it worse or better. AMs who handle conflict well protect relationships and solve problems faster.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>You avoid difficult conversations</li><li>You escalate tension when challenged</li><li>You take sides rather than finding solutions</li><li>You let issues fester until they explode</li><li>You blame others rather than owning problems</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>You address issues early before they grow</li><li>You stay neutral and focus on solutions</li><li>You can disagree without damaging relationships</li><li>You de-escalate tense situations</li><li>You find compromises that work for everyone</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a conflict you handled (well or poorly) and what happened."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific conflict handling skill will you work on?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="conflict"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+        <div class="assessment-item"><div class="assessment-title-bar"><span class="assessment-number">06</span><h4>Clarity in Handoffs</h4></div><div class="assessment-explanation"><div class="explanation-block"><h5>WHAT THIS MEANS</h5><p><strong>Handoff clarity</strong> is the ability to transfer information, context, and expectations to others in a way that is complete and actionable.</p></div><div class="explanation-block"><h5>WHY IT MATTERS</h5><p>Vague handoffs cause errors, delays, and frustration. Clear handoffs create leverage. When your handoffs are complete, others can act without needing to come back to you.</p></div><div class="score-examples"><div class="score-example low"><h6>WEAK PERFORMANCE</h6><ul><li>Your briefs require follow-up questions</li><li>Others are confused about what you need</li><li>Important context gets lost in transitions</li><li>You assume others know things they do not</li><li>Handoffs happen verbally without documentation</li></ul></div><div class="score-example high"><h6>STRONG PERFORMANCE</h6><ul><li>Your briefs are complete on first delivery</li><li>You include all context needed to act</li><li>You document handoffs in writing</li><li>You confirm the receiver understood</li><li>Others can pick up your work without questions</li></ul></div></div></div><div class="assessment-inputs"><div class="input-group"><label>Recent Example (Last 30 Days)</label><textarea class="assessment-textarea" placeholder="Describe a handoff that went well (or poorly) and what made the difference."></textarea></div><div class="input-group"><label>Goal for Next 30 Days</label><textarea class="assessment-textarea" placeholder="What specific handoff improvement will you make?"></textarea></div></div><div class="assessment-score-section"><div class="score-prompt"><p>Based on what you just read and reflected on, how would you honestly rate yourself in this area?</p></div><div class="score-input" data-field="handoffs"><button class="score-btn" data-score="1">1</button><button class="score-btn" data-score="2">2</button><button class="score-btn" data-score="3">3</button><button class="score-btn" data-score="4">4</button><button class="score-btn" data-score="5">5</button></div></div></div>
+      </div>
+      <div class="score-summary fade-in" id="scoreSummary"><div class="summary-header"><h3>Your EI Assessment Summary</h3><p>Complete all six sections above to see your cumulative score and focus areas.</p></div><div class="summary-content hidden" id="summaryContent"><div class="summary-grid"><div class="summary-total"><div class="total-score" id="totalScore">--</div><div class="total-label">out of 30</div><div class="total-average">Average: <span id="averageScore">--</span>/5</div></div><div class="summary-breakdown"><h4>Score Breakdown</h4><div class="breakdown-list" id="breakdownList"><div class="breakdown-item" data-field="awareness"><span class="breakdown-label">Self Awareness</span><span class="breakdown-score">--</span></div><div class="breakdown-item" data-field="regulation"><span class="breakdown-label">Self Regulation</span><span class="breakdown-score">--</span></div><div class="breakdown-item" data-field="empathy"><span class="breakdown-label">Empathy</span><span class="breakdown-score">--</span></div><div class="breakdown-item" data-field="communication"><span class="breakdown-label">Listening & Communication</span><span class="breakdown-score">--</span></div><div class="breakdown-item" data-field="conflict"><span class="breakdown-label">Conflict Handling</span><span class="breakdown-score">--</span></div><div class="breakdown-item" data-field="handoffs"><span class="breakdown-label">Clarity in Handoffs</span><span class="breakdown-score">--</span></div></div></div></div><div class="summary-interpretation" id="summaryInterpretation"></div><div class="summary-focus" id="summaryFocus"><h4>Priority Focus Areas</h4><p id="focusAreas">Your lowest-scoring areas will appear here as priorities for the next 30 days.</p></div></div></div>
+    </div>
+  </section>
+
+  <section class="habits" id="habits">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">HABIT TRACKER</span>
+      <h2 class="section-title fade-in">Weekly EI Habits</h2>
+      <p class="section-intro fade-in">Each habit strengthens EI over time. Check off the habits you commit to practicing this week.</p>
+      <div class="habits-grid fade-in">
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Morning Emotional Check-In</h5><p>Before starting work, ask: "What emotional state am I in right now?"</p><span class="habit-frequency">Daily</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Pre-Call Intention Setting</h5><p>Before each client call, set your emotional intention for the conversation.</p><span class="habit-frequency">Per Call</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Post-Call Summary</h5><p>After each call, write a summary with action items within 30 minutes.</p><span class="habit-frequency">Per Call</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Weekly Reflection Journal</h5><p>Spend 10 minutes reviewing: What went well? What triggered me? What will I do differently?</p><span class="habit-frequency">Weekly</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Monthly EI Self-Assessment</h5><p>Return to this assessment and re-score yourself. Track progress.</p><span class="habit-frequency">Monthly</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>One Coaching Conversation</h5><p>Have one intentional feedback conversation with a teammate or manager.</p><span class="habit-frequency">Monthly</span></div></div>
+        <div class="habit-card" onclick="toggleHabit(this)"><div class="habit-checkbox"></div><div class="habit-content"><h5>Process Improvement Suggestion</h5><p>Identify one workflow that could be improved and document a proposal.</p><span class="habit-frequency">Monthly</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="commitment" id="commitment">
+    <div class="section-inner">
+      <div class="commitment-card fade-in">
+        <h3>Your EI Commitment</h3>
+        <p>Research shows that written commitments with accountability improve skill transfer. Take 60 seconds to commit to one specific EI improvement you will practice over the next 30 days.</p>
+        <div class="commitment-form">
+          <label>Your Name</label>
+          <input type="text" class="commitment-input" id="commitmentName" placeholder="Enter your name">
+          <label>Your 30-Day EI Commitment</label>
+          <textarea class="commitment-input" id="commitmentText" style="min-height:100px;resize:vertical;" placeholder="I commit to practicing..."></textarea>
+          <button class="commitment-btn" onclick="saveCommitment()">Save My Commitment</button>
+          <div class="commitment-confirmed" id="commitmentConfirmed"><p>✓ Commitment saved. Return to this page in 30 days to review your progress.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="references" id="references">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">REFERENCES</span>
+      <h2 class="section-title fade-in">Research and Sources</h2>
+      <div class="references-grid fade-in">
+        <div class="reference-category"><h4>PRIMARY SCIENTIFIC FOUNDATIONS</h4><div class="reference-list"><div class="reference-item">Mayer, J. D., Salovey, P., & Caruso, D. (2004). Emotional Intelligence: Theory, Findings, and Implications. Psychological Inquiry, 15(3), 197-215.</div><div class="reference-item">Goleman, D. (1995). Emotional Intelligence. Bantam Books.</div><div class="reference-item">Goleman, D. (1998). What Makes a Leader? Harvard Business Review.</div><div class="reference-item">Boyatzis, R. (2006). An overview of intentional change from a complexity perspective. Journal of Management Development.</div></div></div>
+        <div class="reference-category"><h4>EMOTIONAL REGULATION & COMMUNICATION</h4><div class="reference-list"><div class="reference-item">Rogers, Carl (1957). The necessary and sufficient conditions of therapeutic personality change. Journal of Consulting Psychology.</div><div class="reference-item">Miller, W. R., & Rollnick, S. (2013). Motivational Interviewing: Helping People Change. Guilford Press.</div><div class="reference-item">Gross, J. J. (1998). The Emerging Field of Emotion Regulation: An Integrative Review. Review of General Psychology.</div></div></div>
+        <div class="reference-category"><h4>LEADERSHIP & TEAM DYNAMICS</h4><div class="reference-list"><div class="reference-item">Goleman, D., Boyatzis, R., & McKee, A. (2002). Primal Leadership. Harvard Business School Press.</div><div class="reference-item">Edmondson, A. (1999). Psychological Safety and Learning Behavior in Work Teams. Administrative Science Quarterly, 44(2), 350-383.</div></div></div>
+        <div class="reference-category"><h4>CUSTOMER SUCCESS & INDUSTRY SOURCES</h4><div class="reference-list"><div class="reference-item">Gainsight. (2024). The Essential Guide to Customer Success. <a href="https://www.gainsight.com/essential-guide/customer-success/" target="_blank">gainsight.com</a></div><div class="reference-item">ChurnZero. (2024). Emotional Intelligence in Customer Success. <a href="https://churnzero.com/blog/emotional-intelligence-customer-success/" target="_blank">churnzero.com</a></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="next-steps" id="next-steps">
+    <div class="section-inner">
+      <span class="section-label fade-in">NEXT STEPS</span>
+      <h2 class="section-title fade-in">Continue Your Development</h2>
+      <div class="next-module fade-in"><p>UP NEXT</p><h3>Module 3: Clients: Outcomes and Retention</h3><a href="module-3-clients-outcomes-retention.html" class="next-btn">Begin Module 3 →</a></div>
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener('scroll',()=>{const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight,p=(s/d)*100;document.getElementById('progressBar').style.width=p+'%';});
+    const fadeEls=document.querySelectorAll('.fade-in');const observer=new IntersectionObserver((e)=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.1});fadeEls.forEach(el=>observer.observe(el));
+    const scores={awareness:null,regulation:null,empathy:null,communication:null,conflict:null,handoffs:null};
+    const fieldLabels={awareness:'Self Awareness',regulation:'Self Regulation',empathy:'Empathy',communication:'Listening & Communication',conflict:'Conflict Handling',handoffs:'Clarity in Handoffs'};
+    document.querySelectorAll('.score-input').forEach(g=>{g.querySelectorAll('.score-btn').forEach(b=>{b.addEventListener('click',()=>{g.querySelectorAll('.score-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=g.dataset.field;const s=parseInt(b.dataset.score);scores[f]=s;updateScoreSummary();saveFormData();});});});
+    function updateScoreSummary(){const sf=Object.values(scores).filter(s=>s!==null);const all=sf.length===6;Object.keys(scores).forEach(f=>{const i=document.querySelector('.breakdown-item[data-field="'+f+'"]');const sp=i.querySelector('.breakdown-score');if(scores[f]!==null){sp.textContent=scores[f];i.classList.add('scored');if(scores[f]<=2)i.classList.add('low-score');else i.classList.remove('low-score');}else{sp.textContent='--';i.classList.remove('scored','low-score');}});const sc=document.getElementById('summaryContent');const sh=document.querySelector('.summary-header p');if(all){sc.classList.remove('hidden');sh.textContent='Here is your baseline EI assessment. Use this to guide your 30-day focus areas.';const t=Object.values(scores).reduce((a,b)=>a+b,0);const a=(t/6).toFixed(1);document.getElementById('totalScore').textContent=t;document.getElementById('averageScore').textContent=a;const ip=document.getElementById('summaryInterpretation');let it='';if(a>=4.5)it='<h4>INTERPRETATION</h4><p><strong>Excellent ('+a+'/5):</strong> You demonstrate strong emotional intelligence across all areas. Focus on maintaining these skills and helping others develop theirs.</p>';else if(a>=3.5)it='<h4>INTERPRETATION</h4><p><strong>Strong ('+a+'/5):</strong> You have solid EI foundations with room for targeted improvement. Focus on elevating your lowest-scoring areas.</p>';else if(a>=2.5)it='<h4>INTERPRETATION</h4><p><strong>Developing ('+a+'/5):</strong> You have a mix of strengths and development needs. Pick 1-2 focus areas and practice the specific techniques daily.</p>';else it='<h4>INTERPRETATION</h4><p><strong>Foundational ('+a+'/5):</strong> Start with the basics: The Pause Technique and Labeling Emotions. Focus on self awareness first.</p>';ip.innerHTML=it;const ss=Object.entries(scores).sort((a,b)=>a[1]-b[1]).slice(0,3).filter(([f,s])=>s<=3);const fs=document.getElementById('summaryFocus');if(ss.length>0){let fh='<h4>Priority Focus Areas</h4><ul>';ss.forEach(([f,s])=>{fh+='<li><strong>'+fieldLabels[f]+'</strong> (Score: '+s+') — Review your goal and practice one technique this week.</li>';});fh+='</ul>';fs.innerHTML=fh;}else{fs.innerHTML='<h4>Priority Focus Areas</h4><p>All your scores are above 3. Focus on consistency and model strong EI for others.</p>';fs.style.background='rgba(74,222,128,0.05)';fs.style.borderColor='rgba(74,222,128,0.15)';fs.querySelector('h4').style.color='var(--success)';}}else{sc.classList.add('hidden');sh.textContent='Complete all six sections above to see your cumulative score and focus areas. ('+sf.length+'/6 completed)';}}
+    function toggleModel(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('visible');}
+    function toggleHabit(c){c.classList.toggle('checked');saveFormData();}
+    function saveCommitment(){const n=document.getElementById('commitmentName').value;const t=document.getElementById('commitmentText').value;if(n&&t){localStorage.setItem('dl-module2-commitment',JSON.stringify({name:n,text:t,date:new Date().toISOString()}));document.getElementById('commitmentConfirmed').classList.add('visible');}}
+    const saveFormData=()=>{const d={textareas:[],scores:scores,scenarios:[],habits:[],commitment:{name:document.getElementById('commitmentName').value,text:document.getElementById('commitmentText').value}};document.querySelectorAll('.assessment-textarea').forEach((t,i)=>{d.textareas[i]=t.value;});document.querySelectorAll('.scenario-textarea').forEach((t,i)=>{d.scenarios[i]=t.value;});document.querySelectorAll('.habit-card').forEach((c,i)=>{d.habits[i]=c.classList.contains('checked');});localStorage.setItem('dl-module2-data',JSON.stringify(d));};
+    const loadFormData=()=>{const s=localStorage.getItem('dl-module2-data');if(s){const d=JSON.parse(s);document.querySelectorAll('.assessment-textarea').forEach((t,i)=>{if(d.textareas&&d.textareas[i])t.value=d.textareas[i];});document.querySelectorAll('.scenario-textarea').forEach((t,i)=>{if(d.scenarios&&d.scenarios[i])t.value=d.scenarios[i];});if(d.scores){Object.keys(d.scores).forEach(f=>{if(d.scores[f]!==null){scores[f]=d.scores[f];const g=document.querySelector('.score-input[data-field="'+f+'"]');if(g){const b=g.querySelector('.score-btn[data-score="'+d.scores[f]+'"]');if(b)b.classList.add('active');}}});updateScoreSummary();}if(d.habits){document.querySelectorAll('.habit-card').forEach((c,i)=>{if(d.habits[i])c.classList.add('checked');});}if(d.commitment){if(d.commitment.name)document.getElementById('commitmentName').value=d.commitment.name;if(d.commitment.text)document.getElementById('commitmentText').value=d.commitment.text;}}const c=localStorage.getItem('dl-module2-commitment');if(c)document.getElementById('commitmentConfirmed').classList.add('visible');};
+    document.querySelectorAll('.assessment-textarea,.scenario-textarea,.commitment-input').forEach(e=>{e.addEventListener('input',saveFormData);});
+    loadFormData();
+  </script>
+</body>
+</html>

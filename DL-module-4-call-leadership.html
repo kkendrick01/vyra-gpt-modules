@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4 | Call Leadership and High-Impact Client Conversations | DL Leadership Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0a1628;
+      --navy-mid: #132744;
+      --navy-light: #1e3a5f;
+      --navy-lighter: #2a4a7a;
+      --gold-primary: #c9a227;
+      --gold-light: #e8c547;
+      --gold-glow: rgba(201, 162, 39, 0.3);
+      --gold-subtle: rgba(201, 162, 39, 0.15);
+      --white: #ffffff;
+      --white-soft: rgba(255, 255, 255, 0.9);
+      --white-muted: rgba(255, 255, 255, 0.7);
+      --white-subtle: rgba(255, 255, 255, 0.4);
+      --white-faint: rgba(255, 255, 255, 0.08);
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--navy-deep); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 0; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--gold-primary), var(--gold-light)); z-index: 1000; transition: width 0.1s ease; }
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--white-faint); z-index: 100; }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold-primary); }
+    .nav-module { font-size: 0.85rem; color: var(--white-muted); }
+    .nav-module span { color: var(--gold-light); }
+    
+    /* Hero Section */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 40px 80px; position: relative; background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-light) 100%); }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 80%, var(--gold-glow) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(30, 58, 95, 0.5) 0%, transparent 40%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .module-badge { display: inline-block; padding: 10px 25px; background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 30px; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 30px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.2s; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.4s; }
+    .hero-subtitle { font-size: 1.2rem; color: var(--white-muted); font-weight: 300; max-width: 700px; margin: 0 auto 40px; line-height: 1.8; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.6s; }
+    .hero-divider { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 40px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.8s; }
+    .learning-objectives { text-align: left; background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 35px 40px; max-width: 750px; margin: 0 auto; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 1s; }
+    .learning-objectives h3 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-primary); margin-bottom: 20px; font-weight: 600; }
+    .learning-objectives ul { list-style: none; }
+    .learning-objectives li { padding: 8px 0; padding-left: 25px; position: relative; color: var(--white-soft); font-size: 0.95rem; }
+    .learning-objectives li::before { content: '✓'; position: absolute; left: 0; color: var(--gold-primary); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* General Section Styles */
+    section { position: relative; z-index: 1; padding: 100px 40px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-wide { max-width: 1100px; }
+    .section-label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 25px; }
+    .section-intro { font-size: 1.1rem; color: var(--white-muted); margin-bottom: 40px; line-height: 1.8; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
+    /* Research Callout */
+    .research-callout { background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%); border: 1px solid rgba(201, 162, 39, 0.2); border-radius: 10px; padding: 25px 30px; margin: 30px 0; }
+    .research-callout h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .research-callout h5::before { content: '📊'; }
+    .research-callout p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.7; margin: 0; }
+    .research-callout .source { font-size: 0.8rem; color: var(--white-muted); margin-top: 10px; font-style: italic; }
+    
+    /* Purpose Section */
+    .purpose { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .purpose-grid { display: grid; gap: 25px; }
+    .purpose-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 30px; border-left: 4px solid var(--gold-primary); }
+    .purpose-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .purpose-card p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin: 0; }
+    
+    /* Framework Section */
+    .framework { background: var(--navy-deep); }
+    .framework-timeline { position: relative; padding-left: 60px; }
+    .framework-timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--gold-primary), var(--gold-light), var(--gold-primary)); }
+    .framework-step { position: relative; margin-bottom: 50px; }
+    .framework-step:last-child { margin-bottom: 0; }
+    .step-number { position: absolute; left: -60px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy-deep); font-weight: 600; }
+    .step-content { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 30px; }
+    .step-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .step-timing { font-size: 0.8rem; color: var(--gold-light); margin-bottom: 15px; }
+    .step-content p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .step-content p:last-child { margin-bottom: 0; }
+    .step-tactics { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 20px; margin-top: 15px; }
+    .step-tactics h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; }
+    .step-tactics ul { list-style: none; margin: 0; }
+    .step-tactics li { padding: 6px 0; padding-left: 20px; position: relative; color: var(--white-soft); font-size: 0.9rem; }
+    .step-tactics li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    
+    /* Energy Profile Section */
+    .energy { background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%); }
+    .energy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .energy-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 25px; text-align: center; transition: all 0.3s ease; }
+    .energy-card:hover { border-color: rgba(201, 162, 39, 0.3); transform: translateY(-3px); }
+    .energy-icon { font-size: 2rem; margin-bottom: 15px; }
+    .energy-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .energy-card p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.6; margin: 0; }
+    
+    /* Listening Science Section */
+    .listening { background: var(--navy-mid); }
+    .listening-content { display: grid; gap: 40px; }
+    .listening-block { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .listening-header { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); padding: 25px 30px; }
+    .listening-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--white); margin: 0; }
+    .listening-body { padding: 30px; }
+    .listening-body p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .listening-body p:last-child { margin-bottom: 0; }
+    .stat-highlight { display: inline-block; background: var(--gold-subtle); padding: 3px 10px; border-radius: 4px; color: var(--gold-light); font-weight: 600; }
+    .listening-techniques { display: grid; gap: 15px; margin-top: 20px; }
+    .technique-item { display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(0, 0, 0, 0.15); border-radius: 8px; }
+    .technique-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--gold-subtle); color: var(--gold-primary); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    .technique-item p { font-size: 0.9rem; color: var(--white-soft); line-height: 1.6; margin: 0; }
+    .technique-item strong { color: var(--gold-light); }
+    
+    /* Question Architecture */
+    .questions { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .question-categories { display: grid; gap: 25px; }
+    .question-category { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .category-header { padding: 20px 25px; background: linear-gradient(90deg, var(--gold-subtle), transparent); display: flex; align-items: center; gap: 15px; }
+    .category-number { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold-primary); }
+    .category-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin: 0; }
+    .category-body { padding: 25px; }
+    .category-purpose { font-size: 0.95rem; color: var(--white-muted); margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--white-faint); }
+    .category-purpose strong { color: var(--gold-light); }
+    .example-questions { display: grid; gap: 12px; }
+    .example-q { background: rgba(0, 0, 0, 0.15); border-radius: 6px; padding: 12px 15px; font-size: 0.9rem; color: var(--white-soft); font-style: italic; border-left: 3px solid var(--gold-primary); }
+    .when-to-use { margin-top: 20px; padding: 15px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.15); border-radius: 8px; }
+    .when-to-use h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--success); margin-bottom: 8px; font-weight: 600; }
+    .when-to-use p { font-size: 0.85rem; color: var(--white-muted); margin: 0; line-height: 1.6; }
+    
+    /* Difficult Moments */
+    .difficult { background: var(--navy-deep); }
+    .difficult-grid { display: grid; gap: 25px; }
+    .difficult-card { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .difficult-header { padding: 20px 25px; background: rgba(248, 113, 113, 0.1); border-bottom: 1px solid rgba(248, 113, 113, 0.2); display: flex; align-items: center; gap: 12px; }
+    .difficult-icon { font-size: 1.3rem; }
+    .difficult-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin: 0; }
+    .difficult-body { padding: 25px; }
+    .difficult-body p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .response-steps { display: grid; gap: 10px; margin-top: 15px; }
+    .response-step { display: flex; align-items: center; gap: 12px; padding: 10px 15px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; }
+    .step-num { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: var(--gold-subtle); color: var(--gold-primary); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    .response-step p { font-size: 0.9rem; color: var(--white-soft); margin: 0; }
+    .phrase-example { margin-top: 15px; padding: 15px; background: rgba(201, 162, 39, 0.08); border: 1px solid rgba(201, 162, 39, 0.2); border-radius: 8px; }
+    .phrase-example h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 8px; font-weight: 600; }
+    .phrase-example p { font-size: 0.9rem; color: var(--white-soft); font-style: italic; margin: 0; }
+    
+    /* Red Flags */
+    .redflags { background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%); }
+    .redflag-grid { display: grid; gap: 20px; }
+    .redflag-card { background: var(--white-faint); border: 1px solid rgba(248, 113, 113, 0.2); border-radius: 10px; padding: 25px; display: grid; grid-template-columns: 50px 1fr; gap: 20px; align-items: start; }
+    .redflag-icon { width: 50px; height: 50px; border-radius: 50%; background: rgba(248, 113, 113, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .redflag-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--danger); margin-bottom: 8px; }
+    .redflag-content p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.6; margin-bottom: 10px; }
+    .redflag-action { font-size: 0.85rem; color: var(--success); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+    .redflag-action::before { content: '→'; }
+    
+    /* Blueprint */
+    .blueprint { background: var(--navy-mid); }
+    .blueprint-phases { display: grid; gap: 30px; }
+    .blueprint-phase { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; }
+    .phase-header { padding: 20px 25px; background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); display: flex; align-items: center; gap: 15px; }
+    .phase-badge { padding: 5px 12px; background: var(--gold-primary); border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--navy-deep); font-weight: 600; }
+    .phase-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin: 0; }
+    .phase-timing { font-size: 0.85rem; color: var(--white-muted); margin-left: auto; }
+    .phase-body { padding: 25px; display: grid; gap: 15px; }
+    .phase-action { display: flex; align-items: flex-start; gap: 12px; }
+    .action-check { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: var(--gold-subtle); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .action-check::after { content: '✓'; color: var(--gold-primary); font-size: 0.75rem; }
+    .phase-action p { font-size: 0.95rem; color: var(--white-soft); margin: 0; line-height: 1.6; }
+    
+    /* Practice Scenarios */
+    .scenarios { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .scenario-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; margin-bottom: 30px; }
+    .scenario-header { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); padding: 25px 30px; display: flex; align-items: center; gap: 15px; }
+    .scenario-number { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold-primary); opacity: 0.7; }
+    .scenario-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+    .scenario-situation { padding: 25px 30px; border-bottom: 1px solid var(--white-faint); }
+    .scenario-situation h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 12px; font-weight: 600; }
+    .scenario-situation p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.7; }
+    .scenario-exercise { padding: 25px 30px; background: rgba(0, 0, 0, 0.15); }
+    .scenario-exercise h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .scenario-prompts { display: grid; gap: 12px; margin-bottom: 20px; }
+    .scenario-prompt { display: flex; align-items: flex-start; gap: 12px; }
+    .prompt-number { width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: var(--gold-subtle); color: var(--gold-primary); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-top: 2px; }
+    .scenario-prompt p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.5; margin: 0; }
+    .scenario-response { margin-top: 20px; }
+    .scenario-response label { display: block; font-size: 0.8rem; color: var(--white-muted); margin-bottom: 10px; }
+    .scenario-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 15px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; resize: vertical; min-height: 120px; line-height: 1.6; }
+    .scenario-textarea:focus { outline: none; border-color: var(--gold-primary); }
+    .scenario-textarea::placeholder { color: var(--white-subtle); }
+    .scenario-model { margin-top: 20px; }
+    .model-toggle { background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 6px; padding: 12px 20px; color: var(--gold-light); font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+    .model-toggle:hover { background: rgba(201, 162, 39, 0.25); }
+    .model-toggle .arrow { transition: transform 0.2s ease; }
+    .model-toggle.open .arrow { transform: rotate(180deg); }
+    .model-content { display: none; margin-top: 15px; padding: 20px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.15); border-radius: 8px; }
+    .model-content.visible { display: block; }
+    .model-content h6 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--success); margin-bottom: 12px; font-weight: 600; }
+    .model-content p { font-size: 0.9rem; color: var(--white-soft); line-height: 1.7; margin-bottom: 10px; }
+    .model-content p:last-child { margin-bottom: 0; }
+    
+    /* Scorecard */
+    .scorecard { background: var(--navy-deep); }
+    .scorecard-grid { display: grid; gap: 15px; margin-bottom: 40px; }
+    .scorecard-item { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 20px 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer; transition: all 0.2s ease; }
+    .scorecard-item:hover { border-color: rgba(201, 162, 39, 0.3); }
+    .scorecard-item.checked { border-color: var(--success); background: rgba(74, 222, 128, 0.05); }
+    .scorecard-text { flex: 1; }
+    .scorecard-text h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+    .scorecard-text p { font-size: 0.85rem; color: var(--white-muted); margin: 0; }
+    .scorecard-check { width: 30px; height: 30px; min-width: 30px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+    .scorecard-item.checked .scorecard-check { background: var(--success); border-color: var(--success); }
+    .scorecard-check::after { content: '✓'; color: var(--navy-deep); font-weight: 600; font-size: 0.9rem; opacity: 0; transition: opacity 0.2s ease; }
+    .scorecard-item.checked .scorecard-check::after { opacity: 1; }
+    .scorecard-notes { margin-top: 30px; }
+    .scorecard-notes label { display: block; font-size: 0.85rem; color: var(--white-muted); margin-bottom: 10px; }
+    .notes-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 15px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; resize: vertical; min-height: 100px; }
+    .notes-textarea:focus { outline: none; border-color: var(--gold-primary); }
+    
+    /* References */
+    .references { background: var(--navy-deep); border-top: 1px solid var(--white-faint); }
+    .references-grid { display: grid; gap: 30px; }
+    .reference-category { padding-bottom: 25px; border-bottom: 1px solid var(--white-faint); }
+    .reference-category:last-child { border-bottom: none; padding-bottom: 0; }
+    .reference-category h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .reference-list { display: grid; gap: 10px; }
+    .reference-item { font-size: 0.85rem; color: var(--white-muted); line-height: 1.6; padding-left: 20px; position: relative; }
+    .reference-item::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold-subtle); }
+    .reference-item a { color: var(--gold-light); text-decoration: none; }
+    .reference-item a:hover { text-decoration: underline; }
+    
+    /* Next Steps */
+    .next-steps { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%); text-align: center; }
+    .next-module { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 40px; display: inline-block; }
+    .next-module p { font-size: 0.9rem; color: var(--white-muted); margin-bottom: 15px; }
+    .next-module h3 { font-size: 1.5rem; color: var(--white); margin-bottom: 20px; }
+    .next-btn { display: inline-block; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); color: var(--navy-deep); padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+    .next-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px var(--gold-glow); }
+    
+    /* Responsive */
+    @media (max-width: 1024px) { 
+      .energy-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) { 
+      section { padding: 60px 25px; } 
+      .top-nav { padding: 15px 20px; } 
+      .hero { padding: 100px 25px 60px; }
+      .framework-timeline { padding-left: 50px; }
+      .framework-timeline::before { left: 19px; }
+      .step-number { left: -50px; width: 40px; height: 40px; font-size: 1.1rem; }
+      .redflag-card { grid-template-columns: 1fr; text-align: center; }
+      .redflag-icon { margin: 0 auto; }
+    }
+    @media print { .top-nav, .progress-bar { display: none; } body { background: white; color: black; } section { page-break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <nav class="top-nav">
+    <div class="nav-brand">DIGITAL LEVERAGE</div>
+    <div class="nav-module"><span>Module 4</span> / Call Leadership</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="module-badge">MODULE 4</div>
+      <h1>Call Leadership and High-Impact Client Conversations</h1>
+      <p class="hero-subtitle">Calls are where clients decide whether they feel guided, supported, understood, and aligned. This module transforms you from someone who participates in calls to someone who leads them with the precision of a strategic advisor.</p>
+      <div class="hero-divider"></div>
+      <div class="learning-objectives">
+        <h3>LEARNING OBJECTIVES</h3>
+        <ul>
+          <li>Master the five-element structure used by elite consultants and advisory firms</li>
+          <li>Develop the specific vocal and emotional presence that creates client confidence</li>
+          <li>Apply research-backed listening techniques that extract deeper client insight</li>
+          <li>Use the four question categories that separate strong AMs from average ones</li>
+          <li>Handle frustration, confusion, conflict, and silence with composure and control</li>
+          <li>Recognize relationship red flags before they become retention risks</li>
+          <li>Build a systematic pre-call and post-call discipline that compounds over time</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="purpose" id="purpose">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE FOUNDATION</span>
+      <h2 class="section-title fade-in">What a DL Client Call Actually Accomplishes</h2>
+      <p class="section-intro fade-in">A Digital Leverage client call is not social, casual, or improvisational. It serves a specific professional purpose. When you understand what a call must accomplish, you can structure every minute to create that outcome.</p>
+      
+      <div class="research-callout fade-in">
+        <h5>RESEARCH INSIGHT</h5>
+        <p>Google's Project Aristotle studied factors contributing to high-performing teams and found that <strong>psychological safety</strong>—the belief that one won't be punished for speaking up—was the single most important factor for team effectiveness. This applies directly to client relationships: clients who feel safe with you share more, trust more, and stay longer.</p>
+        <span class="source">Source: Google re:Work, 2016</span>
+      </div>
+      
+      <div class="purpose-grid fade-in">
+        <div class="purpose-card">
+          <h4>It establishes emotional stability</h4>
+          <p>Within the first 60 seconds, the client should feel grounded. Your tone, pacing, and clarity signal that you are prepared and in control. Research on cognitive trust shows that clients need to believe you are competent before they will open up about what's really happening in their business. This is established through consistent, predictable, confident communication.</p>
+        </div>
+        <div class="purpose-card">
+          <h4>It extracts current context</h4>
+          <p>You gather the client's recent experiences, market signals, creative preferences, frustrations, opportunities, and story material. This is not passive reception—it requires what researchers call "active listening with action." CCL research found that employees perceive their leader as listening 2x more when the leader both listens AND takes action, compared to leaders who only listen.</p>
+        </div>
+        <div class="purpose-card">
+          <h4>It reinforces the relationship structure</h4>
+          <p>Predictable call formats reduce anxiety and increase trust. When clients know what to expect—the same structure each week—they can prepare mentally and emotionally. This consistency creates what psychologists call "affective trust": the belief that you have good intentions and care about their success.</p>
+        </div>
+        <div class="purpose-card">
+          <h4>It positions the AM as a strategic partner</h4>
+          <p>Clients don't want a task coordinator. They want guidance. They want to hear your interpretation and recommendations. Top consultants at firms like McKinsey operate by "stepping back and asking the basic questions: What are we trying to solve?" You bring this same strategic clarity to every call.</p>
+        </div>
+        <div class="purpose-card">
+          <h4>It creates decisions</h4>
+          <p>Every call must end with clear next steps, ownership, and timeframes. Vague endings create anxiety. A study on client meetings found that high-growth advisory firms rank regular client meetings with clear outcomes as a top priority—significantly more than low-growth firms. Decisions create certainty. Certainty creates retention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="framework" id="framework">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE STRUCTURE</span>
+      <h2 class="section-title fade-in">The Five Elements of a High-Performance Client Call</h2>
+      <p class="section-intro fade-in">This structure is consistent across top-tier agencies, consulting firms, and strategic advisory practices. It is simple to learn and powerful when executed consistently. The framework follows a "Past-Present-Future" architecture that anchors clients in progress and guides them toward action.</p>
+      
+      <div class="framework-timeline fade-in">
+        <div class="framework-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>The Opening Reset</h4>
+            <div class="step-timing">First 30-60 seconds</div>
+            <p>You establish tone, purpose, and clarity. The client hears your voice and immediately understands that you are focused and prepared. They relax. You guide the room.</p>
+            <p>Research on difficult conversations shows that the opening moments determine how the entire interaction unfolds. A calm, confident opening signals that you're in control—even if the client came to the call stressed or frustrated.</p>
+            <div class="step-tactics">
+              <h5>WHAT A STRONG OPENING INCLUDES</h5>
+              <ul>
+                <li>State the purpose of the call in one sentence</li>
+                <li>Provide a brief orientation to where you are in the engagement</li>
+                <li>Outline the agenda plainly: "Today we'll cover X, Y, and Z"</li>
+                <li>Ask: "What would make today's conversation a success for you?"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="framework-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>The Insight Phase</h4>
+            <div class="step-timing">5-10 minutes</div>
+            <p>This is where you gather information. You ask questions that help the client articulate what has happened since the last touchpoint. You listen for emotion, tone, pattern shifts, and the meaning beneath their answers.</p>
+            <p>Consulting expert Michael Zipursky recommends starting with the "Past"—what you've accomplished together—because it anchors the meeting with demonstrated results. Then you move to current context: what's on their mind, what they've noticed, what's happening in their business.</p>
+            <div class="step-tactics">
+              <h5>QUESTIONS FOR THIS PHASE</h5>
+              <ul>
+                <li>"What has been on your mind about the content recently?"</li>
+                <li>"What have you noticed from your audience?"</li>
+                <li>"What reactions stood out to you this week?"</li>
+                <li>"What is happening in your business that we should be aware of?"</li>
+                <li>"What conversations have you been having with your audience?"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="framework-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>The Interpretation Phase</h4>
+            <div class="step-timing">5-7 minutes</div>
+            <p>Here the AM speaks. You explain what you see. You interpret performance patterns. You connect trends to strategy. You show that you understand how content, narrative, and positioning intersect with their goals.</p>
+            <p>This is where you demonstrate cognitive trust—the client's belief in your competence. You're not just reporting data; you're giving it meaning. You're doing the thinking they don't have time to do.</p>
+            <p>The client should leave this segment thinking: <em>"This person understands my brand. They understand what the data means. They are thinking ahead for me."</em></p>
+            <div class="step-tactics">
+              <h5>INTERPRETATION TACTICS</h5>
+              <ul>
+                <li>Lead with insights, not just metrics: "Here's what I noticed..."</li>
+                <li>Connect performance to strategy: "This pattern suggests..."</li>
+                <li>Reference client goals explicitly: "Given your focus on X, this means..."</li>
+                <li>Offer a hypothesis, not just observations: "My read is that..."</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="framework-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>The Strategic Direction Phase</h4>
+            <div class="step-timing">5-7 minutes</div>
+            <p>This is where you guide the next creative steps. You show confidence. You give recommendations. You clarify which ideas will be executed next. You align with the writer's planned direction. You connect the strategy to their goals.</p>
+            <p>Top consultants frame recommendations around client challenges, not their own services. Instead of: "We should do X," try: "Based on what we've uncovered, I'm noticing an opportunity that could amplify these results. Would it be helpful to explore that?"</p>
+            <div class="step-tactics">
+              <h5>DIRECTION TACTICS</h5>
+              <ul>
+                <li>Recommend specific angles, not vague ideas</li>
+                <li>Explain the "why" behind each recommendation</li>
+                <li>Show long-term thinking: "This sets us up for..."</li>
+                <li>Offer options where appropriate: "We could go A or B—which feels right?"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="framework-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>The Decision Summary</h4>
+            <div class="step-timing">Final 2-3 minutes</div>
+            <p>Every call must close with three things: decisions made, next steps, and deadlines or expectations. This creates certainty. Clients stay retained when they know exactly what happens next.</p>
+            <p>Research on meeting effectiveness shows that meetings without clear next steps are perceived as wasted time—even if good discussion happened. The summary is what makes the call feel productive.</p>
+            <div class="step-tactics">
+              <h5>CLOSING TACTICS</h5>
+              <ul>
+                <li>Recap decisions: "So we've agreed on X and Y"</li>
+                <li>Assign ownership: "I'll handle A, you'll handle B"</li>
+                <li>Confirm timing: "You'll have the draft by Thursday"</li>
+                <li>End with confidence: "We're in good shape"</li>
+                <li>Schedule next call before hanging up</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="energy" id="energy">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">YOUR PRESENCE</span>
+      <h2 class="section-title fade-in">The AM Energy Profile: How You Sound Matters</h2>
+      <p class="section-intro fade-in">Clients care as much about how you speak as what you say. Research by Albert Mehrabian found that non-verbal signals account for up to 55% of communication impact—and on a call, your voice IS your non-verbal signal. An AM needs to embody a specific energy profile during calls.</p>
+      
+      <div class="research-callout fade-in">
+        <h5>RESEARCH INSIGHT</h5>
+        <p>A study on de-escalating difficult customers found that a person only has to <strong>appear</strong> calm to diminish another person's aggression. You don't have to feel calm inside—you have to sound calm. This is a trainable skill.</p>
+        <span class="source">Source: OpenPhone Customer Research, 2025</span>
+      </div>
+      
+      <div class="energy-grid fade-in">
+        <div class="energy-card">
+          <div class="energy-icon">🎯</div>
+          <h4>Calm, Measured Pacing</h4>
+          <p>Even when the client is emotional, your pace stays steady. Rushing signals anxiety. Slow, deliberate speech signals control and competence.</p>
+        </div>
+        <div class="energy-card">
+          <div class="energy-icon">📐</div>
+          <h4>Clear Sentence Structure</h4>
+          <p>No rambling. No filler words. Each sentence has a point. Clarity builds trust—confusion erodes it.</p>
+        </div>
+        <div class="energy-card">
+          <div class="energy-icon">🛡️</div>
+          <h4>Confident Tonal Direction</h4>
+          <p>Your voice guides the conversation. When you make recommendations, you sound like you believe them. Vocal certainty creates emotional safety.</p>
+        </div>
+        <div class="energy-card">
+          <div class="energy-icon">📊</div>
+          <h4>Steady Volume</h4>
+          <p>Not too quiet (signals insecurity) or too rushed (signals anxiety). Consistent volume signals that you are present and grounded.</p>
+        </div>
+        <div class="energy-card">
+          <div class="energy-icon">⚖️</div>
+          <h4>Non-Reactive Responses</h4>
+          <p>When receiving criticism or pushback, you pause. You don't defend. You reflect. Non-reactivity is the ultimate signal of professional maturity.</p>
+        </div>
+        <div class="energy-card">
+          <div class="energy-icon">🔄</div>
+          <h4>Strategic Silence</h4>
+          <p>Research shows that good listeners don't rush to fill every pause. Silence after a client speaks signals respect and creates space for deeper insight.</p>
+        </div>
+      </div>
+      
+      <div class="research-callout fade-in" style="margin-top: 30px;">
+        <h5>THE BOTTOM LINE</h5>
+        <p>Great call leadership is audible. Clients stay because your voice makes them feel secure. Your tone is not a personality trait—it is a professional tool that can be developed through deliberate practice.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="listening" id="listening">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE SCIENCE</span>
+      <h2 class="section-title fade-in">Active Listening: What the Research Actually Shows</h2>
+      <p class="section-intro fade-in">Most people believe they are good listeners. Research shows that over 85% of adults rate themselves as above average at listening—a statistical impossibility. The gap between perceived and actual listening skill is one of the largest blind spots in professional communication.</p>
+      
+      <div class="listening-content">
+        <div class="listening-block fade-in">
+          <div class="listening-header">
+            <h4>Why Listening Matters More Than You Think</h4>
+          </div>
+          <div class="listening-body">
+            <p>An fMRI study from the National Institute for Physiological Sciences found that when people perceive active listening, it <span class="stat-highlight">activates the brain's reward system</span>. Clients literally feel pleasure when they feel heard. This isn't metaphor—it's neuroscience.</p>
+            <p>More practically: research from the Center for Creative Leadership found that employee perception of being listened to is <span class="stat-highlight">2x greater</span> among those whose leader listened AND took action, compared to leaders who did nothing with what they heard.</p>
+            <p>The implication for AMs is clear: listening without action is only half the job. You must demonstrate that what the client said influenced what you do next.</p>
+          </div>
+        </div>
+        
+        <div class="listening-block fade-in">
+          <div class="listening-header">
+            <h4>The Four Components of Active Listening</h4>
+          </div>
+          <div class="listening-body">
+            <p>Active listening was first defined by Carl Rogers and Richard Farson in 1957. Despite its age, it remains the gold standard for professional communication. Here are the components:</p>
+            <div class="listening-techniques">
+              <div class="technique-item">
+                <div class="technique-num">1</div>
+                <p><strong>Full Attention.</strong> You listen without planning your response. Your mind is not wandering to your next point or your to-do list. You are entirely present with what the client is saying.</p>
+              </div>
+              <div class="technique-item">
+                <div class="technique-num">2</div>
+                <p><strong>Reflecting Back.</strong> You mirror what you heard: "So what you're saying is..." or "It sounds like you're feeling..." This confirms understanding and makes the client feel heard.</p>
+              </div>
+              <div class="technique-item">
+                <div class="technique-num">3</div>
+                <p><strong>Clarifying Questions.</strong> You ask questions to go deeper, not to redirect. "When you say the tone felt off, what part felt misaligned?" This shows genuine interest in understanding.</p>
+              </div>
+              <div class="technique-item">
+                <div class="technique-num">4</div>
+                <p><strong>Summarizing Before Responding.</strong> Before offering your perspective, you confirm you understood correctly. This prevents misinterpretation and builds trust.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="listening-block fade-in">
+          <div class="listening-header">
+            <h4>What Gets in the Way</h4>
+          </div>
+          <div class="listening-body">
+            <p>A hospital management study found that the <span class="stat-highlight">worst listening skill</span> among managers was "avoiding interruptions." The second worst was "postponing evaluation"—the tendency to judge what someone is saying before they finish.</p>
+            <p>The brain can process approximately 500 words per minute, while the average rate of speech is 125 words per minute. This difference makes it easy for your mind to wander. You must actively resist the pull toward distraction.</p>
+            <p>Stress also impairs listening. Research shows that psychological detachment from work (rest, recovery) predicts better active listening the following day. If you are burned out, your listening suffers—and your clients feel it.</p>
+          </div>
+        </div>
+        
+        <div class="listening-block fade-in">
+          <div class="listening-header">
+            <h4>The Invitation Principle</h4>
+          </div>
+          <div class="listening-body">
+            <p>Research on listening at work introduced a powerful concept: the best listeners don't just absorb information—they <span class="stat-highlight">"invite" the speaker</span> to collaborate in finding solutions.</p>
+            <p>This invitation isn't stated explicitly. It's conveyed through behavior: your posture, your questions, your non-judgmental presence. When a client feels safe enough to accept this implicit invitation, the entire conversation transforms.</p>
+            <p>Clients who feel psychologically safe are more likely to share what's really happening—including concerns they might otherwise hide. This is where you catch problems early, before they become retention risks.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="questions" id="questions">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE TOOLS</span>
+      <h2 class="section-title fade-in">The Question Architecture for High-Impact Calls</h2>
+      <p class="section-intro fade-in">Questions are the AM's most important tool. Strong questions create insight. Weak questions create confusion. Top consultants and CSMs organize their questions into distinct categories, each serving a specific purpose. Here are the four categories you need to master.</p>
+      
+      <div class="research-callout fade-in">
+        <h5>FROM CONSULTING SUCCESS</h5>
+        <p>"The quality of your questions determines the quality of your engagement. Elite consultants don't just solve problems; they uncover the problems worth solving."</p>
+      </div>
+      
+      <div class="question-categories fade-in">
+        <div class="question-category">
+          <div class="category-header">
+            <span class="category-number">01</span>
+            <h4>Context Questions</h4>
+          </div>
+          <div class="category-body">
+            <p class="category-purpose"><strong>Purpose:</strong> Understand the client's world. What's happening in their business, their industry, their audience? These questions build your situational awareness.</p>
+            <div class="example-questions">
+              <div class="example-q">"What changed in your business this week?"</div>
+              <div class="example-q">"What conversations have you been having with your audience?"</div>
+              <div class="example-q">"What reactions stood out to you from recent content?"</div>
+              <div class="example-q">"What's happening in your market that we should be aware of?"</div>
+            </div>
+            <div class="when-to-use">
+              <h5>WHEN TO USE</h5>
+              <p>Early in the call, during the Insight Phase. Start broad and let the client guide you toward what matters most to them right now.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="question-category">
+          <div class="category-header">
+            <span class="category-number">02</span>
+            <h4>Clarification Questions</h4>
+          </div>
+          <div class="category-body">
+            <p class="category-purpose"><strong>Purpose:</strong> Confirm details and reduce ambiguity. When a client makes a statement, you drill down to ensure you understand precisely what they mean.</p>
+            <div class="example-questions">
+              <div class="example-q">"When you say the tone felt off, what part felt misaligned?"</div>
+              <div class="example-q">"Help me understand what 'professional' looks like for your audience."</div>
+              <div class="example-q">"Can you give me an example of content that hit the mark?"</div>
+              <div class="example-q">"What specifically felt different about this piece compared to the last one?"</div>
+            </div>
+            <div class="when-to-use">
+              <h5>WHEN TO USE</h5>
+              <p>Immediately after a client makes a vague or emotionally charged statement. Don't assume you know what they mean—ask.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="question-category">
+          <div class="category-header">
+            <span class="category-number">03</span>
+            <h4>Diagnostic Questions</h4>
+          </div>
+          <div class="category-body">
+            <p class="category-purpose"><strong>Purpose:</strong> Uncover the root of a problem. When something isn't working, these questions help you understand WHY—not just what.</p>
+            <div class="example-questions">
+              <div class="example-q">"What outcome were you hoping that post would create?"</div>
+              <div class="example-q">"What part of the process felt unclear?"</div>
+              <div class="example-q">"Looking back, what do you think contributed to that result?"</div>
+              <div class="example-q">"If you could change one thing about how we approached this, what would it be?"</div>
+            </div>
+            <div class="when-to-use">
+              <h5>WHEN TO USE</h5>
+              <p>When there's a problem or disappointment. Resist the urge to jump to solutions. Diagnose first.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="question-category">
+          <div class="category-header">
+            <span class="category-number">04</span>
+            <h4>Alignment Questions</h4>
+          </div>
+          <div class="category-body">
+            <p class="category-purpose"><strong>Purpose:</strong> Lock in next steps and direction. These questions create agreement and prevent future misalignment.</p>
+            <div class="example-questions">
+              <div class="example-q">"Does this plan match what you want to focus on next?"</div>
+              <div class="example-q">"Which of these two angles feels strongest to you?"</div>
+              <div class="example-q">"Are we aligned on priorities for this week?"</div>
+              <div class="example-q">"Is there anything about this direction that gives you pause?"</div>
+            </div>
+            <div class="when-to-use">
+              <h5>WHEN TO USE</h5>
+              <p>At the end of the Strategic Direction phase and during the Decision Summary. Never end a call without confirming alignment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="research-callout fade-in" style="margin-top: 40px;">
+        <h5>ADVANCED TECHNIQUE: THE HYPOTHETICAL QUESTION</h5>
+        <p>From consulting research: "If we could wave a magic wand and solve this completely, what would your business look like in 18 months?" This question bypasses limiting beliefs and reveals the client's true vision—often more ambitious than what they initially describe.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="difficult" id="difficult">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE CHALLENGES</span>
+      <h2 class="section-title fade-in">How to Handle Difficult Moments During a Call</h2>
+      <p class="section-intro fade-in">Calls become leadership moments when challenges arise. Research shows that 88% of customers say good service makes them more likely to purchase again—but two negative experiences will drive 76% of customers away. The AM must respond with clarity and emotional control. Here's how to handle the five most common difficult moments.</p>
+      
+      <div class="difficult-grid">
+        <div class="difficult-card fade-in">
+          <div class="difficult-header">
+            <span class="difficult-icon">😤</span>
+            <h4>When a Client Expresses Frustration</h4>
+          </div>
+          <div class="difficult-body">
+            <p>Frustration is usually fear in disguise—fear of wasted money, wasted time, or looking bad. Your job is to stabilize, not solve immediately.</p>
+            <div class="response-steps">
+              <div class="response-step"><span class="step-num">1</span><p>Acknowledge the emotion: "I can hear that this has been frustrating."</p></div>
+              <div class="response-step"><span class="step-num">2</span><p>Reflect it back: "It sounds like the drop in engagement is concerning."</p></div>
+              <div class="response-step"><span class="step-num">3</span><p>Clarify the concern: "Help me understand what specifically feels off."</p></div>
+              <div class="response-step"><span class="step-num">4</span><p>Stabilize: "Let's look at this together and figure out what's happening."</p></div>
+              <div class="response-step"><span class="step-num">5</span><p>Propose a path: "Here's what I recommend we do next."</p></div>
+            </div>
+            <div class="phrase-example">
+              <h5>REFRAME LANGUAGE</h5>
+              <p>Instead of "I don't know," say "I will find out for you." Instead of "That's not possible," say "Let me see what we can do to help."</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="difficult-card fade-in">
+          <div class="difficult-header">
+            <span class="difficult-icon">🤔</span>
+            <h4>When a Client Expresses Confusion</h4>
+          </div>
+          <div class="difficult-body">
+            <p>Confusion often signals that your communication has been unclear—or that the client is overwhelmed by too many moving pieces. Slow down.</p>
+            <div class="response-steps">
+              <div class="response-step"><span class="step-num">1</span><p>Slow your pace visibly: "Let me walk through this step by step."</p></div>
+              <div class="response-step"><span class="step-num">2</span><p>Restate the process in simpler terms</p></div>
+              <div class="response-step"><span class="step-num">3</span><p>Check understanding: "Does that make more sense?"</p></div>
+              <div class="response-step"><span class="step-num">4</span><p>Offer a concrete example to ground the abstraction</p></div>
+              <div class="response-step"><span class="step-num">5</span><p>Confirm before moving on: "Are you comfortable with this before we continue?"</p></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="difficult-card fade-in">
+          <div class="difficult-header">
+            <span class="difficult-icon">⚠️</span>
+            <h4>When a Client Challenges the Content</h4>
+          </div>
+          <div class="difficult-body">
+            <p>Content challenges are often about something deeper: misaligned expectations, fear of audience perception, or loss of trust. Don't defend immediately.</p>
+            <div class="response-steps">
+              <div class="response-step"><span class="step-num">1</span><p>Listen fully without interrupting</p></div>
+              <div class="response-step"><span class="step-num">2</span><p>Identify if this is a surface issue or a deeper concern</p></div>
+              <div class="response-step"><span class="step-num">3</span><p>Explain the reasoning behind the content: "Here's why we approached it this way..."</p></div>
+              <div class="response-step"><span class="step-num">4</span><p>Offer adjustments: "Based on what you're saying, here's what we could do differently."</p></div>
+            </div>
+            <div class="phrase-example">
+              <h5>KEY PRINCIPLE</h5>
+              <p>Separate the complaint from the solution. Validate first, then solve. "I understand why that felt off. Let's fix it."</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="difficult-card fade-in">
+          <div class="difficult-header">
+            <span class="difficult-icon">📦</span>
+            <h4>When a Client Asks for Unplanned Work</h4>
+          </div>
+          <div class="difficult-body">
+            <p>Clients sometimes request six pieces of content on a tight deadline. You must maintain professionalism while protecting your team and setting realistic expectations.</p>
+            <div class="response-steps">
+              <div class="response-step"><span class="step-num">1</span><p>Acknowledge the request without immediately saying yes or no</p></div>
+              <div class="response-step"><span class="step-num">2</span><p>Clarify priorities: "Help me understand which of these is most urgent."</p></div>
+              <div class="response-step"><span class="step-num">3</span><p>Present options: "Here's what we can do within the timeline, and here's what would require more time."</p></div>
+              <div class="response-step"><span class="step-num">4</span><p>Negotiate scope or timeline—never quality</p></div>
+            </div>
+            <div class="phrase-example">
+              <h5>BOUNDARY LANGUAGE</h5>
+              <p>"I want to make sure we deliver something excellent. Let's look at what's realistic so we don't sacrifice quality."</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="difficult-card fade-in">
+          <div class="difficult-header">
+            <span class="difficult-icon">🔇</span>
+            <h4>When a Client Becomes Quiet or Withdrawn</h4>
+          </div>
+          <div class="difficult-body">
+            <p>Silence is often a sign that something is wrong but the client doesn't know how to say it. Your job is to create safety for them to speak.</p>
+            <div class="response-steps">
+              <div class="response-step"><span class="step-num">1</span><p>Ask open questions: "What are you thinking right now?"</p></div>
+              <div class="response-step"><span class="step-num">2</span><p>Invite them back gently: "I want to make sure I'm understanding your perspective."</p></div>
+              <div class="response-step"><span class="step-num">3</span><p>Name what you're noticing: "You seem quieter than usual—is there something on your mind?"</p></div>
+              <div class="response-step"><span class="step-num">4</span><p>Give them space: "Take your time. I'm here."</p></div>
+            </div>
+            <div class="phrase-example">
+              <h5>THE SILENCE PRINCIPLE</h5>
+              <p>Research shows that good listeners don't rush to fill every pause. Sometimes the best thing you can do is wait. Silence creates space for the client to process.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="redflags" id="redflags">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE WARNING SIGNS</span>
+      <h2 class="section-title fade-in">Red Flag Moments That Require Immediate Action</h2>
+      <p class="section-intro fade-in">These moments reveal when a client relationship needs intervention. They are early warning signals that, if ignored, become retention crises. The AM's responsibility is to detect these moments and address them on the same day.</p>
+      
+      <div class="redflag-grid">
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">🔄</div>
+          <div class="redflag-content">
+            <h4>Repeated Confusion</h4>
+            <p>The client expresses confusion about the same topic multiple times. This signals a breakdown in communication rhythm—something isn't being explained clearly, or there's a fundamental misalignment in expectations.</p>
+            <p class="redflag-action">Pause the project and reset expectations in a dedicated alignment call</p>
+          </div>
+        </div>
+        
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">⚡</div>
+          <div class="redflag-content">
+            <h4>References to "Last Time We Worked With an Agency"</h4>
+            <p>When a client starts comparing you to previous negative experiences, they're signaling rising fear. They're watching for patterns that remind them of past failures.</p>
+            <p class="redflag-action">Address directly: "I hear you. Tell me what happened before so I can make sure we avoid the same mistakes."</p>
+          </div>
+        </div>
+        
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">📉</div>
+          <div class="redflag-content">
+            <h4>Emotional Reactions to Small Performance Dips</h4>
+            <p>When a client becomes reactive to minor fluctuations, they're likely dealing with pressure you don't see—internal stakeholders, board expectations, or personal anxiety about the investment.</p>
+            <p class="redflag-action">Ask what's driving the concern: "Help me understand what's at stake for you here."</p>
+          </div>
+        </div>
+        
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">✏️</div>
+          <div class="redflag-content">
+            <h4>Client Starts Rewriting Content Themselves</h4>
+            <p>This signals loss of creative trust. They no longer believe you understand their voice or goals well enough to do it right.</p>
+            <p class="redflag-action">Request a voice alignment session: "I want to make sure we're nailing your voice. Let's spend 20 minutes going through examples."</p>
+          </div>
+        </div>
+        
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">📵</div>
+          <div class="redflag-content">
+            <h4>Skipped Calls or Very Short Responses</h4>
+            <p>Disengagement is often the most dangerous red flag because it's silent. The client is pulling away—either because they've given up, or because they're preparing to leave.</p>
+            <p class="redflag-action">Send a direct message: "I've noticed we've missed a few calls. I want to make sure everything is okay. Can we find 15 minutes to reconnect?"</p>
+          </div>
+        </div>
+        
+        <div class="redflag-card fade-in">
+          <div class="redflag-icon">🏷️</div>
+          <div class="redflag-content">
+            <h4>Sudden Focus on Price or Contract Terms</h4>
+            <p>When a client who never mentioned price starts asking about discounts or contract flexibility, they're either experiencing budget pressure or questioning value.</p>
+            <p class="redflag-action">Proactively review ROI and success metrics: "Let's look at what we've accomplished together so far."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="blueprint" id="blueprint">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">THE SYSTEM</span>
+      <h2 class="section-title fade-in">The Strategic Call Blueprint: Step-by-Step</h2>
+      <p class="section-intro fade-in">This blueprint is the exact structure used by elite operators. It covers pre-call, during-call, and post-call disciplines. Clients follow people who sound like they know exactly what they are doing. This system creates that impression consistently.</p>
+      
+      <div class="blueprint-phases">
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">PRE-CALL</span>
+            <h4>Preparation</h4>
+            <span class="phase-timing">10-15 minutes before</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Review last week's performance data and metrics</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Read all messages exchanged since last call</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Prepare three insights you want to share</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Prepare two questions you need answered</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Prepare one recommendation for next steps</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Check your emotional state: Are you grounded and ready?</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">OPENING</span>
+            <h4>Anchor the Call</h4>
+            <span class="phase-timing">First 60 seconds</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Set purpose: "Today we're going to cover X, Y, and Z."</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>State agenda: Keep it to three items maximum</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Project confidence: Speak slowly, clearly, and with certainty</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Ask: "What would make today's conversation a success for you?"</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">DISCOVERY</span>
+            <h4>Extract Insight</h4>
+            <span class="phase-timing">5-10 minutes</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Listen actively—don't plan your response while they speak</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Ask context and clarification questions</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Gather story material for upcoming content</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Identify emotional undertones: What are they really feeling?</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Note business developments that affect content strategy</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">INSIGHT</span>
+            <h4>Interpret What You See</h4>
+            <span class="phase-timing">5-7 minutes</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Explain what you're observing in the data</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Connect the dots between metrics and strategy</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Give meaning to the numbers: "Here's what this tells us..."</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Be concise and clear—don't overwhelm with data</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">DIRECTION</span>
+            <h4>Provide Strategic Direction</h4>
+            <span class="phase-timing">5-7 minutes</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Recommend specific angles and topics</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Outline next steps for content creation</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Show long-term thinking: "This sets us up for..."</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Get buy-in: "Does this direction feel right?"</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">CLOSING</span>
+            <h4>Close with Certainty</h4>
+            <span class="phase-timing">Final 2-3 minutes</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Recap all decisions made during the call</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Assign ownership: "I'll do X, you'll do Y"</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Confirm timing: "You'll see the draft by Thursday"</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Schedule the next call before hanging up</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>End on confidence: "We're in good shape"</p></div>
+          </div>
+        </div>
+        
+        <div class="blueprint-phase fade-in">
+          <div class="phase-header">
+            <span class="phase-badge">POST-CALL</span>
+            <h4>Follow Through</h4>
+            <span class="phase-timing">Within 30 minutes</span>
+          </div>
+          <div class="phase-body">
+            <div class="phase-action"><div class="action-check"></div><p>Send a written recap with all action items</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Update internal notes and client record</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Brief the writer on any new context or direction</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Flag any red flags to leadership if needed</p></div>
+            <div class="phase-action"><div class="action-check"></div><p>Reflect: What went well? What could improve?</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scenarios" id="scenarios">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">PRACTICE</span>
+      <h2 class="section-title fade-in">Roleplay and Practice Scenarios</h2>
+      <p class="section-intro fade-in">These scenarios develop applied skill. For each situation, write what you would actually say, then compare to the model response. Research shows that practicing difficult conversations before they happen improves performance during the real thing.</p>
+      
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">01</span><h4>The Anxious Client Simulation</h4></div>
+        <div class="scenario-situation">
+          <h5>THE SITUATION</h5>
+          <p>Your client joins the call sounding stressed. Engagement has dropped for two weeks in a row. They're questioning whether the strategy is working and mention they have a board meeting next week where they'll need to present results. Their tone is tense, and they're speaking faster than usual.</p>
+        </div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Acknowledge the emotion and create stability in the first 30 seconds</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Ask clarifying questions to understand what's really driving the anxiety</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Interpret the data in a way that provides context, not just numbers</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Provide a clear path forward they can share with their board</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write exactly what you would say, from the opening through the close."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Opening (Stabilize):</strong> "I can hear that this has been weighing on you. Let's make sure you leave this call with a clear story for your board. I've been looking at the numbers and I have some context that I think will help."</p>
+              <p><strong>Clarify:</strong> "Before I share what I'm seeing, tell me—what specifically are you most concerned about presenting? Is it the engagement dip, or is there something else they're focused on?"</p>
+              <p><strong>Interpret:</strong> "Here's what I'm seeing: The dip is real, but it's concentrated in one post type. Our authority content is actually up 15% week-over-week. The algorithm is rewarding depth right now, which is exactly where we're pivoting. This isn't a strategy problem—it's a signal to double down on what's working."</p>
+              <p><strong>Direction:</strong> "For your board, I'd frame it this way: We identified what's not resonating, we're shifting resources to what is, and we have three specific pieces in the pipeline that align with the higher-performing format. Would it help if I put together a one-page summary you can share with them?"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">02</span><h4>The Clarity Breakdown</h4></div>
+        <div class="scenario-situation">
+          <h5>THE SITUATION</h5>
+          <p>The client received the latest batch of content and is confused about the direction. They say it "doesn't feel like them" but can't articulate why. They've asked for revisions twice already on similar pieces. You sense frustration building.</p>
+        </div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Avoid defensiveness—acknowledge the disconnect without taking blame</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Use clarifying and diagnostic questions to identify the root issue</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Propose a process for getting aligned on voice and tone</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Close with a clear plan and timeline for resolution</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write exactly what you would say to resolve this voice misalignment."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Acknowledge:</strong> "I hear you—when content doesn't feel like you, that's a real problem. Let's fix this now rather than go another round with revisions."</p>
+              <p><strong>Diagnose:</strong> "Can you show me a piece of content—from us or anywhere—that does feel like you? I want to understand what 'your voice' sounds like when it hits. And when you read this draft, what's the first thing that feels off?"</p>
+              <p><strong>Process:</strong> "Here's what I'd like to do: Let's spend 20 minutes right now going through three examples—one that worked, one that didn't, and one we can revise together. I'll take notes on the patterns we identify. Then I'll create a voice guide we can share with the writer so this doesn't happen again."</p>
+              <p><strong>Close:</strong> "Does that work? I'll have the revised piece to you by Thursday, and I'll send the voice guide by Friday so we're all aligned going forward."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">03</span><h4>The Overload Scenario</h4></div>
+        <div class="scenario-situation">
+          <h5>THE SITUATION</h5>
+          <p>The client has a product launch in two weeks and wants six pieces of content delivered in half the normal time. They're excited about the opportunity but don't seem to understand the production constraints. Your writer is already at capacity.</p>
+        </div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Validate their excitement without committing to the full request</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Ask prioritization questions to understand what's truly essential</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Present options that protect quality while meeting core needs</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Close with a clear agreement on scope and timeline</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write exactly what you would say to negotiate this scope expansion."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Validate:</strong> "This launch sounds like a big moment for you—I want to make sure we support it properly. Let's figure out how to make this work without sacrificing quality."</p>
+              <p><strong>Prioritize:</strong> "Of the six pieces you're thinking about, which two or three are absolutely essential for launch day? And which could come a few days later as follow-up content?"</p>
+              <p><strong>Options:</strong> "Here's what I can do: We can deliver three pieces—the most critical ones—in the timeline you need, with our full quality standard. The other three can come the following week. Alternatively, we could do all six in a shorter format, but I'd want to make sure that's what you actually need. What feels right?"</p>
+              <p><strong>Close:</strong> "Great. So we're agreed: Three pieces by the 15th, three more by the 22nd. I'll send you a confirmation with the topics we discussed. Let me know if anything changes on your end."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">04</span><h4>The Silent Client</h4></div>
+        <div class="scenario-situation">
+          <h5>THE SITUATION</h5>
+          <p>Your client has become increasingly quiet over the last few calls. Today, they're giving one-word answers and seem distracted. They used to be engaged and collaborative. Something has shifted, but they haven't said what.</p>
+        </div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Name what you're observing without making them defensive</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Create psychological safety for them to share what's really going on</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>If they open up, listen without rushing to solutions</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>If they don't, offer a path to continue the conversation later</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write exactly what you would say to re-engage a withdrawn client."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Name:</strong> "I've noticed you've been quieter on our recent calls. I want to check in—is everything okay? I'd rather hear what's on your mind now than find out later that something wasn't working for you."</p>
+              <p><strong>Create Safety:</strong> "If there's something about the work, the process, or even just how we're communicating that isn't feeling right, I genuinely want to know. My goal is for this to work for you."</p>
+              <p><strong>If They Open Up:</strong> [Listen fully. Reflect back what you hear. Don't solve immediately.] "That makes sense. I appreciate you telling me. Let me think about how we can address that."</p>
+              <p><strong>If They Don't:</strong> "No pressure today. But if something does come up, please tell me. I'd rather know than guess. In the meantime, let's keep things simple today and focus on [priority topic]."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scenario-card fade-in">
+        <div class="scenario-header"><span class="scenario-number">05</span><h4>The Alignment Reset</h4></div>
+        <div class="scenario-situation">
+          <h5>THE SITUATION</h5>
+          <p>After three months of work, you've identified that the client's original content strategy isn't aligned with where their business is heading. They need a new narrative direction—new themes, new audience focus, potentially new formats. You need to propose a significant shift without undermining their confidence in the work so far.</p>
+        </div>
+        <div class="scenario-exercise">
+          <h5>YOUR TASK</h5>
+          <div class="scenario-prompts">
+            <div class="scenario-prompt"><span class="prompt-number">1</span><p>Frame the shift as strategic evolution, not failure</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">2</span><p>Connect the new direction to what you've learned from the previous work</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">3</span><p>Present a confident recommendation with clear rationale</p></div>
+            <div class="scenario-prompt"><span class="prompt-number">4</span><p>Get buy-in and establish new success metrics</p></div>
+          </div>
+          <div class="scenario-response"><label>Write your response:</label><textarea class="scenario-textarea" placeholder="Write exactly what you would say to reset the client's narrative direction."></textarea></div>
+          <div class="scenario-model">
+            <button class="model-toggle" onclick="toggleModel(this)"><span>View Model Response</span><span class="arrow">▼</span></button>
+            <div class="model-content">
+              <h6>MODEL RESPONSE</h6>
+              <p><strong>Frame:</strong> "I want to share something I've been thinking about. After three months of working together, I think we've learned enough to make a strategic shift—not because anything was wrong, but because we now have real data on what resonates with your audience."</p>
+              <p><strong>Connect:</strong> "Here's what the data is telling us: The pieces that perform best are the ones focused on [specific theme]. Your audience responds to [specific format]. The original direction was a reasonable hypothesis, but now we can be smarter. Good strategy evolves."</p>
+              <p><strong>Recommend:</strong> "My recommendation is this: We pivot to a narrative focused on [new direction]. We emphasize [new audience], and we shift 70% of content to [new format]. I believe this will significantly improve engagement and give you more material that converts."</p>
+              <p><strong>Close:</strong> "How does this feel? If you're on board, I'll draft a new content brief this week with the revised themes. We can measure the impact over the next 30 days and adjust from there."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="scorecard" id="scorecard">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">SELF-ASSESSMENT</span>
+      <h2 class="section-title fade-in">The Call Leadership Scorecard</h2>
+      <p class="section-intro fade-in">After each client call, grade yourself on these six dimensions. Over time, this creates professional self-awareness and reveals patterns in your development. Check off each item you feel you executed well during your most recent call.</p>
+      
+      <div class="scorecard-grid fade-in">
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>1. Clear Opening</h4>
+            <p>Did I open the call with clarity, purpose, and confidence? Did I set the agenda and establish stability in the first 60 seconds?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+        
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>2. Context Extraction</h4>
+            <p>Did I ask strong questions and extract all relevant client context? Did I understand what's happening in their business and their emotional state?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+        
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>3. Meaningful Interpretation</h4>
+            <p>Did I interpret performance in a way that provided insight, not just data? Did the client leave understanding what the numbers mean?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+        
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>4. Strategic Recommendations</h4>
+            <p>Did I provide confident, specific recommendations? Did I show I'm thinking ahead for them?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+        
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>5. Emotional Steadiness</h4>
+            <p>Did I maintain calm, measured pacing throughout? Did I handle difficult moments without becoming reactive or defensive?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+        
+        <div class="scorecard-item" onclick="toggleScorecard(this)">
+          <div class="scorecard-text">
+            <h4>6. Decisive Close</h4>
+            <p>Did I close with clear decisions, next steps, and timing? Does the client know exactly what happens next?</p>
+          </div>
+          <div class="scorecard-check"></div>
+        </div>
+      </div>
+      
+      <div class="scorecard-notes fade-in">
+        <label>Post-Call Reflection Notes</label>
+        <textarea class="notes-textarea" id="callNotes" placeholder="What went well? What was challenging? What will you do differently next time?"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="references" id="references">
+    <div class="section-inner section-wide">
+      <span class="section-label fade-in">REFERENCES</span>
+      <h2 class="section-title fade-in">Research and Sources</h2>
+      <p class="section-intro fade-in">This module draws on established research in emotional intelligence, customer success, consulting methodology, and communication science. Below are the primary sources informing this training.</p>
+      
+      <div class="references-grid fade-in">
+        <div class="reference-category">
+          <h4>EMOTIONAL INTELLIGENCE & COMMUNICATION</h4>
+          <div class="reference-list">
+            <div class="reference-item">Goleman, D. (2004). What Makes a Leader. <a href="https://hbr.org/2004/01/what-makes-a-leader" target="_blank">Harvard Business Review</a></div>
+            <div class="reference-item">Rogers, C. & Farson, R. (1957). Active Listening. Reprinted in Communicating in Business Today (1987)</div>
+            <div class="reference-item">Kawamichi, H. et al. (2014). Perceiving active listening activates the reward system. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4270393/" target="_blank">National Center for Biotechnology Information</a></div>
+            <div class="reference-item">Center for Creative Leadership. Active Listening: Using Listening Skills to Coach Others. <a href="https://www.ccl.org/articles/leading-effectively-articles/coaching-others-use-active-listening-skills/" target="_blank">CCL</a></div>
+          </div>
+        </div>
+        
+        <div class="reference-category">
+          <h4>CUSTOMER SUCCESS & RETENTION</h4>
+          <div class="reference-list">
+            <div class="reference-item">Gainsight. The Essential Guide to Customer Success. <a href="https://www.gainsight.com/essential-guide/customer-success/" target="_blank">gainsight.com</a></div>
+            <div class="reference-item">ChurnZero. Emotional Intelligence in Customer Success. <a href="https://churnzero.com/blog/emotional-intelligence-customer-success/" target="_blank">churnzero.com</a></div>
+            <div class="reference-item">OpenPhone. De-Escalating Angry Customers: The Pro's Playbook. <a href="https://www.openphone.com/blog/de-escalation-techniques-customer-service/" target="_blank">openphone.com</a></div>
+            <div class="reference-item">Zendesk. Guide to Handling Difficult Conversations. <a href="https://www.zendesk.com/blog/difficult-customer-conversations/" target="_blank">zendesk.com</a></div>
+          </div>
+        </div>
+        
+        <div class="reference-category">
+          <h4>CONSULTING & STRATEGIC CONVERSATIONS</h4>
+          <div class="reference-list">
+            <div class="reference-item">McKinsey Podcast (2019). The Power of Asking Better Questions. <a href="https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-art-of-asking-better-questions" target="_blank">mckinsey.com</a></div>
+            <div class="reference-item">Zipursky, M. A Framework for Productive Consulting Meetings. <a href="https://blog.lucidmeetings.com/blog/a-framework-for-productive-consulting-meetings-happier-clients/" target="_blank">Lucid Meetings</a></div>
+            <div class="reference-item">Consulting Success. The Consultant's Playbook to Mastering Client Questions. <a href="https://www.consultingsuccess.com/consulting-client-questions" target="_blank">consultingsuccess.com</a></div>
+            <div class="reference-item">Consultant's Mind. How to Interview Clients. <a href="https://www.consultantsmind.com/2012/11/04/consultant-interview/" target="_blank">consultantsmind.com</a></div>
+          </div>
+        </div>
+        
+        <div class="reference-category">
+          <h4>PSYCHOLOGICAL SAFETY & TRUST</h4>
+          <div class="reference-list">
+            <div class="reference-item">Google re:Work. Project Aristotle: What Makes Teams Effective. <a href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/" target="_blank">rework.withgoogle.com</a></div>
+            <div class="reference-item">CIPD. Trust and Psychological Safety: An Evidence Review. <a href="https://www.cipd.org/en/knowledge/evidence-reviews/trust-psychological-safety/" target="_blank">cipd.org</a></div>
+            <div class="reference-item">Edmondson, A. (1999). Psychological Safety and Learning Behavior in Work Teams. Administrative Science Quarterly, 44(2), 350-383.</div>
+            <div class="reference-item">Mehrabian, A. (1971). Silent Messages: Implicit Communication of Emotions and Attitudes. Wadsworth Publishing.</div>
+          </div>
+        </div>
+        
+        <div class="reference-category">
+          <h4>RECOMMENDED BOOKS</h4>
+          <div class="reference-list">
+            <div class="reference-item">Patterson, K. et al. Crucial Conversations: Tools for Talking When Stakes Are High</div>
+            <div class="reference-item">Voss, C. Never Split the Difference: Negotiating As If Your Life Depended On It</div>
+            <div class="reference-item">Scott, S. Fierce Conversations: Achieving Success at Work and in Life One Conversation at a Time</div>
+            <div class="reference-item">Rasiel, E. & Friga, P. The McKinsey Mind: Understanding and Implementing Problem-Solving Tools</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="next-steps" id="next-steps">
+    <div class="section-inner">
+      <span class="section-label fade-in">NEXT STEPS</span>
+      <h2 class="section-title fade-in">Continue Your Development</h2>
+      <div class="next-module fade-in">
+        <p>UP NEXT</p>
+        <h3>Module 5: Internal Operations and Team Collaboration</h3>
+        <a href="module-5-internal-operations.html" class="next-btn">Begin Module 5 →</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+    });
+
+    // Fade-in animations
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Toggle model responses
+    function toggleModel(btn) {
+      btn.classList.toggle('open');
+      btn.nextElementSibling.classList.toggle('visible');
+    }
+
+    // Toggle scorecard items
+    function toggleScorecard(item) {
+      item.classList.toggle('checked');
+      saveFormData();
+    }
+
+    // Save form data
+    function saveFormData() {
+      const data = {
+        scenarios: [],
+        scorecard: [],
+        notes: document.getElementById('callNotes').value
+      };
+      
+      document.querySelectorAll('.scenario-textarea').forEach((t, i) => {
+        data.scenarios[i] = t.value;
+      });
+      
+      document.querySelectorAll('.scorecard-item').forEach((item, i) => {
+        data.scorecard[i] = item.classList.contains('checked');
+      });
+      
+      localStorage.setItem('dl-module4-data', JSON.stringify(data));
+    }
+
+    // Load form data
+    function loadFormData() {
+      const saved = localStorage.getItem('dl-module4-data');
+      if (saved) {
+        const data = JSON.parse(saved);
+        
+        document.querySelectorAll('.scenario-textarea').forEach((t, i) => {
+          if (data.scenarios && data.scenarios[i]) t.value = data.scenarios[i];
+        });
+        
+        document.querySelectorAll('.scorecard-item').forEach((item, i) => {
+          if (data.scorecard && data.scorecard[i]) item.classList.add('checked');
+        });
+        
+        if (data.notes) document.getElementById('callNotes').value = data.notes;
+      }
+    }
+
+    // Auto-save on input
+    document.querySelectorAll('.scenario-textarea, .notes-textarea').forEach(el => {
+      el.addEventListener('input', saveFormData);
+    });
+
+    // Initialize
+    loadFormData();
+  </script>
+</body>
+</html>

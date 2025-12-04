@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 8 | Difficult Clients, Escalations & Crisis Calm | DL Leadership Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0a1628;
+      --navy-mid: #132744;
+      --navy-light: #1e3a5f;
+      --navy-lighter: #2a4a7a;
+      --gold-primary: #c9a227;
+      --gold-light: #e8c547;
+      --gold-glow: rgba(201, 162, 39, 0.3);
+      --gold-subtle: rgba(201, 162, 39, 0.15);
+      --white: #ffffff;
+      --white-soft: rgba(255, 255, 255, 0.9);
+      --white-muted: rgba(255, 255, 255, 0.7);
+      --white-subtle: rgba(255, 255, 255, 0.4);
+      --white-faint: rgba(255, 255, 255, 0.08);
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --purple: #a78bfa;
+      --blue: #60a5fa;
+      --teal: #2dd4bf;
+      --pink: #f472b6;
+      --orange: #fb923c;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--navy-deep); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 0; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--gold-primary), var(--gold-light)); z-index: 1000; transition: width 0.1s ease; }
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--white-faint); z-index: 100; }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold-primary); }
+    .nav-module { font-size: 0.85rem; color: var(--white-muted); }
+    .nav-module span { color: var(--gold-light); }
+    
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 40px 80px; position: relative; background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-light) 100%); }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 80%, var(--gold-glow) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(30, 58, 95, 0.5) 0%, transparent 40%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .module-badge { display: inline-block; padding: 10px 25px; background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 30px; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 30px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.2s; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.2; margin-bottom: 25px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.4s; }
+    .hero-subtitle { font-size: 1.2rem; color: var(--white-muted); font-weight: 300; max-width: 700px; margin: 0 auto 40px; line-height: 1.8; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.6s; }
+    .hero-divider { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 40px; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 0.8s; }
+    .learning-objectives { text-align: left; background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 35px 40px; max-width: 700px; margin: 0 auto; opacity: 0; animation: fadeUp 0.8s ease forwards; animation-delay: 1s; }
+    .learning-objectives h3 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; color: var(--gold-primary); margin-bottom: 20px; font-weight: 600; }
+    .learning-objectives ul { list-style: none; }
+    .learning-objectives li { padding: 8px 0; padding-left: 25px; position: relative; color: var(--white-soft); font-size: 0.95rem; }
+    .learning-objectives li::before { content: '✓'; position: absolute; left: 0; color: var(--gold-primary); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* Sections */
+    section { position: relative; z-index: 1; padding: 100px 40px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-wide { max-width: 1100px; }
+    .section-label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 25px; }
+    .section-intro { font-size: 1.1rem; color: var(--white-muted); margin-bottom: 40px; line-height: 1.8; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
+    /* Psychology Cards */
+    .psychology-grid { display: grid; gap: 20px; margin-top: 40px; }
+    .psychology-card { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 25px; }
+    .psychology-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--danger), var(--orange)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .psychology-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .psychology-content p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.6; }
+    
+    /* Highlight Box */
+    .highlight-box { background: linear-gradient(135deg, rgba(201, 162, 39, 0.1) 0%, rgba(201, 162, 39, 0.05) 100%); border: 1px solid rgba(201, 162, 39, 0.25); border-radius: 12px; padding: 30px; margin: 30px 0; text-align: center; }
+    .highlight-box p { font-size: 1.1rem; color: var(--white-soft); line-height: 1.8; margin: 0; }
+    .highlight-box strong { color: var(--gold-light); }
+    
+    /* Role List */
+    .role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 40px; }
+    .role-item { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: var(--white-faint); border-radius: 8px; }
+    .role-item .icon { font-size: 1.2rem; }
+    .role-item span { font-size: 0.95rem; color: var(--white-soft); }
+    
+    /* Triage Framework */
+    .triage-container { margin-top: 50px; }
+    .triage-phase { margin-bottom: 40px; padding: 30px; border-radius: 12px; position: relative; }
+    .triage-phase::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px; }
+    .triage-phase.phase-1 { background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(248, 113, 113, 0.03) 100%); border: 1px solid rgba(248, 113, 113, 0.2); }
+    .triage-phase.phase-1::before { background: var(--danger); }
+    .triage-phase.phase-2 { background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.03) 100%); border: 1px solid rgba(251, 191, 36, 0.2); }
+    .triage-phase.phase-2::before { background: var(--warning); }
+    .triage-phase.phase-3 { background: linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(74, 222, 128, 0.03) 100%); border: 1px solid rgba(74, 222, 128, 0.2); }
+    .triage-phase.phase-3::before { background: var(--success); }
+    .phase-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .phase-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; opacity: 0.6; }
+    .triage-phase.phase-1 .phase-num { color: var(--danger); }
+    .triage-phase.phase-2 .phase-num { color: var(--warning); }
+    .triage-phase.phase-3 .phase-num { color: var(--success); }
+    .triage-phase h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--white); }
+    .triage-phase > p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .triage-phase ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .triage-phase li { padding-left: 20px; position: relative; font-size: 0.9rem; color: var(--white-soft); }
+    .triage-phase li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    
+    /* Archetype Cards */
+    .archetype-grid { display: grid; gap: 25px; margin-top: 40px; }
+    .archetype-card { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 25px 30px; display: grid; grid-template-columns: 70px 1fr; gap: 20px; align-items: start; }
+    .archetype-number { width: 50px; height: 50px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy-deep); font-weight: 600; }
+    .archetype-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+    .archetype-content .behavior { font-size: 0.9rem; color: var(--white-muted); margin-bottom: 8px; font-style: italic; }
+    .archetype-content .need { font-size: 0.9rem; color: var(--white-soft); display: flex; align-items: center; gap: 8px; }
+    .archetype-content .need::before { content: '✓'; color: var(--success); }
+    
+    /* De-escalation Steps */
+    .deescalation-steps { margin-top: 40px; }
+    .deescalation-step { display: grid; grid-template-columns: 80px 1fr; gap: 25px; margin-bottom: 25px; align-items: start; }
+    .step-marker { text-align: center; }
+    .step-marker .number { width: 50px; height: 50px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy-deep); font-weight: 600; margin: 0 auto 8px; }
+    .step-marker .connector { width: 2px; height: 25px; background: linear-gradient(180deg, var(--gold-primary), transparent); margin: 0 auto; }
+    .deescalation-step:last-child .step-marker .connector { display: none; }
+    .step-content { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 20px 25px; }
+    .step-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .step-content p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.6; }
+    
+    /* Team Protection */
+    .protection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; }
+    .protection-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 20px; display: flex; align-items: center; gap: 15px; }
+    .protection-icon { width: 40px; height: 40px; background: rgba(45, 212, 191, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .protection-card span { font-size: 0.9rem; color: var(--white-soft); line-height: 1.5; }
+    
+    /* Reset Steps */
+    .reset-flow { margin-top: 40px; }
+    .reset-step { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px; padding: 18px 22px; background: var(--white-faint); border-radius: 10px; border-left: 3px solid var(--gold-primary); }
+    .reset-step .num { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-primary); min-width: 25px; }
+    .reset-step p { font-size: 0.95rem; color: var(--white-soft); line-height: 1.6; }
+    
+    /* Warning Signals */
+    .warning-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 40px; }
+    .warning-item { display: flex; align-items: center; gap: 12px; padding: 15px 18px; background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.15); border-radius: 8px; }
+    .warning-item::before { content: '⚠️'; font-size: 1rem; }
+    .warning-item span { font-size: 0.9rem; color: var(--white-soft); }
+    
+    /* Scenarios */
+    .scenario-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; overflow: hidden; margin-bottom: 25px; }
+    .scenario-header { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); padding: 20px 25px; display: flex; align-items: center; gap: 15px; }
+    .scenario-number { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold-primary); opacity: 0.7; }
+    .scenario-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--white); }
+    .scenario-body { padding: 25px; }
+    .scenario-body > p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.7; margin-bottom: 15px; }
+    .scenario-tasks { margin: 15px 0; }
+    .scenario-tasks h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px; }
+    .scenario-tasks ul { list-style: none; }
+    .scenario-tasks li { padding: 6px 0; padding-left: 18px; position: relative; font-size: 0.9rem; color: var(--white-soft); }
+    .scenario-tasks li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    .scenario-response { margin-top: 15px; }
+    .scenario-response label { display: block; font-size: 0.8rem; color: var(--white-muted); margin-bottom: 10px; }
+    .scenario-textarea { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 15px; color: var(--white); font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; resize: vertical; min-height: 100px; line-height: 1.6; }
+    .scenario-textarea:focus { outline: none; border-color: var(--gold-primary); }
+    .scenario-textarea::placeholder { color: var(--white-subtle); }
+    .model-toggle { background: var(--gold-subtle); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 6px; padding: 10px 18px; color: var(--gold-light); font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; margin-top: 15px; }
+    .model-toggle:hover { background: rgba(201, 162, 39, 0.25); }
+    .model-toggle .arrow { transition: transform 0.2s ease; }
+    .model-toggle.open .arrow { transform: rotate(180deg); }
+    .model-content { display: none; margin-top: 15px; padding: 20px; background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.15); border-radius: 8px; }
+    .model-content.visible { display: block; }
+    .model-content h6 { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--success); margin-bottom: 12px; font-weight: 600; }
+    .model-content p { font-size: 0.9rem; color: var(--white-soft); line-height: 1.7; margin-bottom: 10px; }
+    .model-content p:last-child { margin-bottom: 0; }
+    
+    /* Conclusion */
+    .conclusion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+    .conclusion-card { background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 25px; text-align: center; }
+    .conclusion-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+    .conclusion-card p { font-size: 0.85rem; color: var(--white-muted); line-height: 1.5; }
+    
+    /* References */
+    .references { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .reference-category { margin-bottom: 35px; }
+    .reference-category:last-child { margin-bottom: 0; }
+    .reference-category h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .reference-list { list-style: none; }
+    .reference-list li { padding: 8px 0; padding-left: 20px; position: relative; font-size: 0.9rem; color: var(--white-muted); line-height: 1.5; }
+    .reference-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    .reference-list a { color: var(--gold-light); text-decoration: none; }
+    .reference-list a:hover { text-decoration: underline; }
+    
+    /* Completion */
+    .completion { text-align: center; padding: 80px 40px; background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .completion h3 { font-size: 1.8rem; margin-bottom: 20px; }
+    .completion p { color: var(--white-muted); margin-bottom: 30px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .completion-badge { display: inline-block; padding: 20px 50px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); color: var(--navy-deep); font-weight: 600; font-size: 1.1rem; border-radius: 8px; }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .role-grid, .protection-grid, .warning-grid, .conclusion-grid { grid-template-columns: 1fr; }
+      .triage-phase ul { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 60px 20px; }
+      .top-nav { padding: 15px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .learning-objectives { padding: 25px; }
+      .deescalation-step { grid-template-columns: 1fr; }
+      .step-marker { display: none; }
+      .archetype-card { grid-template-columns: 1fr; }
+      .archetype-number { margin-bottom: 10px; }
+    }
+    @media print {
+      .top-nav, .progress-bar { display: none; }
+      body { background: white; color: black; }
+      section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  
+  <nav class="top-nav">
+    <div class="nav-brand">DIGITAL LEVERAGE</div>
+    <div class="nav-module">Module <span>8</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="module-badge">MODULE 8</div>
+      <h1>Difficult Clients, Escalations & Crisis Calm</h1>
+      <p class="hero-subtitle">Crises do not destroy relationships. Poorly handled crises do. This module prepares you to lead through difficulty with calm, clarity, and confidence—defusing tension, protecting the team, and maintaining trust even when things feel uncertain.</p>
+      <div class="hero-divider"></div>
+      <div class="learning-objectives">
+        <h3>WHAT YOU'LL MASTER</h3>
+        <ul>
+          <li>Defuse tension and stabilize emotional situations</li>
+          <li>Identify the real problem beneath surface complaints</li>
+          <li>Guide conversations toward stability and clarity</li>
+          <li>Protect the creative team from unnecessary pressure</li>
+          <li>Maintain trust even during uncertainty</li>
+          <li>Recognize early warning signs before escalation</li>
+          <li>Execute restoration plans that rebuild confidence</li>
+          <li>Lead through difficulty without panicking</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: PSYCHOLOGY -->
+  <section class="fade-in" style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 1</span>
+      <h2 class="section-title">The Psychology of Difficult Client Moments</h2>
+      <p class="section-intro">Clients become difficult for predictable reasons. Understanding these reasons helps you respond with composure and strategic awareness. None of these emotions are irrational. They are human.</p>
+
+      <div class="psychology-grid">
+        <div class="psychology-card">
+          <div class="psychology-icon">😰</div>
+          <div class="psychology-content">
+            <h4>Emotional Overload</h4>
+            <p>Clients sometimes feel overwhelmed by the gap between their expectations and what they're seeing. They might be under personal or business pressure and interpret content performance through that lens.</p>
+          </div>
+        </div>
+        <div class="psychology-card">
+          <div class="psychology-icon">❓</div>
+          <div class="psychology-content">
+            <h4>Loss of Certainty</h4>
+            <p>When clients cannot predict what is happening, they assume something is wrong. This creates tension. They reach out more emotionally. They question decisions more intensely.</p>
+          </div>
+        </div>
+        <div class="psychology-card">
+          <div class="psychology-icon">🔇</div>
+          <div class="psychology-content">
+            <h4>Feeling Unheard</h4>
+            <p>Clients want to know their input matters. A difficult client often feels like their preferences, goals, or concerns have been overlooked—even if that's not true.</p>
+          </div>
+        </div>
+        <div class="psychology-card">
+          <div class="psychology-icon">📉</div>
+          <div class="psychology-content">
+            <h4>Performance Insecurity</h4>
+            <p>When content doesn't match what they hoped, or when numbers dip, clients can question the entire operation. This is a psychological response to loss of control.</p>
+          </div>
+        </div>
+        <div class="psychology-card">
+          <div class="psychology-icon">🪞</div>
+          <div class="psychology-content">
+            <h4>Identity Tension</h4>
+            <p>The client's brand is tied to their identity. Content that feels misaligned can create a strong emotional reaction—it's not just business, it's personal.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 40px;">
+        <p>This module trains you to <strong>recognize these emotions</strong> and respond in ways that <strong>reduce intensity and rebuild equilibrium.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: AM'S ROLE -->
+  <section class="fade-in" style="background: var(--navy-deep);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 2</span>
+      <h2 class="section-title">The AM's Role in Difficult Moments</h2>
+      <p class="section-intro">When situations become tense, the Account Manager becomes the stabilizer. Your leadership in these moments defines the future of the account.</p>
+
+      <div class="role-grid">
+        <div class="role-item"><span class="icon">😌</span><span>Remain calm</span></div>
+        <div class="role-item"><span class="icon">👂</span><span>Listen without reacting</span></div>
+        <div class="role-item"><span class="icon">🎯</span><span>Extract the real concern</span></div>
+        <div class="role-item"><span class="icon">⏸️</span><span>Slow the pace of conversation</span></div>
+        <div class="role-item"><span class="icon">🪞</span><span>Avoid emotional mirroring</span></div>
+        <div class="role-item"><span class="icon">✅</span><span>Clarify expectations</span></div>
+        <div class="role-item"><span class="icon">📋</span><span>Give structure to the chaos</span></div>
+        <div class="role-item"><span class="icon">🛡️</span><span>Protect the creative team</span></div>
+        <div class="role-item"><span class="icon">📊</span><span>Reinforce trust with leadership</span></div>
+        <div class="role-item"><span class="icon">⚖️</span><span>Create immediate and long-term stability</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: CRISIS TRIAGE FRAMEWORK -->
+  <section class="fade-in" style="background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 3</span>
+      <h2 class="section-title">The Crisis Triage Framework</h2>
+      <p class="section-intro">This is the central framework for Module 8. Every AM uses it during escalations. There are three phases that must be followed in order.</p>
+
+      <div class="triage-container">
+        <div class="triage-phase phase-1">
+          <div class="phase-header">
+            <span class="phase-num">01</span>
+            <h4>Stabilize the Emotion</h4>
+          </div>
+          <p>Before solving anything, stabilize the emotional state of the client. Clients cannot hear solutions until they feel calmer. Your first goal is emotional stability.</p>
+          <ul>
+            <li>Acknowledge the concern</li>
+            <li>Reduce conversation intensity</li>
+            <li>Clarify you understand the seriousness</li>
+            <li>Listen fully</li>
+            <li>Keep your tone neutral</li>
+            <li>Slow the pace of exchange</li>
+            <li>Don't become defensive</li>
+          </ul>
+        </div>
+
+        <div class="triage-phase phase-2">
+          <div class="phase-header">
+            <span class="phase-num">02</span>
+            <h4>Identify the Root Problem</h4>
+          </div>
+          <p>Clients often complain about the wrong thing. A surface complaint might be about tone, posting time, or missing details. The real issue might be misalignment in expectations or a breakdown in clarity.</p>
+          <ul>
+            <li>What the client expected</li>
+            <li>What they actually received</li>
+            <li>Where the breakdown happened</li>
+            <li>Whether issue is emotional, process, or strategic</li>
+            <li>What misunderstanding contributed</li>
+          </ul>
+        </div>
+
+        <div class="triage-phase phase-3">
+          <div class="phase-header">
+            <span class="phase-num">03</span>
+            <h4>Execute a Restoration Plan</h4>
+          </div>
+          <p>A restoration plan stabilizes the relationship and reestablishes confidence. It works because it gives clients a clear direction to follow.</p>
+          <ul>
+            <li>Clarification of expectations</li>
+            <li>Short-term fixes</li>
+            <li>Long-term adjustments</li>
+            <li>Improved communication rhythm</li>
+            <li>Clear timelines</li>
+            <li>Confirmation of next steps</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: FIVE ARCHETYPES -->
+  <section class="fade-in" style="background: var(--navy-mid);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 4</span>
+      <h2 class="section-title">The Five Archetypes of Difficult Clients</h2>
+      <p class="section-intro">Every difficult client falls into one of five archetypes. Recognize the type so you can adjust your technique accordingly.</p>
+
+      <div class="archetype-grid">
+        <div class="archetype-card">
+          <div class="archetype-number">1</div>
+          <div class="archetype-content">
+            <h4>The Overthinker</h4>
+            <p class="behavior">They question everything because uncertainty makes them anxious.</p>
+            <p class="need">They need clarity, structure, and reassurance.</p>
+          </div>
+        </div>
+
+        <div class="archetype-card">
+          <div class="archetype-number">2</div>
+          <div class="archetype-content">
+            <h4>The Silent Withdrawer</h4>
+            <p class="behavior">They become less responsive. They pull back without explaining why.</p>
+            <p class="need">They need proactive outreach and a guided conversation.</p>
+          </div>
+        </div>
+
+        <div class="archetype-card">
+          <div class="archetype-number">3</div>
+          <div class="archetype-content">
+            <h4>The Emotional Reactor</h4>
+            <p class="behavior">They respond quickly and intensely. Heat rises fast.</p>
+            <p class="need">They need slow pace, calm tone, and reflective listening.</p>
+          </div>
+        </div>
+
+        <div class="archetype-card">
+          <div class="archetype-number">4</div>
+          <div class="archetype-content">
+            <h4>The Detail Scanner</h4>
+            <p class="behavior">They focus on small issues because they lack trust in the big picture.</p>
+            <p class="need">They need clearer expectations and more context.</p>
+          </div>
+        </div>
+
+        <div class="archetype-card">
+          <div class="archetype-number">5</div>
+          <div class="archetype-content">
+            <h4>The Urgency Driver</h4>
+            <p class="behavior">They want everything quickly. Everything feels like a priority.</p>
+            <p class="need">They need boundary-setting and renegotiated timelines that protect the team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: DE-ESCALATION -->
+  <section class="fade-in" style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 5</span>
+      <h2 class="section-title">The Art of De-escalation</h2>
+      <p class="section-intro">Here is the step-by-step method for de-escalating any situation. Follow this sequence and you become the steady center of the relationship.</p>
+
+      <div class="deescalation-steps">
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">1</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Slow the Energy</h4>
+            <p>Use calm pacing. Lower your voice slightly. Take your time. This immediately reduces emotional heat.</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">2</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Validate the Concern</h4>
+            <p>You are not agreeing. You are acknowledging. "I understand why this is frustrating." This lowers defensiveness.</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">3</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Reflect Back Their Phrasing</h4>
+            <p>Use their words. "So what you're saying is..." This assures the client they are being understood clearly.</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">4</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Clarify the Details</h4>
+            <p>Ask open questions. "Help me understand what happened from your perspective." Give them space to articulate.</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">5</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Establish the Facts</h4>
+            <p>You cannot build solutions without clarity. "Let me make sure I have the timeline right..."</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">6</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Take Ownership for Breakdowns</h4>
+            <p>Ownership builds trust. "That's on me—I should have clarified earlier." This keeps the conversation grounded.</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">7</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Explain the Path Forward</h4>
+            <p>Walk them through the plan with calm precision. "Here's what we're going to do..."</p>
+          </div>
+        </div>
+
+        <div class="deescalation-step">
+          <div class="step-marker">
+            <div class="number">8</div>
+            <div class="connector"></div>
+          </div>
+          <div class="step-content">
+            <h4>Summarize Next Steps</h4>
+            <p>Summaries eliminate ambiguity and prevent future emotional recurrences. Confirm everything in writing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: PROTECTING THE TEAM -->
+  <section class="fade-in" style="background: var(--navy-deep);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 6</span>
+      <h2 class="section-title">Protecting the Creative Team During Escalations</h2>
+      <p class="section-intro">Creative teams perform best when they feel respected and safe. In crisis moments, the AM must act as both shield and translator. The team trusts AMs who protect them during difficult moments. Leadership sees this as a core competency.</p>
+
+      <div class="protection-grid">
+        <div class="protection-card"><div class="protection-icon">🛡️</div><span>Never transfer client emotion to the team</span></div>
+        <div class="protection-card"><div class="protection-icon">🔄</div><span>Reframe feedback into actionable notes</span></div>
+        <div class="protection-card"><div class="protection-icon">🚫</div><span>Prevent clients from bypassing the AM</span></div>
+        <div class="protection-card"><div class="protection-icon">⏰</div><span>Give the team realistic timelines</span></div>
+        <div class="protection-card"><div class="protection-icon">✨</div><span>Remove ambiguity from instructions</span></div>
+        <div class="protection-card"><div class="protection-icon">💚</div><span>Acknowledge emotional labor</span></div>
+        <div class="protection-card"><div class="protection-icon">⚖️</div><span>Do not assign blame</span></div>
+        <div class="protection-card"><div class="protection-icon">📝</div><span>Communicate with calm precision</span></div>
+        <div class="protection-card"><div class="protection-icon">🗣️</div><span>Advocate when expectations exceed capacity</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: RESET CONVERSATION -->
+  <section class="fade-in" style="background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 7</span>
+      <h2 class="section-title">The Reset Conversation</h2>
+      <p class="section-intro">A Reset Conversation is a powerful AM tool. You initiate it when expectations, emotions, or direction have drifted. Resets are strategic—they restructure the relationship with professionalism.</p>
+
+      <div class="reset-flow">
+        <div class="reset-step">
+          <span class="num">1.</span>
+          <p><strong>Acknowledgment of the issue.</strong> Name what happened without blame or defensiveness.</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">2.</span>
+          <p><strong>Clarification of the breakdown.</strong> Identify where expectations diverged from reality.</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">3.</span>
+          <p><strong>Re-stating the original goals.</strong> Bring focus back to what you're trying to accomplish together.</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">4.</span>
+          <p><strong>Reviewing the current state.</strong> Where are we now? What's working? What isn't?</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">5.</span>
+          <p><strong>Explaining the adjustments.</strong> What will change going forward?</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">6.</span>
+          <p><strong>Outlining a new rhythm or timeline.</strong> Set clear expectations for the next cycle.</p>
+        </div>
+        <div class="reset-step">
+          <span class="num">7.</span>
+          <p><strong>Confirming alignment.</strong> Make sure you leave on the same page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: WARNING INDICATORS -->
+  <section class="fade-in" style="background: var(--navy-mid);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 8</span>
+      <h2 class="section-title">Early Warning Indicators of Escalation</h2>
+      <p class="section-intro">AMs must detect early signs of trouble. Most escalations begin quietly. If you catch these early, escalation never happens.</p>
+
+      <div class="warning-grid">
+        <div class="warning-item"><span>Shorter client messages</span></div>
+        <div class="warning-item"><span>Slower response times</span></div>
+        <div class="warning-item"><span>Emotionally neutral or flat tone</span></div>
+        <div class="warning-item"><span>Less engagement on calls</span></div>
+        <div class="warning-item"><span>Increased micro-edits</span></div>
+        <div class="warning-item"><span>Vague dissatisfaction statements</span></div>
+        <div class="warning-item"><span>Sudden urgency</span></div>
+        <div class="warning-item"><span>Subtle frustration</span></div>
+        <div class="warning-item"><span>Fewer confirmations of next steps</span></div>
+        <div class="warning-item"><span>Lack of future-oriented discussion</span></div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 40px;">
+        <p>Module 8 gives you the tools to <strong>intervene before problems grow</strong>. Early detection is prevention.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: CASE STUDIES -->
+  <section class="fade-in" style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 9</span>
+      <h2 class="section-title">Case Studies and Practice Drills</h2>
+      <p class="section-intro">These drills develop composure. Composure keeps accounts alive.</p>
+
+      <!-- Case Study 1 -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <span class="scenario-number">01</span>
+          <h4>The Urgent Panic Message</h4>
+        </div>
+        <div class="scenario-body">
+          <p>Client sends a late-night message expressing frustration over performance. "I'm really concerned about engagement. It feels like nothing is working. Can we talk first thing tomorrow?"</p>
+          <div class="scenario-tasks">
+            <h5>Practice:</h5>
+            <ul>
+              <li>Apply the triage steps</li>
+              <li>Use reassuring tone</li>
+              <li>Offer a clear plan</li>
+            </ul>
+          </div>
+          <div class="scenario-response">
+            <label>Your response:</label>
+            <textarea class="scenario-textarea" id="scenario1" placeholder="Draft your response to this message..."></textarea>
+          </div>
+          <button class="model-toggle" onclick="toggleModel(this)">
+            <span>View Model Response</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="model-content">
+            <h6>EXPERT APPROACH</h6>
+            <p><strong>Immediate response (same night or early morning):</strong> "I hear you—and I want you to know I'm already looking at the data. Let's talk at [time]. I'll come prepared with context on what's happening and a clear plan."</p>
+            <p><strong>On the call:</strong> Start by acknowledging: "I understand why you're concerned. Let me walk you through what I'm seeing." Then present: "Over the last two weeks, [specific insight]. Here's what that tells us, and here's what we're adjusting."</p>
+            <p>End with direction: "My recommendation is [X]. We'll know within [timeframe] if it's working. I'll keep you updated mid-week so you're not guessing."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2 -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <span class="scenario-number">02</span>
+          <h4>The Misaligned Content Draft</h4>
+        </div>
+        <div class="scenario-body">
+          <p>Writer produced content that doesn't match client expectations. The client is unhappy. The writer did their best with the brief they received. You're in the middle.</p>
+          <div class="scenario-tasks">
+            <h5>Practice:</h5>
+            <ul>
+              <li>Protect the team</li>
+              <li>Reset the client</li>
+              <li>Improve the brief for next time</li>
+            </ul>
+          </div>
+          <div class="scenario-response">
+            <label>Your approach:</label>
+            <textarea class="scenario-textarea" id="scenario2" placeholder="How do you handle this situation?"></textarea>
+          </div>
+          <button class="model-toggle" onclick="toggleModel(this)">
+            <span>View Model Response</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="model-content">
+            <h6>EXPERT APPROACH</h6>
+            <p><strong>To the client:</strong> Own it. "This didn't land the way we intended—that's on me. I didn't give the writer enough clarity on what you were looking for. Let me fix this."</p>
+            <p><strong>To the writer:</strong> Protect them. "The client wanted something different. That's not on you—my brief wasn't clear enough. Here's what they're actually looking for: [specific direction]. Let's revise with this in mind."</p>
+            <p><strong>For next time:</strong> Document what was missing from the brief. Add it to your template. "What success looks like" and "what to avoid" should be explicit.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 3 -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <span class="scenario-number">03</span>
+          <h4>The Silent Client</h4>
+        </div>
+        <div class="scenario-body">
+          <p>Client stops responding. Messages go unanswered for days. They postponed the last call. Nothing dramatic happened, but something has shifted.</p>
+          <div class="scenario-tasks">
+            <h5>Practice:</h5>
+            <ul>
+              <li>Proactive outreach</li>
+              <li>Positive, non-accusatory tone</li>
+              <li>Curiosity-led questions</li>
+            </ul>
+          </div>
+          <div class="scenario-response">
+            <label>Your outreach message:</label>
+            <textarea class="scenario-textarea" id="scenario3" placeholder="How do you re-engage this client?"></textarea>
+          </div>
+          <button class="model-toggle" onclick="toggleModel(this)">
+            <span>View Model Response</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="model-content">
+            <h6>EXPERT APPROACH</h6>
+            <p><strong>First message:</strong> Keep it light but direct. "Hey [name], just wanted to check in. I know things have been busy. When you have 10 minutes, I'd love to catch up and make sure we're still aligned on direction."</p>
+            <p><strong>If no response:</strong> Try a different angle. "I've been thinking about your Q1 goals and have a few ideas. Would love your input before we move forward. Let me know when works for a quick call."</p>
+            <p><strong>On the call:</strong> Don't dive into content. Ask: "How are you feeling about things overall?" Listen for what's underneath. They may be dealing with something outside the scope of your work that's affecting engagement.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 4 -->
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <span class="scenario-number">04</span>
+          <h4>The Emotional Outburst</h4>
+        </div>
+        <div class="scenario-body">
+          <p>Client becomes heated on a call. Their voice is raised. They're expressing frustration—not with you personally, but with the situation. The emotional temperature is high.</p>
+          <div class="scenario-tasks">
+            <h5>Practice:</h5>
+            <ul>
+              <li>Emotional pacing</li>
+              <li>Reflective listening</li>
+              <li>Restoring direction</li>
+            </ul>
+          </div>
+          <div class="scenario-response">
+            <label>How do you respond in the moment?</label>
+            <textarea class="scenario-textarea" id="scenario4" placeholder="Your approach during the call..."></textarea>
+          </div>
+          <button class="model-toggle" onclick="toggleModel(this)">
+            <span>View Model Response</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="model-content">
+            <h6>EXPERT APPROACH</h6>
+            <p><strong>Step 1 - Don't react:</strong> Lower your energy. Speak slower. Your calm is contagious.</p>
+            <p><strong>Step 2 - Validate:</strong> "I hear you. This is frustrating, and I understand why you feel that way."</p>
+            <p><strong>Step 3 - Reflect:</strong> "What I'm hearing is that [their concern in their words]. Is that right?"</p>
+            <p><strong>Step 4 - Pivot to solution:</strong> "I want to fix this. Here's what I'm going to do..." Give them a concrete next step. "Can I send you a plan by end of day tomorrow so we have something specific to work from?"</p>
+            <p>After the call: Send a calm, professional summary. This anchors the conversation in clarity and moves past the emotional moment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: CONCLUSION -->
+  <section class="fade-in" style="background: var(--navy-deep);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 10</span>
+      <h2 class="section-title">Module 8 Conclusion</h2>
+      <p class="section-intro">Difficult clients are not failures. Difficult moments are not threats. They are opportunities to demonstrate leadership, emotional intelligence, communication discipline, and strategic calm.</p>
+
+      <div class="conclusion-grid">
+        <div class="conclusion-card">
+          <h4>Stabilize Tension</h4>
+          <p>Calm the emotional temperature before solving anything.</p>
+        </div>
+        <div class="conclusion-card">
+          <h4>Identify Root Issues</h4>
+          <p>Surface what's really driving the frustration.</p>
+        </div>
+        <div class="conclusion-card">
+          <h4>Guide Corrective Action</h4>
+          <p>Turn problems into restoration plans.</p>
+        </div>
+        <div class="conclusion-card">
+          <h4>Protect Team Morale</h4>
+          <p>Shield writers from transferred emotion.</p>
+        </div>
+        <div class="conclusion-card">
+          <h4>Restore Trust</h4>
+          <p>Rebuild confidence through clarity.</p>
+        </div>
+        <div class="conclusion-card">
+          <h4>Prevent Churn</h4>
+          <p>Catch signals early and intervene.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top: 40px;">
+        <p>When you master this module, you become the kind of Account Manager who <strong>never panics, always leads, and consistently strengthens client loyalty</strong> through difficult circumstances.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <section class="references fade-in">
+    <div class="section-inner">
+      <span class="section-label">REFERENCES</span>
+      <h2 class="section-title">Sources & Further Reading</h2>
+
+      <div class="reference-category">
+        <h4>De-escalation & Difficult Customers</h4>
+        <ul class="reference-list">
+          <li><a href="https://www.zendesk.com/blog/5-types-difficult-customers-help/" target="_blank">Zendesk – How to Deal with Difficult Customers: 13 Tips</a></li>
+          <li><a href="https://www.crisisprevention.com/blog/general/cpi-s-top-10-de-escalation-tips-revisited/" target="_blank">Crisis Prevention Institute – Top 10 De-escalation Tips</a></li>
+          <li><a href="https://helpware.com/blog/how-to-deescalate-angry-customer-best-techniques" target="_blank">Helpware – How to De-escalate an Angry Customer: 9 Best Techniques</a></li>
+          <li><a href="https://peacefulleadersacademy.com/blog/how-to-de-escalate-angry-customers/" target="_blank">Peaceful Leaders Academy – De-escalating Angry Customers</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Escalation Management & Customer Success</h4>
+        <ul class="reference-list">
+          <li><a href="https://successcoaching.co/blog/managing-customer-escalations-effectively" target="_blank">SuccessCOACHING – Managing Customer Escalations Effectively</a></li>
+          <li><a href="https://successcoaching.co/blog/difficult-customers" target="_blank">SuccessCOACHING – How to Handle Difficult Customers</a></li>
+          <li><a href="https://csmis.org/2025/10/04/de-escalation-techniques-for-customer-success-managers-facing-difficult-conversations/" target="_blank">CSMIS – De-escalation for Customer Success Managers</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Conflict Resolution & Psychology</h4>
+        <ul class="reference-list">
+          <li><a href="https://pollackpeacebuilding.com/blog/psychology-of-de-escalation/" target="_blank">Pollack Peacebuilding – Psychology of De-escalation</a></li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5646909/" target="_blank">PMC – Teaching Conflict Management in Professional Settings</a></li>
+          <li><a href="https://deescalation-training.com/2024/05/de-escalation-examples/" target="_blank">Defuse – De-escalation Examples: Nine Scenarios</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Psychological Safety & Team Protection</h4>
+        <ul class="reference-list">
+          <li><a href="https://psychsafety.com/psychological-safety-60-conflict-and-holding-environments/" target="_blank">Psych Safety – Psychological Safety and Conflict in Teams</a></li>
+          <li><a href="https://peacefulleadersacademy.com/blog/psychological-safety-teams/" target="_blank">Peaceful Leaders Academy – Psychological Safety in Teams</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLETION -->
+  <section class="completion">
+    <h3>Module Complete</h3>
+    <p>You now have the frameworks to lead through difficult moments with calm, clarity, and confidence—protecting relationships and preventing churn.</p>
+    <div class="completion-badge">Module 8 — Crisis Leadership</div>
+  </section>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+
+    // Fade in on scroll
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Model response toggle
+    function toggleModel(btn) {
+      btn.classList.toggle('open');
+      const content = btn.nextElementSibling;
+      content.classList.toggle('visible');
+    }
+
+    // Auto-save functionality
+    const scenarios = ['scenario1', 'scenario2', 'scenario3', 'scenario4'];
+    scenarios.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      
+      // Load saved value
+      const saved = localStorage.getItem('m8_' + id);
+      if (saved) el.value = saved;
+      
+      // Save on input
+      el.addEventListener('input', () => {
+        localStorage.setItem('m8_' + id, el.value);
+      });
+    });
+  </script>
+</body>
+</html>

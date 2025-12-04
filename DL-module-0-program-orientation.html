@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 0 | Program Orientation | Digital Leverage AM Leadership Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0a1628;
+      --navy-mid: #132744;
+      --navy-light: #1e3a5f;
+      --navy-lighter: #2a4a7a;
+      --gold-primary: #c9a227;
+      --gold-light: #e8c547;
+      --gold-glow: rgba(201, 162, 39, 0.3);
+      --gold-subtle: rgba(201, 162, 39, 0.15);
+      --white: #ffffff;
+      --white-soft: rgba(255, 255, 255, 0.9);
+      --white-muted: rgba(255, 255, 255, 0.7);
+      --white-subtle: rgba(255, 255, 255, 0.4);
+      --white-faint: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 40px;
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 80%, var(--gold-glow) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(30, 58, 95, 0.5) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .program-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--gold-subtle);
+      border: 1px solid rgba(201, 162, 39, 0.3);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-light);
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--gold-primary);
+      font-size: 0.45em;
+      font-weight: 400;
+      margin-top: 15px;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--white-muted);
+      font-weight: 300;
+      max-width: 650px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      margin: 0 auto 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      border: none;
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--navy-deep);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 1s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px var(--gold-glow);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--white-subtle);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards, bounce 2s ease-in-out infinite;
+      animation-delay: 1.2s, 2s;
+    }
+
+    .scroll-indicator::after {
+      content: '↓';
+      font-size: 1.2rem;
+    }
+
+    /* Section Base */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 40px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-primary);
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 20px;
+    }
+
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--white-muted);
+      max-width: 700px;
+      margin-bottom: 50px;
+      line-height: 1.8;
+    }
+
+    /* About Section */
+    .about {
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--white-soft);
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .about-text strong {
+      color: var(--gold-light);
+    }
+
+    .about-card {
+      background: var(--white-faint);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .about-card h3 {
+      font-size: 1.2rem;
+      color: var(--gold-primary);
+      margin-bottom: 25px;
+    }
+
+    .target-list {
+      list-style: none;
+    }
+
+    .target-list li {
+      padding: 12px 0;
+      padding-left: 25px;
+      position: relative;
+      color: var(--white-soft);
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--white-faint);
+    }
+
+    .target-list li:last-child {
+      border-bottom: none;
+    }
+
+    .target-list li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--gold-primary);
+      font-size: 0.6rem;
+      top: 15px;
+    }
+
+    /* Outcomes Section */
+    .outcomes {
+      background: var(--navy-deep);
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .outcome-card {
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 35px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .outcome-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .outcome-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(201, 162, 39, 0.3);
+    }
+
+    .outcome-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .outcome-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold-primary);
+      opacity: 0.5;
+      margin-bottom: 15px;
+    }
+
+    .outcome-card h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .outcome-card p {
+      font-size: 0.9rem;
+      color: var(--white-muted);
+      line-height: 1.6;
+    }
+
+    /* Pillars Section */
+    .pillars {
+      background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+    }
+
+    .pillars-intro {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .pillars-intro .section-intro {
+      margin: 0 auto;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .pillar-card {
+      background: var(--white-faint);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .pillar-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-5px);
+      border-color: var(--gold-primary);
+    }
+
+    .pillar-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .pillar-icon {
+      font-size: 2.5rem;
+      color: var(--gold-primary);
+      margin-bottom: 20px;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 15px;
+    }
+
+    .pillar-card p {
+      font-size: 0.9rem;
+      color: var(--white-muted);
+      line-height: 1.6;
+    }
+
+    /* Curriculum Section */
+    .curriculum {
+      background: var(--navy-mid);
+    }
+
+    .curriculum-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .curriculum-header .section-intro {
+      margin: 0 auto;
+    }
+
+    .module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .module-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 30px;
+      align-items: center;
+      background: var(--white-faint);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 25px 35px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .module-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(201, 162, 39, 0.3);
+      transform: translateX(10px);
+    }
+
+    .module-item.current {
+      background: var(--gold-subtle);
+      border-color: rgba(201, 162, 39, 0.4);
+    }
+
+    .module-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold-primary);
+      text-align: center;
+    }
+
+    .module-content h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .module-content p {
+      font-size: 0.9rem;
+      color: var(--white-muted);
+    }
+
+    .module-status {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white-subtle);
+    }
+
+    .module-item.current .module-status {
+      background: var(--gold-primary);
+      color: var(--navy-deep);
+      font-weight: 600;
+    }
+
+    /* Journey Section */
+    .journey {
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+    }
+
+    .journey-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .journey-phase {
+      text-align: center;
+      padding: 30px 40px;
+      position: relative;
+    }
+
+    .journey-phase::after {
+      content: '→';
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-primary);
+      font-size: 1.5rem;
+    }
+
+    .journey-phase:last-child::after {
+      display: none;
+    }
+
+    .journey-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--gold-subtle);
+      border: 2px solid var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 1.5rem;
+      color: var(--gold-primary);
+    }
+
+    .journey-phase h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .journey-phase p {
+      font-size: 0.8rem;
+      color: var(--white-muted);
+    }
+
+    /* Expectations Section */
+    .expectations {
+      background: var(--navy-deep);
+    }
+
+    .expectations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .expectation-card {
+      background: var(--white-faint);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .expectation-card h3 {
+      font-size: 1.2rem;
+      color: var(--gold-primary);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .expectation-list {
+      list-style: none;
+    }
+
+    .expectation-list li {
+      padding: 10px 0;
+      padding-left: 20px;
+      position: relative;
+      color: var(--white-soft);
+      font-size: 0.95rem;
+    }
+
+    .expectation-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gold-primary);
+      font-size: 0.85rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+      text-align: center;
+      padding: 120px 40px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 1.15rem;
+      color: var(--white-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      border: none;
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--navy-deep);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px var(--gold-glow);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 45px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+      background: var(--gold-subtle);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy-deep);
+      border-top: 1px solid var(--white-faint);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-primary);
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--white-subtle);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .expectations-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .module-item {
+        grid-template-columns: 60px 1fr;
+        gap: 20px;
+      }
+      
+      .module-status {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 70px 25px;
+      }
+      
+      .hero {
+        padding: 40px 25px;
+      }
+      
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .journey-visual {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .journey-phase::after {
+        display: none;
+      }
+      
+      .module-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .module-number {
+        font-size: 1.3rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="program-badge">MODULE 0 • PROGRAM ORIENTATION</div>
+      <h1>Digital Leverage<br>Account Manager<br>Leadership Program<span>Four Pillars • Emotional Intelligence • Outcomes</span></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">A comprehensive training program that transforms Account Managers into strategic leaders who drive client success, team excellence, and measurable business outcomes.</p>
+      <a href="#about" class="hero-cta">Begin Orientation ↓</a>
+    </div>
+    <div class="scroll-indicator">SCROLL</div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <span class="section-label">ABOUT THIS PROGRAM</span>
+          <h2 class="section-title">What This Program Is</h2>
+          <p>This is not a slide deck. This is not a one-time training. This is <strong>an operating system for Account Manager excellence</strong> at Digital Leverage.</p>
+          <p>Every module builds on the Four Pillars framework: <strong>Clients, Calls, Culture, and Campaigns</strong>. Each one teaches you how to think, act, and lead at a higher level.</p>
+          <p>By the end, you will not just manage accounts. You will <strong>own outcomes</strong>, <strong>lead conversations</strong>, <strong>shape team culture</strong>, and <strong>direct content strategy</strong> with clarity and confidence.</p>
+        </div>
+        <div class="about-card fade-in">
+          <h3>Who This Is For</h3>
+          <ul class="target-list">
+            <li>Existing Account Managers at Digital Leverage looking to sharpen their skills and grow</li>
+            <li>Aspiring AMs who want a clear roadmap to client success leadership</li>
+            <li>Writers and strategists who want to understand AM-level thinking</li>
+            <li>Anyone on the team who wants to lead from where they stand</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcomes Section -->
+  <section class="outcomes">
+    <div class="section-inner">
+      <span class="section-label fade-in">CORE OUTCOMES</span>
+      <h2 class="section-title fade-in">What You Will Be Able to Do</h2>
+      <p class="section-intro fade-in">By the end of this program, you will have the skills, frameworks, and confidence to operate at a leadership level.</p>
+      
+      <div class="outcomes-grid">
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">01</div>
+          <h4>Run Client Relationships End to End</h4>
+          <p>High retention, clear expectations, proactive support, and measurable results from onboarding to renewal.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">02</div>
+          <h4>Lead High-Impact Calls</h4>
+          <p>Extract deep insights, move clients to decisions, and maintain trust through structured, emotionally intelligent conversations.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">03</div>
+          <h4>Shape Team Culture</h4>
+          <p>Model clarity, ownership, and consistency. Support writers, protect bandwidth, and elevate standards through how you communicate.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">04</div>
+          <h4>Direct Campaigns That Perform</h4>
+          <p>Turn client stories into content strategy. Build angles, guide writers, analyze performance, and iterate with clear logic.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">05</div>
+          <h4>Use Emotional Intelligence Under Pressure</h4>
+          <p>Handle conflict, deliver feedback, manage difficult conversations, and stay calm when things get tense.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">06</div>
+          <h4>Steer Accounts with Data and KPIs</h4>
+          <p>Track what matters, spot risks early, make decisions with evidence, and communicate results clearly to leadership.</p>
+        </div>
+        <div class="outcome-card fade-in">
+          <div class="outcome-number">07</div>
+          <h4>Think and Act Like an Owner</h4>
+          <p>Move beyond task execution. Take initiative, build systems, solve problems before they escalate, and lead without a title.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars Section -->
+  <section class="pillars">
+    <div class="section-inner">
+      <div class="pillars-intro fade-in">
+        <span class="section-label">THE FOUNDATION</span>
+        <h2 class="section-title">The Four Pillars</h2>
+        <p class="section-intro">Everything in this program rests on these four pillars. They define how we think about Account Management at Digital Leverage.</p>
+      </div>
+      
+      <div class="pillars-grid">
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon">◈</div>
+          <h3>CLIENTS</h3>
+          <p>Trust, clarity, and predictable results through proactive relationship management</p>
+        </div>
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon">◇</div>
+          <h3>CALLS</h3>
+          <p>Structured conversations that extract insights and drive alignment forward</p>
+        </div>
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon">◉</div>
+          <h3>CULTURE</h3>
+          <p>Standards and norms that enable the team to execute at the highest level</p>
+        </div>
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon">◐</div>
+          <h3>CAMPAIGNS</h3>
+          <p>Content strategy and execution that delivers consistent performance</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum Section -->
+  <section class="curriculum">
+    <div class="section-inner">
+      <div class="curriculum-header fade-in">
+        <span class="section-label">THE CURRICULUM</span>
+        <h2 class="section-title">Program Module Map</h2>
+        <p class="section-intro">Ten modules. Each one is a complete mini-course with lessons, practice exercises, worksheets, and clear outputs.</p>
+      </div>
+      
+      <div class="module-list">
+        <div class="module-item current fade-in">
+          <div class="module-number">00</div>
+          <div class="module-content">
+            <h4>Program Orientation</h4>
+            <p>Introduction to the program, outcomes, and the Four Pillars foundation</p>
+          </div>
+          <span class="module-status">YOU ARE HERE</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">01</div>
+          <div class="module-content">
+            <h4>Identity of a Digital Leverage AM</h4>
+            <p>What it means to be an AM here. Owner mindset, outcomes focus, and the 30.60.90 roadmap</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">02</div>
+          <div class="module-content">
+            <h4>Emotional Intelligence for AM Leaders</h4>
+            <p>Self-awareness, regulation, empathy, and social skills for high-pressure situations</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">03</div>
+          <div class="module-content">
+            <h4>Clients: Outcomes and Retention</h4>
+            <p>Research-backed client management, retention drivers, and core KPIs</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">04</div>
+          <div class="module-content">
+            <h4>Calls: High-Impact Conversations</h4>
+            <p>Question frameworks, call structure, active listening, and coaching techniques</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">05</div>
+          <div class="module-content">
+            <h4>Campaigns: Narrative and Content Direction</h4>
+            <p>Connecting client outcomes to content strategy, angles, and performance</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">06</div>
+          <div class="module-content">
+            <h4>Culture: Leading from the Middle</h4>
+            <p>Psychological safety, feedback, protecting the team, and knowledge sharing</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">07</div>
+          <div class="module-content">
+            <h4>Data, Dashboards, and Decision Making</h4>
+            <p>Metrics literacy, health scores, churn risk, and analytic thinking</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">08</div>
+          <div class="module-content">
+            <h4>Difficult Clients, Escalations, and Crisis Calm</h4>
+            <p>Conflict management, de-escalation, recovery plans, and keeping trust intact</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">09</div>
+          <div class="module-content">
+            <h4>Systems, SOPs, and Automation Thinking</h4>
+            <p>Process mapping, standardization, and identifying automation opportunities</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+        <div class="module-item fade-in">
+          <div class="module-number">10</div>
+          <div class="module-content">
+            <h4>Leadership Track: From AM to Department Leader</h4>
+            <p>Strategic thinking, coaching others, building systems that outlive you</p>
+          </div>
+          <span class="module-status">UPCOMING</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Section -->
+  <section class="journey">
+    <div class="section-inner">
+      <div class="fade-in" style="text-align: center;">
+        <span class="section-label">THE JOURNEY</span>
+        <h2 class="section-title">Your Path Through the Program</h2>
+      </div>
+      
+      <div class="journey-visual fade-in">
+        <div class="journey-phase">
+          <div class="journey-icon">📖</div>
+          <h4>Learn</h4>
+          <p>Study the concepts</p>
+        </div>
+        <div class="journey-phase">
+          <div class="journey-icon">🎯</div>
+          <h4>Practice</h4>
+          <p>Apply with exercises</p>
+        </div>
+        <div class="journey-phase">
+          <div class="journey-icon">🛠</div>
+          <h4>Build</h4>
+          <p>Create your outputs</p>
+        </div>
+        <div class="journey-phase">
+          <div class="journey-icon">📊</div>
+          <h4>Evaluate</h4>
+          <p>Assess your progress</p>
+        </div>
+        <div class="journey-phase">
+          <div class="journey-icon">🚀</div>
+          <h4>Lead</h4>
+          <p>Execute at a higher level</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expectations Section -->
+  <section class="expectations">
+    <div class="section-inner">
+      <span class="section-label fade-in">EXPECTATIONS</span>
+      <h2 class="section-title fade-in">What Success Looks Like</h2>
+      <p class="section-intro fade-in">This program works when you engage fully. Here is what we expect from you, and what you can expect from the program.</p>
+      
+      <div class="expectations-grid">
+        <div class="expectation-card fade-in">
+          <h3>◆ What We Expect From You</h3>
+          <ul class="expectation-list">
+            <li>Complete each module before moving to the next</li>
+            <li>Do the practice exercises, not just read the content</li>
+            <li>Build the outputs and put them to use</li>
+            <li>Ask questions when something is unclear</li>
+            <li>Share wins and lessons with the team</li>
+            <li>Apply what you learn in real client work immediately</li>
+          </ul>
+        </div>
+        <div class="expectation-card fade-in">
+          <h3>◆ What You Can Expect From This</h3>
+          <ul class="expectation-list">
+            <li>Clear, actionable frameworks you can use today</li>
+            <li>Research-backed concepts, not theory for theory's sake</li>
+            <li>Templates, scripts, and tools ready to deploy</li>
+            <li>A structured path from where you are to where you want to be</li>
+            <li>Content built specifically for Digital Leverage operations</li>
+            <li>Skills that compound over time</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="section-inner fade-in">
+      <h2>Ready to Begin</h2>
+      <p>You have the orientation. You know the outcomes. You see the path. Now it is time to build.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-primary">Start Module 1 →</a>
+        <a href="#curriculum" class="btn-secondary">Review Curriculum</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">DIGITAL LEVERAGE</div>
+    <p>Account Manager Leadership Program • Module 0: Orientation</p>
+  </footer>
+
+  <script>
+    // Scroll animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

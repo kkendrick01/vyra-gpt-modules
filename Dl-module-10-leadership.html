@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 10 | Leadership Track | DL Leadership Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0a1628;
+      --navy-mid: #132744;
+      --navy-light: #1e3a5f;
+      --navy-lighter: #2a4a7a;
+      --gold-primary: #c9a227;
+      --gold-light: #e8c547;
+      --gold-glow: rgba(201, 162, 39, 0.3);
+      --gold-subtle: rgba(201, 162, 39, 0.15);
+      --white: #ffffff;
+      --white-soft: rgba(255, 255, 255, 0.9);
+      --white-muted: rgba(255, 255, 255, 0.7);
+      --white-subtle: rgba(255, 255, 255, 0.4);
+      --white-faint: rgba(255, 255, 255, 0.08);
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --purple: #a78bfa;
+      --blue: #60a5fa;
+      --teal: #2dd4bf;
+      --pink: #f472b6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--navy-deep); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 0; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--gold-primary), var(--gold-light)); z-index: 1000; transition: width 0.1s ease; }
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 22, 40, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--white-faint); z-index: 100; }
+    .nav-brand { font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: var(--gold-primary); }
+    .nav-module { font-size: 0.85rem; color: var(--white-muted); }
+    .nav-module span { color: var(--gold-light); }
+
+    /* Hero - Extra special for Module 10 */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 40px 80px; position: relative; background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 40%, var(--navy-light) 70%, var(--navy-lighter) 100%); }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 70%, var(--gold-glow) 0%, transparent 50%), radial-gradient(ellipse at 70% 30%, rgba(167, 139, 250, 0.15) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 60%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    .module-badge { display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); border-radius: 30px; font-size: 0.9rem; letter-spacing: 0.2em; color: var(--navy-deep); margin-bottom: 30px; font-weight: 600; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.15; margin-bottom: 25px; background: linear-gradient(135deg, var(--white) 0%, var(--gold-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-subtitle { font-size: 1.3rem; color: var(--white-soft); font-weight: 300; max-width: 750px; margin: 0 auto 20px; line-height: 1.8; }
+    .hero-emphasis { font-size: 1.1rem; color: var(--gold-light); font-style: italic; margin-bottom: 40px; }
+    .hero-divider { width: 150px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold-primary), transparent); margin: 0 auto 40px; }
+    .hero-message { background: linear-gradient(135deg, rgba(201, 162, 39, 0.15) 0%, rgba(167, 139, 250, 0.1) 100%); border: 1px solid rgba(201, 162, 39, 0.3); border-radius: 16px; padding: 40px; max-width: 700px; margin: 0 auto; }
+    .hero-message p { font-size: 1.1rem; color: var(--white-soft); line-height: 1.9; margin-bottom: 15px; }
+    .hero-message p:last-child { margin-bottom: 0; color: var(--gold-light); font-weight: 500; }
+
+    /* Sections */
+    section { position: relative; z-index: 1; padding: 100px 40px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold-primary); margin-bottom: 15px; font-weight: 600; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 25px; }
+    .section-intro { font-size: 1.1rem; color: var(--white-muted); margin-bottom: 40px; line-height: 1.8; }
+
+    /* Inspiration Box */
+    .inspiration-box { background: linear-gradient(135deg, rgba(201, 162, 39, 0.12) 0%, rgba(201, 162, 39, 0.05) 100%); border: 1px solid rgba(201, 162, 39, 0.25); border-radius: 12px; padding: 30px 35px; margin: 40px 0; }
+    .inspiration-box p { font-size: 1.15rem; color: var(--white-soft); line-height: 1.8; margin-bottom: 15px; }
+    .inspiration-box p:last-child { margin-bottom: 0; }
+    .inspiration-box strong { color: var(--gold-light); }
+    .inspiration-box .signature { text-align: right; font-style: italic; color: var(--gold-light); margin-top: 20px; font-size: 1rem; }
+
+    /* Leadership Pillars */
+    .leadership-pillars { display: grid; gap: 20px; margin-top: 40px; }
+    .pillar { display: grid; grid-template-columns: 70px 1fr; gap: 20px; align-items: start; background: var(--white-faint); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 25px; }
+    .pillar-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .pillar-content h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+    .pillar-content p { font-size: 0.95rem; color: var(--white-muted); line-height: 1.6; }
+
+    /* Competency Cards */
+    .competency-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 40px; }
+    .competency-card { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 30px; position: relative; overflow: hidden; }
+    .competency-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--purple), var(--blue)); }
+    .competency-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 15px; }
+    .competency-card p { font-size: 0.9rem; color: var(--white-muted); line-height: 1.6; margin-bottom: 12px; }
+    .competency-card ul { list-style: none; margin-top: 15px; }
+    .competency-card li { padding: 6px 0 6px 20px; position: relative; font-size: 0.85rem; color: var(--white-soft); }
+    .competency-card li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+
+    /* Identity Shifts */
+    .shift-container { margin-top: 40px; }
+    .shift { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; margin-bottom: 30px; padding: 25px; background: var(--white-faint); border-radius: 12px; }
+    .shift-from, .shift-to { text-align: center; padding: 20px; }
+    .shift-from { background: rgba(248, 113, 113, 0.1); border-radius: 8px; }
+    .shift-from h5 { color: var(--danger); font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .shift-from p { color: var(--white-muted); font-size: 0.95rem; }
+    .shift-arrow { font-size: 2rem; color: var(--gold-primary); }
+    .shift-to { background: rgba(74, 222, 128, 0.1); border-radius: 8px; }
+    .shift-to h5 { color: var(--success); font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .shift-to p { color: var(--white-soft); font-size: 0.95rem; font-weight: 500; }
+
+    /* Communication Boxes */
+    .comm-section { margin-bottom: 40px; }
+    .comm-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .comm-header h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+    .comm-body { background: var(--white-faint); border-radius: 10px; padding: 25px; }
+    .comm-body h5 { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; color: var(--gold-light); margin-bottom: 12px; font-weight: 600; }
+    .comm-body p { font-size: 0.9rem; color: var(--white-muted); margin-bottom: 15px; line-height: 1.6; }
+    .comm-body ul { list-style: none; }
+    .comm-body li { padding: 8px 0 8px 22px; position: relative; font-size: 0.9rem; color: var(--white-soft); }
+    .comm-body li::before { content: '✓'; position: absolute; left: 0; color: var(--success); }
+
+    /* Decision Framework */
+    .decision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 40px; }
+    .decision-card { background: var(--white-faint); border-radius: 10px; padding: 25px; text-align: center; border-top: 3px solid; }
+    .decision-card.client { border-color: var(--blue); }
+    .decision-card.team { border-color: var(--teal); }
+    .decision-card.business { border-color: var(--gold-primary); }
+    .decision-card.reputation { border-color: var(--purple); }
+    .decision-card h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+    .decision-card.client h4 { color: var(--blue); }
+    .decision-card.team h4 { color: var(--teal); }
+    .decision-card.business h4 { color: var(--gold-light); }
+    .decision-card.reputation h4 { color: var(--purple); }
+    .decision-card p { font-size: 0.85rem; color: var(--white-muted); line-height: 1.5; }
+
+    /* Mistakes to Avoid */
+    .mistakes-list { margin-top: 30px; }
+    .mistake-item { display: flex; align-items: flex-start; gap: 15px; padding: 15px 20px; background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.15); border-radius: 8px; margin-bottom: 12px; }
+    .mistake-item .icon { color: var(--danger); font-size: 1.2rem; }
+    .mistake-item p { font-size: 0.9rem; color: var(--white-soft); line-height: 1.5; }
+
+    /* Development Plan */
+    .plan-phase { margin-bottom: 40px; }
+    .phase-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+    .phase-badge { background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); color: var(--navy-deep); padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
+    .phase-title { font-family: 'Source Sans 3', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+    .phase-content { background: var(--white-faint); border-radius: 10px; padding: 25px; }
+    .phase-content ul { list-style: none; }
+    .phase-content li { padding: 12px 0 12px 30px; position: relative; font-size: 0.95rem; color: var(--white-soft); line-height: 1.5; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .phase-content li:last-child { border-bottom: none; }
+    .phase-content li::before { content: '○'; position: absolute; left: 0; color: var(--gold-primary); font-size: 1.1rem; }
+
+    /* Portability */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; }
+    .skill-tag { background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-lighter) 100%); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 20px; text-align: center; }
+    .skill-tag p { font-size: 0.9rem; color: var(--white-soft); font-weight: 500; }
+
+    /* Final CTA */
+    .final-section { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 50%, var(--navy-lighter) 100%); position: relative; overflow: hidden; }
+    .final-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 100%, var(--gold-glow) 0%, transparent 60%); pointer-events: none; }
+    .final-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
+    .final-content h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 30px; line-height: 1.3; }
+    .final-message { font-size: 1.2rem; color: var(--white-soft); line-height: 1.9; margin-bottom: 20px; }
+    .final-affirmation { background: linear-gradient(135deg, rgba(201, 162, 39, 0.2) 0%, rgba(201, 162, 39, 0.1) 100%); border: 2px solid var(--gold-primary); border-radius: 12px; padding: 35px 40px; margin: 40px 0; }
+    .final-affirmation p { font-size: 1.15rem; color: var(--white); line-height: 1.8; margin-bottom: 15px; }
+    .final-affirmation p:last-child { margin-bottom: 0; font-weight: 600; color: var(--gold-light); font-size: 1.25rem; }
+    .next-steps { margin-top: 50px; }
+    .next-steps h3 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; letter-spacing: 0.15em; color: var(--gold-primary); margin-bottom: 25px; }
+    .next-steps ul { list-style: none; display: inline-block; text-align: left; }
+    .next-steps li { padding: 10px 0 10px 25px; position: relative; font-size: 1rem; color: var(--white-soft); }
+    .next-steps li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+
+    /* Completion Badge */
+    .completion { text-align: center; padding: 80px 40px; background: var(--navy-deep); }
+    .completion-badge { display: inline-block; padding: 25px 60px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); color: var(--navy-deep); font-weight: 700; font-size: 1.2rem; border-radius: 10px; margin-bottom: 30px; letter-spacing: 0.05em; }
+    .completion h3 { font-size: 1.8rem; margin-bottom: 15px; }
+    .completion p { color: var(--white-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+    /* References */
+    .references { background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%); }
+    .reference-category { margin-bottom: 35px; }
+    .reference-category:last-child { margin-bottom: 0; }
+    .reference-category h4 { font-family: 'Source Sans 3', sans-serif; font-size: 1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .reference-list { list-style: none; }
+    .reference-list li { padding: 8px 0; padding-left: 20px; position: relative; font-size: 0.9rem; color: var(--white-muted); line-height: 1.5; }
+    .reference-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold-primary); }
+    .reference-list a { color: var(--gold-light); text-decoration: none; }
+    .reference-list a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .competency-grid, .decision-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .shift { grid-template-columns: 1fr; text-align: center; }
+      .shift-arrow { transform: rotate(90deg); }
+    }
+    @media (max-width: 600px) {
+      section { padding: 60px 20px; }
+      .top-nav { padding: 15px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-message { padding: 25px; }
+      .pillar { grid-template-columns: 1fr; text-align: center; }
+      .pillar-icon { margin: 0 auto 15px; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      .top-nav, .progress-bar { display: none; }
+      body { background: white; color: black; }
+      section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav class="top-nav">
+    <div class="nav-brand">DIGITAL LEVERAGE</div>
+    <div class="nav-module">Module <span>10</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="module-badge">THE CAPSTONE</div>
+      <h1>From Account Manager to Strategic Leader</h1>
+      <p class="hero-subtitle">You've done the work. You've built the skills. You've proven you can handle clients, run systems, shape culture, and navigate complexity. Now it's time to step into something bigger.</p>
+      <p class="hero-emphasis">This is your leadership track.</p>
+      <div class="hero-divider"></div>
+      <div class="hero-message">
+        <p>The earlier modules turned you into a high-performance Account Manager. You understand clients. You run calls. You guide campaigns. You shape culture. You work with data. You handle difficult moments. You run systems and SOPs.</p>
+        <p>Module 10 exists to build the next layer: <strong>Leadership.</strong></p>
+        <p>This is both a capstone and a starting point. You're not just finishing a program—you're beginning a new chapter.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: WHAT LEADERSHIP MEANS -->
+  <section style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 1</span>
+      <h2 class="section-title">What "Leadership" Means Inside Digital Leverage</h2>
+      <p class="section-intro">Leadership is not a job title. It's a pattern of behavior that affects outcomes for clients, team, and company. Inside DL, leadership shows up in five concrete ways—and you're already building these muscles.</p>
+
+      <div class="leadership-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🎯</div>
+          <div class="pillar-content">
+            <h4>Owning Outcomes</h4>
+            <p>You take responsibility for results. You don't blame circumstances or other people. You focus on what you can influence—and you influence more than you think.</p>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">📈</div>
+          <div class="pillar-content">
+            <h4>Raising Standards</h4>
+            <p>You notice weak spots and improve them. You push your own work and the team's work to a higher level of clarity and quality. You don't settle.</p>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">💡</div>
+          <div class="pillar-content">
+            <h4>Creating Clarity</h4>
+            <p>You simplify complexity. You give people simple, clear, actionable direction. You reduce confusion—for clients, for writers, for everyone around you.</p>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">⚙️</div>
+          <div class="pillar-content">
+            <h4>Thinking in Systems</h4>
+            <p>You see patterns, workflows, and leverage. You don't just solve individual problems—you fix the process that produced the problem.</p>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-icon">🌱</div>
+          <div class="pillar-content">
+            <h4>Building People</h4>
+            <p>You help writers, other AMs, and future hires grow. You coach, encourage, and give pointed feedback that improves performance. You make others better.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="inspiration-box" style="margin-top: 50px;">
+        <p><strong>Here's what you need to know:</strong> Leadership inside DL is visible, trackable, and practical. It's not abstract. It's not about charisma or politics. It's about doing the things that matter, consistently, with care.</p>
+        <p>And you've already started.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LEADERSHIP COMPETENCIES -->
+  <section style="background: var(--navy-deep);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 2</span>
+      <h2 class="section-title">Leadership Competencies for the AM → VP Path</h2>
+      <p class="section-intro">This section translates "leadership" into specific competencies. Each one builds on modules you've already completed. You're not starting from zero—you're building on a foundation you've already laid.</p>
+
+      <div class="competency-grid">
+        <div class="competency-card">
+          <h4>Strategic Thinking</h4>
+          <p>You understand how your accounts connect to the bigger picture:</p>
+          <ul>
+            <li>Agency positioning and reputation</li>
+            <li>Case study pipeline</li>
+            <li>Revenue stability</li>
+            <li>Long-term narrative goals</li>
+          </ul>
+          <p style="margin-top: 15px; color: var(--gold-light); font-size: 0.85rem;">You propose campaigns that support larger goals, not just weekly content.</p>
+        </div>
+
+        <div class="competency-card">
+          <h4>Commercial Awareness</h4>
+          <p>You start thinking in business terms:</p>
+          <ul>
+            <li>Client lifetime value</li>
+            <li>Retention and expansion opportunities</li>
+            <li>Upsell timing and referral potential</li>
+            <li>Red flag accounts that drain margin</li>
+          </ul>
+          <p style="margin-top: 15px; color: var(--gold-light); font-size: 0.85rem;">You understand the commercial impact of your decisions.</p>
+        </div>
+
+        <div class="competency-card">
+          <h4>Cross-Functional Leadership</h4>
+          <p>You coordinate seamlessly across:</p>
+          <ul>
+            <li>Writers and editors</li>
+            <li>Operations</li>
+            <li>Leadership</li>
+          </ul>
+          <p style="margin-top: 15px; color: var(--gold-light); font-size: 0.85rem;">You keep everyone aligned. You handle friction calmly. You give people what they need to succeed.</p>
+        </div>
+
+        <div class="competency-card">
+          <h4>Talent Development</h4>
+          <p>You mentor and elevate others:</p>
+          <ul>
+            <li>More junior AMs</li>
+            <li>New writers</li>
+            <li>Incoming staff</li>
+          </ul>
+          <p style="margin-top: 15px; color: var(--gold-light); font-size: 0.85rem;">You share what works. You offer frameworks. You help them avoid mistakes you've already solved.</p>
+        </div>
+
+        <div class="competency-card" style="grid-column: 1 / -1;">
+          <h4>Self-Management</h4>
+          <p>You manage your own time, energy, emotional regulation, boundaries, and focus. Leadership is unsustainable without self-management. Burned out people don't lead well.</p>
+          <p style="margin-top: 15px; color: var(--gold-light); font-size: 0.85rem;">This is the foundation that makes everything else possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: IDENTITY SHIFT -->
+  <section style="background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 3</span>
+      <h2 class="section-title">From Account Manager to Owner: The Identity Shift</h2>
+      <p class="section-intro">This program started with Identity. Module 10 returns to identity at a new level. There are three shifts that matter—and they're already happening inside you.</p>
+
+      <div class="shift-container">
+        <div class="shift">
+          <div class="shift-from">
+            <h5>FROM</h5>
+            <p>Task executor<br><em>"What's on my to-do list today?"</em></p>
+          </div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-to">
+            <h5>TO</h5>
+            <p>Outcome owner<br><em>"What outcomes must exist by end of week?"</em></p>
+          </div>
+        </div>
+
+        <div class="shift">
+          <div class="shift-from">
+            <h5>FROM</h5>
+            <p>"My accounts"<br><em>Individual responsibility</em></p>
+          </div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-to">
+            <h5>TO</h5>
+            <p>"Our system"<br><em>Steward of the entire DL machine</em></p>
+          </div>
+        </div>
+
+        <div class="shift">
+          <div class="shift-from">
+            <h5>FROM</h5>
+            <p>"I hope they like my work"<br><em>Seeking external validation</em></p>
+          </div>
+          <div class="shift-arrow">→</div>
+          <div class="shift-to">
+            <h5>TO</h5>
+            <p>"I know the value I bring"<br><em>Grounded, evidence-based confidence</em></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="inspiration-box">
+        <p>Imposter feelings drop as you see the hard evidence of your performance: client retention, successful resets, system improvements you initiated, trust you've built with leadership.</p>
+        <p><strong>This identity shift is the foundation of leadership.</strong> It's not about pretending to be something you're not—it's about recognizing what you've already become.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: WORKING WITH LEADERSHIP -->
+  <section style="background: var(--navy-mid);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 4</span>
+      <h2 class="section-title">Internal Leadership: Working with Mel, Thomas, and the Core Team</h2>
+      <p class="section-intro">Leadership is relational. You increase your influence by how you communicate with the people who steer DL. Here's how to show up in a way that builds trust and respect.</p>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Communicating with Mel and Operations Leadership</h4>
+        </div>
+        <div class="comm-body">
+          <h5>What Mel cares about:</h5>
+          <p>Stability, efficiency, client experience, team morale, process health</p>
+          <h5>You lead well upward when you:</h5>
+          <ul>
+            <li>Summarize issues clearly and concisely</li>
+            <li>Bring proposed solutions, not just problems</li>
+            <li>Show how your idea affects time, cost, and complexity</li>
+            <li>Show awareness of impact on writers and other AMs</li>
+            <li>Follow through on what you commit to</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Communicating with Thomas and Strategy Leadership</h4>
+        </div>
+        <div class="comm-body">
+          <h5>What Thomas cares about:</h5>
+          <p>Brand, proof, narrative direction, high-leverage outcomes, category impact</p>
+          <h5>You lead well upward when you:</h5>
+          <ul>
+            <li>Bring strong client stories and proof</li>
+            <li>Flag clients who are becoming case study material</li>
+            <li>Propose campaigns that support DL's public narrative</li>
+            <li>Stay calm when things spike or dip—ground perspective in data</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Building Trust Inside Leadership Circles</h4>
+        </div>
+        <div class="comm-body">
+          <p>Trust comes from repeated patterns. You build it by:</p>
+          <ul>
+            <li>Doing what you say you will do</li>
+            <li>Owning mistakes without dramatizing them</li>
+            <li>Giving honest input even when it's uncomfortable</li>
+            <li>Keeping client conversations aligned with DL values</li>
+            <li>Showing care for the team, not only for your own accounts</li>
+          </ul>
+          <p style="margin-top: 20px; color: var(--gold-light);"><strong>Over time, this makes you someone leadership relies on.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: PEER LEADERSHIP -->
+  <section style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 5</span>
+      <h2 class="section-title">Leading Sideways: Peer and Team Leadership</h2>
+      <p class="section-intro">Leadership isn't only "upward." It's also lateral. The way you show up with peers shapes culture and builds your reputation as someone worth following.</p>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Be the AM Others Go To</h4>
+        </div>
+        <div class="comm-body">
+          <p>You become a reference point when you:</p>
+          <ul>
+            <li>Share your frameworks openly</li>
+            <li>Help troubleshoot difficult client moments</li>
+            <li>Offer to review a complex call structure</li>
+            <li>Suggest SOP improvements that benefit everyone</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Set Visible Standards</h4>
+        </div>
+        <div class="comm-body">
+          <p>Peers watch what you <em>do</em>, not what you say. You lead when you:</p>
+          <ul>
+            <li>Show up prepared for every call</li>
+            <li>Send clean, complete briefs</li>
+            <li>Write precise internal comments</li>
+            <li>Stay composed when a client is upset</li>
+            <li>Handle performance dips with logic and structure</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comm-section">
+        <div class="comm-header">
+          <h4>Protect Culture Through Your Behavior</h4>
+        </div>
+        <div class="comm-body">
+          <p>You protect culture when you:</p>
+          <ul>
+            <li>Speak respectfully about clients and colleagues</li>
+            <li>Avoid gossip</li>
+            <li>Bring issues to the right forum instead of venting sideways</li>
+            <li>Reinforce shared standards in a calm way</li>
+            <li>Celebrate wins and give credit publicly</li>
+          </ul>
+          <p style="margin-top: 20px; color: var(--gold-light);"><strong>A strong culture multiplies the effect of every system you built in Module 9.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: DECISION MAKING -->
+  <section style="background: var(--navy-deep);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 6</span>
+      <h2 class="section-title">Decision-Making at Leadership Level</h2>
+      <p class="section-intro">Module 7 covered data-driven decision making. Module 10 adds leadership context. Leaders run decisions through four filters—especially when under time pressure or emotional load.</p>
+
+      <div class="decision-grid">
+        <div class="decision-card client">
+          <h4>Client Impact</h4>
+          <p>How will this choice affect trust, satisfaction, and long-term relationship?</p>
+        </div>
+        <div class="decision-card team">
+          <h4>Team Impact</h4>
+          <p>How will this affect workload, morale, and focus?</p>
+        </div>
+        <div class="decision-card business">
+          <h4>Business Impact</h4>
+          <p>How will this affect revenue, margins, and risk?</p>
+        </div>
+        <div class="decision-card reputation">
+          <h4>Reputation Impact</h4>
+          <p>How will this affect DL's brand in the market?</p>
+        </div>
+      </div>
+
+      <div class="inspiration-box" style="margin-top: 40px;">
+        <p>A leadership-level AM learns to pause and run decisions through these four filters. The extra 30 seconds of reflection prevents hours of cleanup later.</p>
+        <p><strong>You already have the instincts. This framework makes them systematic.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: MISTAKES TO AVOID -->
+  <section style="background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 7</span>
+      <h2 class="section-title">Mistakes That Block Leadership Trajectory</h2>
+      <p class="section-intro">Sometimes it's easier to see what to avoid than what to chase. These patterns slow or stop leadership growth. Recognizing them is the first step to choosing a different path.</p>
+
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Chronic defensiveness when given feedback</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Emotional reactivity in front of the team or clients</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Habit of escalating everything upward instead of owning solutions</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Disorganized personal workflow that creates avoidable emergencies</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Lack of documentation, so insights stay trapped in your head</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Protecting your accounts instead of sharing knowledge</p>
+        </div>
+        <div class="mistake-item">
+          <span class="icon">⚠️</span>
+          <p>Speaking vaguely about problems instead of naming specifics</p>
+        </div>
+      </div>
+
+      <div class="inspiration-box" style="margin-top: 40px;">
+        <p>None of these are character flaws. They're habits. And habits can be changed.</p>
+        <p><strong>You're already aware enough to read this list with honesty. That awareness is the foundation of growth.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: DEVELOPMENT PLAN -->
+  <section style="background: var(--navy-mid);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 8</span>
+      <h2 class="section-title">The 6-Month Leadership Development Plan</h2>
+      <p class="section-intro">This is a concrete trajectory for someone who wants to move from high-performing AM toward VP of Client Strategy or VP of CS. Use this as your roadmap.</p>
+
+      <div class="plan-phase">
+        <div class="phase-header">
+          <div class="phase-badge">MONTHS 1–2</div>
+          <div class="phase-title">Stabilize Mastery of Your Current Accounts</div>
+        </div>
+        <div class="phase-content">
+          <ul>
+            <li>Run every call with clear agendas and summaries</li>
+            <li>Improve briefs until writers consistently say they're clear</li>
+            <li>Document one SOP that removes a recurring friction point</li>
+            <li>Create one simple dashboard that tracks health for your accounts</li>
+            <li>Have one honest conversation with leadership about how they see your role today</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plan-phase">
+        <div class="phase-header">
+          <div class="phase-badge">MONTHS 3–4</div>
+          <div class="phase-title">Start Behaving Like a Team-Level Leader</div>
+        </div>
+        <div class="phase-content">
+          <ul>
+            <li>Offer help to at least one other AM with a difficult account situation</li>
+            <li>Run a short internal Loom or session where you share a framework that works for you</li>
+            <li>Propose one system improvement that affects more than just your clients</li>
+            <li>Bring two strong client proof stories to leadership that could become case studies</li>
+            <li>Ask for feedback on where they see you acting like a leader—and where there are gaps</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plan-phase">
+        <div class="phase-header">
+          <div class="phase-badge">MONTHS 5–6</div>
+          <div class="phase-title">Step Into Visible Leadership Experiments</div>
+        </div>
+        <div class="phase-content">
+          <ul>
+            <li>Take temporary lead on a small internal initiative that improves process or quality</li>
+            <li>Mentor a new writer or AM and track their progress over those months</li>
+            <li>Help refine or create one training asset for future hires</li>
+            <li>Present a short account portfolio review to leadership—framed in data, risk, and opportunity</li>
+            <li>Design a personal "Leadership OS" document that describes how you operate, what you own, and how you want to grow</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="inspiration-box" style="margin-top: 40px;">
+        <p><strong>If you execute this plan consistently, you don't need to request leadership status.</strong></p>
+        <p>You'll already be acting in alignment with it. The title will follow the behavior.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: PORTABILITY -->
+  <section style="background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-deep) 100%);">
+    <div class="section-inner">
+      <span class="section-label">SECTION 9</span>
+      <h2 class="section-title">Portability: How This Translates Beyond DL</h2>
+      <p class="section-intro">This module is built for DL realities. But the skills translate everywhere. You're building capabilities used by senior leaders in high-performance companies across industries.</p>
+
+      <div class="skills-grid">
+        <div class="skill-tag"><p>Client Leadership</p></div>
+        <div class="skill-tag"><p>Cross-Functional Coordination</p></div>
+        <div class="skill-tag"><p>Systems Thinking</p></div>
+        <div class="skill-tag"><p>Conflict Management</p></div>
+        <div class="skill-tag"><p>Data-Based Decision Making</p></div>
+        <div class="skill-tag"><p>Culture Building</p></div>
+        <div class="skill-tag"><p>Coaching & Mentoring</p></div>
+        <div class="skill-tag"><p>Strategic Communication</p></div>
+        <div class="skill-tag"><p>Emotional Intelligence</p></div>
+      </div>
+
+      <div class="inspiration-box" style="margin-top: 40px;">
+        <p>That portability matters for your long-term career narrative—even if you stay and grow with DL for years to come.</p>
+        <p><strong>You're not just building skills for this job. You're building the foundation of a career.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: FINAL / CONCLUSION -->
+  <section class="final-section" style="padding: 120px 40px;">
+    <div class="final-content">
+      <span class="section-label">SECTION 10</span>
+      <h2>What Happens Next</h2>
+
+      <p class="final-message">Module 10 closes the formal curriculum and opens your leadership track. But this isn't an ending—it's a beginning.</p>
+
+      <div class="final-affirmation">
+        <p>You started this academy as an Account Manager.</p>
+        <p>You leave it as an <strong>emerging leader</strong> with a defined operating system, clear standards, and a concrete plan for growth.</p>
+        <p>We see you. We believe in you. We're here to support you.</p>
+        <p>Now go lead.</p>
+      </div>
+
+      <div class="next-steps">
+        <h3>YOUR PATH FORWARD</h3>
+        <ul>
+          <li>Apply the leadership plan from Section 8</li>
+          <li>Maintain the Four Pillars as your daily operating map</li>
+          <li>Keep refining data, difficult client handling, and system design</li>
+          <li>Volunteer for responsibilities that test your leadership muscles</li>
+          <li>Use your wins to build internal proof and external career capital</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLETION -->
+  <section class="completion">
+    <div class="completion-badge">ACADEMY COMPLETE</div>
+    <h3>You Did It.</h3>
+    <p>You've completed the Digital Leverage Leadership Academy. The work you've put in matters. The skills you've built are real. The path ahead is yours.</p>
+  </section>
+
+  <!-- REFERENCES -->
+  <section class="references">
+    <div class="section-inner">
+      <span class="section-label">REFERENCES</span>
+      <h2 class="section-title">Sources & Further Reading</h2>
+
+      <div class="reference-category">
+        <h4>Leadership Development</h4>
+        <ul class="reference-list">
+          <li><a href="https://www.harvardbusiness.org/insight/2024-global-leadership-development-study/" target="_blank">Harvard Business Publishing – 2024 Global Leadership Development Study</a></li>
+          <li><a href="https://www.forbes.com/sites/rhettpower/2024/11/03/how-to-develop-emerging-leaders-in-your-organization/" target="_blank">Forbes – How to Develop Emerging Leaders in Your Organization (2024)</a></li>
+          <li><a href="https://www.shrm.org/topics-tools/news/linkage/how-to-develop-readiness-emerging-leaders" target="_blank">SHRM – How to Develop Readiness in Emerging Leaders (2025)</a></li>
+          <li><a href="https://hbr.org/2019/03/the-future-of-leadership-development" target="_blank">Harvard Business Review – The Future of Leadership Development</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Influence & Authority</h4>
+        <ul class="reference-list">
+          <li><a href="https://online.hbs.edu/blog/post/influence-without-authority" target="_blank">Harvard Business School Online – How to Influence Without Authority</a></li>
+          <li><a href="https://executiveeducation.wharton.upenn.edu/thought-leadership/wharton-at-work/2021/05/influencing-without-authority/" target="_blank">Wharton – Influencing Without Authority: A Four-Part Formula</a></li>
+          <li><a href="https://hbr.org/podcast/2021/03/building-influence-without-authority" target="_blank">HBR Podcast – Building Influence Without Authority</a></li>
+          <li><a href="https://hsph.harvard.edu/exec-ed/news/leading-outside-your-authority/" target="_blank">Harvard Chan School – Leading Outside Your Authority</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Team Dynamics & Psychological Safety</h4>
+        <ul class="reference-list">
+          <li><a href="https://rework.withgoogle.com/guides/understanding-team-effectiveness/steps/introduction/" target="_blank">Google re:Work – Guide to Understanding Team Effectiveness</a></li>
+          <li><a href="https://business.google.com/think/future-of-marketing/five-dynamics-effective-team/" target="_blank">Google – Five Keys to Building Effective Teams</a></li>
+          <li><a href="https://psychsafety.com/googles-project-aristotle/" target="_blank">PsychSafety – Google's Project Aristotle</a></li>
+        </ul>
+      </div>
+
+      <div class="reference-category">
+        <h4>Account Manager Career Paths</h4>
+        <ul class="reference-list">
+          <li><a href="https://www.indeed.com/career-advice/finding-a-job/account-management-career-path" target="_blank">Indeed – Account Manager Career Path: A Complete Guide (2025)</a></li>
+          <li><a href="https://www.coursera.org/articles/account-manager-career-path-guide" target="_blank">Coursera – Account Manager Career Path Guide</a></li>
+          <li><a href="https://kapta.com/resources/key-account-management-blog/account-management/career-paths-successful-account-managers" target="_blank">Kapta – Career Paths for Successful Account Managers</a></li>
+          <li><a href="https://www.demandfarm.com/blog/key-account-manager-career-path/" target="_blank">DemandFarm – Key Account Manager Career Path Options</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+  </script>
+</body>
+</html>
