@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Strategy | Bobby Freiler</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --forest: #2d4a3e;
+      --forest-dark: #1a2f26;
+      --sage: #4a6b5d;
+      --cream: #f5f2ed;
+      --warm-white: #fefdfb;
+      --gold: #c4a962;
+      --charcoal: #2c3e35;
+    }
+    
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--charcoal); }
+    
+    /* Slide Container */
+    .slide {
+      min-height: 100vh;
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .slide-dark {
+      background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest) 50%, var(--sage) 100%);
+      color: white;
+      max-width: 100%;
+      padding: 5rem 3rem;
+    }
+    
+    .slide-dark .slide-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Typography */
+    .slide-label {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .slide-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--forest-dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+    
+    .slide-dark .slide-title { color: white; }
+    .slide-title span { color: var(--gold); }
+    
+    .slide-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--sage);
+      margin-bottom: 2rem;
+    }
+    
+    .slide-dark .slide-subtitle { color: rgba(255,255,255,0.8); }
+    
+    /* Hero Slide */
+    .hero-slide {
+      text-align: center;
+      position: relative;
+    }
+    
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(196,169,98,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .ownership-pillars {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .pillar {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      text-align: center;
+      min-width: 200px;
+    }
+    
+    .pillar i {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    
+    .pillar h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pillar p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+    
+    /* Platform Cards */
+    .platform-section {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    
+    @media (max-width: 800px) {
+      .platform-section { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    
+    .platform-badge {
+      background: linear-gradient(135deg, var(--forest) 0%, var(--sage) 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      position: sticky;
+      top: 2rem;
+    }
+    
+    .platform-badge i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .platform-badge h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .platform-badge p {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    
+    .platform-badge .frequency {
+      background: var(--gold);
+      color: var(--forest-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+    
+    /* Day Cards */
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    
+    .day-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    .day-header {
+      background: var(--forest);
+      color: white;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .day-header h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+    }
+    
+    .day-header span {
+      font-size: 0.7rem;
+      background: var(--gold);
+      color: var(--forest-dark);
+      padding: 0.25rem 0.6rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    
+    .day-body {
+      padding: 1.25rem;
+    }
+    
+    .day-purpose {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .day-body p {
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    
+    .day-examples {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+    }
+    
+    .day-examples h5 {
+      font-size: 0.7rem;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .day-examples ul {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--forest-dark);
+    }
+    
+    .day-examples li {
+      padding: 0.2rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    
+    .day-examples li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    
+    /* Series Cards (X) */
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    
+    @media (max-width: 600px) {
+      .series-grid { grid-template-columns: 1fr; }
+    }
+    
+    .series-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--gold);
+    }
+    
+    .series-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--forest-dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .series-themes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .theme-tag {
+      background: var(--cream);
+      padding: 0.25rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      color: var(--sage);
+    }
+    
+    .series-card p {
+      font-size: 0.85rem;
+      color: var(--charcoal);
+      line-height: 1.5;
+    }
+    
+    .series-card p strong {
+      color: var(--forest-dark);
+    }
+    
+    /* Skool Section */
+    .skool-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    @media (max-width: 800px) {
+      .skool-content { grid-template-columns: 1fr; }
+    }
+    
+    .skool-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    
+    .skool-text p strong {
+      color: var(--forest-dark);
+    }
+    
+    .goal-card {
+      background: linear-gradient(135deg, var(--forest) 0%, var(--sage) 100%);
+      border-radius: 16px;
+      padding: 2.5rem;
+      color: white;
+      text-align: center;
+    }
+    
+    .goal-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    
+    .goal-card p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .goal-outcomes {
+      text-align: left;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    
+    .goal-outcomes h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+    
+    .goal-outcomes ul {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+    
+    .goal-outcomes li {
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .goal-outcomes li i { color: var(--gold); }
+    
+    /* Ecosystem Section */
+    .ecosystem-flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    
+    .eco-stage {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      min-width: 220px;
+      flex: 1;
+      max-width: 280px;
+    }
+    
+    .eco-stage i {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    
+    .eco-stage h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .eco-stage .role {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .eco-stage p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .eco-arrow {
+      color: var(--gold);
+      font-size: 1.5rem;
+    }
+    
+    @media (max-width: 900px) {
+      .eco-arrow { transform: rotate(90deg); }
+    }
+    
+    .philosophy-box {
+      background: rgba(196,169,98,0.15);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 2rem auto 0;
+    }
+    
+    .philosophy-box p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    
+    .philosophy-box p strong {
+      color: var(--gold);
+    }
+    
+    /* Slide Divider */
+    .slide-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 2rem 0;
+    }
+    
+    .slide-dark .slide-divider {
+      background: var(--gold);
+      margin: 2rem auto;
+    }
+    
+    /* Footer */
+    .footer-slide {
+      text-align: center;
+    }
+    
+    .footer-slide .slide-title {
+      margin-bottom: 1rem;
+    }
+    
+    .closing-tagline {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1: Title / Core Identity -->
+  <section class="slide slide-dark hero-slide">
+    <div class="slide-inner">
+      <p class="slide-label">Content Strategy for Bobby Freiler</p>
+      <h1 class="slide-title">Own Your <span>Health</span>.<br>Own Your <span>Happiness</span>.<br>Own Your <span>Life</span>.</h1>
+      <p class="slide-subtitle">The transformation we want people to experience inside your world.</p>
+      
+      <div class="ownership-pillars">
+        <div class="pillar">
+          <i class="fas fa-heart-pulse"></i>
+          <h3>Health</h3>
+          <p>Generational wellness, faith, family, fasting, responsibility</p>
+        </div>
+        <div class="pillar">
+          <i class="fas fa-sun"></i>
+          <h3>Happiness</h3>
+          <p>Resilience, clarity, patience, emotional strength</p>
+        </div>
+        <div class="pillar">
+          <i class="fas fa-crown"></i>
+          <h3>Ownership</h3>
+          <p>Internal stability, discipline, personal responsibility</p>
+        </div>
+      </div>
+      
+      <p style="font-size: 1rem; opacity: 0.8; max-width: 600px; margin: 0 auto;">This is the belief that will fill your Skool community with people who are ready to move, ready to change, and ready to follow your leadership.</p>
+    </div>
+  </section>
+
+  <!-- Slide 2: LinkedIn Strategy -->
+  <section class="slide">
+    <p class="slide-label">Platform 1</p>
+    <h2 class="slide-title">LinkedIn: <span>The Trust Platform</span></h2>
+    <p class="slide-subtitle">Where people see the depth behind your X virality.</p>
+    <div class="slide-divider"></div>
+    
+    <div class="platform-section">
+      <div class="platform-badge">
+        <i class="fab fa-linkedin-in"></i>
+        <h3>LinkedIn</h3>
+        <p>Trust & Leadership</p>
+        <span class="frequency">4 Posts / Week</span>
+      </div>
+      
+      <div class="cadence-grid">
+        <div class="day-card">
+          <div class="day-header">
+            <h4>Monday</h4>
+            <span>Research-Backed Performance</span>
+          </div>
+          <div class="day-body">
+            <p class="day-purpose">Credibility & Authority</p>
+            <p>Use studies from journals like Lancet and Nature. Science-backed insights that establish expertise.</p>
+            <div class="day-examples">
+              <h5>Example Topics</h5>
+              <ul>
+                <li>Your body knows the difference between real food and fake food</li>
+                <li>How inflammation alters decision making</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="day-card">
+          <div class="day-header">
+            <h4>Tuesday</h4>
+            <span>Identity & Transformation</span>
+          </div>
+          <div class="day-body">
+            <p class="day-purpose">Show Who You Became</p>
+            <p>Themes: fatherhood, discipline, responsibility, happiness. Stories from your past and how they shaped you.</p>
+            <div class="day-examples">
+              <h5>Example Topics</h5>
+              <ul>
+                <li>The promise I made 10 years ago</li>
+                <li>What fitness taught me (and what it didn't)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="day-card">
+          <div class="day-header">
+            <h4>Wednesday</h4>
+            <span>Leadership & Clarity</span>
+          </div>
+          <div class="day-body">
+            <p class="day-purpose">Biology Affects Leadership</p>
+            <p>Themes: resilience, emotional stability, clarity, patience. How health enables better decision-making.</p>
+            <div class="day-examples">
+              <h5>Example Topics</h5>
+              <ul>
+                <li>Your gut determines your capacity to lead</li>
+                <li>Your blood sugar shapes your ability to stay calm</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="day-card">
+          <div class="day-header">
+            <h4>Friday</h4>
+            <span>Faith & Family Friday</span>
+          </div>
+          <div class="day-body">
+            <p class="day-purpose">The Heart of Your Brand</p>
+            <p>Themes: faith, fatherhood, legacy, generational health. This is what makes you incomparable.</p>
+            <div class="day-examples">
+              <h5>Example Topics</h5>
+              <ul>
+                <li>What I taught my sons this week</li>
+                <li>My morning routine with God</li>
+                <li>How my health serves future generations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: X Strategy -->
+  <section class="slide">
+    <p class="slide-label">Platform 2</p>
+    <h2 class="slide-title">X: <span>The Virality Engine</span></h2>
+    <p class="slide-subtitle">Creates the surge. Builds the wave. Pushes people to LinkedIn and Skool.</p>
+    <div class="slide-divider"></div>
+    
+    <div class="platform-section">
+      <div class="platform-badge">
+        <i class="fab fa-x-twitter"></i>
+        <h3>X (Twitter)</h3>
+        <p>Reach & Virality</p>
+        <span class="frequency">3 Posts / Week</span>
+      </div>
+      
+      <div class="series-grid">
+        <div class="series-card">
+          <h4>Series 1: The Healthy System Is Hurting</h4>
+          <div class="series-themes">
+            <span class="theme-tag">corruption</span>
+            <span class="theme-tag">biology</span>
+            <span class="theme-tag">natural healing</span>
+          </div>
+          <p><strong>Why it works:</strong> Virality increases when people feel the truth in the tension.</p>
+        </div>
+        
+        <div class="series-card">
+          <h4>Series 2: Ancient Wisdom & Modern Proof</h4>
+          <div class="series-themes">
+            <span class="theme-tag">scriptural foods</span>
+            <span class="theme-tag">ancient methods</span>
+            <span class="theme-tag">fasting</span>
+          </div>
+          <p><strong>Why it works:</strong> Your audience trusts what has survived thousands of years.</p>
+        </div>
+        
+        <div class="series-card">
+          <h4>Series 3: Fasting for Health, Happiness & Success</h4>
+          <div class="series-themes">
+            <span class="theme-tag">daily fasting</span>
+            <span class="theme-tag">clarity</span>
+            <span class="theme-tag">discipline</span>
+          </div>
+          <p><strong>Why it works:</strong> You are living proof. 1000+ days of the same routine.</p>
+        </div>
+        
+        <div class="series-card">
+          <h4>Series 4: Raising Healthy Kids in a Sick World</h4>
+          <div class="series-themes">
+            <span class="theme-tag">fatherhood</span>
+            <span class="theme-tag">faith</span>
+            <span class="theme-tag">generational health</span>
+          </div>
+          <p><strong>Why it works:</strong> Parents lean into leaders who protect their families.</p>
+        </div>
+      </div>
+    </div>
+    
+    <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--sage); text-align: center;">The goal on X: Go bigger. Reach more people. Use clear CTAs to push them to LinkedIn where your deeper work sits.</p>
+  </section>
+
+  <!-- Slide 4: Skool Community -->
+  <section class="slide">
+    <p class="slide-label">The Hub</p>
+    <h2 class="slide-title">Skool: <span>The Ultimate Lead Magnet</span></h2>
+    <p class="slide-subtitle">This is the most important part of the plan.</p>
+    <div class="slide-divider"></div>
+    
+    <div class="skool-content">
+      <div class="skool-text">
+        <p>Your Skool community becomes the <strong>entry point for your entire ecosystem</strong>. It's where you gather the men and women who believe in ownership, health, and happiness.</p>
+        <p>It's where you guide people through simple steps toward transformation.</p>
+        <p>You're not chasing money. You're <strong>guiding people to a better life</strong>. The money follows because people pay the person who changes them.</p>
+        <p style="font-style: italic; color: var(--sage);">Your brand becomes a movement. Your message becomes a philosophy. Your Skool becomes the home for that philosophy.</p>
+      </div>
+      
+      <div class="goal-card">
+        <h3>1,000</h3>
+        <p>Free Members Goal</p>
+        <div class="goal-outcomes">
+          <h4>What This Unlocks</h4>
+          <ul>
+            <li><i class="fas fa-check"></i> Highly engaged community that trusts you</li>
+            <li><i class="fas fa-check"></i> Audience that understands your philosophy</li>
+            <li><i class="fas fa-check"></i> Pipeline of people asking for 1:1 help</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5: Ecosystem -->
+  <section class="slide slide-dark footer-slide">
+    <div class="slide-inner">
+      <p class="slide-label">The System</p>
+      <h2 class="slide-title">How All Three <span>Work Together</span></h2>
+      <div class="slide-divider"></div>
+      
+      <div class="ecosystem-flow">
+        <div class="eco-stage">
+          <i class="fab fa-x-twitter"></i>
+          <h3>X</h3>
+          <p class="role">Reach & Virality</p>
+          <p>People discover you</p>
+        </div>
+        
+        <i class="fas fa-arrow-right eco-arrow"></i>
+        
+        <div class="eco-stage">
+          <i class="fab fa-linkedin-in"></i>
+          <h3>LinkedIn</h3>
+          <p class="role">Trust & Leadership</p>
+          <p>People understand you</p>
+        </div>
+        
+        <i class="fas fa-arrow-right eco-arrow"></i>
+        
+        <div class="eco-stage">
+          <i class="fas fa-users"></i>
+          <h3>Skool</h3>
+          <p class="role">Transformation & Community</p>
+          <p>People follow you</p>
+        </div>
+      </div>
+      
+      <div class="philosophy-box">
+        <p>This system creates <strong>long-term impact</strong>, <strong>long-term growth</strong>, and <strong>long-term authority</strong>.</p>
+      </div>
+      
+      <p class="closing-tagline" style="margin-top: 3rem;">"The truth always reveals itself, my friends." 🙏</p>
+    </div>
+  </section>
+
+</body>
+</html>
