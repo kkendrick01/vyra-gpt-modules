@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Intelligence Engine | Digital Leverage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-dark: #0a1628;
+            --navy-base: #0f1d32;
+            --navy-mid: #152742;
+            --navy-light: #1c3154;
+            --navy-accent: #263d66;
+            --cream: #f5f0e8;
+            --cream-muted: rgba(245, 240, 232, 0.75);
+            --cream-subtle: rgba(245, 240, 232, 0.4);
+            --gold: #c9a962;
+            --gold-light: #dbc07a;
+            --gold-muted: rgba(201, 169, 98, 0.2);
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--navy-dark);
+            color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Striped background pattern like Digital Leverage */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    var(--navy-dark) 0px,
+                    var(--navy-dark) 60px,
+                    var(--navy-base) 60px,
+                    var(--navy-base) 120px,
+                    var(--navy-mid) 120px,
+                    var(--navy-mid) 180px,
+                    var(--navy-base) 180px,
+                    var(--navy-base) 240px
+                );
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        /* Subtle gradient overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 22, 40, 0.5) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--navy-light);
+            z-index: 1000;
+        }
+        
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--cream);
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--cream-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 8rem 3rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--gold-muted);
+            border: 1px solid var(--gold);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+        
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+            color: var(--cream);
+        }
+        
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--cream-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+            font-weight: 400;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            padding: 1rem 2.25rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+        
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid var(--navy-accent);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+        
+        .section-title em {
+            font-style: italic;
+        }
+        
+        .section-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--cream-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+        
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .problem-card {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-base) 100%);
+            border: 1px solid var(--navy-light);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .problem-card:hover::before {
+            opacity: 1;
+        }
+        
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gold-muted);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .problem-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--cream);
+        }
+        
+        .problem-card p {
+            color: var(--cream-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(21, 39, 66, 0.5) 100%);
+            border: 1px solid var(--navy-light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+        
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--cream-muted);
+            font-weight: 400;
+        }
+        
+        .stat-source {
+            font-size: 0.7rem;
+            color: var(--cream-subtle);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+        
+        /* Architecture Section */
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .arch-step {
+            display: grid;
+            grid-template-columns: 80px 3px 1fr;
+            gap: 2rem;
+            align-items: stretch;
+            min-height: 180px;
+        }
+        
+        @media (max-width: 700px) {
+            .arch-step {
+                grid-template-columns: 60px 3px 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        .arch-number {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .arch-num-circle {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .arch-line {
+            background: linear-gradient(180deg, var(--gold) 0%, var(--navy-light) 100%);
+            width: 3px;
+            height: 100%;
+            border-radius: 2px;
+        }
+        
+        .arch-step:last-child .arch-line {
+            background: var(--gold);
+        }
+        
+        .arch-content {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-base) 100%);
+            border: 1px solid var(--navy-light);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .arch-content:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(201, 169, 98, 0.1);
+        }
+        
+        .arch-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            color: var(--cream);
+        }
+        
+        .arch-content h3 span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--gold-muted);
+            color: var(--gold);
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .arch-content > p {
+            color: var(--cream-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .arch-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .arch-detail {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 2px solid var(--gold);
+        }
+        
+        .arch-detail-label {
+            font-size: 0.65rem;
+            color: var(--cream-subtle);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+        
+        .arch-detail-value {
+            font-size: 0.85rem;
+            color: var(--cream);
+        }
+        
+        /* Output Section */
+        .outputs {
+            padding-top: 6rem;
+        }
+        
+        .output-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 900px) {
+            .output-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .output-card {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-base) 100%);
+            border: 1px solid var(--navy-light);
+            border-radius: 8px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .output-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+        
+        .output-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .output-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+        
+        .output-card p {
+            color: var(--cream-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Benefits Section */
+        .benefits-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        @media (max-width: 900px) {
+            .benefits-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(21, 39, 66, 0.5) 100%);
+            border: 1px solid var(--navy-light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            border-color: var(--gold);
+            transform: translateX(8px);
+        }
+        
+        .benefit-check {
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--navy-dark);
+        }
+        
+        .benefit-text h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--cream);
+        }
+        
+        .benefit-text p {
+            color: var(--cream-muted);
+            font-size: 0.9rem;
+        }
+        
+        .benefits-visual {
+            position: relative;
+        }
+        
+        .visual-card {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-base) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 60px rgba(201, 169, 98, 0.1);
+        }
+        
+        .visual-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--navy-light);
+        }
+        
+        .visual-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .visual-dot.red { background: #e5534b; }
+        .visual-dot.yellow { background: #c9a962; }
+        .visual-dot.green { background: #57ab5a; }
+        
+        .visual-title {
+            margin-left: 1rem;
+            font-size: 0.75rem;
+            color: var(--cream-muted);
+            font-family: monospace;
+        }
+        
+        .visual-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--navy-light);
+        }
+        
+        .visual-metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--cream-muted);
+        }
+        
+        .metric-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .metric-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--navy-light);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 3px;
+            animation: fillBar 2s ease forwards;
+        }
+        
+        @keyframes fillBar {
+            from { width: 0; }
+        }
+        
+        /* ROI Section */
+        .roi {
+            text-align: center;
+        }
+        
+        .roi-highlight {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-base) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 4rem 3rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            box-shadow: 0 0 80px rgba(201, 169, 98, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .roi-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(201, 169, 98, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .roi-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 7rem);
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .roi-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+        
+        .roi-source {
+            font-size: 0.85rem;
+            color: var(--cream-subtle);
+            font-style: italic;
+        }
+        
+        .roi-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 700px) {
+            .roi-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .roi-item {
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border: 1px solid var(--navy-light);
+        }
+        
+        .roi-item-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .roi-item-label {
+            color: var(--cream-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* CTA Section */
+        .cta {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--cream);
+        }
+        
+        .cta h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        
+        .cta p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--cream-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--navy-light);
+            background: rgba(10, 22, 40, 0.9);
+        }
+        
+        footer p {
+            color: var(--cream-subtle);
+            font-size: 0.85rem;
+        }
+        
+        footer span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gold);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-logo">Digital Leverage</div>
+        <ul class="nav-links">
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#roi">ROI</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-badge">
+            Strategic Investment Proposal
+        </div>
+        <h1>
+            Competitor + Analytics<br>
+            <em>Intelligence Engine</em>
+        </h1>
+        <p class="hero-sub">
+            Helping you attract the right attention.<br>Automatic competitor tracking, trend predicting, and dominating content.
+        </p>
+        <div class="hero-cta">
+            <a href="#solution" class="btn btn-primary">See The Solution</a>
+            <a href="#roi" class="btn btn-secondary">View ROI</a>
+        </div>
+    </section>
+
+    <section class="problem" id="problem">
+        <div class="section-header reveal">
+            <span class="section-label">The Challenge</span>
+            <h2 class="section-title">Why We're Leaving Money on the Table</h2>
+            <p class="section-desc">Our current approach to competitive intelligence is manual, inconsistent, and reactive.</p>
+        </div>
+        
+        <div class="problem-grid">
+            <div class="problem-card reveal reveal-delay-1">
+                <div class="problem-icon">⏱️</div>
+                <h3>Manual Monitoring Drain</h3>
+                <p>If we're spending 2-4 hours daily manually checking competitor accounts:<br>That's $15-30K/year in lost productivity per team member that could be automated.</p>
+            </div>
+            <div class="problem-card reveal reveal-delay-2">
+                <div class="problem-icon">📉</div>
+                <h3>Missed Trend Windows</h3>
+                <p>By the time we spot trending topics manually, the engagement window has closed. We're always reacting, never leading.</p>
+            </div>
+            <div class="problem-card reveal reveal-delay-3">
+                <div class="problem-icon">🎯</div>
+                <h3>Guesswork Content Strategy</h3>
+                <p>Without data on what's actually performing for competitors, content decisions are based on intuition instead of proven patterns.</p>
+            </div>
+            <div class="problem-card reveal reveal-delay-4">
+                <div class="problem-icon">💸</div>
+                <h3>Lost Engagement Opportunities</h3>
+                <p>Strategic commenting and quote-tweeting opportunities disappear within hours. We're not fast enough to capitalize on high-visibility moments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" id="stats">
+        <div class="section-header reveal">
+            <span class="section-label">Market Reality</span>
+            <h2 class="section-title">The Competitive Intelligence Gap</h2>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card reveal reveal-delay-1">
+                <div class="stat-number">90%</div>
+                <div class="stat-label">of Fortune 500 use CI to gain competitive advantage</div>
+                <div class="stat-source">— Emerald Research</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-2">
+                <div class="stat-number">82%</div>
+                <div class="stat-label">increase in sales effectiveness with CI tools</div>
+                <div class="stat-source">— Crayon State of CI 2024</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-3">
+                <div class="stat-number">88%</div>
+                <div class="stat-label">of collected data goes unanalyzed without automation</div>
+                <div class="stat-source">— M-Brain Global Report</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-4">
+                <div class="stat-number">40%</div>
+                <div class="stat-label">of Fortune 500 will be replaced in 10 years by more agile competitors</div>
+                <div class="stat-source">— Strategy& Analysis</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+        <div class="section-header reveal">
+            <span class="section-label">The Solution</span>
+            <h2 class="section-title">System Architecture</h2>
+            <p class="section-desc">A four-stage intelligence pipeline that runs 24/7, delivering actionable insights before your competitors wake up.</p>
+        </div>
+        
+        <div class="arch-flow">
+            <div class="arch-step reveal">
+                <div class="arch-number">
+                    <div class="arch-num-circle">1</div>
+                </div>
+                <div class="arch-line"></div>
+                <div class="arch-content">
+                    <h3>Data Collection Engine <span>Automated</span></h3>
+                    <p>Apify or Custom Cloudflare scraper that bypasses API limitations to capture comprehensive competitor data every 6-12 hours.</p>
+                    <div class="arch-details">
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Frequency</div>
+                            <div class="arch-detail-value">Every 6-12 hours</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Volume</div>
+                            <div class="arch-detail-value">20-50 tweets/competitor</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Data Points</div>
+                            <div class="arch-detail-value">Impressions, likes, reposts, replies, quotes, video views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-step reveal">
+                <div class="arch-number">
+                    <div class="arch-num-circle">2</div>
+                </div>
+                <div class="arch-line"></div>
+                <div class="arch-content">
+                    <h3>Structured Database <span>Cloudflare D1 / Supabase</span></h3>
+                    <p>Centralized storage with computed metrics for velocity, engagement rate, and trend scoring—queryable in milliseconds.</p>
+                    <div class="arch-details">
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Primary Key</div>
+                            <div class="arch-detail-value">tweet_id</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Computed Fields</div>
+                            <div class="arch-detail-value">Velocity, ER, Trend Score</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Options</div>
+                            <div class="arch-detail-value">D1, Supabase, MongoDB Atlas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-step reveal">
+                <div class="arch-number">
+                    <div class="arch-num-circle">3</div>
+                </div>
+                <div class="arch-line"></div>
+                <div class="arch-content">
+                    <h3>AI Analysis Engine <span>Claude / GPT-4</span></h3>
+                    <p>Every morning: identify top themes, detect velocity spikes, extract keywords, cluster content types, and predict tomorrow's trending topics.</p>
+                    <div class="arch-details">
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Functions</div>
+                            <div class="arch-detail-value">Theme extraction, trend prediction, opportunity flagging</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Output</div>
+                            <div class="arch-detail-value">Recommended angles, comment targets, QT opportunities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-step reveal">
+                <div class="arch-number">
+                    <div class="arch-num-circle">4</div>
+                </div>
+                <div class="arch-line"></div>
+                <div class="arch-content">
+                    <h3>Delivery System <span>Multi-Channel</span></h3>
+                    <p>Actionable intelligence delivered where your team works—Slack, email, Notion, or custom web dashboard.</p>
+                    <div class="arch-details">
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Channels</div>
+                            <div class="arch-detail-value">Slack, Email, Notion, Web Dashboard</div>
+                        </div>
+                        <div class="arch-detail">
+                            <div class="arch-detail-label">Daily Deliverables</div>
+                            <div class="arch-detail-value">"What to write today," trending topics, top posts to engage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="outputs" id="solution">
+        <div class="section-header reveal">
+            <span class="section-label">Daily Deliverables</span>
+            <h2 class="section-title">What The Team Receives <em>Every Morning</em></h2>
+        </div>
+        
+        <div class="output-showcase">
+            <div class="output-card reveal reveal-delay-1">
+                <div class="output-icon">📝</div>
+                <h4>What to Write Today</h4>
+                <p>AI-generated content angles based on what's actually performing. No more guessing—write what the data proves works.</p>
+            </div>
+            <div class="output-card reveal reveal-delay-2">
+                <div class="output-icon">🔥</div>
+                <h4>Trending Topics</h4>
+                <p>Real-time trend detection across your competitor set. Capitalize on momentum while it's still building.</p>
+            </div>
+            <div class="output-card reveal reveal-delay-3">
+                <div class="output-icon">💬</div>
+                <h4>Comment Opportunities</h4>
+                <p>High-engagement posts flagged for strategic commenting. Get visibility on content that's already winning.</p>
+            </div>
+            <div class="output-card reveal reveal-delay-4">
+                <div class="output-icon">🔄</div>
+                <h4>Quote Tweet Targets</h4>
+                <p>Posts worth amplifying with your perspective. Join conversations that matter with perfect timing.</p>
+            </div>
+            <div class="output-card reveal reveal-delay-1">
+                <div class="output-icon">📊</div>
+                <h4>Engagement Spikes</h4>
+                <p>Themes producing unusual engagement velocity. Spot what's resonating before it goes mainstream.</p>
+            </div>
+            <div class="output-card reveal reveal-delay-2">
+                <div class="output-icon">🎯</div>
+                <h4>Competitive Positioning</h4>
+                <p>How your content stacks up against the competition. Know exactly where you're winning and losing.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="section-header reveal">
+            <span class="section-label">Competitive Advantage</span>
+            <h2 class="section-title">What This Means for <em>Digital Leverage</em></h2>
+        </div>
+        
+        <div class="benefits-container">
+            <div class="benefits-list">
+                <div class="benefit-item reveal reveal-delay-1">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text">
+                        <h4>Real-Time Visibility Mapping</h4>
+                        <p>Know exactly what competitors are doing, when they're doing it, and how well it's working.</p>
+                    </div>
+                </div>
+                <div class="benefit-item reveal reveal-delay-2">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text">
+                        <h4>Trend-Based Content Generation</h4>
+                        <p>Stop guessing. Write content proven to perform based on live competitive data.</p>
+                    </div>
+                </div>
+                <div class="benefit-item reveal reveal-delay-3">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text">
+                        <h4>Engagement Velocity Ranking</h4>
+                        <p>Prioritize opportunities by momentum, not just raw numbers. Catch waves early.</p>
+                    </div>
+                </div>
+                <div class="benefit-item reveal reveal-delay-4">
+                    <div class="benefit-check">✓</div>
+                    <div class="benefit-text">
+                        <h4>Strategic Commenting System</h4>
+                        <p>Systematic approach to building visibility through high-value engagement.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="benefits-visual reveal">
+                <div class="visual-card">
+                    <div class="visual-header">
+                        <span class="visual-dot red"></span>
+                        <span class="visual-dot yellow"></span>
+                        <span class="visual-dot green"></span>
+                        <span class="visual-title">daily_intelligence.json</span>
+                    </div>
+                    <div class="visual-metric">
+                        <span class="metric-label">Time Saved Per Writer</span>
+                        <span class="metric-value">2-4 hrs/day</span>
+                    </div>
+                    <div class="visual-metric">
+                        <span class="metric-label">Trend Detection Speed</span>
+                        <span class="metric-value">6-12 hrs faster</span>
+                    </div>
+                    <div class="visual-metric">
+                        <span class="metric-label">Content Performance Lift</span>
+                        <span class="metric-value">+30-50%</span>
+                    </div>
+                    <div class="visual-metric">
+                        <span class="metric-label">Data Utilization</span>
+                        <span class="metric-value">12% → 90%+</span>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roi" id="roi">
+        <div class="section-header reveal">
+            <span class="section-label">Investment Case</span>
+            <h2 class="section-title">The Numbers Don't Lie</h2>
+        </div>
+        
+        <div class="roi-highlight reveal">
+            <div class="roi-number">3.7×</div>
+            <div class="roi-label">Average ROI on AI-Powered Intelligence Systems</div>
+            <div class="roi-source">Source: McKinsey State of AI Report & Stanford AI Index 2025</div>
+        </div>
+        
+        <div class="roi-breakdown">
+            <div class="roi-item reveal reveal-delay-1">
+                <div class="roi-item-number">$16K+</div>
+                <div class="roi-item-label">Annual savings reported by agencies using CI automation</div>
+            </div>
+            <div class="roi-item reveal reveal-delay-2">
+                <div class="roi-item-number">76%</div>
+                <div class="roi-item-label">YoY increase in AI adoption by competitive intelligence teams</div>
+            </div>
+            <div class="roi-item reveal reveal-delay-3">
+                <div class="roi-item-number">10.3×</div>
+                <div class="roi-item-label">ROI for top-performing generative AI implementations</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2 class="reveal">We Will<br><em>Never Guess Again</em></h2>
+        <p class="reveal reveal-delay-1">This is the system that separates winning agencies from everyone else.<br>Real-time intelligence. Data-driven strategy. Automated execution.</p>
+        <div class="cta-buttons reveal reveal-delay-2">
+            <a href="#architecture" class="btn btn-secondary">Review Architecture</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Prepared by <span>Digital Leverage</span> | Competitor Intelligence Engine Proposal | December 2025</p>
+    </footer>
+
+    <script>
+        // Reveal on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Parallax effect on hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero h1');
+            if (hero && scrolled < 600) {
+                hero.style.transform = `translateY(${scrolled * 0.12}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
