@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneMind Neural Architecture — Complete System Documentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0a0b0f;
+      --bg-surface: #12141a;
+      --bg-elevated: #1a1d24;
+      --bg-hover: #22262f;
+      --neural-core: #00ff88;
+      --neural-pulse: #00ffcc;
+      --synapse-active: #ff6b35;
+      --synapse-weak: #666;
+      --memory-glow: #a855f7;
+      --identity-gold: #fbbf24;
+      --state-blue: #3b82f6;
+      --hebbian: #22c55e;
+      --spread: #f59e0b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-glow: rgba(0,255,136,0.3);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(0,255,136,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(168,85,247,0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,11,15,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1rem 2rem;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--neural-core), var(--neural-pulse));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0,255,136,0.3); }
+      50% { box-shadow: 0 0 40px rgba(0,255,136,0.6); }
+    }
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--neural-core), var(--neural-pulse));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .version-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      color: var(--neural-core);
+    }
+    .nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .nav-link:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+    .hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .section {
+      margin-bottom: 4rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .section-icon.brain { background: linear-gradient(135deg, var(--neural-core), var(--neural-pulse)); }
+    .section-icon.neuron { background: linear-gradient(135deg, var(--memory-glow), #c084fc); }
+    .section-icon.synapse { background: linear-gradient(135deg, var(--synapse-active), #fb923c); }
+    .section-icon.flow { background: linear-gradient(135deg, var(--state-blue), #60a5fa); }
+    .section-icon.hebbian { background: linear-gradient(135deg, var(--hebbian), #4ade80); }
+    .section-icon.spread { background: linear-gradient(135deg, var(--spread), #fbbf24); }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .concept-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .concept-box.highlight {
+      border-color: var(--border-glow);
+      background: linear-gradient(135deg, rgba(0,255,136,0.03), transparent);
+    }
+    .concept-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .concept-text {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .concept-text strong { color: var(--text-primary); }
+    .concept-text code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      background: var(--bg-deep);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--neural-core);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .stat-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--neural-core);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .process-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .process-card::after {
+      content: '→';
+      position: absolute;
+      right: -0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--neural-core);
+      font-size: 1.25rem;
+    }
+    .process-card:last-child::after { display: none; }
+    .process-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .process-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .process-desc { font-size: 0.75rem; color: var(--text-muted); }
+    .layer-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .layer {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+      transition: all 0.3s;
+    }
+    .layer:hover {
+      border-color: var(--border-glow);
+      transform: translateX(8px);
+    }
+    .layer-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 8px 12px;
+      background: var(--bg-deep);
+      border-radius: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .layer-badge.brain { border: 1px solid var(--neural-core); color: var(--neural-core); }
+    .layer-badge.neuron { border: 1px solid var(--memory-glow); color: var(--memory-glow); }
+    .layer-badge.synapse { border: 1px solid var(--synapse-active); color: var(--synapse-active); }
+    .layer-badge.prompt { border: 1px solid var(--state-blue); color: var(--state-blue); }
+    .layer-content h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .layer-content p { font-size: 0.85rem; color: var(--text-muted); }
+    .layer-file {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--bg-deep);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .schema-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .schema-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .schema-header {
+      background: var(--bg-elevated);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .schema-header h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--neural-core);
+    }
+    .schema-body { padding: 1rem 1.25rem; }
+    .schema-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .schema-field:last-child { border-bottom: none; }
+    .field-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--identity-gold);
+      min-width: 140px;
+    }
+    .field-desc { font-size: 0.8rem; color: var(--text-muted); }
+    .field-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: var(--bg-deep);
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: auto;
+    }
+    .neuron-types {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .neuron-type {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: all 0.3s;
+    }
+    .neuron-type:hover {
+      border-color: var(--memory-glow);
+      transform: translateY(-4px);
+    }
+    .neuron-type-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--memory-glow);
+      margin-bottom: 0.5rem;
+    }
+    .neuron-type-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .weight-visual {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .weight-bar {
+      flex: 1;
+      height: 24px;
+      background: var(--bg-deep);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .weight-fill {
+      height: 100%;
+      border-radius: 12px;
+    }
+    .weight-fill.weak { background: linear-gradient(90deg, var(--synapse-weak), #888); width: 20%; }
+    .weight-fill.medium { background: linear-gradient(90deg, var(--synapse-active), #fb923c); width: 50%; }
+    .weight-fill.strong { background: linear-gradient(90deg, var(--hebbian), #4ade80); width: 85%; }
+    .weight-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      min-width: 80px;
+      color: var(--text-secondary);
+    }
+    .formula-box {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .formula-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .formula {
+      font-size: 1rem;
+      color: var(--text-primary);
+      line-height: 2;
+    }
+    .formula .var { color: var(--identity-gold); }
+    .formula .op { color: var(--text-muted); }
+    .formula .num { color: var(--synapse-active); }
+    .formula .func { color: var(--neural-core); }
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .comparison-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .comparison-card.good { border-color: var(--hebbian); }
+    .comparison-card.bad { border-color: var(--synapse-weak); opacity: 0.7; }
+    .comparison-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .code-block {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .code-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .code-block .keyword { color: var(--memory-glow); }
+    .code-block .function { color: var(--neural-core); }
+    .code-block .string { color: var(--identity-gold); }
+    .code-block .comment { color: var(--text-muted); }
+    .code-block .number { color: var(--synapse-active); }
+    .callout {
+      background: linear-gradient(135deg, rgba(0,255,136,0.05), transparent);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .callout-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .callout-text { font-size: 0.95rem; color: var(--text-secondary); }
+    .callout-text strong { color: var(--neural-core); }
+    .flow-diagram { display: flex; flex-direction: column; }
+    .flow-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-step::before {
+      content: '';
+      position: absolute;
+      left: 29px;
+      top: 60px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--neural-core), transparent);
+    }
+    .flow-step:last-child::before { display: none; }
+    .flow-number {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-deep);
+      border: 2px solid var(--neural-core);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--neural-core);
+      position: relative;
+      z-index: 1;
+    }
+    .flow-content h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .flow-content h4 code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--state-blue);
+      background: var(--bg-deep);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .flow-content p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+    .flow-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .flow-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .neural-visual {
+      position: relative;
+      height: 450px;
+      margin: 2rem 0;
+    }
+    .neural-visual svg { width: 100%; height: 100%; }
+    .synapse-line { stroke-linecap: round; }
+    .synapse-line.weak { stroke: var(--synapse-weak); stroke-width: 1; opacity: 0.3; }
+    .synapse-line.medium { stroke: var(--synapse-active); stroke-width: 2; opacity: 0.5; }
+    .synapse-line.strong { stroke: var(--hebbian); stroke-width: 4; opacity: 0.8; }
+    .synapse-flow { stroke-dasharray: 8 4; animation: flow 1.5s linear infinite; }
+    @keyframes flow {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -24; }
+    }
+    .diagram-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .diagram-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .accordion {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .accordion-header:hover { background: var(--bg-hover); }
+    .accordion-title { display: flex; align-items: center; gap: 1rem; font-weight: 500; }
+    .accordion-icon { transition: transform 0.3s; color: var(--text-muted); }
+    .accordion.open .accordion-icon { transform: rotate(180deg); }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .accordion.open .accordion-content { max-height: 3000px; }
+    .accordion-inner { padding: 0 1.5rem 1.5rem; }
+    .footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .footer-text { font-size: 0.85rem; color: var(--text-muted); }
+    .footer-text span { color: var(--neural-core); }
+    @media (max-width: 1100px) {
+      .neuron-types { grid-template-columns: repeat(5, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .schema-grid, .comparison { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-card::after { display: none; }
+      .layer { grid-template-columns: 1fr; gap: 0.75rem; }
+      .neuron-types { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">🧠</div>
+        <span class="logo-text">OneMind Neural</span>
+        <span class="version-badge">v28 Neural Wired</span>
+      </div>
+      <nav class="nav">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#neurons" class="nav-link">Neurons</a>
+        <a href="#synapses" class="nav-link">Synapses</a>
+        <a href="#hebbian" class="nav-link">Hebbian</a>
+        <a href="#spreading" class="nav-link">Spreading</a>
+        <a href="#ingestion" class="nav-link">Ingestion</a>
+        <a href="#retrieval" class="nav-link">Retrieval</a>
+        <a href="#integration" class="nav-link">Integration</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 class="hero-title">Brandon Brain<br>Neural Architecture</h1>
+    <p class="hero-subtitle">
+      A real neural network with neurons, synapses, Hebbian learning, and spreading activation.
+      Not a metaphor — actual neuroscience-inspired architecture that learns and adapts.
+    </p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-value">17+</div>
+        <div class="stat-label">Neurons</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">11+</div>
+        <div class="stat-label">Synapses</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">10</div>
+        <div class="stat-label">Neuron Types</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">20</div>
+        <div class="stat-label">OneOS Locations</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <!-- Overview -->
+    <section id="overview" class="section">
+      <div class="section-header">
+        <div class="section-icon brain">🧬</div>
+        <div>
+          <h2 class="section-title">System Overview</h2>
+          <p class="section-subtitle">How the Brandon Brain neural network operates</p>
+        </div>
+      </div>
+
+      <div class="concept-box highlight">
+        <div class="concept-title"><span>💡</span> The Core Principle</div>
+        <p class="concept-text">
+          <strong>"Neurons that fire together, wire together."</strong> — Donald Hebb, 1949<br><br>
+          Brandon's teachings are stored as <strong>neurons</strong> (discrete knowledge units).
+          When neurons are retrieved together successfully, the <strong>synapses</strong> (connections)
+          between them strengthen. Over time, the system learns which combinations of teachings
+          work best for each user and situation.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="process-icon">📥</div>
+          <div class="process-name">Ingest</div>
+          <div class="process-desc">Content → Neurons</div>
+        </div>
+        <div class="process-card">
+          <div class="process-icon">🔗</div>
+          <div class="process-name">Connect</div>
+          <div class="process-desc">Build Synapses</div>
+        </div>
+        <div class="process-card">
+          <div class="process-icon">⚡</div>
+          <div class="process-name">Retrieve</div>
+          <div class="process-desc">Spreading Activation</div>
+        </div>
+        <div class="process-card">
+          <div class="process-icon">📈</div>
+          <div class="process-name">Learn</div>
+          <div class="process-desc">Hebbian Strengthening</div>
+        </div>
+      </div>
+
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="layer-badge brain">BRAIN</div>
+          <div class="layer-content">
+            <h4>Neurolinked Brain</h4>
+            <p>Orchestrates context building, neuron retrieval, and Hebbian learning</p>
+          </div>
+          <span class="layer-file">neurolinked-brain.js</span>
+        </div>
+        <div class="layer">
+          <div class="layer-badge neuron">NEURONS</div>
+          <div class="layer-content">
+            <h4>Brandon Content (Knowledge Units)</h4>
+            <p>Stories, principles, frameworks, techniques — Brandon's exact teachings</p>
+          </div>
+          <span class="layer-file">brandon_content table</span>
+        </div>
+        <div class="layer">
+          <div class="layer-badge synapse">SYNAPSES</div>
+          <div class="layer-content">
+            <h4>Neuron Synapses (Connections)</h4>
+            <p>Weighted connections between neurons that strengthen with use</p>
+          </div>
+          <span class="layer-file">neuron_synapses table</span>
+        </div>
+        <div class="layer">
+          <div class="layer-badge prompt">OUTPUT</div>
+          <div class="layer-content">
+            <h4>Prompt Builder</h4>
+            <p>Assembles Brandon's identity, voice, and retrieved neurons into system prompt</p>
+          </div>
+          <span class="layer-file">prompt-builder.js</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Neurons -->
+    <section id="neurons" class="section">
+      <div class="section-header">
+        <div class="section-icon neuron">⚡</div>
+        <div>
+          <h2 class="section-title">Neurons (Knowledge Units)</h2>
+          <p class="section-subtitle">Discrete units of Brandon's teachings stored in brandon_content</p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-title"><span>🧠</span> What is a Neuron?</div>
+        <p class="concept-text">
+          Each neuron represents a <strong>single, atomic piece of Brandon's knowledge</strong>.
+          It could be a story he tells, a principle he believes, a technique he uses, or a
+          question he asks. Neurons are extracted from transcripts, articles, and courses
+          using AI — preserving <strong>Brandon's exact words</strong>, not paraphrased summaries.
+        </p>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Neuron Types</h3>
+      <div class="neuron-types">
+        <div class="neuron-type">
+          <div class="neuron-type-name">📖 STORY</div>
+          <div class="neuron-type-desc">Full narrative with setup, conflict, resolution, and lesson. 100-300 words.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">💎 PRINCIPLE</div>
+          <div class="neuron-type-desc">Core truth that applies broadly. Concise statement of belief.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">🔧 FRAMEWORK</div>
+          <div class="neuron-type-desc">Mental model or system (Core 5, Inner 5, Outer 5, Meta 5).</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">🎯 TECHNIQUE</div>
+          <div class="neuron-type-desc">Specific practice or method to apply in real life.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">💡 INSIGHT</div>
+          <div class="neuron-type-desc">Non-obvious observation or connection Brandon has noticed.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">❓ QUESTION</div>
+          <div class="neuron-type-desc">Powerful question that creates shifts in perspective.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">🔄 REFRAME</div>
+          <div class="neuron-type-desc">New way to see a problem or situation.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">💬 QUOTE</div>
+          <div class="neuron-type-desc">Memorable statement preserved exactly as spoken.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">⚠️ WARNING</div>
+          <div class="neuron-type-desc">Common mistake or trap to avoid.</div>
+        </div>
+        <div class="neuron-type">
+          <div class="neuron-type-name">📝 EXAMPLE</div>
+          <div class="neuron-type-desc">Concrete illustration of a concept in action.</div>
+        </div>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Neuron Schema</h3>
+      <div class="schema-grid">
+        <div class="schema-card">
+          <div class="schema-header">
+            <span>📋</span>
+            <h4>brandon_content</h4>
+          </div>
+          <div class="schema-body">
+            <div class="schema-field">
+              <span class="field-name">content_type</span>
+              <span class="field-desc">story, principle, framework, etc.</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">title</span>
+              <span class="field-desc">Short descriptive title</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">content</span>
+              <span class="field-desc">Brandon's EXACT WORDS</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">embedding</span>
+              <span class="field-desc">1536-dim vector for semantic search</span>
+              <span class="field-type">BLOB</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">oneos_location</span>
+              <span class="field-desc">CORE.WHO, INNER.BELIEFS, etc.</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">connection_tags</span>
+              <span class="field-desc">JSON array of semantic tags</span>
+              <span class="field-type">TEXT</span>
+            </div>
+          </div>
+        </div>
+        <div class="schema-card">
+          <div class="schema-header">
+            <span>📊</span>
+            <h4>Learning Metrics</h4>
+          </div>
+          <div class="schema-body">
+            <div class="schema-field">
+              <span class="field-name">global_fire_count</span>
+              <span class="field-desc">Total times this neuron was retrieved</span>
+              <span class="field-type">INTEGER</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">global_success_rate</span>
+              <span class="field-desc">Running average of positive outcomes</span>
+              <span class="field-type">REAL</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">last_fired_at</span>
+              <span class="field-desc">Timestamp of last retrieval</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">emotional_charge</span>
+              <span class="field-desc">How emotionally activating (0-1)</span>
+              <span class="field-type">REAL</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">category</span>
+              <span class="field-desc">Self-Leadership, People Leadership, etc.</span>
+              <span class="field-type">TEXT</span>
+            </div>
+            <div class="schema-field">
+              <span class="field-name">is_active</span>
+              <span class="field-desc">Soft delete support</span>
+              <span class="field-type">INTEGER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🎯</span>
+        <div class="callout-text">
+          <strong>OneOS Location Mapping:</strong> Each neuron is mapped to one of 20 locations in the OneOS framework
+          (CORE.WHO, CORE.WHY, INNER.BELIEFS, OUTER.HEALTH, META.TRACKING, etc.). This enables location-based
+          synapses — neurons in the same location are automatically connected.
+        </div>
+      </div>
+    </section>
+
+    <!-- Synapses -->
+    <section id="synapses" class="section">
+      <div class="section-header">
+        <div class="section-icon synapse">🔗</div>
+        <div>
+          <h2 class="section-title">Synapses (Connections)</h2>
+          <p class="section-subtitle">Weighted connections between neurons that learn over time</p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-title"><span>🔗</span> What is a Synapse?</div>
+        <p class="concept-text">
+          A synapse is a <strong>weighted connection</strong> between two neurons. The weight (0.01 to 0.99)
+          indicates how strongly the neurons are connected. Higher weights mean the connection is
+          <strong>more likely to fire during spreading activation</strong> — when one neuron activates,
+          its strongly-connected partners activate too.
+        </p>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Synapse Weights</h3>
+      <div class="weight-visual">
+        <span class="weight-label">Weak</span>
+        <div class="weight-bar"><div class="weight-fill weak"></div></div>
+        <span class="weight-label">0.1 - 0.3</span>
+      </div>
+      <div class="weight-visual">
+        <span class="weight-label">Medium</span>
+        <div class="weight-bar"><div class="weight-fill medium"></div></div>
+        <span class="weight-label">0.4 - 0.6</span>
+      </div>
+      <div class="weight-visual">
+        <span class="weight-label">Strong</span>
+        <div class="weight-bar"><div class="weight-fill strong"></div></div>
+        <span class="weight-label">0.7 - 0.99</span>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">How Synapses are Created</h3>
+      <div class="comparison">
+        <div class="comparison-card">
+          <div class="comparison-header"><span>🏷️</span> Tag-Based (weight: 0.5)</div>
+          <p class="concept-text">
+            Neurons with <strong>shared tags</strong> are automatically connected. If two neurons
+            are both tagged "identity", they get a synapse with initial weight 0.5.
+          </p>
+          <div class="code-block">
+            <pre><span class="comment">// Example tags:</span>
+<span class="string">"identity"</span>, <span class="string">"regulation"</span>, <span class="string">"sports"</span>,
+<span class="string">"business"</span>, <span class="string">"relationships"</span></pre>
+          </div>
+        </div>
+        <div class="comparison-card">
+          <div class="comparison-header"><span>📍</span> Location-Based (weight: 0.6)</div>
+          <p class="concept-text">
+            Neurons in the <strong>same OneOS location</strong> are connected with a slightly
+            stronger initial weight of 0.6.
+          </p>
+          <div class="code-block">
+            <pre><span class="comment">// Example locations:</span>
+<span class="string">"CORE.WHO"</span>, <span class="string">"INNER.BELIEFS"</span>,
+<span class="string">"OUTER.HEALTH"</span>, <span class="string">"META.TRACKING"</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Synapse Schema</h3>
+      <div class="schema-card" style="max-width: 600px;">
+        <div class="schema-header">
+          <span>🔗</span>
+          <h4>neuron_synapses</h4>
+        </div>
+        <div class="schema-body">
+          <div class="schema-field">
+            <span class="field-name">neuron_a_id</span>
+            <span class="field-desc">First neuron in the pair</span>
+            <span class="field-type">TEXT</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">neuron_b_id</span>
+            <span class="field-desc">Second neuron in the pair</span>
+            <span class="field-type">TEXT</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">weight</span>
+            <span class="field-desc">Connection strength (0.01 - 0.99)</span>
+            <span class="field-type">REAL</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">connection_type</span>
+            <span class="field-desc">"tag:identity", "location:CORE.WHO"</span>
+            <span class="field-type">TEXT</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">fire_count</span>
+            <span class="field-desc">How many times synapse has fired</span>
+            <span class="field-type">INTEGER</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">co_fire_count</span>
+            <span class="field-desc">Times both neurons fired together</span>
+            <span class="field-type">INTEGER</span>
+          </div>
+          <div class="schema-field">
+            <span class="field-name">last_fired_at</span>
+            <span class="field-desc">Last co-activation timestamp</span>
+            <span class="field-type">TEXT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hebbian Learning -->
+    <section id="hebbian" class="section">
+      <div class="section-header">
+        <div class="section-icon hebbian">📈</div>
+        <div>
+          <h2 class="section-title">Hebbian Learning</h2>
+          <p class="section-subtitle">"Neurons that fire together, wire together"</p>
+        </div>
+      </div>
+
+      <div class="concept-box highlight">
+        <div class="concept-title"><span>🧠</span> The Learning Mechanism</div>
+        <p class="concept-text">
+          Every time neurons are retrieved together in a conversation, the synapses between them
+          <strong>strengthen</strong>. Over time, the system learns which combinations of teachings
+          work well together. Unused synapses gradually <strong>decay</strong>, preventing the
+          network from becoming overly connected.
+        </p>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Strengthening Formula</h3>
+      <div class="formula-box">
+        <div class="formula-title">When Neurons Fire Together</div>
+        <div class="formula">
+          <span class="var">new_weight</span> <span class="op">=</span> <span class="var">weight</span> <span class="op">+</span> <span class="num">0.1</span> <span class="op">×</span> <span class="op">(</span><span class="num">1</span> <span class="op">-</span> <span class="var">weight</span><span class="op">)</span>
+        </div>
+      </div>
+      <ul style="margin: 1rem 0 0 1.5rem; color: var(--text-secondary);">
+        <li>Weights <strong>increase</strong> with each co-firing</li>
+        <li>Maximum weight is capped at <strong>0.99</strong> (prevents saturation)</li>
+        <li>Delta <strong>decreases</strong> as weight approaches max (realistic learning curve)</li>
+      </ul>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Decay Formula</h3>
+      <div class="formula-box">
+        <div class="formula-title">Unused Synapses (30+ days)</div>
+        <div class="formula">
+          <span class="var">new_weight</span> <span class="op">=</span> <span class="func">MAX</span><span class="op">(</span><span class="num">0.01</span><span class="op">,</span> <span class="var">weight</span> <span class="op">-</span> <span class="num">0.02</span><span class="op">)</span>
+        </div>
+      </div>
+      <p style="margin: 1rem 0; color: var(--text-secondary);">
+        Synapses that haven't fired in 30+ days lose 0.02 weight, but never drop below 0.01.
+        This prevents the network from becoming over-connected while preserving all learned connections.
+      </p>
+    </section>
+
+    <!-- Spreading Activation -->
+    <section id="spreading" class="section">
+      <div class="section-header">
+        <div class="section-icon spread">🌊</div>
+        <div>
+          <h2 class="section-title">Spreading Activation</h2>
+          <p class="section-subtitle">When one neuron fires, connected neurons activate too</p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-title"><span>⚡</span> How It Works</div>
+        <p class="concept-text">
+          When you ask a question, we first find <strong>direct semantic matches</strong> (neurons
+          whose content matches your query). Then, activation <strong>spreads through strong synapses</strong>
+          to retrieve connected neurons. This mimics how real brains work — thinking of one concept
+          naturally activates related concepts.
+        </p>
+      </div>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Spreading Activation Visualization</div>
+        <div class="neural-visual">
+          <svg viewBox="0 0 800 400">
+            <line class="synapse-line strong synapse-flow" x1="400" y1="200" x2="200" y2="100" />
+            <line class="synapse-line strong synapse-flow" x1="400" y1="200" x2="600" y2="100" />
+            <line class="synapse-line medium" x1="400" y1="200" x2="150" y2="300" />
+            <line class="synapse-line medium" x1="400" y1="200" x2="650" y2="300" />
+            <line class="synapse-line weak" x1="200" y1="100" x2="150" y2="300" />
+            <line class="synapse-line weak" x1="600" y1="100" x2="650" y2="300" />
+            <line class="synapse-line medium" x1="200" y1="100" x2="600" y2="100" />
+            <g transform="translate(400, 200)">
+              <circle r="40" fill="url(#activeGrad)" />
+              <circle r="50" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.5">
+                <animate attributeName="r" from="40" to="60" dur="1.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite" />
+              </circle>
+              <text text-anchor="middle" y="5" fill="white" font-weight="bold" font-size="12">QUERY</text>
+            </g>
+            <g transform="translate(200, 100)">
+              <circle r="30" fill="url(#spreadGrad)" />
+              <text text-anchor="middle" y="50" fill="#94a3b8" font-size="11">STORY</text>
+              <text text-anchor="middle" y="62" font-size="9" fill="#22c55e">w: 0.85</text>
+            </g>
+            <g transform="translate(600, 100)">
+              <circle r="30" fill="url(#spreadGrad)" />
+              <text text-anchor="middle" y="50" fill="#94a3b8" font-size="11">PRINCIPLE</text>
+              <text text-anchor="middle" y="62" font-size="9" fill="#22c55e">w: 0.78</text>
+            </g>
+            <g transform="translate(150, 300)">
+              <circle r="25" fill="url(#medGrad)" />
+              <text text-anchor="middle" y="40" fill="#94a3b8" font-size="11">TECHNIQUE</text>
+              <text text-anchor="middle" y="52" font-size="9" fill="#f59e0b">w: 0.55</text>
+            </g>
+            <g transform="translate(650, 300)">
+              <circle r="25" fill="url(#medGrad)" />
+              <text text-anchor="middle" y="40" fill="#94a3b8" font-size="11">REFRAME</text>
+              <text text-anchor="middle" y="52" font-size="9" fill="#f59e0b">w: 0.58</text>
+            </g>
+            <defs>
+              <radialGradient id="activeGrad">
+                <stop offset="0%" stop-color="#00ff88" />
+                <stop offset="100%" stop-color="#00cc6a" />
+              </radialGradient>
+              <radialGradient id="spreadGrad">
+                <stop offset="0%" stop-color="#22c55e" />
+                <stop offset="100%" stop-color="#16a34a" />
+              </radialGradient>
+              <radialGradient id="medGrad">
+                <stop offset="0%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#d97706" />
+              </radialGradient>
+            </defs>
+            <g transform="translate(20, 360)">
+              <line x1="0" y1="0" x2="30" y2="0" class="synapse-line strong" />
+              <text x="40" y="4" fill="#64748b" font-size="11">Strong (≥0.7)</text>
+              <line x1="140" y1="0" x2="170" y2="0" class="synapse-line medium" />
+              <text x="180" y="4" fill="#64748b" font-size="11">Medium (0.55-0.69)</text>
+              <line x1="310" y1="0" x2="340" y2="0" class="synapse-line weak" />
+              <text x="350" y="4" fill="#64748b" font-size="11">Weak (&lt;0.55)</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Retrieval Algorithm</h3>
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <div class="flow-content">
+            <h4>Direct Semantic Search <code>60% of results</code></h4>
+            <p>Find neurons whose content semantically matches the user's query using vector similarity.</p>
+            <div class="formula-box" style="margin: 1rem 0;">
+              <div class="formula">
+                <span class="var">score</span> <span class="op">=</span>
+                <span class="var">semantic</span> <span class="op">×</span> <span class="num">0.50</span> <span class="op">+</span>
+                <span class="var">frequency</span> <span class="op">×</span> <span class="num">0.20</span> <span class="op">+</span>
+                <span class="var">recency</span> <span class="op">×</span> <span class="num">0.15</span> <span class="op">+</span>
+                <span class="var">success</span> <span class="op">×</span> <span class="num">0.15</span>
+              </div>
+            </div>
+            <div class="flow-tags">
+              <span class="flow-tag">cosine similarity</span>
+              <span class="flow-tag">fire count</span>
+              <span class="flow-tag">7-day half-life</span>
+              <span class="flow-tag">success rate</span>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <div class="flow-content">
+            <h4>Spreading Activation <code>40% of results</code></h4>
+            <p>From the top direct matches, follow strong synapses (weight ≥ 0.55) to find connected neurons.</p>
+            <div class="code-block">
+              <pre><span class="keyword">SELECT</span> connected neurons <span class="keyword">WHERE</span>
+  (neuron_a_id <span class="keyword">IN</span> (top_neurons) <span class="keyword">OR</span> neuron_b_id <span class="keyword">IN</span> (top_neurons))
+  <span class="keyword">AND</span> weight <span class="op">>=</span> <span class="number">0.55</span>
+<span class="keyword">ORDER BY</span> weight <span class="keyword">DESC</span>, co_fire_count <span class="keyword">DESC</span>
+<span class="keyword">LIMIT</span> <span class="number">10</span></pre>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <div class="flow-content">
+            <h4>Combine & Format</h4>
+            <p>Merge direct and spread neurons, deduplicate, and format for the prompt.</p>
+            <div class="flow-tags">
+              <span class="flow-tag">activation: direct</span>
+              <span class="flow-tag">activation: spread</span>
+              <span class="flow-tag">synapse weight</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingestion -->
+    <section id="ingestion" class="section">
+      <div class="section-header">
+        <div class="section-icon brain">📥</div>
+        <div>
+          <h2 class="section-title">Content Ingestion Pipeline</h2>
+          <p class="section-subtitle">How Brandon's content becomes neurons</p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <div class="concept-title"><span>🔄</span> 4-Pass Pipeline</div>
+        <p class="concept-text">
+          Content (transcripts, articles, courses) goes through a <strong>4-pass pipeline</strong>
+          that extracts discrete knowledge units, enriches them with context, and stores them as
+          neurons with semantic embeddings.
+        </p>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <div class="flow-content">
+            <h4>Semantic Chunking <code>semanticChunk()</code></h4>
+            <p>Split content at natural boundaries (topic shifts, speaker changes) — not arbitrary character limits.</p>
+            <div class="flow-tags">
+              <span class="flow-tag">~3000 chars per chunk</span>
+              <span class="flow-tag">max 5000 chars</span>
+              <span class="flow-tag">topic-shift detection</span>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <div class="flow-content">
+            <h4>Knowledge Extraction <code>extractKnowledge()</code></h4>
+            <p>GPT-4o extracts neurons using document-type-specific prompts. Preserves Brandon's exact words.</p>
+            <div class="flow-tags">
+              <span class="flow-tag">transcript → speech patterns</span>
+              <span class="flow-tag">article → polished content</span>
+              <span class="flow-tag">course → structured training</span>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <div class="flow-content">
+            <h4>Enrichment <code>enrichKnowledge()</code></h4>
+            <p>High-value neurons get brief research context + practical application added.</p>
+            <div class="flow-tags">
+              <span class="flow-tag">4-6 sentences total</span>
+              <span class="flow-tag">1 research connection</span>
+              <span class="flow-tag">1 practical application</span>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <div class="flow-content">
+            <h4>Neural Storage <code>storeKnowledgeUnit()</code></h4>
+            <p>Store neuron with embedding, then build Hebbian connections based on tags and locations.</p>
+            <div class="flow-tags">
+              <span class="flow-tag">1536-dim embedding</span>
+              <span class="flow-tag">tag-based synapses</span>
+              <span class="flow-tag">location-based synapses</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Retrieval -->
+    <section id="retrieval" class="section">
+      <div class="section-header">
+        <div class="section-icon flow">🔍</div>
+        <div>
+          <h2 class="section-title">Retrieval Process</h2>
+          <p class="section-subtitle">How neurons are selected for each conversation</p>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <pre><span class="comment">// Main retrieval function</span>
+<span class="keyword">async function</span> <span class="function">getRelevantBrandonNeurons</span>(db, env, context, limit = <span class="number">5</span>) {
+  <span class="comment">// 1. Generate embedding for user's query</span>
+  <span class="keyword">const</span> queryEmbedding = <span class="keyword">await</span> <span class="function">generateEmbedding</span>(context.currentMessage, env);
+
+  <span class="comment">// 2. Score all neurons (semantic + usage patterns)</span>
+  <span class="keyword">const</span> scoredNeurons = neurons.<span class="function">map</span>(neuron => {
+    <span class="keyword">const</span> semantic = <span class="function">cosineSimilarity</span>(queryEmbedding, neuron.embedding);
+    <span class="keyword">const</span> frequency = neuron.global_fire_count / maxFires;
+    <span class="keyword">const</span> recency = Math.<span class="function">pow</span>(<span class="number">0.5</span>, daysSince / <span class="number">7</span>);
+    <span class="keyword">const</span> success = neuron.global_success_rate;
+
+    <span class="keyword">return</span> {
+      ...neuron,
+      score: semantic * <span class="number">0.50</span> + frequency * <span class="number">0.20</span> + recency * <span class="number">0.15</span> + success * <span class="number">0.15</span>
+    };
+  });
+
+  <span class="comment">// 3. Get top direct matches (60% of limit)</span>
+  <span class="keyword">const</span> directMatches = scoredNeurons.<span class="function">slice</span>(<span class="number">0</span>, Math.<span class="function">ceil</span>(limit * <span class="number">0.6</span>));
+
+  <span class="comment">// 4. Spread activation through strong synapses</span>
+  <span class="keyword">const</span> spreadNeurons = <span class="keyword">await</span> <span class="function">spreadActivation</span>(db, directMatches.<span class="function">map</span>(n => n.id), <span class="number">0.55</span>);
+
+  <span class="comment">// 5. Combine, dedupe, return</span>
+  <span class="keyword">return</span> [...directMatches, ...spreadNeurons].<span class="function">slice</span>(<span class="number">0</span>, limit);
+}</pre>
+      </div>
+    </section>
+
+    <!-- Integration -->
+    <section id="integration" class="section">
+      <div class="section-header">
+        <div class="section-icon brain">🔌</div>
+        <div>
+          <h2 class="section-title">System Integration</h2>
+          <p class="section-subtitle">How all the pieces connect</p>
+        </div>
+      </div>
+
+      <div class="diagram-container">
+        <div class="diagram-title">Complete Data Flow</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 2.2; color: var(--text-secondary);">
+          <div><span style="color: var(--identity-gold);">User Message</span> <span style="color: var(--neural-core);">→</span> coach.js <span style="color: var(--neural-core);">→</span> Save to coach_messages</div>
+          <div style="padding-left: 2rem; color: var(--neural-core);">↓</div>
+          <div><strong>neurolinked-brain.js</strong> — buildNeurolinkedContext()</div>
+          <div style="padding-left: 2rem;">├ Unified Intelligence (user data)</div>
+          <div style="padding-left: 2rem;">├ Dynamic Few-Shot (past exchanges)</div>
+          <div style="padding-left: 2rem;">└ <span style="color: var(--synapse-active);">Brandon Neurons</span> → getRelevantBrandonNeurons()</div>
+          <div style="padding-left: 4rem;">├ Direct semantic matches (60%)</div>
+          <div style="padding-left: 4rem;">└ <span style="color: var(--hebbian);">Spreading activation</span> (40%)</div>
+          <div style="padding-left: 2rem; color: var(--neural-core);">↓</div>
+          <div><strong>prompt-builder.js</strong> — buildDynamicPrompt()</div>
+          <div style="padding-left: 2rem;">├ WHO I AM (Brandon identity)</div>
+          <div style="padding-left: 2rem;">├ HOW I TALK (voice/tone)</div>
+          <div style="padding-left: 2rem;">├ MY PERSPECTIVE (formatted neurons)</div>
+          <div style="padding-left: 2rem;">└ WHO I'M TALKING TO (user context)</div>
+          <div style="padding-left: 2rem; color: var(--neural-core);">↓</div>
+          <div><span style="background: linear-gradient(135deg, var(--memory-glow), #c084fc); padding: 2px 8px; border-radius: 4px; color: white;">GPT-4o</span> <span style="color: var(--neural-core);">→</span> <span style="color: var(--identity-gold);">Response</span></div>
+          <div style="padding-left: 2rem; color: var(--neural-core);">↓</div>
+          <div><strong>postProcessResponse()</strong> — Hebbian Learning</div>
+          <div style="padding-left: 2rem; color: var(--hebbian);">├ recordNeuronFiring() → Update fire counts</div>
+          <div style="padding-left: 2rem; color: var(--hebbian);">├ Strengthen synapses between co-fired neurons</div>
+          <div style="padding-left: 2rem; color: var(--hebbian);">└ Save exchange for future few-shot</div>
+        </div>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem;">Key Files</h3>
+      <div class="accordion open">
+        <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-title"><span>📁</span><span>src/services/</span></div>
+          <span class="accordion-icon">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <div class="layer-stack">
+              <div class="layer" style="grid-template-columns: 1fr auto;">
+                <div class="layer-content">
+                  <h4 style="color: var(--neural-core);">neurolinked-brain.js</h4>
+                  <p>Main orchestrator. Builds context, retrieves neurons, records Hebbian learning.</p>
+                </div>
+                <span class="layer-file">~400 lines</span>
+              </div>
+              <div class="layer" style="grid-template-columns: 1fr auto;">
+                <div class="layer-content">
+                  <h4 style="color: var(--synapse-active);">brandon-ingestion.js</h4>
+                  <p>4-pass ingestion pipeline. Extracts neurons, builds synapses.</p>
+                </div>
+                <span class="layer-file">~600 lines</span>
+              </div>
+              <div class="layer" style="grid-template-columns: 1fr auto;">
+                <div class="layer-content">
+                  <h4 style="color: var(--state-blue);">prompt-builder.js</h4>
+                  <p>Assembles Brandon's identity, voice, and neurons into system prompt.</p>
+                </div>
+                <span class="layer-file">~300 lines</span>
+              </div>
+              <div class="layer" style="grid-template-columns: 1fr auto;">
+                <div class="layer-content">
+                  <h4 style="color: var(--memory-glow);">unified-intelligence.js</h4>
+                  <p>60 queries loading complete user context (identity, state, history).</p>
+                </div>
+                <span class="layer-file">~800 lines</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="accordion-title"><span>📁</span><span>migrations/</span></div>
+          <span class="accordion-icon">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <div class="layer-stack">
+              <div class="layer" style="grid-template-columns: 1fr;">
+                <div class="layer-content">
+                  <h4>017_neural_plasticity.sql</h4>
+                  <p>Creates brandon_content table (neurons) with all fields.</p>
+                </div>
+              </div>
+              <div class="layer" style="grid-template-columns: 1fr;">
+                <div class="layer-content">
+                  <h4>020_neuron_synapses.sql</h4>
+                  <p>Creates neuron_synapses table for Hebbian connections.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why This Works -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon hebbian">✨</div>
+        <div>
+          <h2 class="section-title">Why This Architecture Works</h2>
+          <p class="section-subtitle">The neuroscience behind the design</p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="comparison-card bad">
+          <div class="comparison-header"><span>❌</span> Traditional RAG</div>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <li>Static document retrieval</li>
+            <li>Keyword/embedding match only</li>
+            <li>No learning from usage</li>
+            <li>Flat, disconnected chunks</li>
+            <li>Same results every time</li>
+          </ul>
+        </div>
+        <div class="comparison-card good">
+          <div class="comparison-header"><span>✓</span> Brandon Brain (Neural)</div>
+          <ul style="margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <li>Living knowledge graph</li>
+            <li>Spreading activation retrieval</li>
+            <li>Hebbian learning (gets smarter)</li>
+            <li>Connected neural network</li>
+            <li>Adapts to what works</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🧠</span>
+        <div class="callout-text">
+          <strong>Research Backing:</strong> This architecture is inspired by SA-RAG (December 2024) which showed
+          25-39% improvement using spreading activation, and HippoRAG (NeurIPS 2024) which demonstrated
+          neurobiologically-inspired retrieval outperforms traditional methods.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">
+      Brandon Brain <span>v28 Neural Wired</span> — Real neurons, real synapses, real learning
+    </p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
