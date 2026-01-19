@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamath Substack — Strategic Narrative</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* ChyP Purple Scale */
+            --purple-50: #faf5ff;
+            --purple-100: #f3e8ff;
+            --purple-200: #e9d5ff;
+            --purple-300: #d8b4fe;
+            --purple-400: #c084fc;
+            --purple-500: #a855f7;
+            --purple-600: #9333ea;
+            --purple-700: #7c3aed;
+            --purple-800: #6b21a8;
+            --purple-900: #581c87;
+            --accent-primary: #8B5CF6;
+
+            /* Backgrounds */
+            --bg-base: #FAFAFA;
+            --bg-surface: #FFFFFF;
+            --bg-elevated: #F8F7FF;
+            --bg-hover: #F3F0FF;
+            --bg-dark: #0C0A14;
+            --bg-dark-elevated: #1A1625;
+            --bg-dark-card: #241F33;
+
+            /* Text */
+            --text-primary: #0F0D15;
+            --text-secondary: #5C5470;
+            --text-tertiary: #9490A3;
+            --text-accent: #7C3AED;
+
+            /* Accents */
+            --accent-gold: #D4A853;
+            --success: #10B981;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(15, 13, 21, 0.04);
+            --shadow-md: 0 4px 12px rgba(15, 13, 21, 0.06);
+            --shadow-lg: 0 12px 32px rgba(15, 13, 21, 0.08);
+            --shadow-purple: 0 4px 24px rgba(139, 92, 246, 0.15);
+            --glow-purple: 0 0 24px rgba(139, 92, 246, 0.3);
+
+            /* Borders */
+            --border-light: #E9E5F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        /* Presentation Container */
+        .deck {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Slide Base */
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 10%;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.96);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .slide.prev {
+            transform: scale(1.04);
+            opacity: 0;
+        }
+
+        /* Dark Slides */
+        .slide.dark {
+            background: var(--bg-dark);
+            color: #ffffff;
+        }
+
+        .slide.dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 100% 80% at 30% -30%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 100% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Light Slides */
+        .slide.light {
+            background: var(--bg-base);
+            color: var(--text-primary);
+        }
+
+        .slide.light::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 80% 0%, var(--purple-100) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 50% at 0% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+        }
+
+        /* Typography */
+        .kicker {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            margin-bottom: 1.25rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s 0.2s forwards;
+        }
+
+        .slide.dark .kicker {
+            color: var(--purple-400);
+        }
+
+        .headline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.7s 0.3s forwards;
+        }
+
+        .headline em {
+            font-style: italic;
+            color: var(--accent-primary);
+        }
+
+        .slide.dark .headline em {
+            color: var(--purple-400);
+        }
+
+        .headline .gold {
+            color: var(--accent-gold);
+        }
+
+        .body-text {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+            max-width: 750px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s 0.5s forwards;
+        }
+
+        .body-text + .body-text {
+            margin-top: 1rem;
+        }
+
+        .slide.dark .body-text {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .slide.light .body-text {
+            color: var(--text-secondary);
+        }
+
+        /* Stacked Lines */
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 1.75rem;
+        }
+
+        .stack-line {
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            font-weight: 400;
+            padding-left: 1.5rem;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .stack-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+        }
+
+        .slide.dark .stack-line::before {
+            background: var(--purple-400);
+        }
+
+        .stack-line:nth-child(1) { animation: slideIn 0.5s 0.6s forwards; }
+        .stack-line:nth-child(2) { animation: slideIn 0.5s 0.7s forwards; }
+        .stack-line:nth-child(3) { animation: slideIn 0.5s 0.8s forwards; }
+        .stack-line:nth-child(4) { animation: slideIn 0.5s 0.9s forwards; }
+        .stack-line:nth-child(5) { animation: slideIn 0.5s 1.0s forwards; }
+
+        /* Quote Block */
+        .quote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+            font-style: italic;
+            line-height: 1.5;
+            padding: 1.5rem 0 1.5rem 1.75rem;
+            border-left: 3px solid var(--accent-primary);
+            margin: 1.75rem 0;
+            max-width: 800px;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.4s forwards;
+        }
+
+        .slide.dark .quote {
+            border-color: var(--purple-400);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Contrast Cards */
+        .contrast-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contrast-card {
+            padding: 1.75rem;
+            border-radius: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .contrast-card:nth-child(1) { animation: fadeUp 0.6s 0.5s forwards; }
+        .contrast-card:nth-child(2) { animation: fadeUp 0.6s 0.6s forwards; }
+
+        .contrast-card.before {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .contrast-card.after {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: var(--shadow-purple);
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .before .card-label { color: var(--text-tertiary); }
+        .after .card-label { color: var(--purple-400); }
+
+        .card-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .before .card-text { color: rgba(255, 255, 255, 0.5); }
+        .after .card-text { color: #ffffff; }
+
+        /* Price Block */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .price-card {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .price-card:nth-child(1) { animation: fadeUp 0.5s 0.5s forwards; }
+        .price-card:nth-child(2) { animation: fadeUp 0.5s 0.6s forwards; }
+        .price-card:nth-child(3) { animation: fadeUp 0.5s 0.7s forwards; }
+
+        .price-card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-card-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .price-hero {
+            margin-top: 2rem;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, var(--bg-dark-elevated) 0%, var(--bg-dark-card) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: var(--shadow-purple);
+            display: inline-block;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.8s forwards;
+        }
+
+        .price-hero-label {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.25rem;
+        }
+
+        .price-hero-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+
+        .price-hero-context {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+
+        /* Pillar Cards */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .pillar-card {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .pillar-card:nth-child(1) { animation: fadeUp 0.5s 0.5s forwards; }
+        .pillar-card:nth-child(2) { animation: fadeUp 0.5s 0.6s forwards; }
+        .pillar-card:nth-child(3) { animation: fadeUp 0.5s 0.7s forwards; }
+        .pillar-card:nth-child(4) { animation: fadeUp 0.5s 0.8s forwards; }
+
+        .pillar-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        /* Single Pillar Feature */
+        .pillar-single {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.03) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.5s forwards;
+        }
+
+        .pillar-single .pillar-number {
+            color: var(--purple-400);
+        }
+
+        .pillar-single .pillar-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Title Slide Special */
+        .title-slide .headline {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            margin-bottom: 1.25rem;
+        }
+
+        .title-slide .subtitle {
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 700px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.5s forwards;
+        }
+
+        /* Final Slide */
+        .final-statement {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            line-height: 1.4;
+            max-width: 900px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.3s forwards;
+        }
+
+        .final-statement .highlight {
+            display: block;
+            color: var(--accent-gold);
+            margin-top: 1rem;
+        }
+
+        /* Big Number */
+        .big-stat {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.5s forwards;
+        }
+
+        .big-stat-number {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 600;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+
+        .big-stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Section divider text */
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            opacity: 0;
+            animation: fadeUp 0.5s 0.1s forwards;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 100;
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(139, 92, 246, 0.2);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-primary);
+            box-shadow: var(--glow-purple);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:disabled:hover {
+            background: rgba(139, 92, 246, 0.2);
+            box-shadow: none;
+        }
+
+        .progress {
+            display: flex;
+            gap: 5px;
+        }
+
+        .progress-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .progress-dot.active {
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .slide-counter {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        /* Keyboard Hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.1em;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .keyboard-hint.hidden {
+            opacity: 0;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Reset animations when slide becomes active */
+        .slide:not(.active) .kicker,
+        .slide:not(.active) .headline,
+        .slide:not(.active) .body-text,
+        .slide:not(.active) .quote,
+        .slide:not(.active) .stack-line,
+        .slide:not(.active) .contrast-card,
+        .slide:not(.active) .price-card,
+        .slide:not(.active) .price-hero,
+        .slide:not(.active) .pillar-card,
+        .slide:not(.active) .pillar-single,
+        .slide:not(.active) .subtitle,
+        .slide:not(.active) .final-statement,
+        .slide:not(.active) .big-stat,
+        .slide:not(.active) .section-label {
+            animation: none;
+            opacity: 0;
+        }
+
+        .slide.active .section-label { animation: fadeUp 0.5s 0.1s forwards; }
+        .slide.active .kicker { animation: fadeUp 0.6s 0.2s forwards; }
+        .slide.active .headline { animation: fadeUp 0.7s 0.3s forwards; }
+        .slide.active .body-text { animation: fadeUp 0.6s 0.5s forwards; }
+        .slide.active .quote { animation: fadeUp 0.7s 0.4s forwards; }
+        .slide.active .subtitle { animation: fadeUp 0.6s 0.5s forwards; }
+        .slide.active .final-statement { animation: fadeUp 0.8s 0.3s forwards; }
+        .slide.active .big-stat { animation: fadeUp 0.7s 0.5s forwards; }
+        .slide.active .pillar-single { animation: fadeUp 0.6s 0.5s forwards; }
+        .slide.active .stack-line:nth-child(1) { animation: slideIn 0.5s 0.6s forwards; }
+        .slide.active .stack-line:nth-child(2) { animation: slideIn 0.5s 0.7s forwards; }
+        .slide.active .stack-line:nth-child(3) { animation: slideIn 0.5s 0.8s forwards; }
+        .slide.active .stack-line:nth-child(4) { animation: slideIn 0.5s 0.9s forwards; }
+        .slide.active .stack-line:nth-child(5) { animation: slideIn 0.5s 1.0s forwards; }
+        .slide.active .contrast-card:nth-child(1) { animation: fadeUp 0.6s 0.5s forwards; }
+        .slide.active .contrast-card:nth-child(2) { animation: fadeUp 0.6s 0.6s forwards; }
+        .slide.active .price-card:nth-child(1) { animation: fadeUp 0.5s 0.5s forwards; }
+        .slide.active .price-card:nth-child(2) { animation: fadeUp 0.5s 0.6s forwards; }
+        .slide.active .price-card:nth-child(3) { animation: fadeUp 0.5s 0.7s forwards; }
+        .slide.active .price-hero { animation: fadeUp 0.7s 0.8s forwards; }
+        .slide.active .pillar-card:nth-child(1) { animation: fadeUp 0.5s 0.5s forwards; }
+        .slide.active .pillar-card:nth-child(2) { animation: fadeUp 0.5s 0.6s forwards; }
+        .slide.active .pillar-card:nth-child(3) { animation: fadeUp 0.5s 0.7s forwards; }
+        .slide.active .pillar-card:nth-child(4) { animation: fadeUp 0.5s 0.8s forwards; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .slide {
+                padding: 4rem 6%;
+            }
+            .contrast-grid,
+            .pillar-grid {
+                grid-template-columns: 1fr;
+            }
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="deck">
+        <!-- Slide 1: Title -->
+        <div class="slide dark title-slide active" data-slide="0">
+            <div class="slide-content">
+                <p class="kicker">Strategic Narrative Framework</p>
+                <h1 class="headline">We Are Selling <em>Arrival</em></h1>
+                <p class="subtitle">Positioning Chamath's Substack as the only credible place for people who want to think, speak, and operate at the level where power actually works.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: What We're Actually Doing -->
+        <div class="slide dark" data-slide="1">
+            <div class="slide-content">
+                <p class="kicker">Executive Summary</p>
+                <h2 class="headline">The social strategy activates a <em>latent desire</em></h2>
+                <p class="body-text">Ambitious people want the answers. They want to command rooms. They want to feel in control of their trajectory.</p>
+                <p class="body-text">Chamath is positioned as the obvious source of those answers—because he already lives at that level.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Core Pain -->
+        <div class="slide light" data-slide="2">
+            <div class="slide-content">
+                <p class="kicker">The Core Pain</p>
+                <h2 class="headline">They sense a <em>higher operating layer</em></h2>
+                <p class="body-text">Ambitious, capable people sense there is a higher operating layer to how the world works—and they're ready to step inside it.</p>
+                <div class="stack">
+                    <div class="stack-line">They want to be in rooms where decisions are made, not hearing about them afterward</div>
+                    <div class="stack-line">They want to exert influence, authority, and control rather than reacting to outcomes</div>
+                    <div class="stack-line">They want to stop guessing what matters and start knowing</div>
+                </div>
+                <div class="quote">This pain is aspirational and identity-driven. It's about becoming someone who has the answers.</div>
+            </div>
+        </div>
+
+        <!-- Slide 4: The Dream -->
+        <div class="slide dark" data-slide="3">
+            <div class="slide-content">
+                <p class="kicker">The Dream</p>
+                <h2 class="headline">What they want but <em>won't say out loud</em></h2>
+                <div class="stack">
+                    <div class="stack-line">To be the smartest person in the room without trying</div>
+                    <div class="stack-line">To speak and have others defer</div>
+                    <div class="stack-line">To understand the forces shaping their career, company, and future before those forces are obvious</div>
+                    <div class="stack-line">To feel different, elevated, and in control</div>
+                </div>
+                <div class="quote">They want power in its most practical form: the ability to frame reality for others.</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: The Reframe -->
+        <div class="slide light" data-slide="4">
+            <div class="slide-content">
+                <p class="kicker">The Reframe</p>
+                <h2 class="headline">A system and process, <em>not a series of essays</em></h2>
+                <p class="body-text">Chamath's Substack is a standing briefing that reflects:</p>
+                <div class="stack">
+                    <div class="stack-line">How people with real stakes frame problems</div>
+                    <div class="stack-line">How decisions are actually set up before they are made</div>
+                    <div class="stack-line">How second- and third-order consequences are evaluated</div>
+                </div>
+                <div class="quote">This is used, not consumed casually. The weekly cadence reinforces that this is an operating layer.</div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Why Chamath -->
+        <div class="slide dark" data-slide="5">
+            <div class="slide-content">
+                <p class="kicker">The Only Credible Answer</p>
+                <h2 class="headline">Someone who <em>reasons under consequence</em></h2>
+                <p class="body-text">He already sits close to capital, policy, and power. He already has to reason under consequence. He already pays real costs for being wrong.</p>
+                <div class="quote">The audience wants his vantage point—because that vantage point confers authority, control, and foresight.</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: The Transformation -->
+        <div class="slide dark" data-slide="6">
+            <div class="slide-content">
+                <p class="kicker">The Transformation</p>
+                <h2 class="headline">Positional, <em>not intellectual</em></h2>
+                <div class="contrast-grid">
+                    <div class="contrast-card before">
+                        <p class="card-label">Before</p>
+                        <p class="card-text">Consuming takes<br>Reacting to events<br>Piecing together a worldview from fragments</p>
+                    </div>
+                    <div class="contrast-card after">
+                        <p class="card-label">After</p>
+                        <p class="card-text">Already knowing what matters<br>Recognizing patterns before others<br>Speaking with authority rather than curiosity</p>
+                    </div>
+                </div>
+                <div class="quote" style="margin-top: 2rem;">They feel initiated. This is what makes the product feel life-changing.</div>
+            </div>
+        </div>
+
+        <!-- Slide 8: The Price -->
+        <div class="slide dark" data-slide="7">
+            <div class="slide-content">
+                <p class="kicker">Why $99/Month Feels Like Nothing</p>
+                <h2 class="headline">People already pay <em>far more</em></h2>
+                <div class="price-grid">
+                    <div class="price-card">
+                        <p class="price-card-label">Counseling</p>
+                        <p class="price-card-value">$hundreds/week</p>
+                    </div>
+                    <div class="price-card">
+                        <p class="price-card-label">Consultants</p>
+                        <p class="price-card-value">$thousands/month</p>
+                    </div>
+                    <div class="price-card">
+                        <p class="price-card-label">Proximity to Power</p>
+                        <p class="price-card-value">Enormous sums</p>
+                    </div>
+                </div>
+                <div class="price-hero">
+                    <p class="price-hero-label">Same category of value—continuous and asynchronous</p>
+                    <p class="price-hero-value">$99</p>
+                    <p class="price-hero-context">We make the alternative feel weak, naive, and exposed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Social Strategy -->
+        <div class="slide light" data-slide="8">
+            <div class="slide-content">
+                <p class="kicker">The Social Strategy</p>
+                <h2 class="headline">Selling <em>without talking about it</em></h2>
+                <p class="body-text">X and LinkedIn are used to create contrast. The reader should repeatedly feel:</p>
+                <div class="stack">
+                    <div class="stack-line">"I didn't even realize this was the real question."</div>
+                    <div class="stack-line">"I'm thinking one layer too low."</div>
+                    <div class="stack-line">"This person is already operating where I want to be."</div>
+                </div>
+                <div class="quote">That recognition does the selling.</div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Content Pillars Overview -->
+        <div class="slide dark" data-slide="9">
+            <div class="slide-content">
+                <p class="section-label">Content Strategy</p>
+                <p class="kicker">Five Content Pillars</p>
+                <h2 class="headline">The architecture of <em>altitude</em></h2>
+                <div class="pillar-grid">
+                    <div class="pillar-card">
+                        <p class="pillar-number">Pillar 1</p>
+                        <p class="pillar-title">Power-Level Questions</p>
+                        <p class="pillar-desc">Surface the questions that actually decide outcomes—not the ones dominating public discourse.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <p class="pillar-number">Pillar 2</p>
+                        <p class="pillar-title">Framing From Inside the Room</p>
+                        <p class="pillar-desc">Show how problems are framed before decisions are made. Constraints, tradeoffs, leverage points.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <p class="pillar-number">Pillar 3</p>
+                        <p class="pillar-title">Second &amp; Third-Order Consequences</p>
+                        <p class="pillar-desc">Consistently reveal downstream effects others aren't discussing. Make the audience feel late while Chamath feels early.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <p class="pillar-number">Pillar 4</p>
+                        <p class="pillar-title">Decision Posture &amp; Orientation</p>
+                        <p class="pillar-desc">Imply how serious actors are positioning themselves—without giving advice. Let readers adopt the posture themselves.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Pillar 5 - Quiet Authority -->
+        <div class="slide dark" data-slide="10">
+            <div class="slide-content">
+                <p class="section-label">Content Strategy</p>
+                <p class="kicker">Pillar 5</p>
+                <h2 class="headline"><em>Quiet Authority</em></h2>
+                <p class="body-text">Calm, declarative language that does not persuade or explain.</p>
+                <div class="quote">The authority comes from how things are said, not how loudly.</div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Cadence & Execution -->
+        <div class="slide light" data-slide="11">
+            <div class="slide-content">
+                <p class="kicker">Cadence &amp; Execution Discipline</p>
+                <h2 class="headline">Each deep dive <em>fuels distribution</em></h2>
+                <div class="stack">
+                    <div class="stack-line">Multiple X posts that feel like briefings, not marketing</div>
+                    <div class="stack-line">Several LinkedIn posts that feel like executive orientation, not thought leadership</div>
+                    <div class="stack-line">No announcements</div>
+                    <div class="stack-line">No hype</div>
+                    <div class="stack-line">Only consistent exposure to altitude</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Identity Shift -->
+        <div class="slide dark" data-slide="12">
+            <div class="slide-content">
+                <p class="kicker">The Identity Shift</p>
+                <h2 class="headline">From <em>trying to understand</em> to <em>already understanding</em></h2>
+                <div class="contrast-grid">
+                    <div class="contrast-card before">
+                        <p class="card-label">Before</p>
+                        <p class="card-text">"I'm trying to understand how this works."</p>
+                    </div>
+                    <div class="contrast-card after">
+                        <p class="card-label">After</p>
+                        <p class="card-text">"I already understand how this works."</p>
+                    </div>
+                </div>
+                <div class="quote" style="margin-top: 2rem;">They stop aspiring and start operating. That identity shift is the product.</div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Strategic North Star -->
+        <div class="slide dark" data-slide="13">
+            <div class="slide-content">
+                <p class="kicker">Strategic North Star</p>
+                <h2 class="headline">The one thing that <em>must be true</em></h2>
+                <p class="body-text">Every piece of distribution must reinforce this feeling:</p>
+                <div class="quote">"I have the answers, and that makes me different."</div>
+                <p class="body-text" style="margin-top: 1.5rem;">If a post does not make the reader feel that Chamath already has what they want, it does not belong.</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Final -->
+        <div class="slide dark" data-slide="14">
+            <div class="slide-content" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                <p class="final-statement">
+                    Chamath becomes the obvious solution<span class="highlight">because he is already there.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn" id="prevBtn" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <div class="progress" id="progress"></div>
+        <span class="slide-counter" id="counter">1 / 15</span>
+        <button class="nav-btn" id="nextBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </nav>
+
+    <p class="keyboard-hint" id="hint">Press ← → or click to navigate</p>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const hint = document.getElementById('hint');
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Create progress dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `progress-dot ${i === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            progress.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.progress-dot');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            if (currentSlide > 0) {
+                hint.classList.add('hidden');
+            }
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlide = index;
+                updateSlide();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        document.querySelector('.deck').addEventListener('click', (e) => {
+            if (!e.target.closest('.nav')) {
+                const rect = document.body.getBoundingClientRect();
+                const clickX = e.clientX;
+                if (clickX > rect.width / 2) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
