@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn With Me | Growth Strategy Presentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { 
+      margin: 0; 
+      font-family: 'Libre Baskerville', Georgia, serif;
+      overflow: hidden;
+    }
+    .scroll-container {
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scroll-container::-webkit-scrollbar { display: none; }
+    section {
+      min-height: 100vh;
+    }
+    .dm-sans { font-family: 'DM Sans', sans-serif; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .animate-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; }
+    .animate-fadeInUp-1 { animation: fadeInUp 0.8s ease-out 0.1s forwards; opacity: 0; }
+    .animate-fadeInUp-2 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+    .animate-fadeInUp-3 { animation: fadeInUp 0.8s ease-out 0.3s forwards; opacity: 0; }
+    .animate-fadeInUp-4 { animation: fadeInUp 0.8s ease-out 0.5s forwards; opacity: 0; }
+    .animate-bounce-delayed { animation: fadeInUp 0.8s ease-out 0.5s forwards, bounce 2s infinite 1.5s; opacity: 0; }
+    
+    .nav-dot {
+      transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+      background: #8b5cf6;
+      border-color: #8b5cf6;
+      transform: scale(1.25);
+    }
+    .nav-label {
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(8px);
+    }
+    .nav-item:hover .nav-label,
+    .nav-item.active .nav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .card-hover {
+      transition: all 0.5s ease;
+    }
+    .card-hover:hover {
+      border-color: #c4b5fd;
+      box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.15);
+    }
+    .card-hover:hover .card-icon {
+      transform: scale(1.1);
+    }
+    .card-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .timeline-card {
+      transition: all 0.3s ease;
+    }
+    .timeline-card:hover {
+      border-color: #d1d5db;
+    }
+    .timeline-card:hover .timeline-num {
+      transform: scale(1.1);
+    }
+    .timeline-num {
+      transition: transform 0.3s ease;
+    }
+    
+    .glow-hover {
+      transition: transform 0.7s ease;
+    }
+    .group:hover .glow-hover {
+      transform: scale(1.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="fixed inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100"></div>
+    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(234, 179, 8, 0.06) 0%, transparent 50%);"></div>
+    <svg class="absolute inset-0 w-full h-full opacity-5" preserveAspectRatio="none">
+      <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#3f3f46" stroke-width="0.5"/>
+      </pattern>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+
+  <!-- Navigation Dots -->
+  <nav id="nav" class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+    <button onclick="scrollToSection(0)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Welcome</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(1)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Introductions</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(2)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Strategy</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(3)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Content Plan</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(4)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Design Scope</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(5)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Timelines</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+    <button onclick="scrollToSection(6)" class="nav-item group flex items-center gap-3 justify-end">
+      <span class="nav-label text-xs font-medium tracking-wide dm-sans text-stone-500">Q&A</span>
+      <div class="nav-dot w-2.5 h-2.5 rounded-full border-2 border-stone-400 bg-transparent"></div>
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <div id="container" class="scroll-container relative z-10">
+    
+    <!-- HERO -->
+    <section class="flex items-center justify-center px-8 relative">
+      <div class="text-center max-w-4xl">
+        <div class="animate-fadeInUp inline-block mb-8 px-4 py-2 rounded-full border border-violet-300/50 bg-violet-50/50">
+          <span class="text-sm font-medium text-violet-700 tracking-wide dm-sans">January 19, 2026</span>
+        </div>
+        
+        <h1 class="animate-fadeInUp-1 text-6xl md:text-7xl lg:text-8xl font-bold text-stone-800 mb-6 leading-tight">
+          Learn With Me
+        </h1>
+        
+        <p class="animate-fadeInUp-2 text-2xl md:text-3xl text-stone-500 mb-4 italic">
+          Growth Strategy Presentation
+        </p>
+        
+        <div class="animate-fadeInUp-3 flex items-center justify-center gap-3 mt-12 dm-sans">
+          <div class="w-12 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+          <span class="text-sm font-semibold text-stone-600 tracking-widest uppercase">Digital Leverage × Chamath</span>
+          <div class="w-12 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+        </div>
+
+        <div class="mt-20 animate-bounce-delayed">
+          <svg class="w-6 h-6 mx-auto text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUCTIONS -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-5xl w-full">
+        <div class="mb-16">
+          <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">01 / Introductions</span>
+          <h2 class="text-5xl md:text-6xl font-bold text-stone-800">Meet the Team</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="card-hover group p-8 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50 dm-sans">
+            <div class="card-icon w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-violet-700 flex items-center justify-center mb-6">
+              <span class="text-2xl font-bold text-white">DL</span>
+            </div>
+            <h3 class="text-2xl font-bold text-stone-800 mb-3">Digital Leverage</h3>
+            <p class="text-stone-600 leading-relaxed">
+              Content marketing agency specializing in LinkedIn and Twitter growth for high-profile thought leaders and investors.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-gradient-to-br from-stone-800 to-stone-900 text-white relative overflow-hidden dm-sans">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-transparent rounded-full blur-2xl"></div>
+            <div class="relative">
+              <div class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-6">Our Mission Today</div>
+              <p class="text-xl text-stone-200 leading-relaxed">
+                Present a comprehensive strategy to grow <span class="text-amber-400 font-semibold">Learn With Me</span> into its full potential through strategic content distribution.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGY -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-5xl w-full">
+        <div class="mb-16">
+          <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">02 / Strategy Overview</span>
+          <h2 class="text-5xl md:text-6xl font-bold text-stone-800">The Core Insight</h2>
+        </div>
+
+        <div class="mb-16 p-10 rounded-3xl bg-gradient-to-br from-violet-600 to-violet-800 text-white relative overflow-hidden">
+          <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="diag" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="10" stroke="white" stroke-width="2"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#diag)" />
+            </svg>
+          </div>
+          <div class="relative">
+            <p class="text-3xl md:text-4xl font-bold leading-tight mb-4">
+              "The bottleneck isn't the product—<br/>
+              <span class="text-amber-300">it's exposure."</span>
+            </p>
+            <p class="text-lg text-violet-200 dm-sans">
+              The Substack exists. The content is exceptional. But the world doesn't know yet.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 dm-sans">
+          <div class="group card-hover p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+            <div class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-rose-500 to-rose-600 text-white text-xs font-bold mb-4">01</div>
+            <h3 class="text-xl font-bold text-stone-800 mb-2">Problem</h3>
+            <p class="text-stone-600">Low awareness of Learn With Me subscription offering</p>
+          </div>
+          <div class="group card-hover p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+            <div class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-xs font-bold mb-4">02</div>
+            <h3 class="text-xl font-bold text-stone-800 mb-2">Solution</h3>
+            <p class="text-stone-600">Consistent posting cadence driving traffic back to Substack</p>
+          </div>
+          <div class="group card-hover p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+            <div class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold mb-4">03</div>
+            <h3 class="text-xl font-bold text-stone-800 mb-2">Approach</h3>
+            <p class="text-stone-600">Use Chamath's existing words—deep dives, All-In—no new voice</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT EXECUTION -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-6xl w-full">
+        <div class="mb-16">
+          <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">03 / Content Execution Plan</span>
+          <h2 class="text-5xl md:text-6xl font-bold text-stone-800">The Playbook</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 mb-10">
+          <!-- Twitter -->
+          <div class="group p-8 rounded-3xl bg-stone-900 text-white relative overflow-hidden">
+            <div class="glow-hover absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-sky-400/20 to-transparent rounded-full blur-3xl"></div>
+            <div class="relative">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-stone-800 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold dm-sans">Twitter / X</h3>
+              </div>
+              
+              <div class="space-y-4 dm-sans">
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 flex-shrink-0"></div>
+                  <span class="text-stone-300">Charts, graphs, data visualizations from deep dives</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 flex-shrink-0"></div>
+                  <span class="text-stone-300">Long-form excerpts paired with timely events</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 flex-shrink-0"></div>
+                  <span class="text-stone-300">Low-touch CTAs driving to subscription</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LinkedIn -->
+          <div class="group p-8 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-800 text-white relative overflow-hidden">
+            <div class="glow-hover absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
+            <div class="relative">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </div>
+                <h3 class="text-2xl font-bold dm-sans">LinkedIn</h3>
+              </div>
+              
+              <div class="space-y-4 dm-sans">
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-blue-300 mt-2 flex-shrink-0"></div>
+                  <span class="text-blue-100">Carousels & slide decks for visual storytelling</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-blue-300 mt-2 flex-shrink-0"></div>
+                  <span class="text-blue-100">"What I Read This Week" reformatting</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-blue-300 mt-2 flex-shrink-0"></div>
+                  <span class="text-blue-100">Design experimentation & infographics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Cadence -->
+        <div class="p-8 rounded-3xl bg-white/80 backdrop-blur border border-stone-200 relative overflow-hidden dm-sans">
+          <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-violet-500 via-amber-400 to-emerald-500"></div>
+          <div class="pl-6">
+            <h3 class="text-xl font-bold text-stone-800 mb-4">Weekly Cadence</h3>
+            <div class="flex flex-wrap gap-4">
+              <span class="px-4 py-2 rounded-full bg-stone-100 text-stone-700 text-sm font-medium">Deep dive derivatives</span>
+              <span class="px-4 py-2 rounded-full bg-stone-100 text-stone-700 text-sm font-medium">All-In commentary</span>
+              <span class="px-4 py-2 rounded-full bg-stone-100 text-stone-700 text-sm font-medium">Current news ties</span>
+              <span class="px-4 py-2 rounded-full bg-stone-100 text-stone-700 text-sm font-medium">Data visualizations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN SCOPE -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-5xl w-full">
+        <div class="mb-16">
+          <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">04 / Design Scope</span>
+          <h2 class="text-5xl md:text-6xl font-bold text-stone-800">Brand Approach</h2>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-6">
+          <div class="md:col-span-3 p-10 rounded-3xl bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 relative overflow-hidden">
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-amber-300/30 to-transparent rounded-full blur-2xl"></div>
+            <div class="relative">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-stone-800 mb-4 dm-sans">Evolution, Not Revolution</h3>
+              <p class="text-lg text-stone-600 leading-relaxed dm-sans">
+                No full visual identity rebuild. We'll tidy up existing brand assets and thoughtfully expand the toolkit as needed for content creation.
+              </p>
+            </div>
+          </div>
+
+          <div class="md:col-span-2 p-8 rounded-3xl bg-stone-800 text-white dm-sans">
+            <h4 class="text-sm font-bold tracking-widest text-amber-400 uppercase mb-6">Deliverables</h4>
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-stone-200">Charts & graphs</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-stone-200">Carousel templates</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-stone-200">Infographic layouts</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-stone-200">Quote cards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINES -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-5xl w-full">
+        <div class="mb-16">
+          <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">05 / Timelines & Expectations</span>
+          <h2 class="text-5xl md:text-6xl font-bold text-stone-800">The Roadmap</h2>
+        </div>
+
+        <div class="relative">
+          <div class="absolute left-8 top-12 w-0.5 bg-gradient-to-b from-violet-500 via-amber-400 to-emerald-500 hidden md:block" style="z-index: 0; height: calc(100% - 8rem);"></div>
+          
+          <div class="space-y-8">
+            <div class="flex gap-6 items-start group">
+              <div class="timeline-num w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg relative" style="background: #8b5cf6; z-index: 1;">
+                <span class="text-white text-xl font-bold dm-sans">1</span>
+              </div>
+              <div class="timeline-card flex-1 p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-xs font-bold tracking-widest text-stone-400 uppercase dm-sans">Phase 1</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold dm-sans" style="background: #8b5cf6; color: #ffffff;">Friday, Jan 23</span>
+                </div>
+                <h3 class="text-xl font-bold text-stone-800 mb-1 dm-sans">First Batch Delivery</h3>
+                <p class="text-stone-600 dm-sans">Initial content package ready for review and approval</p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 items-start group">
+              <div class="timeline-num w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg relative" style="background: #f59e0b; z-index: 1;">
+                <span class="text-white text-xl font-bold dm-sans">2</span>
+              </div>
+              <div class="timeline-card flex-1 p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-xs font-bold tracking-widest text-stone-400 uppercase dm-sans">Phase 2</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold dm-sans" style="background: #fef3c7; color: #d97706;">Ongoing</span>
+                </div>
+                <h3 class="text-xl font-bold text-stone-800 mb-1 dm-sans">Weekly Posting Cadence</h3>
+                <p class="text-stone-600 dm-sans">Consistent content flow across Twitter and LinkedIn</p>
+              </div>
+            </div>
+
+            <div class="flex gap-6 items-start group">
+              <div class="timeline-num w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg relative" style="background: #10b981; z-index: 1;">
+                <span class="text-white text-xl font-bold dm-sans">3</span>
+              </div>
+              <div class="timeline-card flex-1 p-6 rounded-2xl bg-white/70 backdrop-blur border border-stone-200/50">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-xs font-bold tracking-widest text-stone-400 uppercase dm-sans">Phase 3</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold dm-sans" style="background: #d1fae5; color: #059669;">Continuous</span>
+                </div>
+                <h3 class="text-xl font-bold text-stone-800 mb-1 dm-sans">Test & Optimize</h3>
+                <p class="text-stone-600 dm-sans">Try multiple formats, measure performance, double down on winners</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Q&A -->
+    <section class="flex items-center justify-center px-8 py-20 relative">
+      <div class="max-w-4xl w-full text-center">
+        <span class="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-4 block dm-sans">06 / Open Discussion</span>
+        <h2 class="text-5xl md:text-7xl font-bold text-stone-800 mb-8">Questions?</h2>
+        <p class="text-xl text-stone-500 mb-12 max-w-2xl mx-auto dm-sans">
+          Let's discuss anything on your mind—strategy, execution, timelines, or creative direction.
+        </p>
+
+        <div class="flex items-center justify-center gap-4 mb-16">
+          <div class="w-16 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+          <div class="w-16 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto dm-sans">
+          <div class="p-6 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 text-white text-left">
+            <h4 class="font-bold mb-2">Digital Leverage</h4>
+            <p class="text-violet-200 text-sm">Your growth partners</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-gradient-to-br from-stone-800 to-stone-900 text-white text-left">
+            <h4 class="font-bold mb-2">Ready to Launch</h4>
+            <p class="text-stone-400 text-sm">Let's make this happen</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const navItems = document.querySelectorAll('.nav-item');
+    const navDots = document.querySelectorAll('.nav-dot');
+    
+    function scrollToSection(index) {
+      container.scrollTo({
+        top: index * window.innerHeight,
+        behavior: 'smooth'
+      });
+    }
+    
+    function updateNav() {
+      const scrollTop = container.scrollTop;
+      const sectionHeight = window.innerHeight;
+      const currentSection = Math.round(scrollTop / sectionHeight);
+      
+      navItems.forEach((item, i) => {
+        item.classList.toggle('active', i === currentSection);
+      });
+      navDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSection);
+      });
+    }
+    
+    container.addEventListener('scroll', updateNav);
+    updateNav();
+  </script>
+</body>
+</html>
