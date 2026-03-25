@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder Blueprint — Vyralab Branding Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #050505;
+    --surface: #0A0A0A;
+    --accent: #00FF41;
+    --text: #FFFFFF;
+    --muted: rgba(255,255,255,0.35);
+    --dim: rgba(255,255,255,0.2);
+    --border: rgba(255,255,255,0.08);
+    --border-accent: rgba(0,255,65,0.15);
+    --glow: rgba(0,255,65,0.06);
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-editorial: 'Playfair Display', serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-heading);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 24px 60px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .page-tag {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .page-sub {
+    color: rgba(255,255,255,0.45);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Two-panel layout ── */
+
+  .layout {
+    display: grid;
+    grid-template-columns: 440px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── Editor ── */
+
+  .editor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: sticky;
+    top: 24px;
+  }
+
+  .editor-section {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .editor-section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,255,65,0.1);
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    margin-bottom: 6px;
+  }
+
+  .field-hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    margin-top: 4px;
+    font-style: italic;
+    font-family: var(--font-heading);
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.4;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: var(--font-heading);
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.5;
+  }
+
+  .field textarea { resize: vertical; }
+  .field input:focus, .field textarea:focus { border-color: rgba(0,255,65,0.3); }
+
+  .row { display: flex; gap: 12px; }
+  .row .field { flex: 1; }
+  .row .field.small { flex: 0 0 90px; }
+
+  .btn-generate {
+    margin-top: 4px;
+    padding: 15px 0;
+    background: var(--accent);
+    color: var(--surface);
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: opacity 0.2s;
+  }
+
+  .btn-generate:hover { opacity: 0.85; }
+
+  .btn-download {
+    padding: 13px 0;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border-accent);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: background 0.2s;
+  }
+
+  .btn-download:hover { background: rgba(0,255,65,0.08); }
+
+  .btn-row { display: flex; gap: 10px; }
+  .btn-row button { flex: 1; }
+
+  /* ── Preview container ── */
+
+  .preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .preview-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .preview-inner {
+    width: 1080px;
+    height: 1920px;
+    transform-origin: top left;
+  }
+
+  /* ═══════════════════════════════════════
+     BLUEPRINT CARD — 1080 × 1920
+     ═══════════════════════════════════════ */
+
+  .blueprint {
+    width: 1080px;
+    height: 1920px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-heading);
+    color: var(--text);
+  }
+
+  .bp-atmosphere {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(0,255,65,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(0,255,65,0.04) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  .bp-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .bp-topbar {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    right: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .bp-content {
+    position: relative;
+    z-index: 1;
+    padding: 72px 88px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .bp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+
+  .bp-header-tag {
+    font-size: 16px;
+    letter-spacing: 7px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    margin-bottom: 10px;
+  }
+
+  .bp-header-sub {
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .bp-header-date {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    text-align: right;
+    padding-top: 4px;
+  }
+
+  .bp-divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), rgba(0,255,65,0.05));
+    margin-bottom: 52px;
+  }
+
+  .bp-divider-thin {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* Name block */
+  .bp-name {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 14px;
+  }
+
+  .bp-title {
+    font-size: 22px;
+    color: var(--accent);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Fields area */
+  .bp-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 0 16px;
+  }
+
+  .bp-field-label {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    margin-bottom: 12px;
+  }
+
+  .bp-field-label.accent { color: var(--accent); }
+
+  .bp-field-value {
+    font-size: 20px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+  }
+
+  .bp-field-value.nonneg {
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    font-size: 21px;
+  }
+
+  .bp-field-value.vision {
+    color: rgba(255,255,255,0.92);
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.65;
+  }
+
+  .bp-field-value.motto {
+    color: var(--accent);
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.4;
+  }
+
+  /* Two-column */
+  .bp-two-col {
+    display: flex;
+    gap: 48px;
+  }
+
+  .bp-two-col > div { flex: 1; }
+
+  /* Math block */
+  .bp-math {
+    background: rgba(0,255,65,0.04);
+    border: 1px solid var(--border-accent);
+    border-radius: 12px;
+    padding: 36px 40px;
+  }
+
+  .bp-math-row {
+    display: flex;
+    align-items: baseline;
+    gap: 36px;
+  }
+
+  .bp-math-block-label {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    margin-bottom: 8px;
+  }
+
+  .bp-math-num {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .bp-math-num.green { color: var(--accent); }
+  .bp-math-num.white { color: var(--text); }
+
+  .bp-math-op {
+    font-size: 32px;
+    color: rgba(255,255,255,0.15);
+    font-weight: 300;
+  }
+
+  .bp-math-annual {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,255,65,0.1);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .bp-math-annual-label {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .bp-math-annual-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .bp-math-annual-note {
+    font-size: 14px;
+    color: rgba(255,255,255,0.25);
+    font-family: var(--font-mono);
+  }
+
+  /* Motto */
+  .bp-motto-wrap {
+    text-align: center;
+    padding: 8px 48px;
+  }
+
+  /* Footer */
+  .bp-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .bp-footer-left {
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .bp-footer-right {
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    opacity: 0.6;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--dim);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    line-height: 1.6;
+  }
+
+  /* ── Responsive ── */
+
+  @media (max-width: 1100px) {
+    .layout {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .editor { position: static; }
+  }
+
+  @media (max-width: 500px) {
+    .page { padding: 24px 16px 48px; }
+    .page-title { font-size: 26px; }
+    .editor-section { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">Founder Blueprint</h1>
+    <p class="page-sub">Answer the questions. Be specific. Be honest. The people who get clear on what they're building are the people who actually build it.</p>
+  </div>
+
+  <div class="layout">
+
+    <!-- Editor -->
+    <div class="editor">
+
+      <div class="editor-section">
+        <div class="editor-section-label">Who You Are</div>
+        <div class="field">
+          <label for="f-name">Your Name</label>
+          <input type="text" id="f-name" value="Sarah Chen">
+        </div>
+        <div class="field">
+          <label for="f-title">What You Do</label>
+          <input type="text" id="f-title" value="Brand Strategist for B2B SaaS Founders">
+          <div class="field-hint">One sentence. If a stranger can't understand it, rewrite it.</div>
+        </div>
+      </div>
+
+      <div class="editor-section">
+        <div class="editor-section-label">Who You Serve</div>
+        <div class="field">
+          <label for="f-audience">Your Client</label>
+          <textarea id="f-audience" rows="3">Solo SaaS founders doing $10K-$50K MRR who know their product is great but can't articulate why anyone should care</textarea>
+          <div class="field-hint">The specific person. Not "brands." Not "businesses." The human who needs you.</div>
+        </div>
+        <div class="field">
+          <label for="f-problem">The Problem You Solve</label>
+          <textarea id="f-problem" rows="3">Founders with brilliant products and zero brand clarity. They're invisible in a crowded market because they sound like everyone else.</textarea>
+          <div class="field-hint">The one problem people will pay real money to fix.</div>
+        </div>
+      </div>
+
+      <div class="editor-section">
+        <div class="editor-section-label">The Math</div>
+        <div class="row">
+          <div class="field">
+            <label for="f-price">Price Per Client</label>
+            <input type="text" id="f-price" value="$5,000">
+          </div>
+          <div class="field small">
+            <label for="f-clients"># Clients</label>
+            <input type="text" id="f-clients" value="2">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="f-monthly">Monthly Target</label>
+            <input type="text" id="f-monthly" value="$10,000">
+          </div>
+          <div class="field">
+            <label for="f-annual">Annual Target</label>
+            <input type="text" id="f-annual" value="$120,000">
+          </div>
+        </div>
+        <div class="field-hint" style="margin-top: -6px;">Write the number down. Look at it. That's yours if you build this.</div>
+      </div>
+
+      <div class="editor-section">
+        <div class="editor-section-label">The Fire</div>
+        <div class="field">
+          <label for="f-leaving">What I'm Done Tolerating</label>
+          <textarea id="f-leaving" rows="3">Waiting for someone else to decide my schedule, my salary, and whether I'm worth keeping. Building someone else's dream at the expense of my own.</textarea>
+          <div class="field-hint">The thing you're walking away from. Say it out loud.</div>
+        </div>
+        <div class="field">
+          <label for="f-nonneg">My Non-Negotiable</label>
+          <input type="text" id="f-nonneg" value="I will never let someone else own my time again.">
+          <div class="field-hint">The one line in the sand you won't cross. Ever.</div>
+        </div>
+      </div>
+
+      <div class="editor-section">
+        <div class="editor-section-label">The Vision</div>
+        <div class="field">
+          <label for="f-vision">12 Months From Now — My Life</label>
+          <textarea id="f-vision" rows="4">Laptop closed by 3pm. Working from Lisbon. No Slack notifications from a boss who doesn't know my name. Two clients who trust me. A business nobody can take from me.</textarea>
+          <div class="field-hint">Not the business. YOUR life. What time do you close the laptop? Where are you? Who's not telling you what to do anymore?</div>
+        </div>
+        <div class="field">
+          <label for="f-motto">One Line That Keeps You Moving</label>
+          <input type="text" id="f-motto" value="Nobody gets to decide I'm disposable.">
+          <div class="field-hint">Your mantra. The sentence you say when it gets hard.</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-generate" onclick="generate()">Generate Blueprint</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-download" onclick="download()">Download as Image</button>
+      </div>
+
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-container">
+      <div class="preview-wrap">
+        <div class="preview-inner" id="preview-inner">
+          <div class="blueprint" id="blueprint">
+            <div class="bp-atmosphere"></div>
+            <div class="bp-grid"></div>
+            <div class="bp-topbar"></div>
+            <div class="bp-content">
+
+              <div class="bp-header">
+                <div>
+                  <div class="bp-header-tag">Founder Blueprint</div>
+                  <div class="bp-header-sub">Vyralab Branding Academy</div>
+                </div>
+                <div class="bp-header-date" id="bp-date"></div>
+              </div>
+
+              <div class="bp-divider"></div>
+
+              <div class="bp-name" id="bp-name">Sarah Chen</div>
+              <div class="bp-title" id="bp-title">Brand Strategist for B2B SaaS Founders</div>
+
+              <div class="bp-fields">
+
+                <div class="bp-two-col">
+                  <div>
+                    <div class="bp-field-label">I Serve</div>
+                    <div class="bp-field-value" id="bp-audience">Solo SaaS founders doing $10K-$50K MRR who know their product is great but can't articulate why anyone should care</div>
+                  </div>
+                  <div>
+                    <div class="bp-field-label">I Solve</div>
+                    <div class="bp-field-value" id="bp-problem">Founders with brilliant products and zero brand clarity. They're invisible in a crowded market because they sound like everyone else.</div>
+                  </div>
+                </div>
+
+                <div class="bp-divider-thin"></div>
+
+                <div class="bp-math">
+                  <div class="bp-math-row">
+                    <div>
+                      <div class="bp-math-block-label">Per Client</div>
+                      <div class="bp-math-num green" id="bp-price">$5,000</div>
+                    </div>
+                    <div class="bp-math-op">&times;</div>
+                    <div>
+                      <div class="bp-math-block-label">Clients</div>
+                      <div class="bp-math-num white" id="bp-clients">2</div>
+                    </div>
+                    <div class="bp-math-op">=</div>
+                    <div>
+                      <div class="bp-math-block-label">Monthly</div>
+                      <div class="bp-math-num green" id="bp-monthly">$10,000/mo</div>
+                    </div>
+                  </div>
+                  <div class="bp-math-annual">
+                    <div class="bp-math-annual-label">Annual</div>
+                    <div class="bp-math-annual-num" id="bp-annual">$120,000/yr</div>
+                    <div class="bp-math-annual-note">Solo. No team. No overhead.</div>
+                  </div>
+                </div>
+
+                <div class="bp-divider-thin"></div>
+
+                <div>
+                  <div class="bp-field-label">What I'm Done Tolerating</div>
+                  <div class="bp-field-value" id="bp-leaving">Waiting for someone else to decide my schedule, my salary, and whether I'm worth keeping. Building someone else's dream at the expense of my own.</div>
+                </div>
+
+                <div>
+                  <div class="bp-field-label accent">My Non-Negotiable</div>
+                  <div class="bp-field-value nonneg" id="bp-nonneg">I will never let someone else own my time again.</div>
+                </div>
+
+                <div class="bp-divider-thin"></div>
+
+                <div>
+                  <div class="bp-field-label accent">12 Months From Now</div>
+                  <div class="bp-field-value vision" id="bp-vision">Laptop closed by 3pm. Working from Lisbon. No Slack notifications from a boss who doesn't know my name. Two clients who trust me. A business nobody can take from me.</div>
+                </div>
+
+                <div class="bp-motto-wrap">
+                  <div class="bp-field-value motto" id="bp-motto">&ldquo;Nobody gets to decide I'm disposable.&rdquo;</div>
+                </div>
+
+              </div>
+
+              <div class="bp-footer">
+                <div class="bp-footer-left">Built with Vyralab</div>
+                <div class="bp-footer-right">Become Unfireable</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-note">Right-click the preview to save · Or hit Download as Image · It's yours</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+function getDate() {
+  var d = new Date();
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function scalePreview() {
+  var wrap = document.querySelector('.preview-wrap');
+  var inner = document.getElementById('preview-inner');
+  var wrapWidth = wrap.clientWidth;
+  var scale = wrapWidth / 1080;
+  inner.style.transform = 'scale(' + scale + ')';
+  wrap.style.height = (1920 * scale) + 'px';
+}
+
+function generate() {
+  document.getElementById('bp-date').textContent = getDate();
+  document.getElementById('bp-name').textContent = document.getElementById('f-name').value;
+  document.getElementById('bp-title').textContent = document.getElementById('f-title').value;
+  document.getElementById('bp-audience').textContent = document.getElementById('f-audience').value;
+  document.getElementById('bp-problem').textContent = document.getElementById('f-problem').value;
+  document.getElementById('bp-price').textContent = document.getElementById('f-price').value;
+  document.getElementById('bp-clients').textContent = document.getElementById('f-clients').value;
+  document.getElementById('bp-leaving').textContent = document.getElementById('f-leaving').value;
+  document.getElementById('bp-nonneg').textContent = document.getElementById('f-nonneg').value;
+  document.getElementById('bp-vision').textContent = document.getElementById('f-vision').value;
+
+  var monthly = document.getElementById('f-monthly').value;
+  document.getElementById('bp-monthly').textContent = monthly ? monthly + '/mo' : '';
+
+  var annual = document.getElementById('f-annual').value;
+  document.getElementById('bp-annual').textContent = annual ? annual + '/yr' : '';
+
+  var motto = document.getElementById('f-motto').value;
+  document.getElementById('bp-motto').textContent = motto ? '\u201C' + motto + '\u201D' : '';
+}
+
+function download() {
+  generate();
+  var el = document.getElementById('blueprint');
+  var inner = document.getElementById('preview-inner');
+  var origTransform = inner.style.transform;
+  inner.style.transform = 'none';
+  var wrap = document.querySelector('.preview-wrap');
+  var origHeight = wrap.style.height;
+  wrap.style.height = 'auto';
+
+  html2canvas(el, {
+    backgroundColor: '#0A0A0A',
+    scale: 1,
+    width: 1080,
+    height: 1920,
+    useCORS: true,
+  }).then(function(canvas) {
+    inner.style.transform = origTransform;
+    wrap.style.height = origHeight;
+    scalePreview();
+    var link = document.createElement('a');
+    link.download = 'founder-blueprint.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(function(err) {
+    inner.style.transform = origTransform;
+    wrap.style.height = origHeight;
+    scalePreview();
+    console.error('Download failed:', err);
+    alert('Screenshot failed. Try right-clicking the preview and saving instead.');
+  });
+}
+
+// Init
+document.getElementById('bp-date').textContent = getDate();
+scalePreview();
+window.addEventListener('resize', scalePreview);
+
+document.querySelectorAll('.editor input, .editor textarea').forEach(function(el) {
+  el.addEventListener('input', generate);
+});
+</script>
+
+</body>
+</html>
